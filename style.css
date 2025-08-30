@@ -9,7 +9,7 @@ body {
 
 /* 🟥 الهيدر */
 header {
-    position: fixed; /* الهيدر ثابت */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -35,7 +35,7 @@ header a:hover {
 
 /* 🔎 البحث */
 .search {
-    margin: 120px auto 30px auto; /* مساحة تحت الهيدر */
+    margin: 120px auto 30px auto;
     text-align: center;
 }
 .search h1 {
@@ -69,11 +69,11 @@ header a:hover {
 
 /* 🟧 جدول الروابط */
 .screen-fixed {
-    position: fixed; /* الشاشة ثابتة */
-    top: 70px; /* أسفل الهيدر */
+    position: fixed;
+    top: 70px;
     left: 0;
     width: 100%;
-    height: 60px; /* ارتفاع الشريط */
+    height: 60px;
     background: #000;
     overflow: hidden;
     z-index: 999;
@@ -82,10 +82,10 @@ header a:hover {
 }
 
 .table-scroll {
-    overflow-x: auto; /* فقط تمرير أفقي */
+    overflow-x: auto;
     white-space: nowrap;
     width: 100%;
-    -webkit-overflow-scrolling: touch; /* تمرير سلس على الهواتف */
+    -webkit-overflow-scrolling: touch;
 }
 
 .menu-table {
@@ -109,6 +109,7 @@ header a:hover {
     padding: 8px 0;
     transition: transform 0.2s, color 0.2s;
 }
+
 .menu-table th a:hover {
     transform: scale(1.1);
     color: #00eaff;
@@ -116,17 +117,19 @@ header a:hover {
 
 /* 🎬 المحتوى أسفل الجدول */
 section {
-    margin: 220px 20px 20px 20px; /* مسافة كافية أسفل الهيدر والجدول */
+    margin: 220px 20px 20px 20px;
     padding: 20px;
     background: #000;
     border-radius: 12px;
     box-shadow: 0 0 15px #111;
     text-align: center;
 }
+
 section h2 {
     color: #f83a00;
     margin-bottom: 20px;
 }
+
 video {
     width: 100%;
     max-width: 750px;
