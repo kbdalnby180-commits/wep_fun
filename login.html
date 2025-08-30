@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الدخول - Fun X</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #1e1e2f, #2c2c54);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: #fff;
+    }
+    .login-container {
+      background: #2f2f45;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0px 5px 20px rgba(0,0,0,0.4);
+      width: 300px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #00d4ff;
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+    }
+    button {
+      width: 95%;
+      padding: 10px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 8px;
+      background: #00d4ff;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #00aacc;
+    }
+    .signup-link {
+      margin-top: 15px;
+      display: block;
+      color: #aaa;
+    }
+    .signup-link a {
+      color: #00d4ff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>تسجيل الدخول</h2>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="البريد الإلكتروني" required>
+      <input type="password" id="password" placeholder="كلمة المرور" required>
+      <button type="submit">دخول</button>
+    </form>
+    <div class="signup-link">
+      ليس لديك حساب؟ <a href="signup.html">إنشاء حساب</a>
+    </div>
+  </div>
+
+  <!-- 🔹 ملف Firebase لسه مش مضاف -->
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      // لسه مش مربوط بـ Firebase
+      alert("محاولة تسجيل دخول\nالإيميل: " + email + "\nالباسورد: " + password);
+    });
+  </script>
+</body>
+</html>
