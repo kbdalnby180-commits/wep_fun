@@ -9,12 +9,32 @@ body {
     margin:0;
     padding:0;
     font-family: "Georgia", serif;
-    background: linear-gradient(180deg,#87CEEB,#FFD700);
+    background:#000;
     display:flex;
     justify-content:center;
     align-items:center;
     height:100vh;
     color:#fff;
+    overflow-x:hidden;
+    transition: background 2s;
+}
+/* ⭐ النجوم */
+.stars { position: fixed; width: 100%; height: 100%; z-index: -3; }
+.star {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    animation: twinkle 6s linear infinite;
+    opacity: 0;
+}
+@keyframes twinkle { 0%,100% { opacity: 0.2; } 50% { opacity: 1; } }
+/* 🌙 القمر */
+.celestial {
+    position: fixed;
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    box-shadow: 0 0 30px #fff;
+    z-index: -2;
 }
 .container {
     background: rgba(0,0,0,0.85);
@@ -53,6 +73,9 @@ body {
 </head>
 <body>
 
+<div class="stars"></div>
+<div class="celestial"></div>
+
 <div class="container">
 <h2>مرحبا بك في Fun X!</h2>
 <input type="text" id="username" placeholder="اكتب اسمك">
@@ -60,8 +83,21 @@ body {
 <button onclick="signup()">دخول Fun X</button>
 </div>
 
+<audio id="bgMusic" src="sounds/Awkward_Apocalyptic_Pickup.mp3" loop autoplay></audio>
+<audio id="clickSound" src="sounds/mixkit-select-click-1109.wav"></audio>
+
 <script>
-// لو سجل المستخدم قبل كده، يروح مباشرة للصفحة الرئيسية
+// النجوم
+for(let i=0;i<100;i++){
+    const star=document.createElement('div');
+    star.className='star';
+    star.style.top=Math.random()*100+'%';
+    star.style.left=Math.random()*100+'%';
+    star.style.width=star.style.height=Math.random()*2+1+'px';
+    document.body.appendChild(star);
+}
+
+// إذا سجل المستخدم قبل كده، يروح مباشرة للصفحة الرئيسية
 if(localStorage.getItem('signedUp')){
     window.location.href = 'index.html';
 }
@@ -77,27 +113,33 @@ function signup(){
     window.location.href = 'index.html';
 }
 
-<!-- أصوات الخلفية والتأثيرات -->
-<audio id="bgMusic" src="sounds/Awkward_Apocalyptic_Pickup.mp3" loop autoplay></audio>
-<audio id="clickSound" src="sounds/mixkit-select-click-1109.wav"></audio>
-
-<script>
-// إعداد صوت الخلفية ليعمل هادئًا ومستمر
+// صوت الخلفية هادئ ومستمر
 const bgMusic = document.getElementById('bgMusic');
-bgMusic.volume = 0.2; // هادئ
+bgMusic.volume = 0.2;
 bgMusic.play().catch(() => {
-    // بعض المتصفحات تمنع التشغيل التلقائي، شغل بعد أول تفاعل
     document.addEventListener('click', () => bgMusic.play(), { once: true });
 });
 
-// دالة لتشغيل صوت النقر/التفاعل
+// صوت التأثيرات عند أي نقرة
 function playEffectSound() {
     const click = document.getElementById('clickSound');
     click.currentTime = 0;
     click.play();
 }
-    
+document.body.addEventListener('click', playEffectSound);
+
+// حركة القمر حسب الوقت
+const celestial = document.querySelector('.celestial');
+function updateCelestial(){
+    const now = new Date();
+    const hour = now.getHours() + now.getMinutes()/60;
+    const percent = hour/24;
+    celestial.style.top = `${10 + percent*60}%`;
+    celestial.style.left = `${10 + percent*80}%`;
+}
+setInterval(updateCelestial,1000);
+updateCelestial();
 </script>
+
 </body>
 </html>
-
