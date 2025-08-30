@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقييمات Fun X</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f5a623, #f76b1c);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #f76b1c;
+        }
+
+        .stars {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .stars input {
+            display: none;
+        }
+
+        .stars label {
+            font-size: 40px;
+            color: #ccc;
+            padding: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .stars input:checked ~ label,
+        .stars label:hover,
+        .stars label:hover ~ label {
+            color: #f76b1c;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            resize: none;
+            height: 80px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: #f76b1c;
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #f5a623;
+        }
+
+        .comment-list {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .comment {
+            background: #f9f9f9;
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>تقييمات Fun X</h1>
+
+        <div class="stars">
+            <input type="radio" id="star5" name="rating" value="5">
+            <label for="star5">&#9733;</label>
+            <input type="radio" id="star4" name="rating" value="4">
+            <label for="star4">&#9733;</label>
+            <input type="radio" id="star3" name="rating" value="3">
+            <label for="star3">&#9733;</label>
+            <input type="radio" id="star2" name="rating" value="2">
+            <label for="star2">&#9733;</label>
+            <input type="radio" id="star1" name="rating" value="1">
+            <label for="star1">&#9733;</label>
+        </div>
+
+        <textarea id="comment" placeholder="اكتب تعليقك هنا..."></textarea>
+        <button onclick="addComment()">أرسل التقييم</button>
+
+        <div class="comment-list" id="comment-list">
+            <!-- التعليقات هتظهر هنا -->
+        </div>
+    </div>
+
+    <script>
+        function addComment() {
+            const rating = document.querySelector('input[name="rating"]:checked');
+            const commentText = document.getElementById('comment').value.trim();
+
+            if (!rating) {
+                alert('من فضلك اختر تقييم بالنجوم!');
+                return;
+            }
+
+            if (!commentText) {
+                alert('من فضلك اكتب تعليقك!');
+                return;
+            }
+
+            const commentList = document.getElementById('comment-list');
+
+            const div = document.createElement('div');
+            div.classList.add('comment');
+            div.innerHTML = `⭐ ${rating.value} - ${commentText}`;
+
+            commentList.prepend(div);
+
+            // تنظيف النموذج
+            document.getElementById('comment').value = '';
+            rating.checked = false;
+        }
+    </script>
+</body>
+</html>
