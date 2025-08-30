@@ -195,6 +195,29 @@ function checkAnswer(selectedIndex){
 }
 
 loadQuestion();
+
+<!-- أصوات الخلفية والتأثيرات -->
+<audio id="bgMusic" src="sounds/Awkward_Apocalyptic_Pickup.mp3" loop autoplay></audio>
+<audio id="clickSound" src="sounds/mixkit-select-click-1109.wav"></audio>
+
+<script>
+// إعداد صوت الخلفية ليعمل هادئًا ومستمر
+const bgMusic = document.getElementById('bgMusic');
+bgMusic.volume = 0.2; // هادئ
+bgMusic.play().catch(() => {
+    // بعض المتصفحات تمنع التشغيل التلقائي، شغل بعد أول تفاعل
+    document.addEventListener('click', () => bgMusic.play(), { once: true });
+});
+
+// دالة لتشغيل صوت النقر/التفاعل
+function playEffectSound() {
+    const click = document.getElementById('clickSound');
+    click.currentTime = 0;
+    click.play();
+}
+
+    
 </script>
 </body>
 </html>
+
