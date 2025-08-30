@@ -85,14 +85,30 @@ video {
     border-radius: 10px;
     box-shadow: 0 0 15px #000;
 }
-/* Media Queries للهاتف */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  text-align: center;
+  padding: 10px;
+}
+
+.menu-grid a {
+  display: block;
+  background-color: #000;
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.menu-grid a:hover {
+  background-color: #444;
+}
+
+/* للهواتف */
 @media (max-width: 768px) {
-    .menu {
-        display: block;
-        text-align: center;
-    }
-    .menu a {
-        display: block;
-        margin: 10px 0;
-    }
+  .menu-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
 }
