@@ -85,3 +85,18 @@ video {
     border-radius: 10px;
     box-shadow: 0 0 15px #000;
 }
+/* شاشات الكمبيوتر */
+@media (min-width: 1025px) {
+  .menu {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+/* شاشات الهاتف */
+@media (max-width: 1024px) {
+  .menu {
+    display: block;
+  }
+}
+
