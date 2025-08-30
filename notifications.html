@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fun X – التحديثات</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Georgia", serif;
+    background: #000;
+    color: #fff;
+    overflow-x: hidden;
+    transition: background 2s;
+}
+
+/* ⭐ النجوم */
+.stars { position: fixed; width: 100%; height: 100%; z-index: -3; }
+.star {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    animation: twinkle 6s linear infinite;
+    opacity: 0;
+}
+@keyframes twinkle { 0%,100% { opacity: 0.2; } 50% { opacity: 1; } }
+
+/* 🌙 القمر */
+.celestial {
+    position: fixed;
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    box-shadow: 0 0 30px #fff;
+    top:10%; left:80%;
+    z-index: -2;
+}
+
+/* 🟦 التحديثات */
+.update-container {
+    max-width: 900px;
+    margin: 50px auto;
+    background: rgba(0,0,0,0.85);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 50px #0ff;
+    border: 2px solid #00eaff;
+    animation: holoGlow 3s infinite alternate;
+}
+@keyframes holoGlow {
+    0% { box-shadow: 0 0 30px #0ff, 0 0 60px #00f; }
+    50% { box-shadow: 0 0 50px #0ff, 0 0 100px #0ff; }
+    100% { box-shadow: 0 0 30px #0ff, 0 0 60px #00f; }
+}
+
+.update-container h1 {
+    text-align: center;
+    font-size: 28px;
+    color: #ff3c00;
+    text-shadow: 0 0 10px #ff3c00, 0 0 20px #ff8000;
+    margin-bottom: 20px;
+}
+
+.update {
+    background: rgba(255,255,255,0.05);
+    margin: 15px 0;
+    padding: 15px;
+    border-left: 5px solid #f83a00;
+    border-radius: 8px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.update:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 25px #ff3c00, 0 0 50px #ff4500 inset;
+}
+
+.update h2 {
+    margin: 0 0 10px 0;
+    color: #00eaff;
+    font-size: 22px;
+}
+.update p {
+    margin: 0;
+    font-size: 18px;
+}
+
+/* زر الإغلاق */
+.close-btn {
+    display: block;
+    margin: 30px auto 0 auto;
+    padding: 12px 25px;
+    background: #f83a00;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: 0 0 15px #ff3c00;
+    transition: 0.3s;
+}
+.close-btn:hover {
+    background: #00eaff;
+    color: #000;
+    box-shadow: 0 0 25px #00ffff, 0 0 50px #0ff inset;
+}
+
+/* الهواتف */
+@media(max-width:768px){
+    .update-container { padding: 20px; margin: 20px; }
+    .update h2 { font-size: 18px; }
+    .update p { font-size: 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="stars"></div>
+<div class="celestial"></div>
+
+<div class="update-container">
+    <h1>🚀 تحديثات Fun X – الإصدار 1.1 🚀</h1>
+
+    <div class="update">
+        <h2>✨ إضافة إشعار التحديث الذكي</h2>
+        <p>الآن إشعارات التحديث تظهر فقط عند إصدار تحديث جديد، وتختفي بعد القراءة أو إغلاق الصفحة.</p>
+    </div>
+
+    <div class="update">
+        <h2>🎬 فيديوهات يومية</h2>
+        <p>تم تحسين عرض الفيديوهات اليومية مع تأثيرات هولوجرامية على الفيديوهات 🔮.</p>
+    </div>
+
+    <div class="update">
+        <h2>🕹 الألعاب</h2>
+        <p>تم تحديث لعبة Fun X Battle لتكون أكثر واقعية 🎮🔥 مع نظام حياة ومؤثرات صوتية مستقبلية.</p>
+    </div>
+
+    <div class="update">
+        <h2>📖 القرآن الكريم</h2>
+        <p>تم تحسين ركن القرآن ليكون أكثر سهولة وتفاعلية مع واجهة هولوجرامية هادئة 🌙✨.</p>
+    </div>
+
+    <div class="update">
+        <h2>💡 تصميم كلاسيكي ومستقبلي</h2>
+        <p>كل عناصر الموقع الآن تتضمن تأثيرات هولوجرامية، نجمات متحركة، قمر متغير حسب الوقت 🌟🌙.</p>
+    </div>
+
+    <button class="close-btn" onclick="closeUpdates()">✅ تم الاطلاع</button>
+
+    <p style="text-align:center; margin-top:30px; font-size:14px; opacity:0.6;">
+        جميع الحقوق محفوظة © 2025 Fun X 🌐
+    </p>
+</div>
+
+<script>
+// النجوم
+for(let i=0;i<100;i++){
+    const star=document.createElement('div');
+    star.className='star';
+    star.style.top=Math.random()*100+'%';
+    star.style.left=Math.random()*100+'%';
+    star.style.width=star.style.height=Math.random()*2+1+'px';
+    document.body.appendChild(star);
+}
+
+// إغلاق الصفحة وحفظ أنه تمت القراءة
+function closeUpdates(){
+    localStorage.setItem('updatesRead', 'true');
+    window.location.href = 'index.html';
+}
+
+// إذا كانت التحديثات مقروءة بالفعل، لا تظهر مرة أخرى إلا عند تحديث جديد
+const currentVersion = '1.1';
+if(localStorage.getItem('lastVersion')!==currentVersion){
+    localStorage.removeItem('updatesRead'); // اجعلها تظهر للمرة الأولى للإصدار الجديد
+    localStorage.setItem('lastVersion', currentVersion);
+}
+if(localStorage.getItem('updatesRead')==='true'){
+    window.location.href='index.html';
+}
+</script>
+
+</body>
+</html>
