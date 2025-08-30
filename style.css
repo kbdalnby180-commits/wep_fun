@@ -1,3 +1,4 @@
+/* ================== BODY ================== */
 body {
     background-color: #414141;
     margin: 0;
@@ -6,6 +7,7 @@ body {
     color: #fff;
 }
 
+/* ================== HEADER ================== */
 header {
     background-color: #000;
     color: #fff;
@@ -16,6 +18,7 @@ header {
     box-shadow: 0 0 10px #000;
 }
 
+/* ================== SEARCH ================== */
 .search input[type="text"] {
     padding: 10px;
     font-size: 16px;
@@ -39,30 +42,56 @@ header {
     background: #0400f7;
 }
 
-table {
-    background-color: #000000be;
-    font-size: x-large;
+/* ================== TABLE ================== */
+.screen-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px; /* ارتفاع الشريط */
+    background-color: #000;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    overflow: hidden; /* إخفاء أي محتوى خارج الشريط */
+}
+
+.table-wrapper {
+    overflow-x: auto; /* تمكين التمرير الأفقي */
+    white-space: nowrap;
+    width: 100%;
+    -webkit-overflow-scrolling: touch; /* تحسين التمرير على الهاتف */
+}
+
+.menu-table {
+    display: inline-block; /* ضروري للتمرير */
     border-collapse: collapse;
-    margin: 20px 0;
+    width: 100%;
+}
+
+.menu-table th {
+    padding: 15px 30px;
+    background-color: #000000be;
+    text-align: center;
     border-radius: 10px;
-    overflow: hidden;
     box-shadow: 0 0 10px #000;
 }
 
-table th {
-    padding: 15px 30px;
-}
-
-table a {
+.menu-table th a {
     color: #f83a00;
     text-decoration: none;
     font-weight: bold;
+    display: block;
+    padding: 10px 0;
+    transition: transform 0.2s, color 0.2s;
 }
 
-table a:hover {
+.menu-table th a:hover {
+    transform: scale(1.1);
     color: #0400f7;
 }
 
+/* ================== HEADINGS ================== */
 h1 {
     color: #fc0000;
 }
@@ -71,6 +100,7 @@ h1:hover {
     color: rgb(255, 0, 242);
 }
 
+/* ================== SECTION ================== */
 section {
     margin: 20px;
     padding: 20px;
@@ -79,64 +109,34 @@ section {
     box-shadow: 0 0 10px #000;
 }
 
+/* ================== VIDEO ================== */
 video {
     width: 100%;
     max-width: 800px;
     border-radius: 10px;
     box-shadow: 0 0 15px #000;
 }
-/* الحاوية التي تحتوي على الجدول */
-.table-wrapper {
-  overflow-x: auto; /* تمكين التمرير الأفقي */
-  -webkit-overflow-scrolling: touch; /* تحسين التمرير على الأجهزة المحمولة */
-  background-color: #000; /* خلفية سوداء */
-  padding: 10px 0; /* إضافة مسافة داخلية */
-  position: relative;
-  z-index: 1;
-}
 
-/* الجدول نفسه */
-.menu-table {
-  width: 100%; /* عرض الجدول 100% */
-  border-collapse: collapse; /* دمج الحدود */
-  table-layout: fixed; /* تحديد تخطيط الجدول */
-}
-
-/* رؤوس الجدول */
-.menu-table th {
-  padding: 10px 20px; /* إضافة مسافة داخلية */
-  background-color: #333; /* خلفية رمادية داكنة */
-  text-align: center; /* محاذاة النص في المنتصف */
-  position: sticky; /* تثبيت الرأس */
-  top: 0; /* تثبيته في أعلى الحاوية */
-  z-index: 2; /* التأكد من ظهوره فوق المحتوى */
-}
-
-/* الروابط داخل الخلايا */
-.menu-table th a {
-  color: white; /* لون النص أبيض */
-  text-decoration: none; /* إزالة التسطير */
-  font-weight: bold; /* جعل الخط عريض */
-  display: block; /* جعل الرابط عنصر كتلة */
-  padding: 10px 0; /* إضافة مسافة داخلية */
-  transition: transform 0.2s; /* إضافة تأثير عند التمرير */
-}
-
-/* تأثير التكبير عند التمرير */
-.menu-table th a:hover {
-  transform: scale(1.1); /* تكبير الرابط عند التمرير */
-}
-
-/* تحسين العرض على الشاشات الصغيرة */
+/* ================== MEDIA QUERIES ================== */
 @media (max-width: 768px) {
-  .menu-table th {
-    padding: 8px 15px; /* تقليل المسافة الداخلية */
-  }
+    .screen-fixed {
+        height: 80px; /* تقليل ارتفاع الشريط */
+    }
 
-  .menu-table th a {
-    font-size: 14px; /* تقليل حجم الخط */
-  }
+    .menu-table th {
+        padding: 8px 15px;
+    }
+
+    .menu-table th a {
+        font-size: 14px; /* تقليل حجم الخط */
+    }
+
+    .search input[type="text"] {
+        width: 180px;
+    }
+
+    .search input[type="submit"] {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
 }
-
-
-
