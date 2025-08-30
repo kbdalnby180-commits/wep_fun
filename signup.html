@@ -1,51 +1,100 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>إنشاء حساب - Fun X</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إنشاء حساب - Fun X</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Tahoma", sans-serif;
+      background: linear-gradient(135deg, #000, #1c1c1c);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .signup-box {
+      background: #111;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #f00;
+      text-align: center;
+      width: 320px;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #f00;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 6px;
+    }
+    button {
+      background: #f00;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      width: 100%;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #a00;
+    }
+    .link {
+      margin-top: 15px;
+      display: block;
+      color: #fff;
+    }
+    .link:hover {
+      color: #f00;
+    }
+  </style>
 </head>
-<body class="auth-body">
-  <div class="login-container">
+<body>
+  <div class="signup-box">
     <h2>إنشاء حساب</h2>
-    <form id="signupForm">
-      <input type="email" id="email" placeholder="البريد الإلكتروني" required>
-      <input type="password" id="password" placeholder="كلمة المرور" required>
-      <button type="submit">تسجيل</button>
-    </form>
-    <div class="signup-link">
-      لديك حساب؟ <a href="login.html">تسجيل الدخول</a>
-    </div>
+    <input type="email" id="email" placeholder="البريد الإلكتروني" required>
+    <input type="password" id="password" placeholder="كلمة المرور" required>
+    <button id="signupBtn">تسجيل</button>
+    <a class="link" href="login.html">لديك حساب بالفعل؟ تسجيل الدخول</a>
   </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBwET1o7kvQ9bmaJeYYFrPQiztMMWnzvk8",
-  authDomain: "funx-site.firebaseapp.com",
-  projectId: "funx-site",
-  storageBucket: "funx-site.firebasestorage.app",
-  messagingSenderId: "760681309946",
-  appId: "1:760681309946:web:409b4e70c4e257672b0b43",
-  measurementId: "G-68NP5TBNQT"
-};
+    const firebaseConfig = {
+      apiKey: "AIzaSyBwET1o7kvQ9bmaJeYYFrPQiztMMWnzvk8",
+      authDomain: "funx-site.firebaseapp.com",
+      projectId: "funx-site",
+      storageBucket: "funx-site.firebasestorage.app",
+      messagingSenderId: "760681309946",
+      appId: "1:760681309946:web:409b4e70c4e257672b0b43",
+      measurementId: "G-68NP5TBNQT"
+    };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-// ✅ إنشاء حساب
-document.getElementById("signupForm").addEventListener("submit", (e) => {
-  e.preventDefault();
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+    document.getElementById("signupBtn").addEventListener("click", () => {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
-  createUserWithEmailAndPassword(auth, email, password)
-    .then(() => window.location.href = "index.html")
-    .catch(err => alert("❌ خطأ: " + err.message));
-});
-</script>
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          window.location.href = "index.html";
+        })
+        .catch((error) => {
+          alert("خطأ: " + error.message);
+        });
+    });
+  </script>
 </body>
 </html>
