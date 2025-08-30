@@ -4,11 +4,145 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fun X – فيديوهات اليوم</title>
-<link rel="stylesheet" href="style.css">
+<style>
+/* 👇 استايلك القديم بالكامل (ما عدلتش عليه) */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Georgia", serif;
+    color: #fff;
+    overflow-x: hidden;
+    transition: background 2s;
+}
+/* ⭐ النجوم */
+.stars { position: fixed; width: 100%; height: 100%; z-index: -3; }
+.star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 6s linear infinite; opacity: 0; }
+@keyframes twinkle { 0%,100% { opacity: 0.2; } 50% { opacity: 1; } }
+/* 🌙 / ☀️ القمر والشمس */
+.celestial { position: fixed; width: 100px; height: 100px; border-radius: 50%; box-shadow: 0 0 30px #fff; z-index: -2; transition: all 1s linear; }
+/* ☁️ الغيوم تتحرك */
+.cloud { position: fixed; top:20%; width:300px; height:80px; background: rgba(255,255,255,0.05); border-radius:50%; animation: cloudMove 120s linear infinite; z-index:-1; }
+.cloud:nth-child(2) { top:50%; width:500px; height:100px; animation-duration:200s; }
+@keyframes cloudMove { 0% { left:-500px; } 100% { left:100%; } }
+/* 🟥 الهيدر */
+header {
+    background: rgba(0,0,0,0.85);
+    color: #fc0000;
+    padding: 15px;
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    box-shadow: 0 0 10px #000;
+    text-shadow: 0 0 5px #fc0000;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header a { color:#fc0000; text-decoration:none; transition:0.3s; }
+header a:hover { color:#f83a00; text-shadow:0 0 20px #f83a00,0 0 30px #ff4500; transform:scale(1.05); }
+#logoutBtn {
+    background: #f83a00;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+#logoutBtn:hover { background: #00eaff; color: #000; }
+/* البحث مخفي */
+.search { display: none; }
+/* 🟧 جدول الروابط */
+table {
+    background: rgba(0,0,0,0.75);
+    font-size: 20px;
+    border-collapse: collapse;
+    margin: 20px auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 15px #000;
+    width: 95%;
+}
+table th { padding: 15px 20px; border: 1px solid #333; border-radius:6px; transition:0.3s; }
+table th a { color: #f83a00; text-decoration: none; font-weight: bold; transition: transform 0.3s,color 0.3s,text-shadow 0.3s; }
+table th a:hover { transform: scale(1.2); color: #00eaff; text-shadow: 0 0 15px #00eaff, 0 0 25px #00ffff; }
+/* 🎬 الفيديوهات */
+section {
+    margin: 20px;
+    padding: 20px;
+    background: rgba(0,0,0,0.85);
+    border-radius: 12px;
+    box-shadow: 0 0 25px #111;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+section h2 {
+    color: #f83a00;
+    margin-bottom: 20px;
+    font-family: "Georgia", serif;
+    animation: glow 1.5s infinite alternate;
+    text-transform: uppercase;
+    cursor: default;
+}
+@keyframes glow {
+    0% { text-shadow: 0 0 5px #f83a00; }
+    50% { text-shadow:0 0 15px #f83a00,0 0 20px #ff4500; }
+    100% { text-shadow:0 0 25px #f83a00,0 0 30px #ff8000; }
+}
+video {
+    width:100%;
+    border-radius:10px;
+    border:2px solid #f83a00;
+    box-shadow:0 0 25px #ff4500,0 0 50px #f83a00 inset;
+    max-width:100%;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative; z-index:1;
+}
+video::after {
+    content:'';
+    position:absolute; top:0; left:0;
+    width:100%; height:100%;
+    border-radius:10px;
+    background: linear-gradient(120deg, rgba(0,255,255,0.15), rgba(255,0,255,0.15));
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    animation: holo 3s linear infinite;
+    z-index:2;
+}
+@keyframes holo {
+    0% { transform: translateX(0) translateY(0); }
+    50% { transform: translateX(5px) translateY(-5px); }
+    100% { transform: translateX(0) translateY(0); }
+}
+/* التعليقات */
+.comment-box { margin-top: 20px; text-align:center; }
+.comment-box input, .comment-box button { padding: 10px; margin: 5px; border-radius:6px; border:none; }
+.comment-box input { width:60%; }
+.comment-box button { background:#f83a00; color:#fff; cursor:pointer; transition:0.3s; }
+.comment-box button:hover { background:#00eaff; color:#000; }
+.comments-list {
+    margin-top:15px; max-height:200px; overflow-y:auto;
+    background: rgba(255,255,255,0.05); padding:10px; border-radius:8px;
+}
+/* إشعار */
+#notify { position:fixed; bottom:20px; right:20px; background:#f83a00; color:#fff; padding:12px 20px; border-radius:10px; box-shadow:0 0 20px #000; display:none; font-weight:bold; z-index:1000; }
+/* الهواتف */
+@media(max-width:768px){
+    header{font-size:22px;}
+    table th{padding:12px 5px;font-size:14px;}
+    section h2{font-size:20px;}
+    video{max-width:100%;height:auto;}
+    .comment-box input{width:55%;}
+}
+</style>
 </head>
 <body>
 
-<!-- ⭐ نجوم وخلفية -->
 <div class="stars"></div>
 <div class="celestial" id="celestial"></div>
 <div class="cloud"></div>
@@ -16,7 +150,7 @@
 
 <header>
     <a href="#">Fun X</a>    
-    <button id="logoutBtn" style="float:right; background:#f83a00; border:none; padding:8px 15px; border-radius:6px; cursor:pointer; color:#fff;">🚪 خروج</button>
+    <button id="logoutBtn">خروج</button>
 </header>
 
 <table>
@@ -47,41 +181,105 @@
 <audio id="clickSound" src="click.mp3"></audio>
 <audio id="bgMusic" src="background.mp3" loop autoplay></audio>
 
-<footer>جميع الحقوق محفوظة لسنة 2025 © Fun X 🎉</footer>
-
+<!-- ✅ Firebase -->
+<script type="module" src="firebase-config.js"></script>
 <script type="module">
-// 📌 Firebase Config
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signOut } 
+  from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+import { app } from "./firebase-config.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBwET1o7kvQ9bmaJeYYFrPQiztMMWnzvk8",
-  authDomain: "funx-site.firebaseapp.com",
-  projectId: "funx-site",
-  storageBucket: "funx-site.firebasestorage.app",
-  messagingSenderId: "760681309946",
-  appId: "1:760681309946:web:409b4e70c4e257672b0b43",
-  measurementId: "G-68NP5TBNQT"
-};
-
-const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// ✅ التحقق من تسجيل الدخول
+// تحقق من تسجيل الدخول
 onAuthStateChanged(auth, (user) => {
   if (!user) {
-    window.location.href = "login.html"; // لو مش مسجل يروح للوجين
+    window.location.href = "login.html";
   }
 });
 
-// ✅ زر الخروج
+// زر الخروج
 document.getElementById("logoutBtn").addEventListener("click", () => {
   signOut(auth).then(() => {
     window.location.href = "login.html";
+  }).catch((error) => {
+    alert("خطأ: " + error.message);
   });
 });
 </script>
 
-<script src="script.js"></script>
+<script>
+/* 👇 سكربتاتك القديمة (نجوم – قمر – فيديو – تعليقات – إشعارات) */
+// 🌟 النجوم
+for(let i=0;i<100;i++){
+    const star=document.createElement('div');
+    star.className='star';
+    star.style.top=Math.random()*100+'%';
+    star.style.left=Math.random()*100+'%';
+    star.style.width=star.style.height=Math.random()*2+1+'px';
+    document.body.appendChild(star);
+}
+// حركة القمر/الشمس
+const celestial = document.getElementById('celestial');
+function updateCelestial(){
+    const now = new Date();
+    const hour = now.getHours() + now.getMinutes()/60;
+    const percent = hour/24;
+    celestial.style.top = `${10 + percent*60}%`;
+    celestial.style.left = `${10 + percent*80}%`;
+    if(hour>=6 && hour<18){
+        document.body.style.background = "linear-gradient(180deg,#87CEEB,#FFD700)";
+        celestial.style.background = "radial-gradient(circle,#FFD700,#FFA500)";
+        celestial.style.boxShadow="0 0 50px #FFD700";
+        document.querySelectorAll('.star').forEach(s=>s.style.opacity=0);
+    } else {
+        document.body.style.background = "#000";
+        celestial.style.background = "radial-gradient(circle,#fff,#ccc)";
+        celestial.style.boxShadow="0 0 30px #fff";
+        document.querySelectorAll('.star').forEach(s=>s.style.opacity=Math.random());
+    }
+}
+setInterval(updateCelestial,1000);
+updateCelestial();
+// حالة الفيديو
+const video=document.getElementById('mainVideo');
+window.addEventListener('beforeunload',()=>localStorage.setItem('videoTime',video.currentTime));
+window.addEventListener('load',()=>{
+    const lastTime=localStorage.getItem('videoTime');
+    if(lastTime) video.currentTime=lastTime;
+});
+// التعليقات
+function addComment(){
+    const input=document.getElementById('commentInput');
+    if(input.value.trim()==="") return;
+    const list=document.getElementById('commentsList');
+    const div=document.createElement('div');
+    div.innerText=input.value;
+    list.appendChild(div);
+    input.value="";
+}
+// إشعارات
+let visitCount = localStorage.getItem('visitCount')||0;
+visitCount++;
+localStorage.setItem('visitCount',visitCount);
+let lastVideoDate = localStorage.getItem('lastVideoDate')||'';
+const today = new Date().toISOString().slice(0,10);
+if(today !== lastVideoDate){
+    showNotification("🎬 فيديوهات اليوم تم تحديثها!");
+    localStorage.setItem('lastVideoDate',today);
+}
+let sessionStart = Date.now();
+function showNotification(text){
+    const notify=document.getElementById('notify');
+    notify.innerText=text;
+    notify.style.display='block';
+    setTimeout(()=>notify.style.display='none',5000);
+}
+showNotification(`مرحباً! هذه زيارتك رقم ${visitCount}`);
+setTimeout(()=>{
+    let sessionTime=Math.floor((Date.now()-sessionStart)/1000);
+    let hours=Math.floor(sessionTime/3600);
+    if(hours>=1) showNotification(`لقد قضيت ${hours} ساعة على الموقع!`);
+},3600000);
+</script>
 </body>
 </html>
