@@ -138,7 +138,7 @@ video::after {
 }
 
 /* إشعار */
-#notify { position:fixed; bottom:20px; right:20px; background:#f83a00; color:#fff; padding:12px 20px; border-radius:10px; box-shadow:0 0 20px #000; display:none; font-weight:bold; z-index:1000; }
+#notify { position:fixed; bottom:20px; right:20px; background:#f83a00; color:#fff; padding:12px 20px; border-radius:10px; box-shadow:0 0 20px #000; display:none; font-weight:bold; z-index:1000; cursor:pointer; }
 
 /* الهواتف */
 @media(max-width:768px){
@@ -147,6 +147,15 @@ video::after {
     section h2{font-size:20px;}
     video{max-width:100%;height:auto;}
     .comment-box input{width:55%;}
+}
+
+/* حقوق الموقع */
+footer{
+    text-align:center;
+    padding:15px;
+    margin-top:20px;
+    font-size:14px;
+    color:#f83a00;
 }
 </style>
 </head>
@@ -189,6 +198,8 @@ video::after {
 <audio id="clickSound" src="click.mp3"></audio>
 <audio id="bgMusic" src="background.mp3" loop autoplay></audio>
 
+<footer>جميع الحقوق محفوظة لسنة 2025 © Fun X 🎉</footer>
+
 <script>
 // 🌟 النجوم
 for(let i=0;i<100;i++){
@@ -223,7 +234,7 @@ function updateCelestial(){
 setInterval(updateCelestial,1000);
 updateCelestial();
 
-// حالة الفيديو
+// حفظ حالة الفيديو
 const video=document.getElementById('mainVideo');
 window.addEventListener('beforeunload',()=>localStorage.setItem('videoTime',video.currentTime));
 window.addEventListener('load',()=>{
@@ -242,32 +253,21 @@ function addComment(){
     input.value="";
 }
 
-// إشعارات ذكية
-let visitCount = localStorage.getItem('visitCount')||0;
-visitCount++;
-localStorage.setItem('visitCount',visitCount);
+// =======================================
+// إشعارات التحديثات (فقط عند وجود تحديث جديد)
+const NEW_UPDATE_AVAILABLE = true; // غيّر لـ false إذا لا يوجد تحديث
+const updateMessage = "🎉 تم إصدار تحديث جديد للعبة Game War – إصدار 1.1! اضغط هنا لمزيد من التفاصيل.";
+const notifyElement = document.getElementById('notify');
+const updateKey = 'updateSeen';
 
-let lastVideoDate = localStorage.getItem('lastVideoDate')||'';
-const today = new Date().toISOString().slice(0,10);
-if(today !== lastVideoDate){
-    showNotification("🎬 فيديوهات اليوم تم تحديثها!");
-    localStorage.setItem('lastVideoDate',today);
+if(NEW_UPDATE_AVAILABLE && localStorage.getItem(updateKey) !== 'true'){
+    notifyElement.innerText = updateMessage;
+    notifyElement.style.display='block';
+    notifyElement.onclick = () => {
+        window.location.href='notifications.html'; // صفحة التحديثات
+        localStorage.setItem(updateKey,'true'); // علامة أن المستخدم شاهد التحديث
+    };
 }
-
-let sessionStart = Date.now();
-function showNotification(text){
-    const notify=document.getElementById('notify');
-    notify.innerText=text;
-    notify.style.display='block';
-    setTimeout(()=>notify.style.display='none',5000);
-}
-showNotification(`مرحباً! هذه زيارتك رقم ${visitCount}`);
-setTimeout(()=>{
-    let sessionTime=Math.floor((Date.now()-sessionStart)/1000);
-    let hours=Math.floor(sessionTime/3600);
-    if(hours>=1) showNotification(`لقد قضيت ${hours} ساعة على الموقع!`);
-},3600000);
-
 </script>
 </body>
 </html>
