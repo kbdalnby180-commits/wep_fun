@@ -2,9 +2,118 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title> مش هتقدر تتسلي غير معانا</title>
-    <link rel="stylesheet" href="style.css">
+    <title> مش هتقدر تتسلي غير معانا</title>  
+    <script src="script.js"></script>
+    <style>
+        /* 🌑 الخلفية والستايل الأساسي */
+        body {
+            background: linear-gradient(135deg, #1a1a1a, #414141);
+            margin: 0;
+            padding: 0;
+            font-family: "Cairo", Arial, sans-serif;
+            color: #fff;
+        }
 
+        /* 🟥 الهيدر */
+        header {
+            background: #000;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            font-size: 26px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            box-shadow: 0 0 10px #000;
+        }
+
+        header a {
+            color: #fc0000;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        header a:hover {
+            color: #f83a00;
+        }
+
+        /* 🔎 البحث */
+        .search {
+            margin: 30px auto;
+            text-align: center;
+        }
+        .search h1 {
+            color: #f83a00;
+            margin-bottom: 15px;
+        }
+        .search input[type="text"] {
+            padding: 12px;
+            width: 280px;
+            border: 2px solid #f83a00;
+            border-radius: 6px;
+            background: #000;
+            color: #fff;
+            outline: none;
+            font-size: 16px;
+        }
+        .search input[type="submit"] {
+            padding: 12px 20px;
+            margin-left: 10px;
+            border: none;
+            background: #f83a00;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .search input[type="submit"]:hover {
+            background: #0400f7;
+        }
+
+        /* 🟧 جدول الروابط */
+        table {
+            background: rgba(0, 0, 0, 0.8);
+            font-size: 20px;
+            border-collapse: collapse;
+            margin: 20px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 15px #000;
+        }
+        table th {
+            padding: 15px 40px;
+            border: 1px solid #333;
+        }
+        table th a {
+            color: #f83a00;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        table th a:hover {
+            color: #00eaff;
+        }
+
+        /* 🎬 الفيديو */
+        section {
+            margin: 20px;
+            padding: 20px;
+            background: #000;
+            border-radius: 12px;
+            box-shadow: 0 0 15px #111;
+            text-align: center;
+        }
+        section h2 {
+            color: #f83a00;
+            margin-bottom: 20px;
+        }
+        video {
+            width: 100%;
+            max-width: 750px;
+            border-radius: 10px;
+            border: 2px solid #f83a00;
+            box-shadow: 0 0 20px #000;
+        }
+    </style>
 </head>
 <body>
 
@@ -41,9 +150,8 @@
             <source src="VID-20250315-WA0059.mp4" type="video/mp4">
         </video>
     </section>
-<script src="script.js"></script>
-
 </body>
 </html>
+
 
 
