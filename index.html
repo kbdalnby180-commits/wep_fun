@@ -147,6 +147,13 @@ footer{
 </head>
 <body>
 
+<script>
+// إذا المستخدم ما سجلش، يروح مباشرة ل signup.html
+if(!localStorage.getItem('signedUp')){
+    window.location.href = 'signup.html';
+}
+</script>
+
 <div class="stars"></div>
 <div class="celestial" id="celestial"></div>
 <div class="cloud"></div>
@@ -240,6 +247,8 @@ if(!localStorage.getItem('updateSeen')){
         notify.style.display='none';
         localStorage.setItem('updateSeen','true');
     };
+} else {
+    notify.style.display='none';
 }
 </script>
 </body>
