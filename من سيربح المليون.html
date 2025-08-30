@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>من سيربح المليون - نسخة حقيقية</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #1a1a1a;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+    }
+    .question-container {
+        background-color: #222;
+        padding: 30px;
+        margin-top: 50px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px #ff0000;
+        width: 90%;
+        max-width: 600px;
+    }
+    #score {
+        font-size: 18px;
+        margin-bottom: 15px;
+        text-align: center;
+        color: #ffcc00;
+    }
+    .question {
+        font-size: 22px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .answers button {
+        width: 100%;
+        padding: 15px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 10px;
+        font-size: 18px;
+        cursor: pointer;
+        background-color: #ff4500;
+        color: #fff;
+        transition: 0.3s;
+    }
+    .answers button:hover {
+        background-color: #ffa500;
+        color: #000;
+    }
+</style>
+</head>
+<body>
+<div class="question-container">
+    <div id="score">النقاط: 0</div>
+    <div id="question" class="question"></div>
+    <div class="answers">
+        <button onclick="checkAnswer(0)">الإجابة 1</button>
+        <button onclick="checkAnswer(1)">الإجابة 2</button>
+        <button onclick="checkAnswer(2)">الإجابة 3</button>
+        <button onclick="checkAnswer(3)">الإجابة 4</button>
+    </div>
+</div>
+
+<script>
+const questions = [
+    // مستوى 1
+    { question: "ما هو أكبر حيوان بري على وجه الأرض؟", answers: ["الفيل", "الزرافة", "التمساح", "الدب"], correct: 0, level: 1 },
+    { question: "ما هو أسرع حيوان على الأرض؟", answers: ["الفرس", "الفهد", "النمر", "الذئب"], correct: 1, level: 1 },
+    { question: "ما هو أطول نهر في العالم؟", answers: ["الأمازون", "النيل", "اليانغتسي", "الميسيسيبي"], correct: 1, level: 1 },
+    { question: "ما هو الكوكب الأقرب للشمس؟", answers: ["المريخ", "الزهرة", "عطارد", "الأرض"], correct: 2, level: 1 },
+    { question: "ما هو لون دم الإنسان؟", answers: ["أحمر", "أزرق", "أخضر", "أصفر"], correct: 0, level: 1 },
+    // مستوى 2
+    { question: "من هو مؤسس شركة مايكروسوفت؟", answers: ["ستيف جوبز", "بيل غيتس", "مارك زوكربيرغ", "لاري بيج"], correct: 1, level: 2 },
+    { question: "ما هو العنصر الكيميائي الذي رمزه O؟", answers: ["الذهب", "الأكسجين", "الهيليوم", "الحديد"], correct: 1, level: 2 },
+    { question: "ما هي عاصمة فرنسا؟", answers: ["روما", "باريس", "مدريد", "لندن"], correct: 1, level: 2 },
+    { question: "أي من هذه الدول ليست في قارة أفريقيا؟", answers: ["مصر", "نيجيريا", "البرازيل", "كينيا"], correct: 2, level: 2 },
+    { question: "ما هو أكبر محيط في العالم؟", answers: ["الأطلسي", "الهندي", "المحيط الهادئ", "المحيط المتجمد"], correct: 2, level: 2 },
+    // مستوى 3
+    { question: "ما هو أسرع مركبة فضائية أرسلت إلى الفضاء؟", answers: ["أبولو 11", "باركر سولار بروب", "سبوتنيك 1", "تشالنجر"], correct: 1, level: 3 },
+    { question: "ما هو الحيوان الذي يمكنه البقاء بدون ماء أطول فترة؟", answers: ["الجمل", "التمساح", "الفيل", "الأسد"], correct: 0, level: 3 },
+    { question: "من هو مؤلف رواية هاري بوتر؟", answers: ["ج. ك. رولينغ", "ستيفن كينج", "أجاثا كريستي", "تولكين"], correct: 0, level: 3 },
+    { question: "ما هي وحدة قياس شدة التيار الكهربائي؟", answers: ["أوم", "فولت", "أمبير", "واط"], correct: 2, level: 3 },
+    { question: "ما هي اللغة الرسمية في كندا؟", answers: ["الإنجليزية", "الفرنسية", "الإنجليزية والفرنسية", "الإسبانية"], correct: 2, level: 3 },
+    // مستوى 4
+    { question: "في أي عام انتهت الحرب العالمية الثانية؟", answers: ["1945", "1939", "1918", "1950"], correct: 0, level: 4 },
+    { question: "من هو مخترع المصباح الكهربائي؟", answers: ["توماس إديسون", "ألكسندر غراهام بيل", "نيكولا تسلا", "جيمس وات"], correct: 0, level: 4 },
+    { question: "ما هي أكبر صحراء في العالم؟", answers: ["الصحراء الكبرى", "صحراء جوبي", "صحراء أتاكاما", "صحراء ناميب"], correct: 0, level: 4 },
+    { question: "ما هو أسرع طائر في العالم؟", answers: ["الصقر الشاهين", "النسرة", "الغراب", "النعامة"], correct: 0, level: 4 },
+    { question: "ما هو الكوكب الأحمر؟", answers: ["المريخ", "الزهرة", "الأرض", "عطارد"], correct: 0, level: 4 }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+
+function loadQuestion() {
+    const question = questions[currentQuestionIndex];
+    document.getElementById("question").innerText = question.question;
+    const answers = document.querySelectorAll(".answers button");
+    answers.forEach((button, index) => {
+        button.innerText = question.answers[index];
+    });
+}
+
+function checkAnswer(selectedIndex) {
+    const question = questions[currentQuestionIndex];
+    if (selectedIndex === question.correct) {
+        score += question.level * 1000;
+        alert("إجابة صحيحة!");
+    } else {
+        alert("إجابة خاطئة!");
+    }
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        alert("لقد أكملت اللعبة! نقاطك النهائية: " + score);
+    }
+    document.getElementById("score").innerText = "النقاط: " + score;
+}
+
+loadQuestion();
+</script>
+</body>
+</html>

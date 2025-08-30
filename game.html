@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>لعبة حرب 2D</title>
+  <style>
+    body { margin: 0; overflow: hidden; background: #111; }
+    canvas { display: block; margin: auto; background: #000; }
+  </style>
+</head>
+<body>
+<canvas id="gameCanvas"></canvas>
+<script>
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// ==================== اللاعب (دبابة) ====================
+const player = {
+  x: canvas.width / 2 - 30,
+  y: canvas.height - 100,
+  width: 60,
+  height: 60,
+  color: "green",
+  speed: 6,
+};
+
+// ==================== عناصر اللعبة ====================
+let bullets = [];
+let allies = [];
+let enemies = [];
+let explosions = [];
+let score = 0;
+let level = 1;
+
+// ==================== إضافة حلفاء ====================
+function spawnAllies() {
+  for (let i = 0; i < 2; i++) {
+    allies.push({
+      x: player.x + (i * 100 - 50),
+      y: player.y + 100,
+      width: 30,
+      height: 30,
+      color: "blue",
+      speed: 2
+    });
+  }
+}
+
+// ==================== الأعداء ====================
+function spawnEnemy() {
+  const type = Math.random();
+  let enemy;
+  if (type < 0.4) {
+    // جندي
+    enemy = { x: Math.random() * (canvas.width - 30), y: -50, width: 30, height: 30, color: "red", speed: 2 + level * 0.2 };
+  } else if (type < 0.7) {
+    // دبابة
+    enemy = { x: Math.random() * (canvas.width - 50), y: -60, width: 50, height: 50, color: "darkred", speed: 1.5 + level * 0.2 };
+  } else {
+    // طيارة
+    enemy = { x: Math.random() * (canvas.width - 40), y: -60, width: 40, height: 40, color: "orange", speed: 3 + level * 0.3 };
+  }
+  enemies.push(enemy);
+}
+
+// ==================== إطلاق نار ====================
+function shoot(x, y, friendly=true) {
+  bullets.push({
+    x: x,
+    y: y,
+    width: 6,
+    height: 15,
+    color: friendly ? "yellow" : "red",
+    speed: friendly ? 7 : -4,
+    friendly: friendly
+  });
+}
+
+// ==================== انفجار ====================
+function explode(x, y) {
+  explosions.push({ x, y, radius: 0 });
+}
+
+// ==================== تحديث اللعبة ====================
+function update() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // رسم اللاعب (الدبابة)
+  ctx.fillStyle = player.color;
+  ctx.fillRect(player.x, player.y, player.width, player.height);
+
+  // رسم الحلفاء
+  allies.forEach(ally => {
+    ctx.fillStyle = ally.color;
+    ctx.fillRect(ally.x, ally.y, ally.width, ally.height);
+
+    if (Math.random() < 0.01) shoot(ally.x + ally.width / 2, ally.y, true);
+  });
+
+  // رسم الطلقات
+  bullets.forEach((b, i) => {
+    b.y -= b.speed;
+    ctx.fillStyle = b.color;
+    ctx.fillRect(b.x, b.y, b.width, b.height);
+
+    if (b.y < 0 || b.y > canvas.height) bullets.splice(i, 1);
+  });
+
+  // رسم الأعداء
+  enemies.forEach((enemy, ei) => {
+    enemy.y += enemy.speed;
+    ctx.fillStyle = enemy.color;
+    ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
+
+    // طلقة العدو
+    if (Math.random() < 0.01) shoot(enemy.x + enemy.width / 2, enemy.y + enemy.height, false);
+
+    // تصادم مع الطلقات
+    bullets.forEach((b, bi) => {
+      if (b.friendly &&
+          b.x < enemy.x + enemy.width &&
+          b.x + b.width > enemy.x &&
+          b.y < enemy.y + enemy.height &&
+          b.y + b.height > enemy.y) {
+        explode(enemy.x, enemy.y);
+        enemies.splice(ei, 1);
+        bullets.splice(bi, 1);
+        score += 100;
+        if (score % 1000 === 0) level++; // كل 1000 نقطة يترفع ليفيل
+      }
+    });
+
+    if (enemy.y > canvas.height) enemies.splice(ei, 1);
+  });
+
+  // الانفجارات
+  explosions.forEach((exp, i) => {
+    exp.radius += 2;
+    ctx.beginPath();
+    ctx.arc(exp.x, exp.y, exp.radius, 0, Math.PI * 2);
+    ctx.fillStyle = "orange";
+    ctx.fill();
+    if (exp.radius > 30) explosions.splice(i, 1);
+  });
+
+  // عرض النقاط والليفل
+  ctx.fillStyle = "white";
+  ctx.font = "20px Arial";
+  ctx.fillText("Score: " + score, 20, 30);
+  ctx.fillText("Level: " + level, 20, 60);
+
+  requestAnimationFrame(update);
+}
+
+// ==================== تحريك اللاعب ====================
+document.addEventListener("keydown", e => {
+  if (e.key === "ArrowLeft" && player.x > 0) player.x -= player.speed;
+  if (e.key === "ArrowRight" && player.x + player.width < canvas.width) player.x += player.speed;
+  if (e.key === " ") shoot(player.x + player.width / 2, player.y, true);
+});
+
+// ==================== تشغيل اللعبة ====================
+spawnAllies();
+setInterval(spawnEnemy, 1500);
+update();
+</script>
+</body>
+</html>
