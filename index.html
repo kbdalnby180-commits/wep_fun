@@ -6,145 +6,49 @@
 <title>Fun X – فيديوهات اليوم</title>
 <style>
 body {
-    margin: 0;
-    padding: 0;
-    font-family: "Georgia", serif;
-    color: #fff;
-    overflow-x: hidden;
+    margin:0; padding:0;
+    font-family:"Georgia", serif;
+    color:#fff;
+    overflow-x:hidden;
     transition: background 2s;
 }
-/* ⭐ النجوم */
 .stars { position: fixed; width: 100%; height: 100%; z-index: -3; }
-.star {
-    position: absolute;
-    border-radius: 50%;
-    background: #fff;
-    animation: twinkle 6s linear infinite;
-    opacity: 0;
-}
-@keyframes twinkle { 0%,100% { opacity: 0.2; } 50% { opacity: 1; } }
-/* 🌙 / ☀️ القمر والشمس */
-.celestial {
-    position: fixed;
-    width: 100px; height: 100px;
-    border-radius: 50%;
-    box-shadow: 0 0 30px #fff;
-    z-index: -2;
-    transition: all 1s linear;
-}
-/* ☁️ الغيوم تتحرك */
-.cloud { position: fixed; top:20%; width:300px; height:80px; background: rgba(255,255,255,0.05); border-radius:50%; animation: cloudMove 120s linear infinite; z-index:-1; }
-.cloud:nth-child(2) { top:50%; width:500px; height:100px; animation-duration:200s; }
-@keyframes cloudMove { 0% { left:-500px; } 100% { left:100%; } }
-/* 🟥 الهيدر */
-header {
-    background: rgba(0,0,0,0.85);
-    color: #fc0000;
-    padding: 15px;
-    text-align: center;
-    font-size: 26px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    box-shadow: 0 0 10px #000;
-    text-shadow: 0 0 5px #fc0000;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
+.star { position: absolute; border-radius: 50%; background:#fff; animation: twinkle 6s linear infinite; opacity:0; }
+@keyframes twinkle {0%,100%{opacity:0.2;}50%{opacity:1;}}
+.celestial { position: fixed; width: 100px; height:100px; border-radius:50%; box-shadow:0 0 30px #fff; z-index:-2; transition: all 1s linear; }
+.cloud { position: fixed; top:20%; width:300px; height:80px; background: rgba(255,255,255,0.05); border-radius:50%; animation: cloudMove 120s linear infinite; z-index:-1;}
+.cloud:nth-child(2) { top:50%; width:500px; height:100px; animation-duration:200s;}
+@keyframes cloudMove {0%{left:-500px;}100%{left:100%;}}
+header { background: rgba(0,0,0,0.85); color:#fc0000; padding:15px; text-align:center; font-size:26px; font-weight:bold; letter-spacing:2px; box-shadow:0 0 10px #000; text-shadow:0 0 5px #fc0000; position: sticky; top:0; z-index:1000; display:flex; justify-content:space-between; align-items:center;}
 header a { color:#fc0000; text-decoration:none; transition:0.3s; }
-header a:hover { color:#f83a00; text-shadow:0 0 20px #f83a00,0 0 30px #ff4500; transform:scale(1.05); }
-/* البحث مخفي */
-.search { display: none; }
-/* 🟧 جدول الروابط */
-table {
-    background: rgba(0,0,0,0.75);
-    font-size: 20px;
-    border-collapse: collapse;
-    margin: 20px auto;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 0 15px #000;
-    width: 95%;
-}
+header a:hover { color:#f83a00; text-shadow:0 0 20px #f83a00,0 0 30px #ff4500; transform:scale(1.05);}
+header button{background:#f83a00;color:#fff;border:none;padding:8px 15px;border-radius:6px;cursor:pointer;}
+header button:hover{background:#00eaff;color:#000;}
+.signup-box { position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background: rgba(0,0,0,0.85); padding:30px; border-radius:12px; box-shadow:0 0 25px #000; text-align:center; }
+.signup-box input { width:90%; padding:10px; margin:10px 0; border-radius:6px; border:none; }
+.signup-box button { width:95%; padding:10px; background:#f83a00; color:#fff; border:none; border-radius:6px; cursor:pointer; font-size:16px; }
+.signup-box button:hover { background:#00eaff; color:#000; }
+#errorMsg { color:#ff5555; margin-top:10px; font-size:14px; }
+.successMsg { color:#00ffaa; margin-top:10px; font-size:14px; }
+table { background: rgba(0,0,0,0.75); font-size: 20px; border-collapse: collapse; margin: 20px auto; border-radius: 12px; overflow: hidden; box-shadow: 0 0 15px #000; width: 95%; }
 table th { padding: 15px 20px; border: 1px solid #333; border-radius:6px; transition:0.3s; }
 table th a { color: #f83a00; text-decoration: none; font-weight: bold; transition: transform 0.3s,color 0.3s,text-shadow 0.3s; }
 table th a:hover { transform: scale(1.2); color: #00eaff; text-shadow: 0 0 15px #00eaff, 0 0 25px #00ffff; }
-/* 🎬 الفيديوهات */
-section {
-    margin: 20px;
-    padding: 20px;
-    background: rgba(0,0,0,0.85);
-    border-radius: 12px;
-    box-shadow: 0 0 25px #111;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-section h2 {
-    color: #f83a00;
-    margin-bottom: 20px;
-    font-family: "Georgia", serif;
-    animation: glow 1.5s infinite alternate;
-    text-transform: uppercase;
-    cursor: default;
-}
-@keyframes glow {
-    0% { text-shadow: 0 0 5px #f83a00; }
-    50% { text-shadow:0 0 15px #f83a00,0 0 20px #ff4500; }
-    100% { text-shadow:0 0 25px #f83a00,0 0 30px #ff8000; }
-}
-video {
-    width:100%;
-    border-radius:10px;
-    border:2px solid #f83a00;
-    box-shadow:0 0 25px #ff4500,0 0 50px #f83a00 inset;
-    max-width:100%;
-    transition: transform 0.3s, box-shadow 0.3s;
-    position: relative; z-index:1;
-}
-video::after {
-    content:'';
-    position:absolute; top:0; left:0;
-    width:100%; height:100%;
-    border-radius:10px;
-    background: linear-gradient(120deg, rgba(0,255,255,0.15), rgba(255,0,255,0.15));
-    mix-blend-mode: overlay;
-    pointer-events: none;
-    animation: holo 3s linear infinite;
-    z-index:2;
-}
-@keyframes holo {
-    0% { transform: translateX(0) translateY(0); }
-    50% { transform: translateX(5px) translateY(-5px); }
-    100% { transform: translateX(0) translateY(0); }
-}
-/* التعليقات */
+section { margin: 20px; padding: 20px; background: rgba(0,0,0,0.85); border-radius: 12px; box-shadow: 0 0 25px #111; text-align: center; position: relative; overflow: hidden; }
+section h2 { color: #f83a00; margin-bottom: 20px; font-family: "Georgia", serif; animation: glow 1.5s infinite alternate; text-transform: uppercase; cursor: default; }
+@keyframes glow {0% {text-shadow:0 0 5px #f83a00;}50%{text-shadow:0 0 15px #f83a00,0 0 20px #ff4500;}100%{text-shadow:0 0 25px #f83a00,0 0 30px #ff8000;}}
+video { width:100%; border-radius:10px; border:2px solid #f83a00; box-shadow:0 0 25px #ff4500,0 0 50px #f83a00 inset; max-width:100%; transition: transform 0.3s, box-shadow 0.3s; position: relative; z-index:1; }
+video::after { content:''; position:absolute; top:0; left:0; width:100%; height:100%; border-radius:10px; background: linear-gradient(120deg, rgba(0,255,255,0.15), rgba(255,0,255,0.15)); mix-blend-mode: overlay; pointer-events: none; animation: holo 3s linear infinite; z-index:2;}
+@keyframes holo {0%{transform:translateX(0) translateY(0);}50%{transform:translateX(5px) translateY(-5px);}100%{transform:translateX(0) translateY(0);}}
 .comment-box { margin-top: 20px; text-align:center; }
 .comment-box input, .comment-box button { padding: 10px; margin: 5px; border-radius:6px; border:none; }
 .comment-box input { width:60%; }
 .comment-box button { background:#f83a00; color:#fff; cursor:pointer; transition:0.3s; }
 .comment-box button:hover { background:#00eaff; color:#000; }
-.comments-list {
-    margin-top:15px; max-height:200px; overflow-y:auto;
-    background: rgba(255,255,255,0.05); padding:10px; border-radius:8px;
-}
-/* إشعار */
+.comments-list { margin-top:15px; max-height:200px; overflow-y:auto; background: rgba(255,255,255,0.05); padding:10px; border-radius:8px; }
 #notify { position:fixed; bottom:20px; right:20px; background:#f83a00; color:#fff; padding:12px 20px; border-radius:10px; box-shadow:0 0 20px #000; display:none; font-weight:bold; z-index:1000; cursor:pointer; }
-/* الهواتف */
-@media(max-width:768px){
-    header{font-size:22px;}
-    table th{padding:12px 5px;font-size:14px;}
-    section h2{font-size:20px;}
-    video{max-width:100%;height:auto;}
-    .comment-box input{width:55%;}
-}
-footer{
-    text-align:center;
-    padding:15px;
-    font-size:14px;
-    color:#f83a00;
-    margin-top:20px;
-}
+@media(max-width:768px){header{font-size:22px;} table th{padding:12px 5px;font-size:14px;} section h2{font-size:20px;} video{max-width:100%;height:auto;} .comment-box input{width:55%;}}
+footer{ text-align:center; padding:15px; font-size:14px; color:#f83a00; margin-top:20px; }
 </style>
 </head>
 <body>
@@ -153,6 +57,14 @@ footer{
 <div class="celestial" id="celestial"></div>
 <div class="cloud"></div>
 <div class="cloud"></div>
+
+<!-- صندوق Sign Up -->
+<div class="signup-box" id="signupBox">
+<h2>أهلاً بك في Fun X</h2>
+<input type="text" id="username" placeholder="اسم المستخدم">
+<button onclick="signup()">ابدأ</button>
+<div id="errorMsg"></div>
+</div>
 
 <header>
     <a href="#">Fun X – إصدار 1.1</a>    
@@ -189,33 +101,7 @@ footer{
 
 <footer>📝 جميع الحقوق محفوظة © 2025 Fun X 🎉</footer>
 
-<script type="module">
-// ✅ Firebase Auth
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBwET1o7kvQ9bmaJeYYFrPQiztMMWnzvk8",
-  authDomain: "funx-site.firebaseapp.com",
-  projectId: "funx-site",
-  storageBucket: "funx-site.appspot.com",
-  messagingSenderId: "760681309946",
-  appId: "1:760681309946:web:409b4e70c4e257672b0b43"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-// 🔒 حماية: ما يدخلش إلا لو مسجل دخول مرة واحدة
-onAuthStateChanged(auth, (user) => {
-  const logged = localStorage.getItem('loggedIn');
-  if (!user || logged !== "true") {
-    window.location.href = "login.html";
-  } else {
-    localStorage.setItem('loggedIn', 'true');
-  }
-});
-
+<script>
 // 🌟 النجوم
 for(let i=0;i<100;i++){
     const star=document.createElement('div');
@@ -226,7 +112,7 @@ for(let i=0;i<100;i++){
     document.body.appendChild(star);
 }
 
-// حركة القمر/الشمس
+// القمر/الشمس
 const celestial = document.getElementById('celestial');
 function updateCelestial(){
     const now = new Date();
@@ -250,7 +136,7 @@ setInterval(updateCelestial,1000);
 updateCelestial();
 
 // التعليقات
-window.addComment = function(){
+function addComment(){
     const input=document.getElementById('commentInput');
     if(input.value.trim()==="") return;
     const list=document.getElementById('commentsList');
@@ -269,7 +155,29 @@ if(NEW_UPDATE_AVAILABLE){
     notify.style.display='block';
     notify.onclick = () => { window.location.href='notifications.html'; };
 }
-</script>
 
+// Sign Up لمرة واحدة
+function signup(){
+    const username = document.getElementById('username').value.trim();
+    const errorMsg = document.getElementById('errorMsg');
+    errorMsg.innerText = "";
+    if(!username){
+        errorMsg.innerText = "الرجاء إدخال اسم المستخدم";
+        return;
+    }
+    localStorage.setItem('signedUp', 'true');
+    localStorage.setItem('username', username);
+    document.getElementById('signupBox').style.display = 'none';
+}
+
+// إظهار Sign Up مرة واحدة
+window.onload = () => {
+    if(localStorage.getItem('signedUp') === 'true'){
+        document.getElementById('signupBox').style.display = 'none';
+    } else {
+        document.getElementById('signupBox').style.display = 'block';
+    }
+}
+</script>
 </body>
 </html>
