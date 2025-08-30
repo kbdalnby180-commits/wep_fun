@@ -3,157 +3,202 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fun X - حرب مستقبلية 2D</title>
+<title>Fun X - لعبة حرب 2D</title>
 <style>
-body, html { margin: 0; padding: 0; overflow: hidden; font-family: Arial, sans-serif; background: #000; }
-canvas { display: block; margin: 0 auto; background: linear-gradient(to top, #0b0c10, #1f2833); }
-.glow { color: #0ff; text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff; }
-#ui { position: fixed; top: 10px; left: 10px; color: #0ff; font-size: 18px; font-weight: bold; text-shadow: 0 0 5px #0ff, 0 0 10px #0ff; z-index: 1000; }
-#mobile-controls { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); display: none; z-index: 1000; }
-.control-btn { background: rgba(0,255,255,0.2); border: 2px solid #0ff; color: #0ff; font-size: 20px; padding: 15px; margin: 5px; border-radius: 50%; user-select: none; }
-.control-btn:active { background: rgba(0,255,255,0.5); }
-@media(max-width:768px){ #mobile-controls { display: flex; } }
+    body { margin: 0; overflow: hidden; font-family: Arial, sans-serif; background: #000; }
+    canvas { display: block; margin: auto; background: linear-gradient(to top, #000, #001133); }
+    #hpBar {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 220px;
+        height: 20px;
+        border: 2px solid #fff;
+        border-radius: 12px;
+        background: #333;
+    }
+    #hpFill {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to right, #0f0, #ff0, #f00);
+        border-radius: 10px;
+        transition: width 0.3s;
+    }
 </style>
 </head>
 <body>
 <canvas id="gameCanvas"></canvas>
-<div id="ui">Score: 0 | Level: 1 | Health: 100%</div>
-<div id="mobile-controls">
-  <div class="control-btn" id="left">◀</div>
-  <div class="control-btn" id="shoot">⚡</div>
-  <div class="control-btn" id="right">▶</div>
-</div>
+<div id="hpBar"><div id="hpFill"></div></div>
 <script>
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-// ==================== الخلفية ====================
-let stars = [];
-for(let i=0;i<150;i++){ stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2, speed: Math.random()*0.3+0.1}); }
-
-let clouds = [];
-for(let i=0;i<5;i++){ clouds.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height/2, width: 150+Math.random()*100, height: 60+Math.random()*30, speed: 0.2}); }
-
-function drawBackground(){
-  ctx.fillStyle = '#000011';
-  ctx.fillRect(0,0,canvas.width,canvas.height);
-  
-  // النجوم
-  ctx.fillStyle = '#0ff';
-  stars.forEach(s => {
-    ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill();
-    s.y += s.speed; if(s.y>canvas.height){ s.y=0; s.x=Math.random()*canvas.width; }
-  });
-
-  // الغيوم
-  ctx.fillStyle='rgba(255,255,255,0.1)';
-  clouds.forEach(c=>{
-    ctx.fillRect(c.x,c.y,c.width,c.height);
-    c.x+=c.speed;
-    if(c.x>canvas.width) c.x=-c.width;
-  });
-
-  // القمر
-  ctx.beginPath(); ctx.arc(canvas.width-100,100,50,0,Math.PI*2); ctx.fillStyle='#fff'; ctx.fill();
-}
-
 // ==================== اللاعب ====================
-const player = { x: canvas.width/2-30, y: canvas.height-100, width:60, height:60, color:'#0ff', speed:6, health:100 };
+const player = {
+    x: canvas.width/2 - 25,
+    y: canvas.height - 120,
+    width: 50,
+    height: 50,
+    color: "lime",
+    speed: 6,
+    hp: 5,
+    cooldown: 0
+};
 
 // ==================== عناصر اللعبة ====================
-let bullets=[], allies=[], enemies=[], explosions=[];
-let score = 0, level = 1;
+let bullets = [];
+let enemies = [];
+let explosions = [];
+let score = 0;
+let level = 1;
+let gameOver = false;
 
-// ==================== الحلفاء ====================
-function spawnAllies(){
-  for(let i=0;i<2;i++){
-    allies.push({x: player.x+(i*100-50), y:player.y+100, width:30, height:30, color:'#00f', speed:2});
-  }
+// ==================== أعداء متنوعين ====================
+function spawnEnemy() {
+    const type = Math.random();
+    let enemy;
+    if(type<0.5){
+        enemy = { x: Math.random()*(canvas.width-30), y:-40, width:30, height:30, color:"red", speed:2+level*0.2, hp:1 };
+    } else if(type<0.8){
+        enemy = { x: Math.random()*(canvas.width-60), y:-60, width:60, height:40, color:"darkred", speed:1.5+level*0.2, hp:3 };
+    } else {
+        enemy = { x: Math.random()*(canvas.width-40), y:-50, width:40, height:40, color:"orange", speed:3+level*0.3, hp:2 };
+    }
+    enemies.push(enemy);
 }
 
-// ==================== الأعداء ====================
-function spawnEnemy(){
-  const type=Math.random();
-  let enemy={};
-  if(type<0.35) enemy={x:Math.random()*(canvas.width-30), y:-50, width:30,height:30,color:'#f00',speed:2+level*0.3,health:1};
-  else if(type<0.65) enemy={x:Math.random()*(canvas.width-50), y:-60,width:50,height:50,color:'#a00',speed:1.5+level*0.2,health:3};
-  else enemy={x:Math.random()*(canvas.width-40), y:-60,width:40,height:40,color:'#ff8800',speed:3+level*0.3,health:2};
-  enemies.push(enemy);
+// ==================== الرصاص ====================
+function shoot(x, y, friendly=true){
+    bullets.push({
+        x:x,
+        y:y,
+        width:6,
+        height:15,
+        color:friendly?"yellow":"red",
+        speed:friendly?7:-4,
+        friendly:friendly
+    });
 }
 
-// ==================== الطلقات ====================
-function shoot(x,y,friendly=true){ bullets.push({x:x,y:y,width:6,height:15,color:friendly?'#0ff':'#f00',speed:friendly?7:-4,friendly:friendly}); }
+// ==================== انفجار ====================
+function explode(x,y){
+    explosions.push({x,y,radius:0});
+}
 
-// ==================== انفجارات ====================
-function explode(x,y){ explosions.push({x,y,radius:0}); }
+// ==================== تحديث شريط الحياة ====================
+function updateHPBar(){
+    const fill = document.getElementById("hpFill");
+    fill.style.width = (player.hp/5*100)+"%";
+}
 
 // ==================== تحديث اللعبة ====================
 function update(){
-  drawBackground();
+    if(gameOver) return;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  // اللاعب
-  ctx.fillStyle=player.color; ctx.fillRect(player.x,player.y,player.width,player.height);
+    // اللاعب
+    ctx.fillStyle = player.color;
+    ctx.fillRect(player.x,player.y,player.width,player.height);
 
-  // الحلفاء
-  allies.forEach(ally=>{
-    ctx.fillStyle=ally.color; ctx.fillRect(ally.x,ally.y,ally.width,ally.height);
-    if(Math.random()<0.01) shoot(ally.x+ally.width/2,ally.y,true);
-  });
-
-  // الطلقات
-  bullets.forEach((b,i)=>{
-    b.y-=b.speed; ctx.fillStyle=b.color; ctx.fillRect(b.x,b.y,b.width,b.height);
-    if(b.y<0||b.y>canvas.height) bullets.splice(i,1);
-  });
-
-  // الأعداء
-  enemies.forEach((enemy,ei)=>{
-    enemy.y+=enemy.speed; ctx.fillStyle=enemy.color; ctx.fillRect(enemy.x,enemy.y,enemy.width,enemy.height);
-    if(Math.random()<0.01) shoot(enemy.x+enemy.width/2,enemy.y+enemy.height,false);
-
-    bullets.forEach((b,bi)=>{
-      if(b.friendly && b.x<enemy.x+enemy.width && b.x+b.width>enemy.x && b.y<enemy.y+enemy.height && b.y+b.height>enemy.y){
-        enemy.health--; bullets.splice(bi,1);
-        if(enemy.health<=0){ explode(enemy.x,enemy.y); enemies.splice(ei,1); score+=100; if(score%1000===0) level++; }
-      }
+    // طلقات
+    bullets.forEach((b,i)=>{
+        b.y -= b.speed;
+        ctx.fillStyle = b.color;
+        ctx.fillRect(b.x,b.y,b.width,b.height);
+        if(b.y<0 || b.y>canvas.height) bullets.splice(i,1);
     });
 
-    if(enemy.y>canvas.height){ player.health-=10; enemies.splice(ei,1); }
-  });
+    // الأعداء
+    enemies.forEach((e,ei)=>{
+        e.y += e.speed;
+        ctx.fillStyle = e.color;
+        ctx.fillRect(e.x,e.y,e.width,e.height);
 
-  // الانفجارات
-  explosions.forEach((exp,i)=>{
-    exp.radius+=2; ctx.beginPath(); ctx.arc(exp.x,exp.y,exp.radius,0,Math.PI*2); ctx.fillStyle='orange'; ctx.fill();
-    if(exp.radius>30) explosions.splice(i,1);
-  });
+        // تصادم مع طلقات اللاعب
+        bullets.forEach((b,bi)=>{
+            if(b.friendly &&
+               b.x < e.x+e.width &&
+               b.x+b.width>e.x &&
+               b.y<e.y+e.height &&
+               b.y+b.height>e.y){
+                e.hp--;
+                bullets.splice(bi,1);
+                if(e.hp<=0){
+                    explode(e.x+e.width/2,e.y+e.height/2);
+                    enemies.splice(ei,1);
+                    score+=100;
+                    if(score % 1000 ===0) level++;
+                }
+            }
+        });
 
-  // عرض HUD
-  document.getElementById("ui").innerText=`Score: ${score} | Level: ${level} | Health: ${player.health}%`;
+        // تصادم مع اللاعب
+        if(player.x<e.x+e.width &&
+           player.x+player.width>e.x &&
+           player.y<e.y+e.height &&
+           player.y+player.height>e.y){
+               player.hp--;
+               enemies.splice(ei,1);
+               updateHPBar();
+               if(player.hp<=0){
+                   gameOver = true;
+                   setTimeout(()=>alert("Game Over! نقاطك: "+score),100);
+               }
+        }
 
-  requestAnimationFrame(update);
+        if(e.y>canvas.height) enemies.splice(ei,1);
+    });
+
+    // انفجارات
+    explosions.forEach((exp,i)=>{
+        exp.radius+=2;
+        ctx.beginPath();
+        ctx.arc(exp.x,exp.y,exp.radius,0,Math.PI*2);
+        ctx.fillStyle="orange";
+        ctx.fill();
+        if(exp.radius>30) explosions.splice(i,1);
+    });
+
+    // عرض النقاط والليفل
+    ctx.fillStyle="white";
+    ctx.font="20px Arial";
+    ctx.fillText("Score: "+score,20,30);
+    ctx.fillText("Level: "+level,20,60);
+
+    requestAnimationFrame(update);
 }
 
-// ==================== تحريك اللاعب ====================
-let keys={};
-document.addEventListener('keydown',e=>{keys[e.key]=true;});
-document.addEventListener('keyup',e=>{keys[e.key]=false;});
-function handleKeys(){
-  if(keys['ArrowLeft'] && player.x>0) player.x-=player.speed;
-  if(keys['ArrowRight'] && player.x+player.width<canvas.width) player.x+=player.speed;
-  if(keys[' '] || keys['ArrowUp']) shoot(player.x+player.width/2,player.y,true);
-  requestAnimationFrame(handleKeys);
-}
-handleKeys();
+// ==================== تحريك اللاعب - الكمبيوتر ====================
+document.addEventListener("keydown",e=>{
+    if(e.key==="ArrowLeft" && player.x>0) player.x-=player.speed;
+    if(e.key==="ArrowRight" && player.x+player.width<canvas.width) player.x+=player.speed;
+    if(e.key===" " && player.cooldown<=0){
+        shoot(player.x+player.width/2,player.y,true);
+        player.cooldown = 15;
+    }
+});
+setInterval(()=>{if(player.cooldown>0) player.cooldown--;},16);
 
-// تحكم الهاتف
-document.getElementById('left').addEventListener('touchstart',()=>{player.x-=player.speed;});
-document.getElementById('right').addEventListener('touchstart',()=>{player.x+=player.speed;});
-document.getElementById('shoot').addEventListener('touchstart',()=>{shoot(player.x+player.width/2,player.y,true);});
+// ==================== تحريك اللاعب - الموبايل ====================
+let touchX = null;
+canvas.addEventListener("touchstart",e=>{
+    touchX = e.touches[0].clientX;
+});
+canvas.addEventListener("touchmove",e=>{
+    const dx = e.touches[0].clientX - touchX;
+    player.x += dx;
+    if(player.x<0) player.x=0;
+    if(player.x+player.width>canvas.width) player.x=canvas.width-player.width;
+    touchX = e.touches[0].clientX;
+});
+canvas.addEventListener("touchend",e=>{
+    shoot(player.x+player.width/2,player.y,true);
+});
 
-// تشغيل اللعبة
-spawnAllies();
+// ==================== تشغيل اللعبة ====================
 setInterval(spawnEnemy,1500);
 update();
 </script>
