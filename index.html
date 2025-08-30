@@ -237,19 +237,27 @@ function addComment(){
     list.appendChild(div);
     input.value="";
 }
-
-// إشعار يظهر مرة واحدة فقط
+// 🌟 إشعار التحديث – يظهر مرة واحدة فقط
 const notify = document.getElementById('notify');
+
+// تحقق إذا المستخدم شاف الرسالة قبل كده
 if(!localStorage.getItem('updateSeen')){
-    notify.style.display='block';
+    notify.style.display = 'block'; // اعرض الرسالة
     notify.onclick = () => {
-        alert("يمكنك الآن مشاهدة صفحة التحديثات!");
-        notify.style.display='none';
+        // شغل صوت النقر لو حابب
+        const clickSound = document.getElementById('clickSound');
+        clickSound.play();
+
+        // خزن في localStorage إنها اتشافت
         localStorage.setItem('updateSeen','true');
+
+        // انتقل لصفحة الإشعارات
+        window.location.href = 'notifications.html';
     };
 } else {
-    notify.style.display='none';
+    notify.style.display = 'none'; // لو شافها قبل كده، اخفيها
 }
 </script>
 </body>
 </html>
+
