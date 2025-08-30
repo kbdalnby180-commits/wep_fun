@@ -12,6 +12,7 @@ body {
     color: #fff;
     overflow-x: hidden;
     transition: background 2s;
+    background: #000; /* لون الخلفية الأساسي أسود */
 }
 /* ⭐ النجوم */
 .stars { position: fixed; width: 100%; height: 100%; z-index: -3; }
@@ -188,8 +189,9 @@ if(!localStorage.getItem('signedUp')){
 </section>
 
 <div id="notify">🎉 تم إصدار تحديث جديد! اضغط هنا لمشاهدة التفاصيل</div>
-<audio id="clickSound" src="Awkward Apocalyptic Pickup.mp3"></audio>
-<audio id="bgMusic" src="mixkit-select-click-1109.wav" loop autoplay></audio>
+
+<audio id="bgMusic" src="sounds/Awkward_Apocalyptic_Pickup.mp3" loop autoplay></audio>
+<audio id="clickSound" src="sounds/mixkit-select-click-1109.wav"></audio>
 
 <footer>📝 جميع الحقوق محفوظة © 2025 Fun X 🎉</footer>
 
@@ -204,7 +206,7 @@ for(let i=0;i<100;i++){
     document.body.appendChild(star);
 }
 
-// الحركة الذكية للقمر/الشمس حسب الوقت
+// حركة القمر/الشمس حسب الوقت
 const celestial = document.getElementById('celestial');
 function updateCelestial(){
     const now = new Date();
@@ -237,49 +239,34 @@ function addComment(){
     list.appendChild(div);
     input.value="";
 }
-// 🌟 إشعار التحديث – يظهر مرة واحدة فقط
+
+// إشعار التحديث – يظهر مرة واحدة فقط
 const notify = document.getElementById('notify');
-
-// تحقق إذا المستخدم شاف الرسالة قبل كده
 if(!localStorage.getItem('updateSeen')){
-    notify.style.display = 'block'; // اعرض الرسالة
+    notify.style.display = 'block';
     notify.onclick = () => {
-        // شغل صوت النقر لو حابب
-        const clickSound = document.getElementById('clickSound');
-        clickSound.play();
-
-        // خزن في localStorage إنها اتشافت
+        document.getElementById('clickSound').play();
         localStorage.setItem('updateSeen','true');
-
-        // انتقل لصفحة الإشعارات
         window.location.href = 'notifications.html';
     };
 } else {
-    notify.style.display = 'none'; // لو شافها قبل كده، اخفيها
+    notify.style.display = 'none';
 }
-<!-- أصوات الخلفية والتأثيرات -->
-<audio id="bgMusic" src="sounds/Awkward_Apocalyptic_Pickup.mp3" loop autoplay></audio>
-<audio id="clickSound" src="sounds/mixkit-select-click-1109.wav"></audio>
 
-<script>
-// إعداد صوت الخلفية ليعمل هادئًا ومستمر
+// الصوت الخلفي هادي ومستمر
 const bgMusic = document.getElementById('bgMusic');
-bgMusic.volume = 0.2; // هادئ
+bgMusic.volume = 0.2;
 bgMusic.play().catch(() => {
-    // بعض المتصفحات تمنع التشغيل التلقائي، شغل بعد أول تفاعل
     document.addEventListener('click', () => bgMusic.play(), { once: true });
 });
 
-// دالة لتشغيل صوت النقر/التفاعل
+// صوت التأثيرات عند أي نقرة
 function playEffectSound() {
     const click = document.getElementById('clickSound');
     click.currentTime = 0;
     click.play();
 }
-    
+document.body.addEventListener('click', playEffectSound);
 </script>
 </body>
 </html>
-
-
-
