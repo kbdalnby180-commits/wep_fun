@@ -85,49 +85,58 @@ video {
     border-radius: 10px;
     box-shadow: 0 0 15px #000;
 }
-/* الشاشة ثابتة */
-.screen {
-  width: 100%;
-  height: 100px; /* ارتفاع الشاشة اللي يشوف المستخدم الجدول فيها */
-  overflow: hidden; /* إخفاء أي شيء خارج الشاشة */
-  background-color: #000;
-  display: flex;
-  align-items: center; /* مركز الجدول عمودياً */
+/* الحاوية التي تحتوي على الجدول */
+.table-wrapper {
+  overflow-x: auto; /* تمكين التمرير الأفقي */
+  -webkit-overflow-scrolling: touch; /* تحسين التمرير على الأجهزة المحمولة */
+  background-color: #000; /* خلفية سوداء */
+  padding: 10px 0; /* إضافة مسافة داخلية */
+  position: relative;
+  z-index: 1;
 }
 
-/* الجدول يتحرك أفقياً */
-.table-scroll {
-  overflow-x: auto; /* التمرير الأفقي فقط */
-  white-space: nowrap;
-  width: 100%;
-}
-
+/* الجدول نفسه */
 .menu-table {
-  border-collapse: collapse;
-  display: inline-block; /* ضروري للتمرير */
+  width: 100%; /* عرض الجدول 100% */
+  border-collapse: collapse; /* دمج الحدود */
+  table-layout: fixed; /* تحديد تخطيط الجدول */
 }
 
+/* رؤوس الجدول */
 .menu-table th {
-  padding: 10px 20px;
+  padding: 10px 20px; /* إضافة مسافة داخلية */
+  background-color: #333; /* خلفية رمادية داكنة */
+  text-align: center; /* محاذاة النص في المنتصف */
+  position: sticky; /* تثبيت الرأس */
+  top: 0; /* تثبيته في أعلى الحاوية */
+  z-index: 2; /* التأكد من ظهوره فوق المحتوى */
 }
 
+/* الروابط داخل الخلايا */
 .menu-table th a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  transition: transform 0.2s;
+  color: white; /* لون النص أبيض */
+  text-decoration: none; /* إزالة التسطير */
+  font-weight: bold; /* جعل الخط عريض */
+  display: block; /* جعل الرابط عنصر كتلة */
+  padding: 10px 0; /* إضافة مسافة داخلية */
+  transition: transform 0.2s; /* إضافة تأثير عند التمرير */
 }
 
-/* تكبير صغير عند المرور */
+/* تأثير التكبير عند التمرير */
 .menu-table th a:hover {
-  transform: scale(1.1);
+  transform: scale(1.1); /* تكبير الرابط عند التمرير */
 }
 
-/* الهواتف */
+/* تحسين العرض على الشاشات الصغيرة */
 @media (max-width: 768px) {
   .menu-table th {
-    padding: 8px 15px;
+    padding: 8px 15px; /* تقليل المسافة الداخلية */
+  }
+
+  .menu-table th a {
+    font-size: 14px; /* تقليل حجم الخط */
   }
 }
+
 
 
