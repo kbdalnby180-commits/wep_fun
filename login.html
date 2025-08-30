@@ -1,119 +1,17 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تسجيل الدخول - Fun X</title>
-  <style>
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-      font-family: "Cairo", Arial, sans-serif;
-    }
-    body {
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
-      color: #fff;
-    }
-    /* خلفية متحركة */
-    body::before {
-      content: "";
-      position: absolute;
-      top: -50%; left: -50%;
-      width: 200%; height: 200%;
-      background: radial-gradient(circle, rgba(0,212,255,0.2) 0%, transparent 70%);
-      animation: rotateBg 20s linear infinite;
-    }
-    @keyframes rotateBg {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    .login-container {
-      position: relative;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(12px);
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-      width: 350px;
-      text-align: center;
-      animation: fadeIn 1s ease-in-out;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(-20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-    h2 {
-      margin-bottom: 25px;
-      font-size: 26px;
-      font-weight: bold;
-      color: #00d4ff;
-      letter-spacing: 1px;
-    }
-    .input-group {
-      position: relative;
-      margin: 15px 0;
-    }
-    .input-group input {
-      width: 100%;
-      padding: 12px 15px;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 10px;
-      outline: none;
-      background: rgba(0,0,0,0.4);
-      color: #fff;
-      font-size: 14px;
-      transition: 0.3s;
-    }
-    .input-group input:focus {
-      border-color: #00d4ff;
-      box-shadow: 0 0 8px #00d4ff;
-    }
-    button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 20px;
-      border: none;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #00d4ff, #007bff);
-      color: #fff;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    button:hover {
-      transform: scale(1.05);
-      background: linear-gradient(135deg, #00aacc, #0056b3);
-    }
-    .signup-link {
-      margin-top: 20px;
-      font-size: 14px;
-      color: #ccc;
-    }
-    .signup-link a {
-      color: #00d4ff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .signup-link a:hover {
-      text-decoration: underline;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تسجيل الدخول - Fun X</title>
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="auth-body">
   <div class="login-container">
-    <h2>🔑 تسجيل الدخول</h2>
+    <h2>تسجيل الدخول</h2>
     <form id="loginForm">
-      <div class="input-group">
-        <input type="email" id="email" placeholder="البريد الإلكتروني" required>
-      </div>
-      <div class="input-group">
-        <input type="password" id="password" placeholder="كلمة المرور" required>
-      </div>
+      <input type="email" id="email" placeholder="البريد الإلكتروني" required>
+      <input type="password" id="password" placeholder="كلمة المرور" required>
       <button type="submit">دخول</button>
     </form>
     <div class="signup-link">
@@ -121,15 +19,38 @@
     </div>
   </div>
 
-  <script>
-    document.getElementById("loginForm").addEventListener("submit", function(e){
-      e.preventDefault();
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-      // 🔹 مكان ربط Firebase Authentication
-      alert("📧 " + email + "\n🔒 " + password + "\n(لسه مش مربوط بـ Firebase)");
-    });
-  </script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBwET1o7kvQ9bmaJeYYFrPQiztMMWnzvk8",
+  authDomain: "funx-site.firebaseapp.com",
+  projectId: "funx-site",
+  storageBucket: "funx-site.firebasestorage.app",
+  messagingSenderId: "760681309946",
+  appId: "1:760681309946:web:409b4e70c4e257672b0b43",
+  measurementId: "G-68NP5TBNQT"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// ✅ لو المستخدم فاتح بالفعل، يروح للصفحة الرئيسية
+onAuthStateChanged(auth, (user) => {
+  if (user) window.location.href = "index.html";
+});
+
+// ✅ تسجيل الدخول
+document.getElementById("loginForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => window.location.href = "index.html")
+    .catch(err => alert("❌ خطأ: " + err.message));
+});
+</script>
 </body>
 </html>
