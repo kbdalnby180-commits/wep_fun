@@ -1,72 +1,119 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>تسجيل الدخول - Fun X</title>
   <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: "Cairo", Arial, sans-serif;
+    }
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #1e1e2f, #2c2c54);
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
+      overflow: hidden;
       color: #fff;
     }
+    /* خلفية متحركة */
+    body::before {
+      content: "";
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(0,212,255,0.2) 0%, transparent 70%);
+      animation: rotateBg 20s linear infinite;
+    }
+    @keyframes rotateBg {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
     .login-container {
-      background: #2f2f45;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0px 5px 20px rgba(0,0,0,0.4);
-      width: 300px;
+      position: relative;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+      width: 350px;
       text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
     }
     h2 {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      font-size: 26px;
+      font-weight: bold;
       color: #00d4ff;
+      letter-spacing: 1px;
     }
-    input {
-      width: 90%;
-      padding: 10px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 8px;
+    .input-group {
+      position: relative;
+      margin: 15px 0;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
       outline: none;
+      background: rgba(0,0,0,0.4);
+      color: #fff;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+    .input-group input:focus {
+      border-color: #00d4ff;
+      box-shadow: 0 0 8px #00d4ff;
     }
     button {
-      width: 95%;
-      padding: 10px;
-      margin-top: 15px;
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
       border: none;
-      border-radius: 8px;
-      background: #00d4ff;
-      color: #000;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #00d4ff, #007bff);
+      color: #fff;
+      font-size: 16px;
       font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
     }
     button:hover {
-      background: #00aacc;
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #00aacc, #0056b3);
     }
     .signup-link {
-      margin-top: 15px;
-      display: block;
-      color: #aaa;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #ccc;
     }
     .signup-link a {
       color: #00d4ff;
       text-decoration: none;
+      font-weight: bold;
+    }
+    .signup-link a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
   <div class="login-container">
-    <h2>تسجيل الدخول</h2>
+    <h2>🔑 تسجيل الدخول</h2>
     <form id="loginForm">
-      <input type="email" id="email" placeholder="البريد الإلكتروني" required>
-      <input type="password" id="password" placeholder="كلمة المرور" required>
+      <div class="input-group">
+        <input type="email" id="email" placeholder="البريد الإلكتروني" required>
+      </div>
+      <div class="input-group">
+        <input type="password" id="password" placeholder="كلمة المرور" required>
+      </div>
       <button type="submit">دخول</button>
     </form>
     <div class="signup-link">
@@ -74,15 +121,14 @@
     </div>
   </div>
 
-  <!-- 🔹 ملف Firebase لسه مش مضاف -->
   <script>
     document.getElementById("loginForm").addEventListener("submit", function(e){
       e.preventDefault();
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
 
-      // لسه مش مربوط بـ Firebase
-      alert("محاولة تسجيل دخول\nالإيميل: " + email + "\nالباسورد: " + password);
+      // 🔹 مكان ربط Firebase Authentication
+      alert("📧 " + email + "\n🔒 " + password + "\n(لسه مش مربوط بـ Firebase)");
     });
   </script>
 </body>
