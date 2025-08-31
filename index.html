@@ -12,7 +12,7 @@ body {
     color: #fff;
     overflow-x: hidden;
     transition: background 2s;
-    background: #000; /* لون الخلفية الأساسي أسود */
+    background: #000;
 }
 /* ⭐ النجوم */
 .stars { position: fixed; width: 100%; height: 100%; z-index: -3; }
@@ -100,22 +100,6 @@ video {
     max-width:100%;
     transition: transform 0.3s, box-shadow 0.3s;
     position: relative; z-index:1;
-}
-video::after {
-    content:'';
-    position:absolute; top:0; left:0;
-    width:100%; height:100%;
-    border-radius:10px;
-    background: linear-gradient(120deg, rgba(0,255,255,0.15), rgba(255,0,255,0.15));
-    mix-blend-mode: overlay;
-    pointer-events: none;
-    animation: holo 3s linear infinite;
-    z-index:2;
-}
-@keyframes holo {
-    0% { transform: translateX(0) translateY(0); }
-    50% { transform: translateX(5px) translateY(-5px); }
-    100% { transform: translateX(0) translateY(0); }
 }
 /* التعليقات */
 .comment-box { margin-top: 20px; text-align:center; }
@@ -260,11 +244,17 @@ bgMusic.play().catch(() => {
     document.addEventListener('click', () => bgMusic.play(), { once: true });
 });
 
+// الفيديو الرئيسي يتحكم بالموسيقى الخلفية
+const mainVideo = document.getElementById('mainVideo');
+mainVideo.addEventListener('play', () => { bgMusic.pause(); });
+mainVideo.addEventListener('pause', () => { if(!mainVideo.ended) bgMusic.play(); });
+mainVideo.addEventListener('ended', () => { bgMusic.play(); });
+
 // صوت التأثيرات عند أي نقرة
+const clickSound = document.getElementById('clickSound');
 function playEffectSound() {
-    const click = document.getElementById('clickSound');
-    click.currentTime = 0;
-    click.play();
+    clickSound.currentTime = 0;
+    clickSound.play();
 }
 document.body.addEventListener('click', playEffectSound);
 </script>
