@@ -14,6 +14,7 @@ body {
     transition: background 2s;
     background: #000;
 }
+
 /* ⭐ النجوم */
 .stars { position: fixed; width: 100%; height: 100%; z-index: -3; }
 .star {
@@ -24,6 +25,7 @@ body {
     opacity: 0;
 }
 @keyframes twinkle { 0%,100% { opacity: 0.2; } 50% { opacity: 1; } }
+
 /* 🌙 / ☀️ القمر والشمس */
 .celestial {
     position: fixed;
@@ -33,10 +35,12 @@ body {
     z-index: -2;
     transition: all 1s linear;
 }
+
 /* ☁️ الغيوم تتحرك */
 .cloud { position: fixed; top:20%; width:300px; height:80px; background: rgba(255,255,255,0.05); border-radius:50%; animation: cloudMove 120s linear infinite; z-index:-1; }
 .cloud:nth-child(2) { top:50%; width:500px; height:100px; animation-duration:200s; }
 @keyframes cloudMove { 0% { left:-500px; } 100% { left:100%; } }
+
 /* 🟥 الهيدر */
 header {
     background: rgba(0,0,0,0.85);
@@ -54,6 +58,7 @@ header {
 }
 header a { color:#fc0000; text-decoration:none; transition:0.3s; }
 header a:hover { color:#f83a00; text-shadow:0 0 20px #f83a00,0 0 30px #ff4500; transform:scale(1.05); }
+
 /* جدول الروابط */
 table {
     background: rgba(0,0,0,0.75);
@@ -68,6 +73,7 @@ table {
 table th { padding: 15px 20px; border: 1px solid #333; border-radius:6px; transition:0.3s; }
 table th a { color: #f83a00; text-decoration: none; font-weight: bold; transition: transform 0.3s,color 0.3s,text-shadow 0.3s; }
 table th a:hover { transform: scale(1.2); color: #00eaff; text-shadow: 0 0 15px #00eaff, 0 0 25px #00ffff; }
+
 /* الفيديوهات */
 section {
     margin: 20px;
@@ -101,6 +107,23 @@ video {
     transition: transform 0.3s, box-shadow 0.3s;
     position: relative; z-index:1;
 }
+video::after {
+    content:'';
+    position:absolute; top:0; left:0;
+    width:100%; height:100%;
+    border-radius:10px;
+    background: linear-gradient(120deg, rgba(0,255,255,0.15), rgba(255,0,255,0.15));
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    animation: holo 3s linear infinite;
+    z-index:2;
+}
+@keyframes holo {
+    0% { transform: translateX(0) translateY(0); }
+    50% { transform: translateX(5px) translateY(-5px); }
+    100% { transform: translateX(0) translateY(0); }
+}
+
 /* التعليقات */
 .comment-box { margin-top: 20px; text-align:center; }
 .comment-box input, .comment-box button { padding: 10px; margin: 5px; border-radius:6px; border:none; }
@@ -111,8 +134,10 @@ video {
     margin-top:15px; max-height:200px; overflow-y:auto;
     background: rgba(255,255,255,0.05); padding:10px; border-radius:8px;
 }
+
 /* إشعار */
 #notify { position:fixed; bottom:20px; right:20px; background:#f83a00; color:#fff; padding:12px 20px; border-radius:10px; box-shadow:0 0 20px #000; display:none; font-weight:bold; z-index:1000; cursor:pointer; }
+
 /* الهواتف */
 @media(max-width:768px){
     header{font-size:22px;}
@@ -121,6 +146,7 @@ video {
     video{max-width:100%;height:auto;}
     .comment-box input{width:55%;}
 }
+
 footer{
     text-align:center;
     padding:15px;
@@ -224,7 +250,7 @@ function addComment(){
     input.value="";
 }
 
-// إشعار التحديث – يظهر مرة واحدة فقط
+// إشعار التحديث
 const notify = document.getElementById('notify');
 if(!localStorage.getItem('updateSeen')){
     notify.style.display = 'block';
@@ -244,19 +270,20 @@ bgMusic.play().catch(() => {
     document.addEventListener('click', () => bgMusic.play(), { once: true });
 });
 
-// الفيديو الرئيسي يتحكم بالموسيقى الخلفية
+// صوت التأثيرات عند أي نقرة
+function playEffectSound() {
+    const click = document.getElementById('clickSound');
+    click.currentTime = 0;
+    click.play();
+}
+document.body.addEventListener('click', playEffectSound);
+
+// إيقاف bgMusic عند تشغيل الفيديو وإعادة التشغيل بعده
 const mainVideo = document.getElementById('mainVideo');
 mainVideo.addEventListener('play', () => { bgMusic.pause(); });
 mainVideo.addEventListener('pause', () => { if(!mainVideo.ended) bgMusic.play(); });
 mainVideo.addEventListener('ended', () => { bgMusic.play(); });
 
-// صوت التأثيرات عند أي نقرة
-const clickSound = document.getElementById('clickSound');
-function playEffectSound() {
-    clickSound.currentTime = 0;
-    clickSound.play();
-}
-document.body.addEventListener('click', playEffectSound);
 </script>
 </body>
 </html>
