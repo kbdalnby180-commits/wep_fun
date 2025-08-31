@@ -1,173 +1,191 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تقييمات Fun X</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #f5a623, #f76b1c);
-            color: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تقييمات Fun X</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background:#000;
+    color:#fff;
+    margin:0;
+    padding:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    overflow-x:hidden;
+    transition: background 2s;
+}
+/* ⭐ النجوم */
+.stars { position: fixed; width: 100%; height: 100%; z-index: -3; }
+.star {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    animation: twinkle 6s linear infinite;
+    opacity: 0;
+}
+@keyframes twinkle { 0%,100% { opacity: 0.2; } 50% { opacity: 1; } }
 
-        .container {
-            background: #fff;
-            padding: 30px 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-        }
+/* 🌙 القمر */
+.celestial {
+    position: fixed;
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    box-shadow: 0 0 30px #fff;
+    z-index: -2;
+}
 
-        h1 {
-            margin-bottom: 20px;
-            color: #f76b1c;
-        }
+.container {
+    background: rgba(0,0,0,0.85);
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+}
+h1 {
+    margin-bottom: 20px;
+    color: #f76b1c;
+}
+.stars-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.stars-container input { display:none; }
+.stars-container label {
+    font-size:40px;
+    color:#ccc;
+    padding:5px;
+    cursor:pointer;
+    transition:0.3s;
+}
+.stars-container input:checked ~ label,
+.stars-container label:hover,
+.stars-container label:hover ~ label { color:#f76b1c; }
 
-        .stars {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
+textarea {
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    resize:none;
+    height:80px;
+    margin-bottom:20px;
+}
 
-        .stars input {
-            display: none;
-        }
+button {
+    background: #f76b1c;
+    color:#fff;
+    border:none;
+    padding:12px 30px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+    transition:0.3s;
+}
+button:hover { background:#f5a623; }
 
-        .stars label {
-            font-size: 40px;
-            color: #ccc;
-            padding: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .stars input:checked ~ label,
-        .stars label:hover,
-        .stars label:hover ~ label {
-            color: #f76b1c;
-        }
-
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid #ccc;
-            resize: none;
-            height: 80px;
-            margin-bottom: 20px;
-        }
-
-        button {
-            background: #f76b1c;
-            color: #fff;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background: #f5a623;
-        }
-
-        .comment-list {
-            margin-top: 20px;
-            text-align: right;
-        }
-
-        .comment {
-            background: #f9f9f9;
-            padding: 10px 15px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            text-align: right;
-        }
-    </style>
+.comment-list {
+    margin-top:20px;
+    text-align:right;
+}
+.comment {
+    background: rgba(255,255,255,0.1);
+    padding:10px 15px;
+    border-radius:10px;
+    margin-bottom:10px;
+    text-align:right;
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>تقييمات Fun X</h1>
 
-        <div class="stars">
-            <input type="radio" id="star5" name="rating" value="5">
-            <label for="star5">&#9733;</label>
-            <input type="radio" id="star4" name="rating" value="4">
-            <label for="star4">&#9733;</label>
-            <input type="radio" id="star3" name="rating" value="3">
-            <label for="star3">&#9733;</label>
-            <input type="radio" id="star2" name="rating" value="2">
-            <label for="star2">&#9733;</label>
-            <input type="radio" id="star1" name="rating" value="1">
-            <label for="star1">&#9733;</label>
-        </div>
+<div class="stars"></div>
+<div class="celestial"></div>
 
-        <textarea id="comment" placeholder="اكتب تعليقك هنا..."></textarea>
-        <button onclick="addComment()">أرسل التقييم</button>
+<div class="container">
+    <h1>تقييمات Fun X</h1>
 
-        <div class="comment-list" id="comment-list">
-            <!-- التعليقات هتظهر هنا -->
-        </div>
+    <div class="stars-container">
+        <input type="radio" id="star5" name="rating" value="5">
+        <label for="star5">&#9733;</label>
+        <input type="radio" id="star4" name="rating" value="4">
+        <label for="star4">&#9733;</label>
+        <input type="radio" id="star3" name="rating" value="3">
+        <label for="star3">&#9733;</label>
+        <input type="radio" id="star2" name="rating" value="2">
+        <label for="star2">&#9733;</label>
+        <input type="radio" id="star1" name="rating" value="1">
+        <label for="star1">&#9733;</label>
     </div>
 
-    <script>
-        function addComment() {
-            const rating = document.querySelector('input[name="rating"]:checked');
-            const commentText = document.getElementById('comment').value.trim();
+    <textarea id="comment" placeholder="اكتب تعليقك هنا..."></textarea>
+    <button onclick="addComment()">أرسل التقييم</button>
 
-            if (!rating) {
-                alert('من فضلك اختر تقييم بالنجوم!');
-                return;
-            }
+    <div class="comment-list" id="comment-list"></div>
+</div>
 
-            if (!commentText) {
-                alert('من فضلك اكتب تعليقك!');
-                return;
-            }
-
-            const commentList = document.getElementById('comment-list');
-
-            const div = document.createElement('div');
-            div.classList.add('comment');
-            div.innerHTML = `⭐ ${rating.value} - ${commentText}`;
-
-            commentList.prepend(div);
-
-            // تنظيف النموذج
-            document.getElementById('comment').value = '';
-            rating.checked = false;
-        }
-
-<!-- أصوات الخلفية والتأثيرات -->
 <audio id="bgMusic" src="sounds/Awkward_Apocalyptic_Pickup.mp3" loop autoplay></audio>
 <audio id="clickSound" src="sounds/mixkit-select-click-1109.wav"></audio>
 
 <script>
-// إعداد صوت الخلفية ليعمل هادئًا ومستمر
-const bgMusic = document.getElementById('bgMusic');
-bgMusic.volume = 0.2; // هادئ
-bgMusic.play().catch(() => {
-    // بعض المتصفحات تمنع التشغيل التلقائي، شغل بعد أول تفاعل
-    document.addEventListener('click', () => bgMusic.play(), { once: true });
-});
+// النجوم
+for(let i=0;i<100;i++){
+    const star=document.createElement('div');
+    star.className='star';
+    star.style.top=Math.random()*100+'%';
+    star.style.left=Math.random()*100+'%';
+    star.style.width=star.style.height=Math.random()*2+1+'px';
+    document.body.appendChild(star);
+}
 
-// دالة لتشغيل صوت النقر/التفاعل
-function playEffectSound() {
+// القمر حسب الوقت
+const celestial = document.querySelector('.celestial');
+function updateCelestial(){
+    const now = new Date();
+    const hour = now.getHours() + now.getMinutes()/60;
+    const percent = hour/24;
+    celestial.style.top = `${10 + percent*60}%`;
+    celestial.style.left = `${10 + percent*80}%`;
+}
+setInterval(updateCelestial,1000);
+updateCelestial();
+
+// أصوات الخلفية والتفاعل
+const bgMusic = document.getElementById('bgMusic');
+bgMusic.volume=0.2;
+bgMusic.play().catch(() => {
+    document.addEventListener('click', ()=>bgMusic.play(), {once:true});
+});
+document.body.addEventListener('click', ()=>{
     const click = document.getElementById('clickSound');
     click.currentTime = 0;
     click.play();
+});
+
+// إضافة التعليقات
+function addComment(){
+    const rating = document.querySelector('input[name="rating"]:checked');
+    const commentText = document.getElementById('comment').value.trim();
+
+    if(!rating){ alert('من فضلك اختر تقييم بالنجوم!'); return; }
+    if(!commentText){ alert('من فضلك اكتب تعليقك!'); return; }
+
+    const commentList = document.getElementById('comment-list');
+    const div = document.createElement('div');
+    div.classList.add('comment');
+    div.innerHTML = `⭐ ${rating.value} - ${commentText}`;
+    commentList.prepend(div);
+
+    document.getElementById('comment').value='';
+    rating.checked=false;
 }
-        
-    </script>
+</script>
+
 </body>
 </html>
