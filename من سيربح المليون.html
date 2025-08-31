@@ -141,6 +141,10 @@ header h1 {
 
 <div id="notify"></div>
 
+<!-- أصوات الخلفية -->
+<audio id="bgMusic" src="sounds/Awkward_Apocalyptic_Pickup.mp3" loop autoplay></audio>
+<audio id="clickSound" src="sounds/mixkit-select-click-1109.wav"></audio>
+
 <script>
 // 🌟 النجوم
 for(let i=0;i<100;i++){
@@ -196,16 +200,10 @@ function checkAnswer(selectedIndex){
 
 loadQuestion();
 
-<!-- أصوات الخلفية والتأثيرات -->
-<audio id="bgMusic" src="sounds/Awkward_Apocalyptic_Pickup.mp3" loop autoplay></audio>
-<audio id="clickSound" src="sounds/mixkit-select-click-1109.wav"></audio>
-
-<script>
 // إعداد صوت الخلفية ليعمل هادئًا ومستمر
 const bgMusic = document.getElementById('bgMusic');
-bgMusic.volume = 0.2; // هادئ
+bgMusic.volume = 0.2; 
 bgMusic.play().catch(() => {
-    // بعض المتصفحات تمنع التشغيل التلقائي، شغل بعد أول تفاعل
     document.addEventListener('click', () => bgMusic.play(), { once: true });
 });
 
@@ -215,9 +213,6 @@ function playEffectSound() {
     click.currentTime = 0;
     click.play();
 }
-
-    
 </script>
 </body>
 </html>
-
