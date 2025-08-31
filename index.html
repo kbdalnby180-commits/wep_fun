@@ -265,7 +265,7 @@ if(!localStorage.getItem('updateSeen')){
 
 // الصوت الخلفي هادي ومستمر
 const bgMusic = document.getElementById('bgMusic');
-bgMusic.volume = 0.2;
+bgMusic.volume = 1.0;
 bgMusic.play().catch(() => {
     document.addEventListener('click', () => bgMusic.play(), { once: true });
 });
@@ -287,3 +287,4 @@ mainVideo.addEventListener('ended', () => { bgMusic.play(); });
 </script>
 </body>
 </html>
+
