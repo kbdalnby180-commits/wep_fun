@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لعبة XO</title>
+<style>
+body {
+  margin: 0;
+  font-family: Tahoma, Arial, sans-serif;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* خلفية نجوم */
+.stars {
+  width: 100%;
+  height: 100%;
+  background: transparent url("https://www.transparenttextures.com/patterns/stardust.png") repeat;
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 0;
+  animation: moveStars 200s linear infinite;
+}
+@keyframes moveStars {
+  from {background-position: 0 0;}
+  to {background-position: 10000px 5000px;}
+}
+
+/* القمر */
+.moon {
+  width: 100px;
+  height: 100px;
+  background: #fff;
+  border-radius: 50%;
+  position: fixed;
+  top: 40px;
+  right: 60px;
+  box-shadow: 0 0 40px #fff;
+  z-index: 1;
+}
+
+/* القائمة */
+.menu {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+.menu button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+}
+.menu button:hover {
+  background: #1e40af;
+}
+
+/* اللوحة */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3,100px);
+  grid-template-rows: repeat(3,100px);
+  gap: 5px;
+  position: relative;
+  z-index: 2;
+  margin-top: 20px;
+}
+.cell {
+  background: rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+.cell:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+#status {
+  margin-top: 20px;
+  font-size: 20px;
+  z-index: 2;
+}
+#restart {
+  margin-top: 15px;
+  padding: 8px 16px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+  z-index: 2;
+  display: none;
+}
+#restart:hover {
+  background: #1e40af;
+}
+</style>
+</head>
+<body>
+<div class="stars"></div>
+<div class="moon"></div>
+
+<div class="menu" id="menu">
+  <h1>اختر وضع اللعبة 🎮</h1>
+  <button onclick="startGame('bot')">ضد روبوت 🤖</button>
+  <button onclick="startGame('human')">ضد لاعب 👤</button>
+</div>
+
+<div class="board" id="board" style="display:none;"></div>
+<div id="status"></div>
+<button id="restart" onclick="restart()">إعادة اللعب</button>
+
+<script>
+const board = document.getElementById("board");
+const statusEl = document.getElementById("status");
+const restartBtn = document.getElementById("restart");
+const menu = document.getElementById("menu");
+let cells = [];
+let gameOver = false;
+let mode = "bot"; // افتراضي ضد روبوت
+let currentPlayer = "X";
+
+function startGame(selectedMode){
+  mode = selectedMode;
+  menu.style.display = "none";
+  board.style.display = "grid";
+  restartBtn.style.display = "inline-block";
+  statusEl.textContent = "ابدأ اللعب!";
+  initBoard();
+}
+
+function initBoard(){
+  board.innerHTML = "";
+  cells = [];
+  gameOver = false;
+  currentPlayer = "X";
+  for (let i=0; i<9; i++){
+    let cell = document.createElement("div");
+    cell.classList.add("cell");
+    cell.addEventListener("click", ()=>playerMove(i));
+    board.appendChild(cell);
+    cells.push(cell);
+  }
+}
+
+function playerMove(i){
+  if (cells[i].textContent || gameOver) return;
+  cells[i].textContent = currentPlayer;
+
+  if (checkWin(currentPlayer)) {
+    statusEl.textContent = (currentPlayer==="X"?"🎉 اللاعب X كسب!":"🎉 اللاعب O كسب!");
+    gameOver = true;
+    return;
+  }
+  if (isDraw()) {
+    statusEl.textContent = "🤝 تعادل!";
+    gameOver = true;
+    return;
+  }
+
+  if (mode==="human") {
+    currentPlayer = currentPlayer==="X" ? "O" : "X";
+    statusEl.textContent = "الدور على " + currentPlayer;
+  } else {
+    if (currentPlayer==="X") {
+      setTimeout(botMove, 500);
+    }
+  }
+}
+
+/* الروبوت الذكي باستخدام Minimax */
+function botMove(){
+  let bestScore = -Infinity;
+  let move;
+  for (let i=0; i<9; i++){
+    if (!cells[i].textContent){
+      cells[i].textContent = "O";
+      let score = minimax(cells, 0, false);
+      cells[i].textContent = "";
+      if (score > bestScore){
+        bestScore = score;
+        move = i;
+      }
+    }
+  }
+  cells[move].textContent = "O";
+
+  if (checkWin("O")) {statusEl.textContent="🤖 الروبوت كسب!"; gameOver=true; return;}
+  if (isDraw()) {statusEl.textContent="🤝 تعادل!"; gameOver=true; return;}
+}
+
+function minimax(boardState, depth, isMaximizing){
+  if (checkWin("O")) return 10 - depth;
+  if (checkWin("X")) return depth - 10;
+  if (isDraw()) return 0;
+
+  if (isMaximizing){
+    let bestScore = -Infinity;
+    for (let i=0; i<9; i++){
+      if (!boardState[i].textContent){
+        boardState[i].textContent = "O";
+        let score = minimax(boardState, depth+1, false);
+        boardState[i].textContent = "";
+        bestScore = Math.max(score, bestScore);
+      }
+    }
+    return bestScore;
+  } else {
+    let bestScore = Infinity;
+    for (let i=0; i<9; i++){
+      if (!boardState[i].textContent){
+        boardState[i].textContent = "X";
+        let score = minimax(boardState, depth+1, true);
+        boardState[i].textContent = "";
+        bestScore = Math.min(score, bestScore);
+      }
+    }
+    return bestScore;
+  }
+}
+
+function checkWin(player){
+  const wins = [
+    [0,1,2],[3,4,5],[6,7,8],
+    [0,3,6],[1,4,7],[2,5,8],
+    [0,4,8],[2,4,6]
+  ];
+  return wins.some(comb => comb.every(idx => cells[idx].textContent===player));
+}
+
+function isDraw(){
+  return cells.every(c=>c.textContent);
+}
+
+function restart(){
+  initBoard();
+  statusEl.textContent="ابدأ اللعب!";
+}
+</script>
+</body>
+</html>

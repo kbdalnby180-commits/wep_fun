@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎴 لعبة الورق المتشابه</title>
+<style>
+ body {
+   font-family: Tahoma, Arial, sans-serif;
+   background: linear-gradient(180deg,#0f172a,#1e293b);
+   color: #fff;
+   text-align: center;
+   padding: 20px;
+   min-height: 100vh;
+ }
+ h1 {
+   background: #dc2626;
+   padding: 10px;
+   border-radius: 12px;
+   box-shadow: 0 4px 12px rgba(0,0,0,.3);
+   display: inline-block;
+ }
+ .controls {
+   margin: 20px 0;
+ }
+ select, button {
+   padding: 8px 12px;
+   border-radius: 8px;
+   border: none;
+   cursor: pointer;
+   margin: 5px;
+ }
+ select { background:#fff; color:#000; }
+ button {
+   background: #2563eb;
+   color: #fff;
+ }
+ .game-board {
+   display: grid;
+   gap: 10px;
+   justify-content: center;
+   margin-top: 20px;
+ }
+ .card {
+   width: 80px;
+   height: 100px;
+   background: #334155;
+   border-radius: 12px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-size: 2rem;
+   cursor: pointer;
+   transition: transform 0.3s;
+   box-shadow: 0 4px 10px rgba(0,0,0,.4);
+ }
+ .card.flipped {
+   background: #facc15;
+   color: #000;
+   transform: rotateY(180deg);
+ }
+ .hidden { visibility: hidden; }
+</style>
+</head>
+<body>
+<h1>🎴 لعبة الورق المتشابه</h1>
+
+<div class="controls">
+ <label>اختر المستوى: </label>
+ <select id="level">
+   <option value="6">سهل (6 أزواج)</option>
+   <option value="12">متوسط (12 زوج)</option>
+   <option value="20">صعب (20 زوج)</option>
+ </select>
+ <button onclick="startGame()">ابدأ اللعبة</button>
+</div>
+
+<div id="game" class="game-board"></div>
+
+<script>
+const emojis = ["🍎","🍌","🍇","🍉","🍒","🥑","🥕","🥦","🍔","🍕","🍟","🍩",
+"🍪","🍫","🍿","🥤","⚽","🏀","🏈","🎾","🎲","🎯","🎹","🎸","🎺",
+"🚗","✈️","🚀","🚲","🛵","🏰","🌋","🌙","⭐","☀️","🌈","❄️",
+"🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼","🐸","🐵","🐧","🐦","🐤","🐴"];
+
+let firstCard=null, secondCard=null, lock=false, matches=0;
+
+function startGame(){
+  const game=document.getElementById("game");
+  game.innerHTML="";
+  let level=document.getElementById("level").value;
+  let pairs=parseInt(level);
+  let selected=emojis.sort(()=>0.5-Math.random()).slice(0,pairs);
+  let cards=[...selected,...selected].sort(()=>0.5-Math.random());
+  
+  // تحديد الأعمدة حسب العدد
+  if(pairs<=6) game.style.gridTemplateColumns="repeat(4, 80px)";
+  else if(pairs<=12) game.style.gridTemplateColumns="repeat(6, 80px)";
+  else game.style.gridTemplateColumns="repeat(8, 80px)";
+  
+  matches=0; firstCard=secondCard=null; lock=false;
+  
+  cards.forEach(emoji=>{
+    const card=document.createElement("div");
+    card.classList.add("card");
+    card.dataset.emoji=emoji;
+    card.addEventListener("click", flipCard);
+    game.appendChild(card);
+  });
+}
+
+function flipCard(){
+  if(lock||this===firstCard) return;
+  this.textContent=this.dataset.emoji;
+  this.classList.add("flipped");
+  
+  if(!firstCard){
+    firstCard=this;
+  } else {
+    secondCard=this;
+    lock=true;
+    if(firstCard.dataset.emoji===secondCard.dataset.emoji){
+      setTimeout(()=>{
+        firstCard.classList.add("hidden");
+        secondCard.classList.add("hidden");
+        resetTurn();
+        matches++;
+        let total=document.getElementById("level").value;
+        if(matches==total){
+          setTimeout(()=>alert("🎉 مبروك! أنهيت اللعبة"),500);
+        }
+      },500);
+    } else {
+      setTimeout(()=>{
+        firstCard.textContent="";
+        secondCard.textContent="";
+        firstCard.classList.remove("flipped");
+        secondCard.classList.remove("flipped");
+        resetTurn();
+      },800);
+    }
+  }
+}
+
+function resetTurn(){
+  [firstCard,secondCard,lock]=[null,null,false];
+}
+</script>
+</body>
+</html>
