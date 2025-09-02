@@ -15,11 +15,11 @@ body{overflow-x:hidden;color:#fff;transition:background 1s;}
 @keyframes twinkle{0%,100%{opacity:0.2;}50%{opacity:1;}}
 
 /* القمر والشمس */
-.celestial{position:fixed;width:80px;height:80px;border-radius:50%;box-shadow:0 0 30px #fff;z-index:-2;transition:all 1s linear;}
+.celestial{position:fixed;width:70px;height:70px;border-radius:50%;box-shadow:0 0 30px #fff;z-index:-2;transition:all 1s linear;}
 
 /* الغيوم */
 .cloud{position:fixed;width:200px;height:60px;background:rgba(255,255,255,0.05);border-radius:50%;animation:cloudMove 120s linear infinite;z-index:-1;}
-.cloud:nth-child(2){top:50%;width:400px;height:90px;animation-duration:200s;}
+.cloud:nth-child(2){top:50%;width:350px;height:80px;animation-duration:200s;}
 @keyframes cloudMove{0%{left:-500px;}100%{left:100%;}}
 
 /* الهيدر */
@@ -34,10 +34,10 @@ header{
     display:flex; align-items:center; gap:10px;
 }
 #siteLogo{
-    width:36px; height:36px; object-fit:contain; border-radius:6px; box-shadow:0 0 8px #f83a00;
+    width:34px; height:34px; object-fit:contain; border-radius:6px; box-shadow:0 0 8px #f83a00;
 }
 #siteName{
-  font-size:22px; font-weight:bold; text-shadow:0 0 6px #f83a00, 0 0 12px #ff4500;
+  font-size:20px; font-weight:bold; text-shadow:0 0 6px #f83a00, 0 0 12px #ff4500;
 }
 
 /* الوقت والتاريخ */
@@ -47,8 +47,8 @@ header{
   border-radius:10px; box-shadow: 0 0 12px #0ff inset, 0 0 25px #0ff;
 }
 #timeCalendar{display:flex; flex-direction:column; align-items:flex-end; font-family:'Courier New', monospace; color:#0ff;}
-#clock{font-size:22px;font-weight:bold;}
-#calendar{font-size:16px;font-weight:bold;}
+#clock{font-size:20px;font-weight:bold;}
+#calendar{font-size:14px;font-weight:bold;}
 
 /* زر القائمة */
 #menuToggle{
@@ -67,7 +67,7 @@ header{
 #sideMenu a:hover{color:#00eaff;transform:translateX(-4px);}
 
 /* البحث */
-#searchBox{width:90%;max-width:450px;margin:90px auto 20px auto;display:flex;}
+#searchBox{width:95%;max-width:500px;margin:90px auto 20px auto;display:flex;}
 #searchBox input[type=text]{flex:1;padding:10px;border-radius:8px 0 0 8px;border:none;font-size:14px;}
 #searchBox button{padding:10px 16px;border:none;border-radius:0 8px 8px 0;background:#f83a00;color:#fff;cursor:pointer;}
 
@@ -81,13 +81,14 @@ video{width:100%;border-radius:10px;max-width:100%;}
 
 /* تهيئة للهاتف */
 @media(max-width:768px){
-  header{flex-direction:row;height:70px;padding:0 10px;}
-  #siteName{font-size:18px;}
-  #clock{font-size:18px;}
-  #calendar{font-size:14px;}
+  header{flex-direction:row;height:65px;padding:0 8px;}
+  #siteLogo{width:30px;height:30px;}
+  #siteName{font-size:16px;}
+  #clock{font-size:16px;}
+  #calendar{font-size:12px;}
   #sideMenu{width:100%;max-width:none;}
-  section h2{font-size:18px;}
-  video{height:auto;}
+  section h2{font-size:16px;}
+  #searchBox{width:92%;}
 }
 footer{text-align:center;padding:10px;font-size:12px;color:#f83a00;}
 </style>
@@ -118,15 +119,15 @@ footer{text-align:center;padding:10px;font-size:12px;color:#f83a00;}
 <a href="من سيربح المليون.html">❓ Game Question</a>
 <a href="music.html">🕋 Quran 🕋</a>
 <a href="https://kbdalnby180-commits.github.io/crash-plane/">🛫 Plan X 🛫</a>
-<a href="gogo.html">لعبة الصراحه والجرأة</a>
+<a href="gogo.html">🎲 لعبة الصراحة والجرأة</a>
 <a href="look.html">📱 لعبة إخفاء الهاتف</a>
-<a href="art.html">رسم</a>
+<a href="art.html">🎨 رسم</a>
 <a href="bord.html">🎴 لعبة الورق المتشابه</a>
 <a href="challenges.html">🔥 لعبة التحديات 🔥</a>
-<a href="day.html">السبحة الإلكترونية</a>
+<a href="day.html">📿 السبحة الإلكترونية</a>
 <a href="study.html">📖 مساعد المذاكرة</a>
 <a href="tips.html">💡 نصيحة يومية</a>
-<a href="X&O.html">لعبة X&</a>
+<a href="X&O.html">❌⭕ لعبة X&O</a>
 <a href="info.html">💖 معلومات عن الموقع 💖</a>
 </div>
 
