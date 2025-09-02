@@ -114,82 +114,6 @@ footer{text-align:center;padding:10px;font-size:12px;color:#f83a00;}
 </header>
 
 <div id="sideMenu">
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fun X – الرئيسية</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #fff;
-      text-align: center;
-      min-height: 100vh;
-    }
-
-    header {
-      background: rgba(0,0,0,0.6);
-      padding: 15px;
-      font-size: 24px;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    header img {
-      width: 28px;
-      height: 28px;
-      margin-left: 10px;
-      border-radius: 50%;
-    }
-
-    #dateTime {
-      font-size: 16px;
-      margin: 10px 0;
-      color: #ffde59;
-    }
-
-    #sideMenu {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 12px;
-      padding: 20px;
-    }
-
-    #sideMenu a {
-      display: block;
-      padding: 15px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 12px;
-      text-decoration: none;
-      color: #fff;
-      font-size: 15px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    #sideMenu a:hover {
-      background: #ff9800;
-      transform: scale(1.05);
-    }
-  </style>
-</head>
-<body>
-  <header>
-    Fun X 
-    <img src="https://via.placeholder.com/28" alt="Logo">
-  </header>
-
-  <div id="dateTime"></div>
-
-<div id="sideMenu">
 <a href="game.html">🎮 Game War</a>
 <a href="من سيربح المليون.html">❓ Game Question</a>
 <a href="music.html">🕋 Quran 🕋</a>
@@ -204,23 +128,6 @@ footer{text-align:center;padding:10px;font-size:12px;color:#f83a00;}
 <a href="tips.html">💡 نصيحة يومية</a>
 <a href="X&O.html">لعبة X&</a>
 <a href="info.html">💖 معلومات عن الموقع 💖</a>
-</div>
-  
-
-  <script>
-    function updateDateTime() {
-      const now = new Date();
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      const date = now.toLocaleDateString('ar-EG', options);
-      const time = now.toLocaleTimeString('ar-EG');
-      document.getElementById("dateTime").innerHTML = `${date} | ${time}`;
-    }
-    setInterval(updateDateTime, 1000);
-    updateDateTime();
-  </script>
-</body>
-</html>
-
 </div>
 
 <form id="searchBox" action="https://www.google.com/search" method="GET" target="_blank">
@@ -301,4 +208,3 @@ menuToggle.addEventListener('click',()=>{
 </script>
 </body>
 </html>
-
