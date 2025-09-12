@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fun X — محاكي تداول (شبيه ExpertOption)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="holo-bg" id="holoBg"></div>
+
+  <div class="topbar">
+    <div class="brand">Fun X <span class="mini">Trading Simulator</span></div>
+    <div class="top-tools">
+      <select id="assetSelect" title="اختر الأصل">
+        <option value="EURUSD">EUR/USD</option>
+        <option value="BTCUSD">BTC/USD</option>
+        <option value="XAUUSD">GOLD (XAU/USD)</option>
+        <option value="TSLA">TESLA (TSLA)</option>
+      </select>
+
+      <select id="chartType" title="نوع الرسم">
+        <option value="line">خط</option>
+        <option value="candles">شموع</option>
+        <option value="area">منطقة</option>
+      </select>
+
+      <button id="themeToggle" class="icon-btn" title="تبديل الوضع">🌙</button>
+      <button id="refillBtn" class="secondary" title="إعادة تعبئة الرصيد">إعادة رصيد</button>
+    </div>
+  </div>
+
+  <div class="app">
+    <aside class="left-panel card">
+      <div class="brand-block">
+        <div class="logo">FX</div>
+        <div class="name">Fun X</div>
+      </div>
+
+      <div class="asset">أصل: <strong id="assetName">EUR/USD</strong></div>
+      <div class="price-now">السعر الآن: <span id="priceNow">0.00000</span></div>
+
+      <div class="balance">الرصيد: <span id="balance">1000.00</span>$</div>
+
+      <div class="preset-amounts">
+        <button data-amt="1">1$</button>
+        <button data-amt="5">5$</button>
+        <button data-amt="10">10$</button>
+        <button data-amt="50">50$</button>
+        <input id="customAmount" placeholder="مبلغ" inputmode="numeric" />
+      </div>
+
+      <div class="trade-buttons">
+        <button id="buyBtn" class="buy">شراء</button>
+        <button id="sellBtn" class="sell">بيع</button>
+      </div>
+
+      <div class="trade-opts">
+        <label>المدة
+          <select id="duration">
+            <option value="30">30s</option>
+            <option value="60" selected>1m</option>
+            <option value="300">5m</option>
+          </select>
+        </label>
+        <label>عائد
+          <select id="payout">
+            <option value="0.75">75%</option>
+            <option value="0.85">85%</option>
+            <option value="0.95" selected>95%</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="mode-toggle">
+        <button id="modeBtn" class="secondary">وضع: تعليمي</button>
+        <button id="liteBtn" class="secondary">وضع خفيف</button>
+      </div>
+
+      <div class="controls-small">
+        <button id="exportCsv" class="secondary">تصدير سجل</button>
+        <button id="resetBtn" class="secondary">إعادة تعيين</button>
+      </div>
+
+      <div class="badges" id="badges"></div>
+    </aside>
+
+    <main class="main-area">
+      <header class="chart-header card">
+        <div class="tf">الإطار: <span id="tfLabel">1m</span></div>
+        <div class="indicators">
+          <label><input type="checkbox" id="maToggle"> MA</label>
+          <label><input type="checkbox" id="candleToggle"> شموع</label>
+        </div>
+        <div class="live-stats">
+          <div>الفوز: <span id="wins">0</span></div>
+          <div>الخسارة: <span id="losses">0</span></div>
+          <div>أرباح/خسائر: <span id="pnl">0.00</span>$</div>
+        </div>
+      </header>
+
+      <section class="chart-wrap card">
+        <canvas id="chart"></canvas>
+        <div id="tradeTimer" class="trade-timer hidden"></div>
+        <div id="resultToast" class="result-toast hidden"></div>
+      </section>
+
+      <section class="right-panels">
+        <div class="panel card">
+          <h4>سجل الصفقات</h4>
+          <div id="history" class="history"></div>
+        </div>
+
+        <div class="panel card">
+          <h4>وضعية</h4>
+          <div id="status">وضع تعليمي — ستحصل على نصائح بعد كل صفقة.</div>
+          <div class="news-ticker" id="newsTicker"> أخبار: لا توجد حاليًا.</div>
+        </div>
+
+        <div class="panel card small">
+          <h5>خيارات أداء</h5>
+          <label>سرعة التحديث:
+            <select id="updateInterval">
+              <option value="1000">1s</option>
+              <option value="2000" selected>2s</option>
+              <option value="3000">3s</option>
+            </select>
+          </label>
+          <label>نقاط الرسم:
+            <select id="maxPoints">
+              <option value="50">50</option>
+              <option value="100" selected>100</option>
+              <option value="200">200</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="panel card small">
+          <h5>Leaderboard</h5>
+          <div id="leaderboard"></div>
+        </div>
+
+        <div class="panel card small">
+          <h5>Achievements</h5>
+          <div id="achieveList"></div>
+        </div>
+      </section>
+
+      <footer class="explain card">
+        <h4>شرح اللعبة</h4>
+        <div id="readmeShort"></div>
+      </footer>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
