@@ -1,214 +1,120 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fun X – إصدار 1.5</title>
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:"Georgia", serif;}
-body{overflow-x:hidden;color:#fff;transition:background 1s;}
-
-/* النجوم */
-.stars{position:fixed;width:100%;height:100%;z-index:-3;}
-.star{position:absolute;border-radius:50%;background:#fff;animation:twinkle 6s linear infinite;opacity:0;}
-@keyframes twinkle{0%,100%{opacity:0.2;}50%{opacity:1;}}
-
-/* القمر والشمس */
-.celestial{position:fixed;width:70px;height:70px;border-radius:50%;box-shadow:0 0 30px #fff;z-index:-2;transition:all 1s linear;}
-
-/* الغيوم */
-.cloud{position:fixed;width:200px;height:60px;background:rgba(255,255,255,0.05);border-radius:50%;animation:cloudMove 120s linear infinite;z-index:-1;}
-.cloud:nth-child(2){top:50%;width:350px;height:80px;animation-duration:200s;}
-@keyframes cloudMove{0%{left:-500px;}100%{left:100%;}}
-
-/* الهيدر */
-header{
-  position:fixed; top:0; width:100%; height:70px; display:flex; align-items:center; justify-content:space-between;
-  background:rgba(0,0,0,0.85); color:#fc0000; padding:0 15px; z-index:1000; box-shadow:0 0 15px #000;
-  backdrop-filter: blur(6px);
-}
-
-/* اسم الموقع مع اللوجو */
-#siteLogoName{
-    display:flex; align-items:center; gap:10px;
-}
-#siteLogo{
-    width:34px; height:34px; object-fit:contain; border-radius:6px; box-shadow:0 0 8px #f83a00;
-}
-#siteName{
-  font-size:20px; font-weight:bold; text-shadow:0 0 6px #f83a00, 0 0 12px #ff4500;
-}
-
-/* الوقت والتاريخ */
-#timeCalendarWrapper{
-  display:flex; flex-direction:column; align-items:flex-end;
-  background: rgba(0,0,0,0.4); padding:6px 12px;
-  border-radius:10px; box-shadow: 0 0 12px #0ff inset, 0 0 25px #0ff;
-}
-#timeCalendar{display:flex; flex-direction:column; align-items:flex-end; font-family:'Courier New', monospace; color:#0ff;}
-#clock{font-size:20px;font-weight:bold;}
-#calendar{font-size:14px;font-weight:bold;}
-
-/* زر القائمة */
-#menuToggle{
-    background:#f83a00; color:#fff; border:none; padding:8px 12px; cursor:pointer; border-radius:6px;
-    font-weight:bold; font-size:16px;
-}
-#menuToggle:hover{background:#00eaff;color:#000;}
-
-/* القائمة الجانبية */
-#sideMenu{
-  position:fixed; top:70px; right:-100%; width:80%; max-width:300px; height:100%; 
-  background:rgba(0,0,0,0.95); box-shadow:-2px 0 15px #000; padding-top:20px; 
-  z-index:2000; transition:0.4s; 
-  overflow-y:auto; /* ✅ إضافة الاسكورل */
-}
-#sideMenu a{display:block;padding:14px 18px;color:#f83a00;text-decoration:none;font-size:18px;}
-#sideMenu a:hover{color:#00eaff;transform:translateX(-4px);}
-
-/* البحث */
-#searchBox{width:95%;max-width:500px;margin:90px auto 20px auto;display:flex;}
-#searchBox input[type=text]{flex:1;padding:10px;border-radius:8px 0 0 8px;border:none;font-size:14px;}
-#searchBox button{padding:10px 16px;border:none;border-radius:0 8px 8px 0;background:#f83a00;color:#fff;cursor:pointer;}
-
-/* الفيديو */
-section{margin:20px;padding:15px;background:rgba(0,0,0,0.85);border-radius:12px;text-align:center;}
-section h2{color:#f83a00;margin-bottom:12px;font-size:20px;}
-video{width:100%;border-radius:10px;max-width:100%;}
-
-/* الإشعار */
-#notify{position:fixed;bottom:20px;right:20px;background:#f83a00;color:#fff;padding:10px 16px;border-radius:10px;display:none;z-index:1000;cursor:pointer;font-size:14px;}
-
-/* تهيئة للهاتف */
-@media(max-width:768px){
-  header{flex-direction:row;height:65px;padding:0 8px;}
-  #siteLogo{width:30px;height:30px;}
-  #siteName{font-size:16px;}
-  #clock{font-size:16px;}
-  #calendar{font-size:12px;}
-  #sideMenu{width:100%;max-width:none;}
-  section h2{font-size:16px;}
-  #searchBox{width:92%;}
-}
-footer{text-align:center;padding:10px;font-size:12px;color:#f83a00;}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🚧 الموقع تحت الصيانة 🚧</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:"Cairo",sans-serif;}
+    body{
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      overflow:hidden;
+      color:#fff;
+      background:linear-gradient(270deg,#0f0c29,#302b63,#24243e);
+      background-size:600% 600%;
+      animation:gradientBG 15s ease infinite;
+    }
+    @keyframes gradientBG {
+      0%{background-position:0% 50%;}
+      50%{background-position:100% 50%;}
+      100%{background-position:0% 50%;}
+    }
+    .box{
+      background:rgba(0,0,0,0.6);
+      padding:40px;
+      border-radius:20px;
+      box-shadow:0 0 25px rgba(0,0,0,0.8),0 0 40px #f83a00 inset;
+    }
+    h1{
+      font-size:42px;
+      margin-bottom:20px;
+      color:#ff3c00;
+      text-shadow:0 0 15px #ff3c00,0 0 30px #ff7b00;
+    }
+    p{
+      font-size:22px;
+      margin-bottom:25px;
+      line-height:1.8;
+      color:#0ff;
+      font-weight:bold;
+    }
+    .emoji{
+      font-size:60px;
+      display:inline-block;
+      animation:sideMove 3s ease-in-out infinite;
+    }
+    @keyframes sideMove {
+      0%{transform:translateX(0);}
+      50%{transform:translateX(30px);}
+      100%{transform:translateX(0);}
+    }
+    #countdown{
+      font-size:26px;
+      font-weight:bold;
+      color:#ffeb3b;
+      text-shadow:0 0 12px #ffeb3b,0 0 20px #ff9800;
+      margin:20px 0;
+    }
+    footer{
+      margin-top:20px;
+      font-size:14px;
+      color:#ccc;
+    }
+    @media(max-width:700px){
+      h1{font-size:28px;}
+      p{font-size:18px;}
+      .emoji{font-size:50px;}
+      #countdown{font-size:20px;}
+    }
+  </style>
 </head>
 <body>
+  <div class="box">
+    <div class="emoji">🚀</div>
+    <h1>🚧 الموقع تحت الصيانة 🚧</h1>
+    <p>نقوم حالياً بإجراء تحديثات وتحسينات<br>لتقديم تجربة أفضل لك.<br>شكراً لصبرك ❤️</p>
+    <div id="countdown">جارٍ التحميل...</div>
+    <div class="emoji">🛠️</div>
+    <footer>© 2025 جميع الحقوق محفوظة</footer>
+  </div>
 
-<div class="stars"></div>
-<div class="celestial" id="celestial"></div>
-<div class="cloud"></div>
-<div class="cloud"></div>
+  <script>
+    // مدة المؤقت = ساعتين (7200 ثانية)
+    const duration = 2 * 60 * 60 * 1000;
 
-<header>
-<div id="siteLogoName">
-    <img src="IMG-20250325-WA0003.jpg" alt="شعار الموقع" id="siteLogo">
-    <span id="siteName">Fun X – إصدار 1.5</span>
-</div>
-<div id="timeCalendarWrapper">
-    <div id="timeCalendar">
-        <div id="clock"></div>
-        <div id="calendar"></div>
-    </div>
-</div>
-<button id="menuToggle">☰</button>
-</header>
+    // التحقق هل في وقت انتهاء محفوظ
+    let endTime = localStorage.getItem("maintenanceEndTime");
 
-<div id="sideMenu">
-<a href="game.html">🎮 Game War</a>
-<a href="من سيربح المليون.html">❓ Game Question</a>
-<a href="music.html">🕋 Quran 🕋</a>
-<a href="gogo.html">🎲 لعبة الصراحة والجرأة</a>
-<a href="look.html">📱 لعبة إخفاء الهاتف</a>
-<a href="art.html">🎨 رسم</a>
-<a href="bord.html">🎴 لعبة الورق المتشابه</a>
-<a href="challenges.html">🔥 لعبة التحديات 🔥</a>
-<a href="day.html">📿 السبحة الإلكترونية</a>
-<a href="study.html">📖 مساعد المذاكرة</a>
-<a href="tips.html">💡 نصيحة يومية</a>
-<a href="X&O.html">❌⭕ لعبة X&O</a>
-<a href="info.html">💖 معلومات عن الموقع 💖</a>
-<a href="trading/tadawol.html.html">لعبة التداول💰</a>
-</div>
-
-<form id="searchBox" action="https://www.google.com/search" method="GET" target="_blank">
-<input type="text" name="q" placeholder="ابحث في جوجل">
-<button type="submit">🔍</button>
-</form>
-
-<section>
-<h2>📺 فيديو اليوم</h2>
-<video id="mainVideo" controls>
-<source src="VID-20250315-WA0059.mp4" type="video/mp4">
-</video>
-</section>
-
-<div id="notify">✨ تحديث جديد متاح! اضغط هنا</div>
-
-<footer>📝 جميع الحقوق محفوظة © 2025 Fun X 🎉</footer>
-
-<script>
-// نجوم
-for(let i=0;i<60;i++){
-    const star=document.createElement('div');
-    star.className='star';
-    star.style.top=Math.random()*100+'%';
-    star.style.left=Math.random()*100+'%';
-    star.style.width=star.style.height=Math.random()*2+1+'px';
-    document.body.appendChild(star);
-}
-
-// قمر/شمس
-const celestial=document.getElementById('celestial');
-function updateCelestial(){
-    const now=new Date();
-    const h=now.getHours();
-    if(h>=6 && h<18){
-        document.body.style.background="linear-gradient(180deg,#87CEEB,#FFD700)";
-        celestial.style.background="radial-gradient(circle,#FFD700,#FFA500)";
-    } else {
-        document.body.style.background="#000";
-        celestial.style.background="radial-gradient(circle,#fff,#ccc)";
+    if (!endTime || Date.now() > parseInt(endTime)) {
+      endTime = Date.now() + duration;
+      localStorage.setItem("maintenanceEndTime", endTime);
     }
-}
-setInterval(updateCelestial,1000);
-updateCelestial();
 
-// إشعار مرة واحدة
-const notify=document.getElementById('notify');
-if(!localStorage.getItem('updateSeen')){
-    notify.style.display='block';
-    notify.onclick=()=>{
-        localStorage.setItem('updateSeen','true');
-        alert("📢 تفاصيل التحديث 1.5: تحسينات للهاتف والكمبيوتر!");
-    };
-}
+    const countdownEl = document.getElementById("countdown");
 
-// ساعة
-function updateClock(){
-    const now=new Date();
-    document.getElementById('clock').textContent=
-        now.getHours().toString().padStart(2,'0')+":"+
-        now.getMinutes().toString().padStart(2,'0')+":"+
-        now.getSeconds().toString().padStart(2,'0');
-    document.getElementById('calendar').textContent=
-        now.getDate().toString().padStart(2,'0')+"/"+
-        (now.getMonth()+1).toString().padStart(2,'0')+"/"+now.getFullYear();
-}
-setInterval(updateClock,1000);
-updateClock();
+    function updateCountdown() {
+      const now = Date.now();
+      const diff = parseInt(endTime) - now;
 
-// القائمة
-const menuToggle=document.getElementById('menuToggle');
-const sideMenu=document.getElementById('sideMenu');
-let menuOpen=false;
-menuToggle.addEventListener('click',()=>{
-    sideMenu.style.right=menuOpen?'-100%':'0';
-    menuOpen=!menuOpen;
-});
-</script>
+      if (diff <= 0) {
+        countdownEl.innerHTML = "✅ الموقع جاهز للعمل!";
+        localStorage.removeItem("maintenanceEndTime");
+        return;
+      }
+
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      countdownEl.innerHTML = `⏳ ${hours.toString().padStart(2,"0")}:${minutes.toString().padStart(2,"0")}:${seconds.toString().padStart(2,"0")}`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
 </body>
 </html>
-
-
