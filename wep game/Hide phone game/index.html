@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>📱 لعبة إخفاء الهاتف</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>📱 لعبة إخفاء الهاتف</h1>
+
+<div class="card" id="setup">
+ <h3>📝 إعدادات اللعبة</h3>
+ <label>عدد اللاعبين: </label>
+ <select id="playersCount">
+   <option value="2">2</option>
+   <option value="3" selected>3</option>
+   <option value="4">4</option>
+   <option value="5">5</option>
+ </select><br><br>
+
+ <label>مدة المؤقت: </label>
+ <select id="timerMinutes">
+   <option value="300">5 دقائق</option>
+   <option value="600">10 دقائق</option>
+   <option value="900">15 دقيقة</option>
+   <option value="1200">20 دقيقة</option>
+ </select><br><br>
+
+ <div id="playersInputs"></div>
+ <button class="btn" onclick="generatePlayers()">✍️ إضافة أسماء اللاعبين</button><br><br>
+ <button class="btn" onclick="startGame()">🎮 ابدأ اللعبة</button>
+ <button class="btn" onclick="toggleTheme()">🌗 تبديل الوضع</button>
+</div>
+
+<div id="gameArea" style="display:none">
+ <div class="card">
+   <h2>⏳ الوقت المتبقي</h2>
+   <div id="timer">00:00</div>
+   <div id="buttonsArea" class="grid"></div>
+ </div>
+
+ <div id="roundBreak">
+   <div class="circle" id="breakCircle">15</div>
+   <p>⏳ استراحة قصيرة قبل الجولة التالية</p>
+ </div>
+
+ <div class="card">
+   <h3>📊 النقاط</h3>
+   <table>
+     <thead>
+       <tr><th>اللاعب</th><th>النقاط</th></tr>
+     </thead>
+     <tbody id="scoreTable"></tbody>
+   </table>
+ </div>
+ <button class="btn" onclick="toggleTheme()">🌗 تبديل الوضع</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

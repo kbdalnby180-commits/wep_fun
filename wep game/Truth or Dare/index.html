@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لعبة الصراحة والجرأة</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>🔥 لعبة الصراحة والجرأة 🔥</header>
+
+  <div class="moon"></div>
+  <div class="cloud" style="width:100px;height:50px;top:120px;left:-150px;"></div>
+  <div class="cloud" style="width:120px;height:60px;top:200px;left:-300px;animation-duration:40s;"></div>
+
+  <div class="container">
+    <button class="btn truth" onclick="getQuestion('truth')">🎤 سؤال صراحة</button>
+    <button class="btn dare" onclick="getQuestion('dare')">⚡ تحدي جرأة</button>
+    <div id="questionBox" class="card">اختر زر لبدء اللعبة 👇</div>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>

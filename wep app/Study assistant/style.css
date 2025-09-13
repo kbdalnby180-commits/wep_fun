@@ -1,0 +1,67 @@
+body{
+   font-family:Tahoma,Arial;
+   padding:20px;
+   text-align:center;
+   color:#1e293b;
+   transition:background 0.5s,color 0.5s;
+}
+body.day{
+   background:linear-gradient(135deg,#d4f1f4,#f0fdfa);
+   color:#1e293b;
+}
+body.night{
+   background:linear-gradient(135deg,#0f172a,#1e293b);
+   color:#f1f5f9;
+}
+h1{margin-bottom:20px}
+.card{
+   background:#ffffffcc;
+   padding:20px;
+   margin:15px auto;
+   border-radius:15px;
+   box-shadow:0 6px 20px rgba(0,0,0,.08);
+   max-width:500px;
+   text-align:center;
+   transition:background 0.5s,color 0.5s;
+}
+body.night .card{
+   background:#1e293bcc;
+   color:#f1f5f9;
+}
+.btn{
+   padding:10px 15px;
+   border:0;
+   border-radius:8px;
+   background:#2563eb;
+   color:#fff;
+   cursor:pointer;
+   margin:5px;
+   transition:0.3s;
+}
+.btn:hover{background:#1e40af}
+input,textarea{
+   padding:8px;
+   border:1px solid #ddd;
+   border-radius:8px;
+   margin:5px;
+   width:90%;
+}
+ul{list-style:none;padding:0}
+li{
+   padding:8px;
+   margin:5px 0;
+   background:#f1f5f9;
+   border-radius:8px;
+   cursor:pointer;
+}
+body.night li{background:#334155}
+li.done{
+   text-decoration:line-through;
+   color:gray;
+   background:#e2e8f0;
+}
+.tip{
+   font-size:18px;
+   color:#2563eb;
+   font-weight:bold;
+}

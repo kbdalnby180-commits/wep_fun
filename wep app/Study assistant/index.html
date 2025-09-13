@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📚 مساعد المذاكرة</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="day">
+<h1>📖 مساعد المذاكرة</h1>
+<button class="btn" onclick="toggleMode()">🌙 تبديل الوضع</button>
+
+<div class="card">
+ <h3>⏳ مؤقت المذاكرة</h3>
+ <input type="number" id="minutes" placeholder="ادخل عدد الدقايق"/><br>
+ <button class="btn" onclick="startTimer()">ابدأ</button>
+ <h2 id="timer">00:00</h2>
+</div>
+
+<div class="card">
+ <h3>📝 قائمة المهام</h3>
+ <input type="text" id="taskInput" placeholder="اكتب مهمة...">
+ <button class="btn" onclick="addTask()">➕ إضافة</button>
+ <ul id="taskList"></ul>
+</div>
+
+<div class="card">
+ <h3>💡 نصيحة اليوم</h3>
+ <p class="tip" id="tipBox"></p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

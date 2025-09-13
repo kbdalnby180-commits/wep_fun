@@ -1,0 +1,89 @@
+body{
+   font-family:Tahoma,Arial;
+   background:linear-gradient(135deg,#d4f1f4,#f0fdfa);
+   text-align:center;
+   padding:20px;
+   transition:0.5s;
+}
+body.night{
+   background:linear-gradient(135deg,#0f172a,#1e293b);
+   color:#fff;
+}
+h1{margin-bottom:20px}
+.card{
+   background:#fff;
+   padding:20px;
+   margin:15px auto;
+   border-radius:15px;
+   box-shadow:0 6px 20px rgba(0,0,0,.08);
+   max-width:600px;
+   transition:0.5s;
+}
+body.night .card{
+   background:#1e293b;
+   color:#fff;
+}
+.btn{
+   padding:12px 18px;
+   border:0;
+   border-radius:12px;
+   background:#2563eb;
+   color:#fff;
+   cursor:pointer;
+   margin:10px;
+   font-size:16px;
+   transition:0.3s;
+}
+.btn:hover{background:#1e40af}
+#timer{
+   font-size:32px;
+   margin:15px 0;
+   color:#e11d48;
+   font-weight:bold;
+}
+table{
+   width:100%;
+   border-collapse:collapse;
+   margin-top:10px;
+}
+th,td{
+   border:1px solid #ccc;
+   padding:8px;
+   text-align:center;
+}
+body.night th, body.night td{
+   border-color:#444;
+}
+.grid{
+   display:grid;
+   grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+   gap:12px;
+   justify-items:center;
+   margin-top:15px;
+}
+input{
+   padding:8px;
+   margin:5px;
+   border-radius:8px;
+   border:1px solid #999;
+   text-align:center;
+}
+/* دائرة العداد */
+#roundBreak{
+   display:none;
+   margin:20px auto;
+}
+.circle{
+   width:120px;
+   height:120px;
+   border-radius:50%;
+   background:#e11d48;
+   display:flex;
+   align-items:center;
+   justify-content:center;
+   font-size:28px;
+   font-weight:bold;
+   color:#fff;
+   margin:auto;
+   box-shadow:0 0 20px rgba(0,0,0,0.2);
+}

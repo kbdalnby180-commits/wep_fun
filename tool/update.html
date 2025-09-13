@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل التحديث</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Cairo", Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a, #414141);
+            color: #fff;
+        }
+
+        header {
+            background: #000;
+            color: #f83a00;
+            padding: 20px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            box-shadow: 0 0 10px #000;
+        }
+
+        .updates-container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background: rgba(0,0,0,0.85);
+            border-radius: 12px;
+            box-shadow: 0 0 15px #000;
+        }
+
+        .update-item {
+            background: #111;
+            border-left: 5px solid #f83a00;
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .update-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px #f83a00;
+        }
+
+        .update-item h3 {
+            margin-top: 0;
+            color: #f83a00;
+        }
+
+        .update-item p {
+            line-height: 1.6;
+        }
+
+        a.back-btn {
+            display: inline-block;
+            margin: 20px auto;
+            text-decoration: none;
+            color: #fff;
+            background: #f83a00;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        a.back-btn:hover {
+            background: #0400f7;
+        }
+
+        @media screen and (max-width: 768px) {
+            .updates-container {
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    تفاصيل التحديثات
+</header>
+
+<div class="updates-container">
+    <!-- مثال لتحديث جديد -->
+    <div class="update-item">
+        <h3>الإصدار 1.2 - 2025/09/14</h3>
+        <p>تحديثات الإصدار1.2
+        <br>🌟 اضافة العاب الي الموقع   
+        <br>🌟  اضافة تطبيقات مفيده 
+        <br>🌟 اضافة التاريخ والوقت
+        <br>🌟اضافة ميزة البحث في جوجل
+        <br>🌟مجاني qrاضافة صنع 
+        <br>🌟اضافة ميزة فديوهات يوميه         
+        <br>🌟اضافة تحسينات للهاتف وللكمبيوتر</p>
+    </div> 
+</div>
+
+</body>
+</html>

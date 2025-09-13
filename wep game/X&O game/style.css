@@ -1,0 +1,105 @@
+body {
+  margin: 0;
+  font-family: Tahoma, Arial, sans-serif;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* خلفية نجوم */
+.stars {
+  width: 100%;
+  height: 100%;
+  background: transparent url("https://www.transparenttextures.com/patterns/stardust.png") repeat;
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 0;
+  animation: moveStars 200s linear infinite;
+}
+@keyframes moveStars {
+  from {background-position: 0 0;}
+  to {background-position: 10000px 5000px;}
+}
+
+/* القمر */
+.moon {
+  width: 100px;
+  height: 100px;
+  background: #fff;
+  border-radius: 50%;
+  position: fixed;
+  top: 40px;
+  right: 60px;
+  box-shadow: 0 0 40px #fff;
+  z-index: 1;
+}
+
+/* القائمة */
+.menu {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+.menu button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+}
+.menu button:hover {
+  background: #1e40af;
+}
+
+/* اللوحة */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3,100px);
+  grid-template-rows: repeat(3,100px);
+  gap: 5px;
+  position: relative;
+  z-index: 2;
+  margin-top: 20px;
+}
+.cell {
+  background: rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+.cell:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+#status {
+  margin-top: 20px;
+  font-size: 20px;
+  z-index: 2;
+}
+#restart {
+  margin-top: 15px;
+  padding: 8px 16px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+  z-index: 2;
+  display: none;
+}
+#restart:hover {
+  background: #1e40af;
+}

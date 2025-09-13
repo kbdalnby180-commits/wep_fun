@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fun X – من سيربح المليون</title>
+<link rel="stylesheet" href="millionaire.css">
+</head>
+<body>
+
+<div class="stars"></div>
+<header>
+<h1>Fun X – من سيربح المليون</h1>
+</header>
+
+<div class="question-container">
+    <div id="score">النقاط: 0</div>
+    <div id="question" class="question"></div>
+    <div class="answers">
+        <button onclick="checkAnswer(0)">الإجابة 1</button>
+        <button onclick="checkAnswer(1)">الإجابة 2</button>
+        <button onclick="checkAnswer(2)">الإجابة 3</button>
+        <button onclick="checkAnswer(3)">الإجابة 4</button>
+    </div>
+</div>
+
+<div id="notify"></div>
+
+<audio id="bgMusic" src="sounds/Awkward_Apocalyptic_Pickup.mp3" loop autoplay></audio>
+<audio id="clickSound" src="sounds/mixkit-select-click-1109.wav"></audio>
+
+<script src="millionaire.js"></script>
+</body>
+</html>

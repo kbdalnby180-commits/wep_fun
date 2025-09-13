@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لعبة XO</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stars"></div>
+<div class="moon"></div>
+
+<div class="menu" id="menu">
+  <h1>اختر وضع اللعبة 🎮</h1>
+  <button onclick="startGame('bot')">ضد روبوت 🤖</button>
+  <button onclick="startGame('human')">ضد لاعب 👤</button>
+</div>
+
+<div class="board" id="board" style="display:none;"></div>
+<div id="status"></div>
+<button id="restart" onclick="restart()">إعادة اللعب</button>
+
+<script src="script.js"></script>
+</body>
+</html>

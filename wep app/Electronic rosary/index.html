@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ar">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>السبحة الإلكترونية + أذكار</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+  <header><h1>السبحة الإلكترونية — مع أذكار قابلة للتغيير</h1></header>
+
+  <div class="card">
+    <div class="top">
+      <div class="left">
+        <div class="label">الذكر الحالي</div>
+        <div id="currentZekr" class="current-zekr">— اختر ذكرًا أو اضغط تغيير —</div>
+        <div class="azkar-box">
+          <button class="btn" id="changeZekrBtn">تغيير ذكر</button>
+          <button class="btn ghost" id="prevZekrBtn">السابق</button>
+          <button class="btn ghost" id="nextZekrBtn">التالي</button>
+          <label class="small" style="margin-left:8px">
+            <input type="checkbox" id="autoChange"> تغيير تلقائي بعد كل 
+            <input id="autoAfter" type="number" value="33" style="width:70px;margin-left:6px"> تسبيح
+          </label>
+        </div>
+      </div>
+
+      <div style="min-width:240px;text-align:center">
+        <div class="label">العدد الآن</div>
+        <div id="count" class="count">0</div>
+        <div class="small">الإجمالي: <span id="total">0</span></div>
+      </div>
+    </div>
+
+    <div style="margin-top:12px" class="controls">
+      <button class="btn" id="addBtn">+1</button>
+      <button class="btn" id="add33Btn">+33</button>
+      <button class="btn ghost" id="resetBtn">إعادة ضبط</button>
+      <button class="btn ghost" id="clearBtn">مسح الحفظ</button>
+      <label class="small">الهدف:
+        <input id="targetInput" type="number" placeholder="مثال 100" style="width:100px;margin-left:6px">
+        <button class="btn ghost" id="setTargetBtn">تعيين</button>
+      </label>
+    </div>
+
+    <div class="beads" id="beadsWrap" aria-hidden="false"></div>
+    <div class="label" id="targetInfo" style="text-align:center;margin-top:8px">لم يتم تحديد هدف</div>
+  </div>
+
+  <div class="card">
+    <div style="display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+      <div>
+        <div class="label">قائمة الأذكار (يمكن إضافة ذكر جديد):</div>
+        <div style="display:flex;gap:8px;margin-top:8px;align-items:center">
+          <input id="newZekrInput" type="text" placeholder="اكتب ذكراً جديداً..." style="min-width:220px">
+          <button class="btn" id="addZekrBtn">أضف ذكر</button>
+          <button class="btn ghost" id="resetAzkarBtn">استعادة الافتراضي</button>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <div class="small">اضغط على ذكر في القائمة لاختياره</div>
+      </div>
+    </div>
+
+    <div class="azkar-list" id="azkarList" role="list"></div>
+  </div>
+
+  <footer>© التطبيق — حفظ محليٌ فقط على جهازك</footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
