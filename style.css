@@ -1,12 +1,20 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:"Georgia", serif;}
 body{overflow-x:hidden;color:#fff;transition:background 1s;}
+
+/* ===== النجوم ===== */
 .stars{position:fixed;width:100%;height:100%;z-index:-3;}
 .star{position:absolute;border-radius:50%;background:#fff;animation:twinkle 6s linear infinite;opacity:0;}
 @keyframes twinkle{0%,100%{opacity:0.2;}50%{opacity:1;}}
+
+/* ===== القمر/الشمس ===== */
 .celestial{position:fixed;width:70px;height:70px;border-radius:50%;box-shadow:0 0 30px #fff;z-index:-2;transition:all 1s linear;}
+
+/* ===== السحاب ===== */
 .cloud{position:fixed;width:200px;height:60px;background:rgba(255,255,255,0.05);border-radius:50%;animation:cloudMove 120s linear infinite;z-index:-1;}
 .cloud:nth-child(2){top:50%;width:350px;height:80px;animation-duration:200s;}
 @keyframes cloudMove{0%{left:-500px;}100%{left:100%;}}
+
+/* ===== الهيدر ===== */
 header{position:fixed; top:0; width:100%; height:70px; display:flex; align-items:center; justify-content:space-between; background:rgba(0,0,0,0.85); color:#fc0000; padding:0 15px; z-index:1000; box-shadow:0 0 15px #000; backdrop-filter: blur(6px);}
 #siteLogoName{display:flex; align-items:center; gap:10px;}
 #siteLogo{width:34px; height:34px; object-fit:contain; border-radius:6px; box-shadow:0 0 8px #f83a00;}
@@ -17,15 +25,54 @@ header{position:fixed; top:0; width:100%; height:70px; display:flex; align-items
 #calendar{font-size:14px;font-weight:bold;}
 #menuToggle{background:#f83a00; color:#fff; border:none; padding:8px 12px; cursor:pointer; border-radius:6px; font-weight:bold; font-size:16px;}
 #menuToggle:hover{background:#00eaff;color:#000;}
+
+/* ===== القائمة الجانبية ===== */
 #sideMenu{position:fixed; top:70px; right:-100%; width:80%; max-width:300px; height:100%; background:rgba(0,0,0,0.95); box-shadow:-2px 0 15px #000; padding-top:20px; z-index:2000; transition:0.4s; overflow-y:auto;}
 #sideMenu a{display:block;padding:14px 18px;color:#f83a00;text-decoration:none;font-size:18px;}
 #sideMenu a:hover{color:#00eaff;transform:translateX(-4px);}
+#sideMenu.open{right:0;animation:slideIn 0.4s ease;}
+@keyframes slideIn{from{right:-100%;}to{right:0;}}
+
+/* ===== صندوق البحث ===== */
 #searchBox{width:95%;max-width:500px;margin:90px auto 20px auto;display:flex;}
 #searchBox input[type=text]{flex:1;padding:10px;border-radius:8px 0 0 8px;border:none;font-size:14px;}
 #searchBox button{padding:10px 16px;border:none;border-radius:0 8px 8px 0;background:#f83a00;color:#fff;cursor:pointer;}
+
+/* ===== الفيديو ===== */
 section{margin:20px;padding:15px;background:rgba(0,0,0,0.85);border-radius:12px;text-align:center;}
 section h2{color:#f83a00;margin-bottom:12px;font-size:20px;}
-video{width:100%;border-radius:10px;max-width:100%;}
+video{width:100%;border-radius:10px;max-width:100%;transition:0.3s;}
+video:hover{transform:scale(1.02);box-shadow:0 0 15px #f83a00;}
+
+/* ===== الإشعار ===== */
 #notify{position:fixed;bottom:20px;right:20px;background:#f83a00;color:#fff;padding:10px 16px;border-radius:10px;display:none;z-index:1000;cursor:pointer;font-size:14px;}
-@media(max-width:768px){header{flex-direction:row;height:65px;padding:0 8px;}#siteLogo{width:30px;height:30px;}#siteName{font-size:16px;}#clock{font-size:16px;}#calendar{font-size:12px;}#sideMenu{width:100%;max-width:none;}section h2{font-size:16px;}#searchBox{width:92%;}} 
+
+/* ===== الروبوت (Chatbot) ===== */
+#chatToggle{position:fixed;bottom:20px;left:20px;background:#f83a00;border:none;border-radius:50%;padding:15px;font-size:22px;cursor:pointer;z-index:1100;box-shadow:0 0 12px #f83a00;}
+#chatToggle:hover{background:#00eaff;color:#000;box-shadow:0 0 15px #00eaff;}
+#chatbot{position:fixed;bottom:80px;left:20px;width:300px;height:400px;background:rgba(0,0,0,0.9);border-radius:15px;display:flex;flex-direction:column;overflow:hidden;z-index:1100;box-shadow:0 0 20px #f83a00;}
+#chatbot.hidden{display:none;}
+#chatHeader{background:#f83a00;padding:10px;text-align:center;font-weight:bold;color:#fff;}
+#chatMessages{flex:1;padding:10px;overflow-y:auto;font-size:14px;scrollbar-width:thin;scrollbar-color:#f83a00 #111;}
+#chatMessages .user{text-align:right;margin:5px 0;padding:8px;background:#0ff3;border-radius:8px;color:#0ff;font-size:14px;display:inline-block;max-width:80%;}
+#chatMessages .bot{text-align:left;margin:5px 0;padding:8px;background:#f83a0033;border-radius:8px;color:#fff59d;font-size:14px;display:inline-block;max-width:80%;}
+#chatInputBox{display:flex;border-top:1px solid #f83a00;}
+#chatInput{flex:1;padding:8px;border:none;outline:none;background:#111;color:#fff;}
+#sendBtn{background:#f83a00;border:none;padding:8px 15px;cursor:pointer;color:#fff;font-weight:bold;}
+#sendBtn:hover{background:#00eaff;color:#000;}
+
+/* ===== الفوتر ===== */
 footer{text-align:center;padding:10px;font-size:12px;color:#f83a00;}
+
+/* ===== الموبايل ===== */
+@media(max-width:768px){
+  header{flex-direction:row;height:65px;padding:0 8px;}
+  #siteLogo{width:30px;height:30px;}
+  #siteName{font-size:16px;}
+  #clock{font-size:16px;}
+  #calendar{font-size:12px;}
+  #sideMenu{width:100%;max-width:none;}
+  section h2{font-size:16px;}
+  #searchBox{width:92%;}
+  #chatbot{width:95%;left:2.5%;}
+}
