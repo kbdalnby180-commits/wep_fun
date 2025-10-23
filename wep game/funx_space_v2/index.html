@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Fun X — Space v2 (Endless)</title>
+<style>
+:root{
+  --bg1:#000015; --bg2:#001431; --accent:#6ffcff; --ui:#071018;
+  --glass: rgba(255,255,255,0.04);
+  --hud-size: 14px;
+  --joy-size: 14vmin;
+  --fire-size: 18vmin;
+}
+*{box-sizing:border-box;font-family:Inter,system-ui,Arial,Segoe UI}
+html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:#e6f0f6;overflow:hidden}
+#gameCanvas{display:block;width:100vw;height:100vh;background:transparent}
+.ui {
+  position: absolute; left: 12px; top: 12px; z-index: 120;
+  background: rgba(0,0,0,0.45); padding: 10px; border-radius: 10px; border:1px solid rgba(255,255,255,0.04);
+  min-width:220px;
+}
+.ui h1{margin:0;font-size:16px}
+.controls{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
+button,select,input[type=range]{background:transparent;border:1px solid rgba(255,255,255,0.06);color:inherit;padding:6px;border-radius:6px}
+.badge{font-size:12px;color:#9fb3c8;margin-top:6px}
+#hpBar{position:absolute;left:50%;top:12px;transform:translateX(-50%);width:46vmin;max-width:320px;height:18px;border-radius:12px;border:2px solid rgba(255,255,255,0.12);background:#111;z-index:120}
+#hpFill{width:100%;height:100%;background:linear-gradient(90deg,#30ff7a,#ffd86b,#ff6b6b);border-radius:8px;transition:width 0.18s}
+#overlayUI{position:absolute;right:12px;bottom:12px;z-index:120;color:#9fb3c8;font-size:13px}
+#gameOverScreen, #shopModal, #missionModal, #dailyModal, #settingsModal {
+  position: absolute; left:50%; top:50%; transform: translate(-50%,-50%); z-index: 200;
+  background: rgba(3,6,12,0.96); padding: 18px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.06);
+  display:none; min-width:300px; text-align:center;color:#cfeff0;
+}
+.modalTitle{font-size:20px;margin-bottom:8px}
+.row{display:flex;gap:8px;align-items:center}
+.toggle{display:inline-flex;align-items:center;gap:6px}
+.hudSmall{font-size:13px;color:#cfeff0;margin-top:6px}
+.joy{
+  position: absolute; left: 3vmin; bottom: 3vmin; z-index: 150; width: var(--joy-size); height: var(--joy-size); border-radius:50%;
+  background: rgba(255,255,255,0.02); display:flex;align-items:center;justify-content:center; touch-action:none;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.35);
+}
+.joy .dot{width:30%;height:30%;border-radius:50%;background:rgba(255,255,255,0.06)}
+.fireBtn{
+  position:absolute; right:3vmin; bottom:3vmin; z-index:150; width:var(--fire-size);height:var(--fire-size);border-radius:50%;
+  background: linear-gradient(180deg, rgba(255,80,80,0.12), rgba(255,30,30,0.08)); display:flex;align-items:center;justify-content:center;
+  font-weight:700; font-size:18px; touch-action:none; border:1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+.small{font-size:12px;color:#9fb3c8}
+.icon{width:18px;height:18px;display:inline-block;border-radius:4px;background:var(--accent);opacity:0.9;margin-left:6px}
+.settingRow{display:flex;justify-content:space-between;gap:8px;margin-top:8px;align-items:center}
+.footerNote{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);color:#9fb3c8;font-size:12px;z-index:40}
+.responsive-hud{position: absolute; right: 12px; top: 12px; z-index:120; text-align:right; color:#cfeff0}
+.controlSelect{margin-left:8px}
+@media (max-width:700px){
+  :root{ --joy-size: 22vmin; --fire-size: 26vmin; --hud-size: 13px }
+  .ui{ left:8px; top:8px; min-width:180px; padding:8px; }
+  #hpBar{width:66vmin; max-width:none; top:8px; height:14px }
+  .responsive-hud{ right: 12px; top: 60px; text-align:center }
+  .footerNote{font-size:11px}
+}
+.shopItem{display:flex;justify-content:space-between;align-items:center;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);margin-top:8px}
+</style>
+</head>
+<body>
+<canvas id="gameCanvas"></canvas>
+
+<div class="ui" id="mainUI">
+  <h1>Fun X — Space v2</h1>
+  <div class="controls">
+    <button id="startBtn">ابدأ</button>
+    <button id="pauseBtn">إيقاف</button>
+    <button id="retryBtn">إعادة</button>
+    <div class="toggle small"><label><input type="checkbox" id="autoFire"> Auto-Fire</label></div>
+    <div class="toggle small"><label><input type="checkbox" id="freeAim"> Free Aim</label></div>
+    <select id="controlMode" class="controlSelect" title="اختر نوع التحكم">
+      <option value="auto">تلقائي</option>
+      <option value="keyboard">كيبورد</option>
+      <option value="touch">تاتش</option>
+      <option value="gamepad">دراع</option>
+    </select>
+    <button id="shopBtn">المتجر</button>
+    <button id="missionsBtn">المهام</button>
+    <button id="settingsBtn">اعدادات</button>
+  </div>
+  <div class="badge">دراعات متصلة: <span id="gpList">—</span></div>
+  <div class="hudSmall">نقاط: <span id="scoreEl">0</span> — مستوى: <span id="levelEl">1</span></div>
+</div>
+
+<div id="hpBar"><div id="hpFill"></div></div>
+<div class="responsive-hud">
+  <div class="small">HP: <span id="hpText">0/0</span></div>
+  <div class="small">Music: <span id="musicState">On</span></div>
+</div>
+<div id="overlayUI" class="small">نصيحة: اضغط على الشاشة لتفعيل الصوت إذا لم تعمل الأصوات</div>
+
+<div class="joy" id="joy" style="display:none"><div class="dot" id="joyDot"></div></div>
+<div class="fireBtn" id="fireBtn" style="display:none">أ</div>
+
+<div id="gameOverScreen"><div class="modalTitle">Game Over</div><div id="finalScore">نقاطك: 0</div><div style="margin-top:12px"><button id="tryAgain">إعادة المحاولة</button> <button id="goShop">المتجر</button></div></div>
+
+<div id="shopModal">
+  <div class="modalTitle">المتجر & الترقيات</div>
+  <div class="small">نقاط متاحة: <span id="shopScore">0</span></div>
+  <div style="margin-top:10px" id="shopItems"></div>
+  <div style="margin-top:12px"><button id="closeShop">اغلاق</button></div>
+</div>
+
+<div id="missionModal">
+  <div class="modalTitle">المهام</div>
+  <div id="missionBody" class="small"></div>
+  <div style="margin-top:12px"><button id="closeMission">اغلاق</button></div>
+</div>
+
+<div id="dailyModal">
+  <div class="modalTitle">مكافأة اليوم</div>
+  <div id="dailyBody" class="small"></div>
+  <div style="margin-top:12px"><button id="closeDaily">اغلاق</button></div>
+</div>
+
+<div id="settingsModal">
+  <div class="modalTitle">الإعدادات</div>
+  <div class="small">الموسيقى الخلفية: <button id="toggleMusic">إيقاف</button></div>
+  <div class="small" style="margin-top:8px">مستوى الصوت: <input id="masterVol" type="range" min="0" max="1" step="0.05" value="0.7"></div>
+  <div style="margin-top:12px"><button id="closeSettings">اغلاق</button></div>
+</div>
+
+<div class="footerNote">تصميم متجاوب — قلّي أي تعديل تاني تحبه</div>
+
+<script>
+/* FunX Space v2 — Endless | Responsive | Touch / Keyboard / Gamepad | Music & SFX */
+/* ---- Setup ---- */
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+addEventListener('resize', ()=>{ resize(); adjustForScreen(); });
+resize();
+
+/* ---- Audio: background music (synth loop) + SFX ---- */
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+let audioCtx = null;
+function ensureAudio(){ if(!audioCtx) audioCtx = new AudioContext(); if(audioCtx.state==='suspended') audioCtx.resume(); }
+let masterGain = null;
+function initAudio(){ ensureAudio(); if(!masterGain){ masterGain = audioCtx.createGain(); masterGain.gain.value = 0.7; masterGain.connect(audioCtx.destination); } }
+function setMasterVolume(v){ if(!masterGain) initAudio(); masterGain.gain.value = v; }
+function simpleBeep(freq, dur=0.06, type='sine', vol=0.08){ try{ initAudio(); const o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.type=type; o.frequency.value=freq; g.gain.value=vol; o.connect(g); g.connect(masterGain); o.start(); o.stop(audioCtx.currentTime+dur);}catch(e){} }
+function playShoot(){ simpleBeep(900,0.06,'square',0.06); }
+function playExplode(){ simpleBeep(160,0.16,'sawtooth',0.12); setTimeout(()=>simpleBeep(60,0.08,'sine',0.04),60); }
+function playPickup(){ simpleBeep(1400,0.06,'triangle',0.06); }
+
+/* Background music: gentle loop using 2 oscillators + lowpass */
+let musicOn = true, musicNodes = null;
+function startMusic(){
+  try{
+    initAudio();
+    if(musicNodes) return;
+    const o1 = audioCtx.createOscillator(); const o2 = audioCtx.createOscillator();
+    const g = audioCtx.createGain(); const lp = audioCtx.createBiquadFilter();
+    o1.type='sine'; o2.type='triangle'; o1.frequency.value=110; o2.frequency.value=220;
+    lp.type='lowpass'; lp.frequency.value = 800;
+    g.gain.value = 0.06;
+    o1.connect(g); o2.connect(g); g.connect(lp); lp.connect(masterGain);
+    o1.start(); o2.start();
+    musicNodes = {o1,o2,g,lp};
+    const lfo = audioCtx.createOscillator(); const lfoGain = audioCtx.createGain(); lfo.type='sine'; lfo.frequency.value=0.08; lfoGain.gain.value=60;
+    lfo.connect(lfoGain); lfoGain.connect(o1.frequency); lfo.start();
+    musicNodes.lfo = lfo; musicNodes.lfoGain = lfoGain;
+  }catch(e){}
+}
+function stopMusic(){ try{ if(!musicNodes) return; musicNodes.o1.stop(); musicNodes.o2.stop(); musicNodes.lfo.stop(); musicNodes=null; }catch(e){} }
+function toggleMusic(){ musicOn = !musicOn; document.getElementById('musicState').textContent = musicOn? 'On' : 'Off'; document.getElementById('toggleMusic').textContent = musicOn? 'إيقاف' : 'تشغيل'; if(musicOn) startMusic(); else stopMusic(); }
+
+/* ---- Game state ---- */
+let running = false, paused = false;
+let score = 0, level = 1, highScore = parseInt(localStorage.getItem('fx_high')) || 0;
+let upgrades = JSON.parse(localStorage.getItem('fx_upgrades')||'null');
+if(!upgrades) upgrades = {speed:0,power:0,shots:0,shield:0,appearance:0,turrets:0,allies:0,fireRate:0};
+let lastDaily = localStorage.getItem('fx_daily') || null;
+document.getElementById('scoreEl').textContent = score;
+document.getElementById('levelEl').textContent = level;
+
+/* Entities */
+let player = null;
+let npcs = [], bullets = [], enemies = [], pickups = [], explosions = [], stars = [], comets = [];
+for(let i=0;i<260;i++) stars.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, z:Math.random()*1.6+0.2, s:Math.random()*2+0.2});
+for(let i=0;i<4;i++) if(Math.random()<0.6) comets.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, vx:(-30+Math.random()*60), vy:(20+Math.random()*60), r:2+Math.random()*3});
+
+/* HP UI */
+const hpFill = document.getElementById('hpFill');
+const hpText = document.getElementById('hpText');
+function updateHPBar(){ if(player){ hpFill.style.width = Math.max(0,(player.hp/player.maxHp)*100) + '%'; hpText.textContent = player.hp + '/' + player.maxHp; } else { hpFill.style.width='0%'; hpText.textContent='0/0'; } }
+
+/* ---- Controls: modes and detection ---- */
+const controlModeEl = document.getElementById('controlMode');
+let controlMode = localStorage.getItem('fx_control') || 'auto'; // auto, keyboard, touch, gamepad
+controlModeEl.value = controlMode;
+controlModeEl.addEventListener('change', ()=>{ controlMode = controlModeEl.value; localStorage.setItem('fx_control', controlMode); adjustForScreen(); });
+
+// Auto-detect prefer touch on small screens
+function detectDefaultControl(){
+  if(controlMode === 'auto'){
+    if(('ontouchstart' in window) && Math.min(innerWidth, innerHeight) < 900) return 'touch';
+    if(navigator.getGamepads && navigator.getGamepads().length) return 'gamepad';
+    return 'keyboard';
+  }
+  return controlMode;
+}
+
+/* Input state */
+const input = { left:0,right:0,up:0,down:0,action:0,auto:false,aimX:null,aimY:null };
+document.getElementById('autoFire').addEventListener('change', e=>{ input.auto = e.target.checked; });
+
+/* Keyboard */
+window.addEventListener('keydown', e=>{
+  if(detectDefaultControl() !== 'keyboard') return;
+  if(e.code==='ArrowLeft' || e.code==='KeyA') input.left=1;
+  if(e.code==='ArrowRight'|| e.code==='KeyD') input.right=1;
+  if(e.code==='ArrowUp' || e.code==='KeyW') input.up=1;
+  if(e.code==='ArrowDown'|| e.code==='KeyS') input.down=1;
+  if(e.code==='Space') input.action=1;
+});
+window.addEventListener('keyup', e=>{
+  if(detectDefaultControl() !== 'keyboard') return;
+  if(e.code==='ArrowLeft' || e.code==='KeyA') input.left=0;
+  if(e.code==='ArrowRight'|| e.code==='KeyD') input.right=0;
+  if(e.code==='ArrowUp' || e.code==='KeyW') input.up=0;
+  if(e.code==='ArrowDown'|| e.code==='KeyS') input.down=0;
+  if(e.code==='Space') input.action=0;
+});
+
+/* Touch joystick (responsive size) */
+const joy = document.getElementById('joy'), joyDot = document.getElementById('joyDot'), fireBtn = document.getElementById('fireBtn');
+let touchEnabled=false;
+function enableTouchUI(){ touchEnabled=true; joy.style.display='flex'; fireBtn.style.display='flex'; controlModeEl.value='touch'; controlMode='touch'; localStorage.setItem('fx_control','touch'); }
+function disableTouchUI(){ touchEnabled=false; joy.style.display='none'; fireBtn.style.display='none'; }
+let activeTouchId=null, joyCenter=null;
+function joyGetCenter(){ const r=joy.getBoundingClientRect(); return {x:r.left + r.width/2, y: r.top + r.height/2}; }
+joy.addEventListener('pointerdown', e=>{ if(detectDefaultControl()!=='touch' && controlMode!=='touch') return; joy.setPointerCapture(e.pointerId); activeTouchId=e.pointerId; joyCenter=joyGetCenter(); handleJoyMove(e.clientX,e.clientY); });
+joy.addEventListener('pointermove', e=>{ if(detectDefaultControl()!=='touch' && controlMode!=='touch') return; if(e.pointerId!==activeTouchId) return; handleJoyMove(e.clientX,e.clientY); });
+joy.addEventListener('pointerup', e=>{ if(e.pointerId!==activeTouchId) return; activeTouchId=null; joyDot.style.transform='translate(0,0)'; input.left=input.right=input.up=input.down=0; });
+function handleJoyMove(cx,cy){ const dx = cx - joyCenter.x, dy = cy - joyCenter.y; const max = Math.min(joyCenter.x*0.9, 80); const nx = Math.max(-max, Math.min(max, dx)); const ny = Math.max(-max, Math.min(max, dy)); joyDot.style.transform = `translate(${nx}px,${ny}px)`; input.left = nx < -12 ? 1 : 0; input.right = nx > 12 ? 1 : 0; input.up = ny < -12 ? 1 : 0; input.down = ny > 12 ? 1 : 0; }
+fireBtn.addEventListener('pointerdown', ()=>{ input.action=1; setTimeout(()=>input.action=0,120); });
+window.addEventListener('touchstart', e=>{ if(detectDefaultControl()==='touch') enableTouchUI(); ensureAudio(); }, {passive:true});
+
+/* Gamepad support */
+let gpListEl = document.getElementById('gpList');
+function scanGamepads(){ const gps = navigator.getGamepads ? navigator.getGamepads() : []; let names=[]; for(let g of gps) if(g) names.push(g.id); gpListEl.textContent = names.length? names.join(' | '): '—'; }
+window.addEventListener('gamepadconnected', e=>{ scanGamepads(); if(controlMode==='auto') controlMode='gamepad'; });
+window.addEventListener('gamepaddisconnected', e=>{ scanGamepads(); });
+function pollGamepads(){ const gps = navigator.getGamepads ? navigator.getGamepads() : []; for(let g of gps){ if(!g) continue; if(detectDefaultControl()!=='gamepad' && controlMode!=='gamepad') continue; const axH = g.axes[0]||0, axV = g.axes[1]||0; input.left = axH < -0.3 ? 1 : 0; input.right = axH > 0.3 ? 1 : 0; input.up = axV < -0.3 ? 1 : 0; input.down = axV > 0.3 ? 1 : 0; input.action = g.buttons.some(b=>b.pressed) ? 1 : 0; } }
+
+/* ---- Entities constructors ---- */
+function makePlayer(x,y,color='#7efcff'){ const baseSpeed = 220 + (upgrades.speed||0)*20; const p = { id:'p', x:x, y:y, size:48, color:color, speed:baseSpeed, hp: 6 + (upgrades.shield||0), maxHp:6 + (upgrades.shield||0), fireCooldown:0, weapon:{type:'energy', power:1 + (upgrades.power||0), shots:1 + (upgrades.shots||0)}, turrets: upgrades.turrets||0, appearance: upgrades.appearance||0, allies: upgrades.allies||0 }; return p; }
+function makeNPC(x,y){ return {id:'npc'+(Math.random()*1000|0), x,y, size:32, color:'#88f', speed:140, hp:2, fireCooldown:0}; }
+
+/* ---- Spawn helpers ---- */
+function spawnEnemyWave(rngCount){ const count = rngCount || Math.max(2, 3 + Math.min(18, level + (Math.random()*3|0))); for(let i=0;i<count;i++){ const t=Math.random(); const e={ id:'e'+(Math.random()*9999|0), x: Math.random()*(canvas.width-80)+40, y: -Math.random()*200 - 60*i, w: t<0.6 ? 34 : (t<0.9? 60:48), h: t<0.6 ? 34 : (t<0.9? 44:48), color: t<0.6? '#ff6b6b' : (t<0.9? '#ff4d4d' : '#ffb86b'), hp: t<0.6?1:(t<0.9?3:2), speed: 40 + (Math.random()*60) + level*8, type: t<0.6? 'scout' : (t<0.9? 'heavy':'fast') }; enemies.push(e); } }
+function spawnPickup(x,y){ const types=['score','speed','shield','fireRate','weapon']; const p={id:'p'+(Math.random()*9999|0), x,y, r:10, type: types[Math.random()*types.length|0]}; pickups.push(p); }
+
+/* ---- collision helpers ---- */
+function circleRectCollision(cx,cy,cr, rx,ry,rw,rh){ const dx = Math.abs(cx - rx); const dy = Math.abs(cy - ry); const hw = rw/2, hh = rh/2; if (dx > (hw + cr)) return false; if (dy > (hh + cr)) return false; if (dx <= hw) return true; if (dy <= hh) return true; const cornerDistSq = (dx - hw)*(dx - hw) + (dy - hh)*(dy - hh); return cornerDistSq <= (cr*cr); }
+
+/* ---- AI & behavior ---- */
+function enemyAI(e,dt){ const targets = [player].concat(npcs); let best=null, bestd=1e9; for(let t of targets) if(t){ const d = Math.hypot(t.x - e.x, t.y - e.y); if(d < bestd){ best=t; bestd = d; } } if(best){ if(e.type==='scout'){ let avoid=false; for(let b of bullets) if(b.friendly && Math.hypot(b.x-e.x,b.y-e.y)<70) { avoid=true; break; } if(avoid) e.x += (Math.random()>0.5?1:-1)* e.speed * dt * 0.6; else { const ang=Math.atan2(best.y-e.y, best.x-e.x); e.x+=Math.cos(ang)*e.speed*dt; e.y+=Math.sin(ang)*e.speed*dt; } } else if(e.type==='fast'){ const ang=Math.atan2(best.y-e.y,best.x-e.x); e.x+=Math.cos(ang)*e.speed*dt*1.1; e.y+=Math.sin(ang)*e.speed*dt*1.1; } else{ const ang=Math.atan2(best.y-e.y,best.x-e.x); e.x+=Math.cos(ang)*e.speed*dt*0.6; e.y+=Math.sin(ang)*e.speed*dt*0.6; } } }
+function npcAI(n,dt){ const target = player; if(!target) return; const desiredX = target.x - 100; n.x += (desiredX - n.x) * dt * 2; n.y += (target.y - 70 - n.y) * dt * 2; if(n.fireCooldown <= 0){ const en = enemies.length ? enemies[0] : null; if(en){ bullets.push({x:n.x, y:n.y, vx:(en.x - n.x)*0.01, vy:(en.y - n.y)*0.01, speed:320, friendly:true, type:'energyBall', r:6, life:120}); n.fireCooldown = 40; playShoot(); } } else n.fireCooldown--; }
+
+/* ---- Fire and bullets (energy balls) ---- */
+function fireFrom(p){ const w = p.weapon || {type:'energy', power:1, shots:1}; const power = w.power || 1; const shots = Math.max(1, w.shots || 1); const spread = (shots-1)*8; for(let i=0;i<shots;i++){ const off = -spread/2 + i*8; bullets.push({x: p.x + off, y: p.y - p.size/1.4, r: 8 + power*2, vx:0, vy:-1, speed: 320 + power*40, friendly:true, type:'energyBall', life:160}); } if(p.turrets && p.turrets>0){ for(let t=0;t<p.turrets;t++){ const angle = -Math.PI/2 + (t - (p.turrets-1)/2) * 0.3; bullets.push({x: p.x + Math.cos(angle)*(p.size*0.7), y: p.y + Math.sin(angle)*(p.size*0.7), r:6, vx:Math.cos(angle), vy:Math.sin(angle), speed:240, friendly:true, type:'energyBall', life:140}); } } playShoot(); }
+
+/* ---- apply pickup ---- */
+function applyPickup(playerObj,p){ if(p.type==='score'){ score += 250; updateScore(); } else if(p.type==='speed'){ upgrades.speed = (upgrades.speed||0)+1; playerObj.speed += 20; localStorage.setItem('fx_upgrades', JSON.stringify(upgrades)); } else if(p.type==='shield'){ playerObj.hp = Math.min(playerObj.maxHp, playerObj.hp + 1); } else if(p.type==='fireRate'){ upgrades.fireRate = (upgrades.fireRate||0)+1; localStorage.setItem('fx_upgrades', JSON.stringify(upgrades)); } else if(p.type==='weapon'){ playerObj.weapon.power +=1; upgrades.power = playerObj.weapon.power-1; localStorage.setItem('fx_upgrades', JSON.stringify(upgrades)); } }
+
+/* ---- Rendering ---- */
+let shake = {x:0,y:0,time:0};
+function triggerShake(s=6,d=160){ shake.x=(Math.random()*2-1)*s; shake.y=(Math.random()*2-1)*s; shake.time=d; }
+function renderAll(){ if(shake.time > 0){ shake.time -= 16; } else { shake.x=0; shake.y=0; } ctx.save(); ctx.translate(shake.x, shake.y); const g = ctx.createLinearGradient(0,0,0,canvas.height); g.addColorStop(0,'#001028'); g.addColorStop(1,'#000014'); ctx.fillStyle=g; ctx.fillRect(0,0,canvas.width,canvas.height); for(let s of stars){ ctx.fillStyle = 'rgba(255,255,255,' + Math.min(1, s.z*0.6) +')'; ctx.fillRect(s.x, s.y, s.s, s.s); } for(let c of comets){ ctx.beginPath(); ctx.moveTo(c.x, c.y); ctx.lineTo(c.x - c.vx*0.06, c.y - c.vy*0.06); ctx.lineWidth = 2 + c.r; ctx.strokeStyle = 'rgba(180,220,255,0.9)'; ctx.stroke(); } for(let e of enemies){ ctx.fillStyle = e.color; roundRect(ctx, e.x - e.w/2, e.y - e.h/2, e.w, e.h, 6); ctx.fill(); } for(let p of pickups){ ctx.fillStyle = (p.type==='score'? '#ffd86b' : p.type==='weapon'? '#6ffcff' : '#9ae66b'); ctx.beginPath(); ctx.arc(p.x, p.y, p.r,0,Math.PI*2); ctx.fill(); } for(let b of bullets){ if(b.type==='energyBall'){ const grd = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r); grd.addColorStop(0,'rgba(255,255,255,1)'); grd.addColorStop(0.2,'rgba(180,220,255,0.95)'); grd.addColorStop(1,'rgba(80,180,255,0.06)'); ctx.fillStyle = grd; ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI*2); ctx.fill(); } else { ctx.fillStyle = b.color || '#ffd86b'; ctx.fillRect(b.x - (b.w||6)/2, b.y - (b.h||12)/2, b.w||6, b.h||12); } } for(let ex of explosions){ const a = Math.max(0, 1 - ex.r/120); ctx.beginPath(); ctx.fillStyle = 'rgba(255,150,60,'+a+')'; ctx.arc(ex.x, ex.y, ex.r, 0, Math.PI*2); ctx.fill(); } for(let n of npcs){ ctx.fillStyle = n.color; roundRect(ctx, n.x - n.size/2, n.y - n.size/2, n.size, n.size, 6); ctx.fill(); } if(player) drawShip(player.x, player.y, player.size, player.color, player.appearance, player.turrets); ctx.restore(); }
+
+function roundRect(ctx,x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+function drawShip(x,y,size,color,appearance,turrets){ ctx.save(); if(appearance===0){ ctx.fillStyle = color; ctx.shadowColor = color; ctx.shadowBlur = 18; ctx.beginPath(); ctx.moveTo(x, y - size/1.6); ctx.lineTo(x - size/1.8, y + size/1.8); ctx.lineTo(x + size/1.8, y + size/1.8); ctx.closePath(); ctx.fill(); } else if(appearance===1){ ctx.fillStyle = color; ctx.shadowColor = color; ctx.shadowBlur = 20; ctx.beginPath(); ctx.ellipse(x, y, size/1.6, size/2, 0, 0, Math.PI*2); ctx.fill(); ctx.fillStyle='rgba(255,255,255,0.06)'; ctx.beginPath(); ctx.ellipse(x, y-size*0.1, size/3, size/8, 0, 0, Math.PI*2); ctx.fill(); } else { ctx.fillStyle = color; ctx.shadowColor = color; ctx.shadowBlur = 24; ctx.beginPath(); ctx.moveTo(x, y - size/1.8); ctx.lineTo(x - size/2, y + size/2); ctx.lineTo(x, y + size/3); ctx.lineTo(x + size/2, y + size/2); ctx.closePath(); ctx.fill(); } if(turrets>0){ for(let t=0;t<turrets;t++){ const ang = -Math.PI/2 + (t - (turrets-1)/2)*0.3; const tx = x + Math.cos(ang)*(size*0.7), ty = y + Math.sin(ang)*(size*0.7); ctx.beginPath(); ctx.arc(tx,ty,6,0,Math.PI*2); ctx.fillStyle='rgba(255,200,120,0.9)'; ctx.fill(); } } ctx.restore(); }
+
+/* ---- Update loop ---- */
+let lastTs = performance.now(), spawnTimer = 0, waveInterval = 5;
+function updateFrame(ts){ const dt = Math.min(0.05, (ts-lastTs)/1000); lastTs = ts; if(!running || paused){ requestAnimationFrame(updateFrame); return; } pollGamepads(); for(let s of stars){ s.y += 20 * dt * s.z; if(s.y > canvas.height) { s.y = -2; s.x = Math.random()*canvas.width; } } for(let c of comets){ c.x += c.vx * dt; c.y += c.vy * dt; if(c.x<-50 || c.x>canvas.width+50 || c.y>canvas.height+50){ c.x=Math.random()*canvas.width; c.y=-50; c.vx = (-30+Math.random()*60); c.vy=(20+Math.random()*60); } } if(!player) player = makePlayer(canvas.width/2, canvas.height - 140); if(player){ let vx = (input.right - input.left); let vy = (input.down - input.up); if(vx !== 0 || vy !== 0){ const len = Math.hypot(vx, vy) || 1; player.x += (vx/len) * player.speed * dt; player.y += (vy/len) * player.speed * dt; player.x = Math.max(player.size/2, Math.min(canvas.width - player.size/2, player.x)); player.y = Math.max(player.size/2, Math.min(canvas.height - player.size/2, player.y)); } if((input.action || input.auto) && player.fireCooldown<=0){ fireFrom(player); player.fireCooldown = Math.max(6, 16 - (upgrades.fireRate||0)); } if(player.fireCooldown>0) player.fireCooldown--; } for(let n of npcs) npcAI(n, dt); for(let i=bullets.length-1;i>=0;i--){ const b = bullets[i]; if(b.vx) b.x += b.vx * b.speed * dt; if(b.vy) b.y += b.vy * b.speed * dt; else b.y += (b.speed * (b.vy||-1)) * dt; if(b.life !== undefined){ b.life--; if(b.life<=0){ bullets.splice(i,1); continue; } } if(b.x < -200 || b.x>canvas.width+200 || b.y < -200 || b.y>canvas.height+200) bullets.splice(i,1); } for(let i=enemies.length-1;i>=0;i--){ const e = enemies[i]; enemyAI(e, dt); for(let j=bullets.length-1;j>=0;j--){ const b = bullets[j]; if(b.friendly){ if(circleRectCollision(b.x, b.y, b.r, e.x, e.y, e.w, e.h)){ e.hp--; bullets.splice(j,1); if(e.hp<=0){ explosions.push({x: e.x, y: e.y, r: 8}); playExplode(); if(Math.random() < 0.35) spawnPickup(e.x + e.w/2, e.y + e.h/2); enemies.splice(i,1); score += 100; updateScore(); } break; } } } if(player && rectOverlap(player, e)){ hitPlayer(player); enemies.splice(i,1); continue; } if(e.y > canvas.height + 120 || e.x < -120 || e.x > canvas.width + 120) enemies.splice(i,1); } for(let i=pickups.length-1;i>=0;i--){ const p = pickups[i]; p.y += 80 * dt; if(player && dist(player.x, player.y, p.x, p.y) < 48){ applyPickup(player,p); pickups.splice(i,1); playPickup(); continue; } if(p.y > canvas.height+60) pickups.splice(i,1); } for(let i=explosions.length-1;i>=0;i--){ explosions[i].r += 140 * dt; if(explosions[i].r > 120) explosions.splice(i,1); } spawnTimer += dt; if(spawnTimer > Math.max(0.9, waveInterval - Math.min(1.0, level*0.04))){ spawnEnemyWave(); spawnTimer = 0; level = 1 + Math.floor(score / 1000); document.getElementById('levelEl').textContent = level; } updateHPBar(); if(player && player.hp <= 0){ running = false; showGameOver(); } renderAll(); requestAnimationFrame(updateFrame); }
+
+/* ---- helpers & collisions ---- */
+function dist(a,b,c,d){ return Math.hypot((a-c),(b-d)); }
+function rectOverlap(a,b){ const aw = a.w || a.size, ah = a.h || a.size; const bx = b.x, by = b.y, bw = b.w||b.size, bh=b.h||b.size; return (a.x - aw/2) < (bx + bw/2) && (a.x + aw/2) > (bx - bw/2) && (a.y - ah/2) < (by + bh/2) && (a.y + ah/2) > (by - bh/2); }
+function hitPlayer(p){ p.hp -= 1; triggerShake(8,200); playExplode(); const gps = navigator.getGamepads ? navigator.getGamepads() : []; for(let g of gps) if(g && g.vibrationActuator) try{ g.vibrationActuator.playEffect('dual-rumble',{duration:120, strongMagnitude:0.7, weakMagnitude:0.5}); }catch(e){} updateHPBar(); }
+
+/* ---- Score / Shop / UI ---- */
+function updateScore(){ document.getElementById('scoreEl').textContent = score; if(score > highScore){ highScore = score; localStorage.setItem('fx_high', highScore); } document.getElementById('shopScore') && (document.getElementById('shopScore').textContent = score); }
+const shopModal = document.getElementById('shopModal');
+document.getElementById('shopBtn').addEventListener('click', ()=>{ openShop(); });
+document.getElementById('closeShop').addEventListener('click', ()=>{ shopModal.style.display='none'; });
+function openShop(){ document.getElementById('shopScore').textContent = score; const cont = document.getElementById('shopItems'); cont.innerHTML = ''; const items = [ {id:'appearance',title:'تغيير شكل السفينة', cost:800, apply: ()=>{ upgrades.appearance=(upgrades.appearance||0)+1; upgrades.appearance = upgrades.appearance % 3; player.appearance = upgrades.appearance; localStorage.setItem('fx_upgrades', JSON.stringify(upgrades)); }}, {id:'turret',title:'تركيب مدفع إضافي', cost:900, apply: ()=>{ upgrades.turrets = (upgrades.turrets||0)+1; player.turrets = upgrades.turrets; localStorage.setItem('fx_upgrades', JSON.stringify(upgrades)); }}, {id:'ally',title:'شراء مساعد (سفينة داعمة)', cost:1200, apply: ()=>{ upgrades.allies = (upgrades.allies||0)+1; spawnAlly(); localStorage.setItem('fx_upgrades', JSON.stringify(upgrades)); }}, {id:'speed',title:'زيادة سرعة', cost:500, apply: ()=>{ upgrades.speed=(upgrades.speed||0)+1; player.speed += 20; localStorage.setItem('fx_upgrades', JSON.stringify(upgrades)); }}, {id:'power',title:'زيادة قوة السلاح', cost:700, apply: ()=>{ upgrades.power=(upgrades.power||0)+1; player.weapon.power +=1; localStorage.setItem('fx_upgrades', JSON.stringify(upgrades)); }}, {id:'shots',title:'زيادة عدد الطلقات', cost:900, apply: ()=>{ upgrades.shots=(upgrades.shots||0)+1; player.weapon.shots +=1; localStorage.setItem('fx_upgrades', JSON.stringify(upgrades)); }}, {id:'shield',title:'زيادة درع', cost:600, apply: ()=>{ upgrades.shield=(upgrades.shield||0)+1; player.maxHp +=1; player.hp +=1; localStorage.setItem('fx_upgrades', JSON.stringify(upgrades)); }} ]; for(let it of items){ const d = document.createElement('div'); d.className='shopItem'; d.innerHTML = `<div><strong>${it.title}</strong><div class="small">السعر: ${it.cost}</div></div><div><button data-id="${it.id}">شراء</button></div>`; cont.appendChild(d); d.querySelector('button').addEventListener('click', ()=>{ if(score >= it.cost){ score -= it.cost; updateScore(); it.apply(); alert('تم الشراء'); } else alert('نقاط غير كافية'); document.getElementById('shopScore').textContent = score; }); } shopModal.style.display='block'; document.getElementById('shopScore').textContent = score; }
+
+/* Missions modal */
+document.getElementById('missionsBtn').addEventListener('click', ()=>{ openMissions(); });
+document.getElementById('closeMission').addEventListener('click', ()=>{ document.getElementById('missionModal').style.display='none'; });
+function openMissions(){ const body = document.getElementById('missionBody'); body.innerHTML = '<div>مهمة: اهزم 10 أعداء في موجة واحدة</div><div style="margin-top:8px">مكافأة: 300 نقطة</div>'; document.getElementById('missionModal').style.display='block'; }
+
+/* Daily reward */
+document.getElementById('closeDaily').addEventListener('click', ()=>{ document.getElementById('dailyModal').style.display='none'; });
+function checkDaily(){ const today = (new Date()).toISOString().slice(0,10); if(lastDaily !== today){ lastDaily = today; localStorage.setItem('fx_daily', lastDaily); score += 200; updateScore(); document.getElementById('dailyBody').textContent = 'مكافأة يومية: 200 نقطة'; document.getElementById('dailyModal').style.display='block'; } }
+checkDaily();
+
+/* Settings modal */
+document.getElementById('settingsBtn').addEventListener('click', ()=>{ document.getElementById('settingsModal').style.display='block'; document.getElementById('toggleMusic').textContent = musicOn? 'إيقاف' : 'تشغيل'; });
+document.getElementById('closeSettings').addEventListener('click', ()=>{ document.getElementById('settingsModal').style.display='none'; });
+document.getElementById('toggleMusic').addEventListener('click', ()=>{ toggleMusic(); });
+masterVol.addEventListener('input', ()=>{ setMasterVolume(parseFloat(masterVol.value)); });
+
+/* Engine hum for ambience */
+let engineOsc=null, engineGain=null;
+function engineHumStart(){ try{ initAudio(); if(engineOsc) return; engineOsc = audioCtx.createOscillator(); engineGain = audioCtx.createGain(); engineOsc.type='sine'; engineOsc.frequency.value = 48; engineGain.gain.value = 0.02; engineOsc.connect(engineGain); engineGain.connect(masterGain); engineOsc.start(); }catch(e){} }
+function engineHumStop(){ try{ if(engineOsc){ engineOsc.stop(); engineOsc=null; engineGain=null; } }catch(e){} }
+
+/* Game Over & reset */
+function showGameOver(){ document.getElementById('finalScore').textContent = 'نقاطك: ' + score + ' — أعلى: ' + highScore; document.getElementById('gameOverScreen').style.display = 'block'; engineHumStop(); stopMusic(); }
+document.getElementById('tryAgain').addEventListener('click', ()=>{ document.getElementById('gameOverScreen').style.display='none'; resetGame(); });
+document.getElementById('goShop').addEventListener('click', ()=>{ document.getElementById('gameOverScreen').style.display='none'; openShop(); });
+function resetGame(){ bullets=[]; enemies=[]; pickups=[]; explosions=[]; npcs=[]; player=null; score=0; level=1; updateScore(); running=true; paused=false; lastTs = performance.now(); document.getElementById('gameOverScreen').style.display='none'; if(musicOn) startMusic(); engineHumStart(); requestAnimationFrame(updateFrame); }
+
+/* Utilities */
+function spawnAlly(){ if(player) npcs.push(makeNPC(player.x - 100, player.y - 70)); }
+spawnAlly();
+spawnEnemyWave(4);
+renderAll();
+
+/* Save upgrades on unload */
+window.addEventListener('beforeunload', ()=>{ localStorage.setItem('fx_upgrades', JSON.stringify(upgrades)); localStorage.setItem('fx_high', highScore); localStorage.setItem('fx_control', controlMode); });
+
+/* Tick bullets life */
+setInterval(()=>{ for(let i=bullets.length-1;i>=0;i--){ const b=bullets[i]; if(b.life!==undefined){ b.life--; if(b.life<=0) bullets.splice(i,1); } } }, 120);
+
+/* ---- Responsive adjustments ---- */
+function adjustForScreen(){ const def = detectDefaultControl(); if(def==='touch' || controlMode==='touch'){ enableTouchUI(); } else { disableTouchUI(); } if(Math.min(innerWidth, innerHeight) < 700){ document.documentElement.style.setProperty('--hud-size','13px'); } else { document.documentElement.style.setProperty('--hud-size','14px'); } }
+adjustForScreen();
+
+/* ---- Auxiliary functions ---- */
+function updateLoopStarter(){ if(musicOn) startMusic(); engineHumStart(); running=true; lastTs = performance.now(); requestAnimationFrame(updateFrame); }
+document.getElementById('startBtn').addEventListener('click', ()=>{ ensureAudio(); updateLoopStarter(); });
+document.getElementById('pauseBtn').addEventListener('click', ()=>{ paused = !paused; if(paused) { engineHumStop(); stopMusic(); } else { engineHumStart(); if(musicOn) startMusic(); } });
+document.getElementById('retryBtn').addEventListener('click', ()=>{ location.reload(); });
+
+/* ---- Gamepad scan ---- */
+function scanLoop(){ scanGamepads(); setTimeout(scanLoop, 1500); }
+scanLoop();
+
+/* ---- Simple UI helpers ---- */
+function updateUI(){ document.getElementById('gpList').textContent = (navigator.getGamepads ? Array.from(navigator.getGamepads()).filter(g=>g).map(g=>g.id).join(' | ') : '—'); }
+setInterval(updateUI, 1500);
+
+/* ---- Start music if allowed ---- */
+if(musicOn){ try{ startMusic(); }catch(e){} }
+
+/* ---- Start gamepad polling in raf ---- */
+function gamepadPollLoop(){ pollGamepads(); requestAnimationFrame(gamepadPollLoop); }
+gamepadPollLoop();
+
+/* ---- End of script ---- */
+</script>
+</body>
+</html>
