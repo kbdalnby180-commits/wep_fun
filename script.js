@@ -48,31 +48,50 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-// ===== القائمة الجانبية =====
-const menuToggle = document.getElementById('menuToggle');
-const sideMenu = document.getElementById('sideMenu');
-let menuOpen = false;
-if (menuToggle) {
-    menuToggle.addEventListener('click', () => {
-        sideMenu.style.right = menuOpen ? '-100%' : '0';
-        menuOpen = !menuOpen;
-    });
-}
-
-// ===== الشات بوت =====
+// ===== الروبوت =====
 const chatToggle = document.getElementById('chatToggle');
 const chatbot = document.getElementById('chatbot');
-const sendBtn = document.getElementById('sendBtn');
-const chatInput = document.getElementById('chatInput');
 const chatMessages = document.getElementById('chatMessages');
+const chatInput = document.getElementById('chatInput');
+const sendBtn = document.getElementById('sendBtn');
 
-if (chatToggle) {
-    chatToggle.addEventListener('click', () => {
-        chatbot.classList.toggle('hidden');
-    });
-}
+chatToggle.addEventListener('click', () => {
+    chatbot.classList.toggle('hidden');
+});
 
-function addMessage(sender, text) {
+// صفحات الموقع للعرض المباشر
+const pages = [
+    {name:"🎮 Game War", url:"wep game/game war/index.html"},
+    {name:"space war 🎮", url:"wep game/funx_space_v2/index.html"},
+    {name:"❓ Game Question", url:"wep game/Who will win the million/index.html"},
+    {name:"🛫 Plan X 🛫", url:"wep game/crash/CRASH.html"},
+    {name:"💰 تداول", url:"wep game/Trade/index.html"},
+    {name:"🎲 صراحة", url:"wep game/Truth or Dare/index.html"},
+    {name:"📱 إخفاء الهاتف", url:"wep game/Hide phone game/index.html"},
+    {name:"❌⭕ X&O", url:"wep game/X&O game/index.html"},
+    {name:"🎴 الورق المتشابه", url:"wep game/Matching card game/index.html"},
+    {name:"🔥 التحديات", url:"wep game/Challenges game/index.html"},
+    {name:"🎨 رسم", url:"wep app/paints/index.html"},
+    {name:"🕋 Quran", url:"wep app/quran/index.html"},
+    {name:"📿 السبحة الإلكترونية", url:"wep app/Electronic rosary/index.html"},
+    {name:"📖 مذاكرة", url:"wep app/Study assistant/index.html"},
+    {name:"💡 نصيحة يومية", url:"wep app/daily-tip/index.html"},
+    {name:"🔗 صنع QR", url:"wep app/qr/index.html"},
+    {name:"ℹ️ عن الموقع", url:"tool/Fun X/index.html"},
+    {name:"🆕 تحديثات 1.2", url:"tool/update.html"},
+     {name:"login wep 🙎‍♂️",url:"https://82fa57e2-9a07-41bd-a869-86ae336863dc-00-2861nct653a21.picard.replit.dev/"},
+];
+
+// عرض الصفحات مباشرة
+pages.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'bot';
+    div.innerHTML = `<a href="${p.url}" target="_blank" style="color:#0ff;text-decoration:none;">${p.name}</a>`;
+    chatMessages.appendChild(div);
+});
+
+// الرد على المستخدم إذا كتب شيء
+function addMessage(sender, text){
     const msg = document.createElement('div');
     msg.className = sender;
     msg.textContent = text;
@@ -80,46 +99,21 @@ function addMessage(sender, text) {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-function botReply(userText) {
+function botReply(userText){
     let reply = "🤖 مش فاهم قصدك، جرّب تكتب حاجة تانية.";
-
-    const routes = {
-        "game war": ["🎮 Game War", "wep game/game war/index.html"],
-        "game question": ["❓ Game Question", "wep game/Who will win the million/index.html"],
-        "plan x": ["🛫 Plan X", "wep game/crash/CRASH.html"],
-        "تداول": ["💰 لعبة التداول", "wep game/Trade/index.html"],
-        "صراحة": ["🎲 لعبة الصراحة والجرأة", "wep game/Truth or Dare/index.html"],
-        "إخفاء": ["📱 لعبة إخفاء الهاتف", "wep game/Hide phone game/index.html"],
-        "xo": ["❌⭕ لعبة X&O", "wep game/X&O game/index.html"],
-        "ورق": ["🎴 لعبة الورق المتشابه", "wep game/Matching card game/index.html"],
-        "التحديات": ["🔥 لعبة التحديات", "wep game/Challenges game/index.html"],
-        "رسم": ["🎨 تطبيق الرسم", "wep app/paints/index.html"],
-        "quran": ["🕋 القرآن الكريم", "wep app/quran/index.html"],
-        "سبحة": ["📿 السبحة الإلكترونية", "wep app/Electronic rosary/index.html"],
-        "مذاكرة": ["📖 مساعد المذاكرة", "wep app/Study assistant/index.html"],
-        "نصيحة": ["💡 نصيحة يومية", "wep app/daily-tip/index.html"],
-        "qr": ["🔗 صنع QR", "wep app/qr/index.html"],
-        "عن الموقع": ["ℹ️ معلومات عن الموقع", "tool/Fun X/index.html"],
-        "تحديث": ["🆕 صفحة التحديثات", "tool/update.html"]
-    };
-
-    for (let key in routes) {
-        if (userText.toLowerCase().includes(key)) {
-            reply = `✅ ${routes[key][0]}`;
-            setTimeout(() => window.location.href = routes[key][1], 1500);
-            break;
+    pages.forEach(p=>{
+        if(userText.toLowerCase().includes(p.name.replace(/[^a-zA-Z\u0600-\u06FF]/g,"").toLowerCase())){
+            reply = `✅ ${p.name}`;
+            setTimeout(()=> window.open(p.url,"_blank"),500);
         }
-    }
-
-    addMessage("bot", reply);
-}
-
-if (sendBtn) {
-    sendBtn.addEventListener('click', () => {
-        const text = chatInput.value.trim();
-        if (!text) return;
-        addMessage("user", text);
-        chatInput.value = "";
-        setTimeout(() => botReply(text), 500);
     });
+    addMessage("bot",reply);
 }
+
+sendBtn.addEventListener('click',()=>{
+    const text = chatInput.value.trim();
+    if(!text) return;
+    addMessage("user", text);
+    chatInput.value = "";
+    setTimeout(()=>botReply(text),500);
+});
