@@ -78,7 +78,6 @@ const pages = [
     {name:"💡 نصيحة يومية", url:"wep app/daily-tip/index.html"},
     {name:"🔗 صنع QR", url:"wep app/qr/index.html"},
     {name:"ℹ️ عن الموقع", url:"tool/Fun X/index.html"},
-    {name:"🆕 تحديثات 1.2", url:"tool/update.html"},
      {name:"login wep 🙎‍♂️",url:"https://82fa57e2-9a07-41bd-a869-86ae336863dc-00-2861nct653a21.picard.replit.dev/"},
 ];
 
@@ -117,3 +116,4 @@ sendBtn.addEventListener('click',()=>{
     chatInput.value = "";
     setTimeout(()=>botReply(text),500);
 });
+
