@@ -79,6 +79,7 @@ const pages = [
     {name:"🔗 صنع QR", url:"wep app/qr/index.html"},
     {name:"ℹ️ عن الموقع", url:"tool/Fun X/index.html"},
      {name:"login wep 🙎‍♂️",url:"https://82fa57e2-9a07-41bd-a869-86ae336863dc-00-2861nct653a21.picard.replit.dev/"},
+     {name:"AI KHALED",url:"https://2cfc7ae0-5c03-4b39-b234-10b5ee934e3d-00-3ikunnl0w75l2.kirk.replit.dev/"},
 ];
 
 // عرض الصفحات مباشرة
@@ -116,4 +117,5 @@ sendBtn.addEventListener('click',()=>{
     chatInput.value = "";
     setTimeout(()=>botReply(text),500);
 });
+
 
