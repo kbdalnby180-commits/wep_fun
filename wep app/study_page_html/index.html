@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>صفحة المذاكرة</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="topbar">
+      <h1>📚 صفحة المذاكرة</h1>
+      <button id="themeToggle" class="btn icon-btn" title="تبديل الوضع">🌙</button>
+    </header>
+
+    <main class="grid">
+      <section class="card">
+        <h2>⏳ العداد</h2>
+        <div class="timer" id="timerDisplay">0:00</div>
+        <div class="row">
+          <button class="btn" id="startBtn">بدء</button>
+          <button class="btn" id="pauseBtn">إيقاف مؤقت</button>
+          <button class="btn" id="resetBtn">تصفير</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>📝 قائمة المهام</h2>
+        <div class="row">
+          <input id="taskInput" placeholder="اكتب مهمة..." />
+          <button class="btn" id="addTaskBtn">إضافة</button>
+        </div>
+        <ul id="tasksList" class="list"></ul>
+      </section>
+
+      <section class="card dropzone" id="pdfCard">
+        <h2>📂 ملفات PDF</h2>
+        <label class="uploadLabel">
+          <input id="pdfInput" type="file" accept="application/pdf" multiple />
+          <span class="btn">إضافة ملف</span>
+        </label>
+        <div class="muted">اسحب وأسقط ملفات PDF هنا أو اضغط لإضافتها</div>
+        <ul id="pdfList" class="list"></ul>
+      </section>
+    </main>
+
+    <section id="pdfViewerWrapper" class="card hidden">
+      <h3>عرض الملف</h3>
+      <iframe id="pdfViewer" src="" frameborder="0"></iframe>
+      <div class="muted small">اضغط على اسم الملف للعرض، اضغط مجدداً لإغلاق العرض.</div>
+    </section>
+
+    <footer class="card advice" id="adviceCard">
+      💡 نصيحة اليوم: <span id="adviceText"></span>
+    </footer>
+  </div>
+
+<script src="app.js"></script>
+</body>
+</html>

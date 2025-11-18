@@ -1,0 +1,173 @@
+:root{
+  --bg-dark:#0f1724;
+  --bg-light:#f6f7fb;
+  --bg:var(--bg-dark);
+  --card:#0b1220;
+  --text:#e6eef8;
+  --muted:#9fb0c6;
+  --accent:#60a5fa;
+}
+
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  background:var(--bg);
+  color:var(--text);
+  direction:rtl;
+}
+
+.app{
+  max-width:1100px;
+  margin:18px auto;
+  padding:16px;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+
+.topbar h1{
+  margin:0;
+  font-size:1.4rem;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(1,1fr);
+  gap:16px;
+}
+
+@media(min-width:600px){
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(min-width:800px){
+  .grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+}
+
+.card{
+  background:var(--card);
+  border-radius:12px;
+  padding:14px;
+  box-shadow:0 6px 18px rgba(2,6,23,0.6);
+}
+
+.timer{
+  font-family:monospace;
+  font-size:2rem;
+  padding:8px 0;
+}
+
+.row{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin-top:8px;
+}
+
+.btn{
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.08);
+  padding:8px 12px;
+  border-radius:10px;
+  cursor:pointer;
+  color:var(--text);
+}
+
+.icon-btn{
+  padding:6px 10px;
+}
+
+input[type="file"]{
+  display:none;
+}
+
+.uploadLabel{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+
+.list{
+  list-style:none;
+  padding:0;
+  margin:8px 0 0 0;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.list li{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:8px;
+  border-radius:10px;
+  background:rgba(255,255,255,0.03);
+  cursor:pointer;
+}
+
+.list li.completed{
+  text-decoration:line-through;
+  opacity:0.6;
+}
+
+.dropzone{
+  min-height:140px;
+  display:flex;
+  flex-direction:column;
+}
+
+.dropzone.dragover{
+  outline:3px dashed rgba(96,165,250,0.5);
+}
+
+/* PDF Viewer responsive */
+#pdfViewerWrapper iframe{
+  width:100%;
+  height:60vh; /* مناسب للشاشات الصغيرة والكبيرة */
+  border-radius:10px;
+}
+
+.hidden{
+  display:none;
+}
+
+.muted{
+  color:var(--muted);
+  font-size:0.9rem;
+  margin-top:8px;
+}
+
+.small{
+  font-size:0.8rem;
+}
+
+.advice{
+  margin-top:14px;
+  text-align:center;
+}
+
+.card h2,.card h3{
+  margin:0 0 8px 0;
+}
+
+input{
+  padding:8px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.06);
+  background:transparent;
+  color:var(--text);
+  flex:1;
+}
+
+input::placeholder{
+  color:rgba(255,255,255,0.35);
+}
