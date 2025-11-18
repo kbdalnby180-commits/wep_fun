@@ -74,8 +74,10 @@ const pages = [
     {name:"📖 مذاكرة", url:"wep app/Study assistant/index.html"},
     {name:"💡 نصيحة يومية", url:"wep app/daily-tip/index.html"},
     {name:"🔗 صنع QR", url:"wep app/qr/index.html"},
-    {name:"😎VIP😎", url:"wep app/vip/login.html"},
-    {name:"ℹ️ عن الموقع", url:"tool/Fun X/index.html"},
+    {name:"💣FUN X SPACE💣", url:"wep game/funx_space_v2/index.html"},
+    {name:" 🛫CRASH🛫 ", url:"wep game/crash/CRASH.html"},
+    {name:" 💵TRADE💵 ", url:"wep game/Trade/index.html"},
+    {name:"INFO WEP  ", url:"tool/Fun X/index.html"},
 ];
 
 // عرض الصفحات مباشرة
