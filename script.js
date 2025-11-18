@@ -62,10 +62,7 @@ chatToggle.addEventListener('click', () => {
 // صفحات الموقع للعرض المباشر
 const pages = [
     {name:"🎮 Game War", url:"wep game/game war/index.html"},
-    {name:"space war 🎮", url:"wep game/funx_space_v2/index.html"},
     {name:"❓ Game Question", url:"wep game/Who will win the million/index.html"},
-    {name:"🛫 Plan X 🛫", url:"wep game/crash/CRASH.html"},
-    {name:"💰 تداول", url:"wep game/Trade/index.html"},
     {name:"🎲 صراحة", url:"wep game/Truth or Dare/index.html"},
     {name:"📱 إخفاء الهاتف", url:"wep game/Hide phone game/index.html"},
     {name:"❌⭕ X&O", url:"wep game/X&O game/index.html"},
@@ -77,9 +74,8 @@ const pages = [
     {name:"📖 مذاكرة", url:"wep app/Study assistant/index.html"},
     {name:"💡 نصيحة يومية", url:"wep app/daily-tip/index.html"},
     {name:"🔗 صنع QR", url:"wep app/qr/index.html"},
+    {name:"😎VIP😎", url:"wep app/vip/login.html"},
     {name:"ℹ️ عن الموقع", url:"tool/Fun X/index.html"},
-     {name:"login wep 🙎‍♂️",url:"https://f8c86c9d-4933-4446-9f4f-3c9080c99876-00-1ooidvufari90.riker.replit.dev/"},
-     {name:"AI KHALED",url:"https://2cfc7ae0-5c03-4b39-b234-10b5ee934e3d-00-3ikunnl0w75l2.kirk.replit.dev/"},
 ];
 
 // عرض الصفحات مباشرة
@@ -117,6 +113,4 @@ sendBtn.addEventListener('click',()=>{
     chatInput.value = "";
     setTimeout(()=>botReply(text),500);
 });
-
-
 
