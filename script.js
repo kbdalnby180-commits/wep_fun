@@ -61,6 +61,7 @@ chatToggle.addEventListener('click', () => {
 
 // صفحات الموقع للعرض المباشر
 const pages = [
+      {name:" FUN X LEARN HTML💻 ", url: "tool/FUN X LEARN HTML/index.html" },
     {name:"🎮 Game War", url:"wep game/game war/index.html"},
     {name:"❓ Game Question", url:"wep game/Who will win the million/index.html"},
     {name:"🎲 صراحة", url:"wep game/Truth or Dare/index.html"},
@@ -78,7 +79,6 @@ const pages = [
     {name:"💣FUN X SPACE💣", url:"wep game/funx_space_v2/index.html"},
     {name:" 🛫CRASH🛫 ", url:"wep game/crash/CRASH.html"},
     {name:" 💵TRADE💵 ", url:"wep game/Trade/index.html"},
-    {name:" FUN X LEARN HTML💻 ", url: "tool/FUN X LEARN HTML/index.html" },
     {name:"INFO WEP  ", url:"tool/Fun X/index.html"},
 ];
 
@@ -117,5 +117,6 @@ sendBtn.addEventListener('click',()=>{
     chatInput.value = "";
     setTimeout(()=>botReply(text),500);
 });
+
 
 
