@@ -78,6 +78,7 @@ const pages = [
     {name:"💣FUN X SPACE💣", url:"wep game/funx_space_v2/index.html"},
     {name:" 🛫CRASH🛫 ", url:"wep game/crash/CRASH.html"},
     {name:" 💵TRADE💵 ", url:"wep game/Trade/index.html"},
+    {name:" FUN X LEARN HTML💻 ", url: "tool/FUN X LEARN HTML/index.html" },
     {name:"INFO WEP  ", url:"tool/Fun X/index.html"},
 ];
 
@@ -116,4 +117,5 @@ sendBtn.addEventListener('click',()=>{
     chatInput.value = "";
     setTimeout(()=>botReply(text),500);
 });
+
 
