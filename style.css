@@ -150,3 +150,19 @@ footer {
     max-height: 100vh !important;
     overflow: hidden !important;
 }
+/* إبطاء حركة الإيموجي في الخلفية */
+.snowflake {
+    animation-duration: 15s !important;
+}
+
+.santa {
+    animation-duration: 20s !important;
+}
+
+#yearLine {
+    animation-duration: 10s !important;
+}
+
+#yearNumber {
+    animation-duration: 12s !important;
+}
