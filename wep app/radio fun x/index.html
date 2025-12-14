@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>📻  fun X راديو</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- الخلفية -->
+<div class="stars"></div>
+<div class="moon"></div>
+
+<!-- الراديو -->
+<div class="wrapper">
+  <div class="radio">
+    <h1>📻  fun X راديو</h1>
+    <div id="stationName">إذاعة القرآن الكريم – القاهرة</div>
+
+    <iframe id="radioFrame"
+      src="https://p.liveonlineradio.net/?p=ertu-quran-karem"
+      scrolling="no"></iframe>
+
+    <div class="controls">
+      <button onclick="prevStation()">◀</button>
+      <button onclick="nextStation()">▶</button>
+    </div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
