@@ -80,6 +80,7 @@ const pages = [
     { name: "🔥 التحديات", url: "wep game/Challenges game/index.html" },
     { name: "🎨 رسم", url: "wep app/paints/index.html" },
     { name: "🕋 Quran", url: "wep app/quran/index.html" },
+    { name: "📻  fun X راديو", url: "wep app/radio fun x/index.html" },
     { name: "📿 السبحة الإلكترونية", url: "wep app/Electronic rosary/index.html" },
     { name: "📖 مذاكرة", url: "wep app/Study assistant/index.html" },
     { name: "📚 مذاكرة", url: "wep app/study_page_html/index.html" },
@@ -131,4 +132,5 @@ document.body.appendChild(shareDiv);
 // أصوات تفاعلية
 const clickSound = new Audio("audio/click.mp3");
 document.body.addEventListener("click", () => clickSound.play());
+
 
