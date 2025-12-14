@@ -1,0 +1,217 @@
+/* الخطوط الأساسية */
+body {
+    font-family: "Cairo", Arial, sans-serif;
+    background: linear-gradient(180deg, #0b0b1f 0%, #1a1a3d 100%);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background 0.5s, color 0.5s;
+}
+
+/* الوضع النهاري */
+body.light {
+    background: linear-gradient(180deg, #f0f0f0 0%, #d0d0ff 100%);
+    color: #000;
+}
+
+/* النجوم */
+.stars { position: fixed; width: 100%; height: 100%; z-index: -3; }
+.star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 6s linear infinite; opacity: 0; }
+@keyframes twinkle { 0%,100% { opacity: 0.2; } 50% { opacity: 1; } }
+
+/* الهيدر */
+header {
+    background: rgba(0,0,0,0.8);
+    color: #ff3a3a;
+    padding: 15px 20px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #ff4500;
+    transition: all 0.3s ease;
+}
+header.light {
+    background: rgba(255,255,255,0.9);
+    color: #ff4500;
+    border-bottom: 2px solid #ff7f50;
+}
+header h1 { margin:0; font-size: 24px; }
+header button {
+    cursor: pointer;
+    background: #ff4500;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+header button:hover {
+    background: #ffa500;
+    color: #000;
+}
+
+/* صندوق الأسئلة */
+.question-container {
+    background-color: rgba(20,20,50,0.9);
+    padding: 30px;
+    margin-top: 60px;
+    border-radius: 40px;
+    box-shadow: 0 8px 30px rgba(255,0,0,0.4);
+    width: 85%;
+    max-width: 650px;
+    transition: background 0.5s, color 0.5s, box-shadow 0.3s;
+}
+.question-container.light {
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0 8px 30px rgba(255,140,0,0.4);
+}
+
+/* النقاط والمؤقت */
+#score, #timer {
+    font-size: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: bold;
+    color: #ffcc00;
+    text-shadow: 0 0 10px #ff4500;
+}
+body.light #score, body.light #timer {
+    color: #ff4500;
+    text-shadow: none;
+}
+
+/* نص السؤال */
+.question {
+    font-size: 24px;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #ffa500;
+    text-shadow: 0 0 15px #ff4500;
+}
+
+/* الأزرار */
+.answers button {
+    width: 100%;
+    padding: 16px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 15px;
+    font-size: 18px;
+    cursor: pointer;
+    background: linear-gradient(90deg,#ff4500,#ffa500);
+    color: #fff;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px #000;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+.answers button:hover {
+    background: linear-gradient(90deg,#00eaff,#00aaff);
+    color: #000;
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0,170,255,0.4);
+}
+
+/* الإشعارات */
+#notify {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #ff4500;
+    color: #fff;
+    padding: 14px 24px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.7);
+    display: none;
+    font-weight: bold;
+    font-size: 18px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+body.light #notify { background: #ffa500; color: #000; }
+
+/* مؤثرات عند اختيار الإجابة */
+.answers button.correct {
+    animation: correctAnim 0.5s forwards;
+}
+.answers button.wrong {
+    animation: wrongAnim 0.5s forwards;
+}
+@keyframes correctAnim {
+    0% { transform: scale(1); background-color:#00ff00; }
+    100% { transform: scale(1.05); background-color:#00cc00; }
+}
+@keyframes wrongAnim {
+    0% { transform: scale(1); background-color:#ff0000; }
+    100% { transform: scale(1.05); background-color:#cc0000; }
+}
+
+/* متجاوب مع التليفون */
+@media(max-width:768px){
+    header { flex-direction: column; font-size: 20px; }
+    header h1 { margin-bottom: 8px; }
+    header button { font-size: 14px; padding: 6px 12px; }
+    .question-container { width: 95%; padding: 20px; }
+    .question { font-size: 20px; }
+    #score, #timer { font-size: 16px; }
+    .answers button { font-size: 16px; padding: 12px; }
+}
+
+.game-over-ui {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: rgba(0,0,0,0.95);
+    color: #fff;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 0 30px rgba(255,0,0,0.5);
+    text-align: center;
+    z-index: 2000;
+    transition: transform 0.4s ease-in-out, opacity 0.4s;
+    opacity: 0;
+}
+.game-over-ui.show {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+.game-over-ui h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: #ffcc00;
+}
+.game-over-ui p {
+    font-size: 22px;
+    margin-bottom: 30px;
+    color: #ffa500;
+}
+.game-over-ui button {
+    background: linear-gradient(90deg,#ff4500,#ffa500);
+    color: #fff;
+    font-size: 18px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.game-over-ui button:hover {
+    background: linear-gradient(90deg,#00eaff,#00aaff);
+    color: #000;
+}
