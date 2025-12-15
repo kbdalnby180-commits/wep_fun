@@ -55,18 +55,27 @@ const femaleTips = [
 ];
 
 function showTip(){
- let gender = document.getElementById("gender").value;
- if(!gender){alert("من فضلك اختر النوع أولاً");return;}
-
- let tips = gender === "male" ? maleTips : femaleTips;
-
- // تحديد اليوم
- let today = new Date();
- let dayNumber = Math.floor(today.getTime() / (1000*60*60*24));
-
- // اختيار النصيحة حسب اليوم
- let tipIndex = dayNumber % tips.length;
- let tip = tips[tipIndex];
-
- document.getElementById("tipBox").textContent = tip;
+    let gender = document.getElementById("gender").value;
+    if(!gender){alert("من فضلك اختر النوع أولاً"); return;}
+    let tips = gender==="male"?maleTips:femaleTips;
+    let today = new Date();
+    let dayNumber = Math.floor(today.getTime() / (1000*60*60*24));
+    let tipIndex = dayNumber % tips.length;
+    document.getElementById("tipBox").textContent = tips[tipIndex];
 }
+
+function randomTip(){
+    let gender = document.getElementById("gender").value;
+    if(!gender){alert("من فضلك اختر النوع أولاً"); return;}
+    let tips = gender==="male"?maleTips:femaleTips;
+    let tipIndex = Math.floor(Math.random()*tips.length);
+    document.getElementById("tipBox").textContent = tips[tipIndex];
+}
+
+// إضافة زر الوضع الليلي لو حابب (يمكن إضافته لاحقاً)
+
+// وضع ليلي / نهاري
+const themeBtn = document.getElementById("toggleTheme");
+themeBtn.addEventListener("click",()=>{
+    document.body.classList.toggle("light");
+});

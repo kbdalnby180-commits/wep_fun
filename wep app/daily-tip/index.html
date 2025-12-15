@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>نصائح يومية</title>
+<title>💡 نصائح يومية</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <h1>💡 نصيحة يومية</h1>
 
-<div>
- <label for="gender">اختر النوع:</label>
- <select id="gender">
-   <option value="">-- اختر --</option>
-   <option value="male">ذكر</option>
-   <option value="female">أنثى</option>
- </select>
- <button onclick="showTip()">عرض النصيحة</button>
+<div class="controls">
+  <select id="gender">
+    <option value="">-- اختر النوع --</option>
+    <option value="male">ذكر</option>
+    <option value="female">أنثى</option>
+  </select>
+  <button onclick="showTip()">عرض النصيحة</button>
+  <button onclick="randomTip()">💫 نصيحة عشوائية</button>
 </div>
 
-<div class="card" id="tipBox">سيتم عرض نصيحتك هنا...</div>
+<div class="tip-card" id="tipBox">سيتم عرض نصيحتك هنا...</div>
 
 <script src="script.js"></script>
 </body>
