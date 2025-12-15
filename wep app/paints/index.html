@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fun X – صفحة الرسم الشخصي</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fun X – صفحة الرسم الشخصي</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="stars"></div>
-    <div class="celestial" id="celestial"></div>
-    <div class="cloud"></div>
-    <div class="cloud"></div>
+<div class="stars"></div>
+<div class="celestial" id="celestial"></div>
+<div class="cloud cloud1"></div>
+<div class="cloud cloud2"></div>
 
-    <header><a href="#">Fun X – صفحة الرسم الشخصي</a></header>
+<header><a href="#">Fun X – صفحة الرسم الشخصي</a></header>
 
-    <div id="tips">ارفع صورة من جهازك وستظهر هنا للرسم عليها على الورق.</div>
+<div id="tips">ارفع صورة من جهازك وستظهر هنا للرسم عليها.</div>
 
-    <input type="file" id="imageUpload" accept="image/*">
+<input type="file" id="imageUpload" accept="image/*">
+<img id="selectedImage" src="" alt="صورة للرسم" style="display:none;">
+<button id="fullscreenBtn" style="display:none;">عرض الصورة فول سكرين</button>
 
-    <img id="selectedImage" src="" alt="صورة للرسم" style="display:none;">
-    <button id="fullscreenBtn" style="display:none;">عرض الصورة فول سكرين</button>
+<div class="buttons">
+    <button id="dayNightBtn">ليلي / نهاري</button>
+</div>
 
-    <div class="buttons">
-        <button id="dayNightBtn">ليلي / نهاري</button>
-    </div>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

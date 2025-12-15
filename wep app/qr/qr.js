@@ -11,8 +11,8 @@ function generateQRCode() {
     qrcodeContainer.innerHTML = "";
     new QRCode(qrcodeContainer, {
         text: url,
-        width: 200,
-        height: 200,
+        width: 220,
+        height: 220,
         colorDark: "#000000",
         colorLight: "#ffffff",
         correctLevel: QRCode.CorrectLevel.H
