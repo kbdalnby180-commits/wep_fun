@@ -75,6 +75,7 @@ const pages = [
     { name: "❓ Game Question", url: "wep game/Who will win the million/index.html" },
     { name: "🎲 صراحة", url: "wep game/Truth or Dare/index.html" },
     { name: "📱 إخفاء الهاتف", url: "wep game/Hide phone game/index.html" },
+    { name: " 🕵️‍♂️لعبة المحقق 🕵️‍♂️ ", url: "wep game/Cases/index.html" },
     { name: "❌⭕ X&O", url: "wep game/X&O game/index.html" },
     { name: "🎴 الورق المتشابه", url: "wep game/Matching card game/index.html" },
     { name: "🔥 التحديات", url: "wep game/Challenges game/index.html" },
@@ -132,5 +133,6 @@ document.body.appendChild(shareDiv);
 // أصوات تفاعلية
 const clickSound = new Audio("audio/click.mp3");
 document.body.addEventListener("click", () => clickSound.play());
+
 
 
