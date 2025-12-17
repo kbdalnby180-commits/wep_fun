@@ -1,114 +1,166 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مسابقة مغلقة</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مسابقة مغلقة</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
 
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: radial-gradient(circle at center, #0f0f0f, #000000);
-            font-family: 'Orbitron', sans-serif;
-            color: #00ffff;
-            overflow: hidden;
-        }
+    body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(circle at center, #0f0f0f, #000000);
+        font-family: 'Orbitron', sans-serif;
+        color: #00ffff;
+    }
 
-        .container {
-            max-width: 800px;
-            text-align: center;
-            padding: 40px;
-            border: 2px solid #00ffff;
-            border-radius: 15px;
-            background: rgba(0, 255, 255, 0.05);
-            box-shadow: 0 0 50px #00ffff, 0 0 100px #00ffff inset;
-        }
+    .container {
+        width: 90%;
+        max-width: 900px;
+        text-align: center;
+        padding: 30px 20px;
+        border: 2px solid #00ffff;
+        border-radius: 15px;
+        background: rgba(0, 255, 255, 0.05);
+        box-shadow: 0 0 50px #00ffff, 0 0 100px #00ffff inset;
+    }
 
-        h1 {
-            font-size: 3em;
-            color: #00ffff;
-            text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
-            margin-bottom: 20px;
-            animation: glow 1.5s infinite alternate;
-        }
+    h1 {
+        font-size: 2.5em;
+        color: #00ffff;
+        text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+        margin-bottom: 20px;
+        animation: glow 1.5s infinite alternate;
+    }
 
-        p, li {
-            font-size: 1.2em;
-            color: #00ffff;
-            text-shadow: 0 0 5px #00ffff;
-            line-height: 1.6;
-        }
+    p, li {
+        font-size: 1.1em;
+        color: #00ffff;
+        text-shadow: 0 0 5px #00ffff;
+        line-height: 1.5;
+    }
 
-        ul {
-            list-style-type: disc;
-            margin: 10px 0 20px 40px;
-            text-align: right;
-        }
+    ul {
+        list-style-type: disc;
+        margin: 10px 0 20px 30px;
+        text-align: right;
+    }
 
-        .highlight {
-            background-color: rgba(0,255,255,0.1);
-            padding: 10px;
-            border-left: 4px solid #00ffff;
-            margin: 15px 0;
-            border-radius: 5px;
-        }
+    .highlight {
+        background-color: rgba(0,255,255,0.1);
+        padding: 10px;
+        border-left: 4px solid #00ffff;
+        margin: 15px 0;
+        border-radius: 5px;
+    }
 
-        .holo-line {
-            width: 80%;
-            height: 2px;
-            margin: 20px auto;
-            background: linear-gradient(90deg, transparent, #00ffff, transparent);
-            animation: holoMove 2s linear infinite;
-        }
+    .holo-line {
+        width: 80%;
+        height: 2px;
+        margin: 20px auto;
+        background: linear-gradient(90deg, transparent, #00ffff, transparent);
+        animation: holoMove 2s linear infinite;
+    }
 
-        @keyframes holoMove {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
+    @keyframes holoMove {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
 
-        @keyframes glow {
-            from { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
-            to { text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff; }
-        }
-    </style>
+    @keyframes glow {
+        from { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
+        to { text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff; }
+    }
+
+    #countdown {
+        font-size: 2em;
+        margin: 20px 0;
+        font-weight: bold;
+        color: #ff4081;
+        text-shadow: 0 0 10px #ff4081, 0 0 20px #ff4081;
+    }
+
+    @media (max-width: 600px) {
+        h1 { font-size: 2em; }
+        p, li { font-size: 1em; }
+        #countdown { font-size: 1.5em; }
+        .container { padding: 20px 15px; }
+    }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>🚫 المسابقة مغلقة الآن</h1>
-        <div class="holo-line"></div>
-        <p>تبدأ المسابقة اليوم من الساعة <strong>1:00 ظهرًا</strong> حتى <strong>1:30 ظهرًا</strong></p>
-        <div class="holo-line"></div>
+<div class="container">
+    <h1>🚫 المسابقة مغلقة الآن</h1>
+    <div class="holo-line"></div>
 
-        <h2>📢 نبذة عن مسابقة الألغاز الكبرى</h2>
-        <p>مسابقة الألغاز الكبرى هي تحدي فريد لاختبار مهاراتكم العقلية والمنطقية بطريقة ممتعة، تتكون من 10 قضايا يومية تحتاج للتركيز والتحليل الاستراتيجي.</p>
-        
-        <h2>📝 التفاصيل الأساسية:</h2>
-        <ul>
-            <li>حل كل قضية وإرسال صورة واضحة مع تفسير خطوات التفكير.</li>
-            <li>المسابقة اليومية مفتوحة من 1:00 حتى 1:30 ظهرًا.</li>
-            <li>أي إجابة بعد الساعة 1:30 تعتبر لاغية.</li>
-        </ul>
+    <div id="countdown">جاري حساب الوقت...</div>
 
-        <h2>⚠️ الشروط الرئيسية:</h2>
-        <ul>
-            <li>متاحة لمتابعي الموقع فقط.</li>
-            <li>محاولة واحدة لكل قضية.</li>
-            <li>الصور يجب أن تكون واضحة وغير معدلة.</li>
-            <li>أي غش أو سلوك غير أخلاقي يؤدي للاستبعاد.</li>
-        </ul>
+    <div class="holo-line"></div>
 
-        <h2>🏅 الجائزة الكبرى:</h2>
-        <div class="highlight">
-            جائزة واحدة فقط للمتسابق الذي يحل جميع القضايا بنجاح ويستوفي الشروط. ستكون هدية مفاجئة ومكافأة على الاجتهاد والدقة.
-        </div>
+    <h2>📢 نبذة عن مسابقة الألغاز الكبرى</h2>
+    <p>مسابقة الألغاز الكبرى هي تحدي فريد لاختبار مهاراتكم العقلية والمنطقية بطريقة ممتعة، تتكون من 10 قضايا يومية تحتاج للتركيز والتحليل الاستراتيجي.</p>
+    
+    <h2>📝 التفاصيل الأساسية:</h2>
+    <ul>
+        <li>حل كل قضية وإرسال صورة واضحة مع تفسير خطوات التفكير.</li>
+        <li>المسابقة اليومية مفتوحة من 1:00 حتى 1:30 ظهرًا.</li>
+        <li>أي إجابة بعد الساعة 1:30 تعتبر لاغية.</li>
+    </ul>
 
-        <p>✨ المسابقة تهدف لاختبار الذكاء والمنطق. التركيز والدقة وسرعة التحليل هي مفاتيح الفوز. كن مستعدًا للتحدي قبل نهاية عام 2025! 🚀</p>
+    <h2>⚠️ الشروط الرئيسية:</h2>
+    <ul>
+        <li>متاحة لمتابعي الموقع فقط.</li>
+        <li>محاولة واحدة لكل قضية.</li>
+        <li>الصور يجب أن تكون واضحة وغير معدلة.</li>
+        <li>أي غش أو سلوك غير أخلاقي يؤدي للاستبعاد.</li>
+    </ul>
+
+    <h2>🏅 الجائزة الكبرى:</h2>
+    <div class="highlight">
+        جائزة واحدة فقط للمتسابق الذي يحل جميع القضايا بنجاح ويستوفي الشروط. ستكون هدية مفاجئة ومكافأة على الاجتهاد والدقة.
     </div>
+
+    <p>✨ المسابقة تهدف لاختبار الذكاء والمنطق. التركيز والدقة وسرعة التحليل هي مفاتيح الفوز. كن مستعدًا للتحدي قبل نهاية عام 2025! 🚀</p>
+</div>
+
+<script>
+    // عد تنازلي حتى الساعة 1:00 ظهرًا
+    function startCountdown() {
+        const countdownEl = document.getElementById('countdown');
+        const now = new Date();
+        let target = new Date();
+        target.setHours(13, 0, 0, 0); // الساعة 1:00 ظهرًا
+
+        // إذا الوقت الحالي بعد 1:00، ستظهر "المسابقة مفتوحة الآن!"
+        if (now >= target) {
+            countdownEl.textContent = "✅ المسابقة مفتوحة الآن!";
+            return;
+        }
+
+        const interval = setInterval(() => {
+            const now = new Date();
+            let diff = target - now;
+
+            if (diff <= 0) {
+                clearInterval(interval);
+                countdownEl.textContent = "✅ المسابقة مفتوحة الآن!";
+                return;
+            }
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            countdownEl.textContent = `⏳ يبدأ بعد: ${hours}س ${minutes}د ${seconds}ث`;
+        }, 1000);
+    }
+
+    startCountdown();
+</script>
 </body>
 </html>
