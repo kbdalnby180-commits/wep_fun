@@ -62,11 +62,12 @@ header p {
     box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
     border-left: 5px solid #0ff;
     margin-bottom: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, scale 0.3s ease;
+    position: relative;
 }
 .paper:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 40px rgba(0, 255, 255, 0.35);
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 0 50px rgba(0, 255, 255, 0.5), 0 0 70px rgba(255, 0, 255, 0.3);
 }
 .paper h3 { margin-top: 0; }
 .paper p {
@@ -90,6 +91,21 @@ header p {
     padding: 22px;
     margin-top: 30px;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.lock::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(255,0,0,0.1), rgba(0,255,255,0.1));
+    pointer-events: none;
+    animation: lockGlow 6s linear infinite;
+    border-radius: 18px;
+}
+@keyframes lockGlow {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
 }
 
 /* ==== Inputs & Buttons ==== */
@@ -126,6 +142,14 @@ button:disabled {
     opacity: 0.4;
     cursor: not-allowed;
 }
+/* زر نبض عند تفعيل القرار */
+button.active {
+    animation: pulse 1s infinite;
+}
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 20px #00f5ff, 0 0 30px #b300ff; }
+    50% { box-shadow: 0 0 30px #00f5ff, 0 0 40px #b300ff; }
+}
 
 /* ==== Result ==== */
 .result {
@@ -133,6 +157,17 @@ button:disabled {
     margin-top: 18px;
     font-size: 1.15rem;
     letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+/* اهتزاز عند الخطأ */
+.result.wrong {
+    animation: shake 0.5s;
+}
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
 }
 
 /* ==== Footer ==== */
