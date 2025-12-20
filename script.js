@@ -1,3 +1,5 @@
+
+
 /* ==================== الخلفيات والنجوم والثلج ==================== */
 
 for (let i = 0; i < 60; i++) {
@@ -42,21 +44,26 @@ function updateCelestial() {
 }
 setInterval(updateCelestial, 1000);
 updateCelestial();
-
 /* ==================== ساعة وتاريخ ==================== */
 
 function updateClock() {
     const now = new Date();
-    document.getElementById('clock').textContent =
-        now.getHours().toString().padStart(2, '0') + ":" +
-        now.getMinutes().toString().padStart(2, '0') + ":" +
-        now.getSeconds().toString().padStart(2, '0');
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
 
-    document.getElementById('calendar').textContent =
-        now.getDate().toString().padStart(2, '0') + "/" +
-        (now.getMonth() + 1).toString().padStart(2, '0') + "/" +
-        now.getFullYear();
+    const day = now.getDate().toString().padStart(2, '0');
+    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+    const year = now.getFullYear();
+
+    const clockEl = document.getElementById('clock');
+    const calEl = document.getElementById('calendar');
+
+    clockEl.textContent = `${hours}:${minutes}:${seconds}`;
+    calEl.textContent = `${day}/${month}/${year}`;
 }
+
+// تحديث كل ثانية
 setInterval(updateClock, 1000);
 updateClock();
 
@@ -75,7 +82,6 @@ const pages = [
     { name: "❓ Game Question", url: "wep game/Who will win the million/index.html" },
     { name: "🎲 صراحة", url: "wep game/Truth or Dare/index.html" },
     { name: "📱 إخفاء الهاتف", url: "wep game/Hide phone game/index.html" },
-    { name: " 🕵️‍♂️لعبة المحقق 🕵️‍♂️ ", url: "wep game/Cases/index.html" },
     { name: "❌⭕ X&O", url: "wep game/X&O game/index.html" },
     { name: "🎴 الورق المتشابه", url: "wep game/Matching card game/index.html" },
     { name: "🔥 التحديات", url: "wep game/Challenges game/index.html" },
@@ -86,11 +92,12 @@ const pages = [
     { name: "📖 مذاكرة", url: "wep app/Study assistant/index.html" },
     { name: "📚 مذاكرة", url: "wep app/study_page_html/index.html" },
     { name: "💡 نصيحة يومية", url: "wep app/daily-tip/index.html" },
+    { name: "لخلفيات fun X معرض 💻🎴", url: "tool/wallper/index.html" },
     { name: "🔗 صنع QR", url: "wep app/qr/index.html" },
     { name: "💣FUN X SPACE💣", url: "wep game/funx_space_v2/index.html" },
     { name: " FUN X LEARN HTML💻 ", url: "tool/FUN X LEARN HTML/index.html" },
     { name: " 🛫CRASH🛫 ", url: "wep game/crash/CRASH.html" },
-    { name: " 💵TRADE💵 ", url: "wep game/Trade/index.html" },
+    { name: " 🕵️‍♂️لعبة المحقق 🕵️‍♂️ ", url: "wep game/Cases/index.html" },
     { name: "INFO WEP  ", url: "tool/Fun X/index.html" },
 ];
 
@@ -129,10 +136,5 @@ sendBtn.addEventListener('click', () => {
 });
 
 document.body.appendChild(shareDiv);
-
-// أصوات تفاعلية
-const clickSound = new Audio("audio/click.mp3");
-document.body.addEventListener("click", () => clickSound.play());
-
 
 
