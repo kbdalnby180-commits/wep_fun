@@ -1,17 +1,145 @@
-body{margin:0;min-height:100vh;font-family:Tahoma,Arial;background:radial-gradient(circle at top,#030509,#000);color:#fff}
-body::before{content:"";position:fixed;inset:0;background:linear-gradient(120deg,rgba(0,255,255,.12),rgba(255,0,255,.12),rgba(0,255,0,.12));mix-blend-mode:screen;animation:holo 20s linear infinite;pointer-events:none}
-@keyframes holo{from{filter:hue-rotate(0)}to{filter:hue-rotate(360deg)}}
-header{text-align:center;padding:30px}
-header h1{margin:0;font-size:2.4rem;letter-spacing:4px}
-header p{opacity:.65}
-.container{max-width:1500px;margin:auto;padding:15px}
-.paper{background:rgba(255,255,255,.05);border-radius:14px;padding:18px;box-shadow:0 0 30px rgba(0,255,255,.2);border-left:4px solid #0ff;margin-bottom:18px}
-.paper h3{margin-top:0}
-.paper p{font-size:.9rem;opacity:.85;line-height:1.7}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
-.lock{background:rgba(0,0,0,.6);border:1px solid rgba(255,0,0,.5);border-radius:16px;padding:20px;margin-top:30px}
-select,button,input{width:100%;padding:14px;border:none;border-radius:30px;font-weight:bold;margin-top:10px}
-select,input{background:#000;color:#0ff}
-button{background:linear-gradient(120deg,#00f5ff,#b300ff);cursor:pointer}button:disabled{opacity:.4;cursor:not-allowed}
-.result{text-align:center;margin-top:15px;font-size:1.1rem}
-footer{text-align:center;padding:15px;font-size:.8rem;opacity:.6}
+/* ==== Reset & Body ==== */
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Tahoma, Arial, sans-serif;
+    background: radial-gradient(circle at top, #030509, #000);
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ==== Holo overlay ==== */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(
+        120deg,
+        rgba(0, 255, 255, 0.12),
+        rgba(255, 0, 255, 0.12),
+        rgba(0, 255, 0, 0.12)
+    );
+    mix-blend-mode: screen;
+    animation: holo 25s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes holo {
+    from { filter: hue-rotate(0deg); }
+    to { filter: hue-rotate(360deg); }
+}
+
+/* ==== Header ==== */
+header {
+    text-align: center;
+    padding: 40px 20px;
+}
+header h1 {
+    margin: 0;
+    font-size: 2.8rem;
+    letter-spacing: 5px;
+    text-shadow: 0 0 12px #0ff, 0 0 20px #b300ff;
+}
+header p {
+    opacity: 0.65;
+    font-size: 1rem;
+    margin-top: 8px;
+}
+
+/* ==== Container ==== */
+.container {
+    max-width: 1500px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* ==== Paper cards ==== */
+.paper {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+    border-left: 5px solid #0ff;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.paper:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.35);
+}
+.paper h3 { margin-top: 0; }
+.paper p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    line-height: 1.7;
+}
+
+/* ==== Grid ==== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* ==== Lock card ==== */
+.lock {
+    background: rgba(0, 0, 0, 0.65);
+    border: 2px solid rgba(255, 0, 0, 0.5);
+    border-radius: 18px;
+    padding: 22px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* ==== Inputs & Buttons ==== */
+select, button, input {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    margin-top: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+select, input {
+    background: #000;
+    color: #0ff;
+}
+select:focus, input:focus {
+    outline: none;
+    box-shadow: 0 0 12px #0ff;
+}
+button {
+    background: linear-gradient(120deg, #00f5ff, #b300ff);
+    cursor: pointer;
+    color: #fff;
+    font-size: 1.05rem;
+    text-shadow: 0 0 4px #fff;
+}
+button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px #00f5ff, 0 0 25px #b300ff;
+}
+button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* ==== Result ==== */
+.result {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 1.15rem;
+    letter-spacing: 1px;
+}
+
+/* ==== Footer ==== */
+footer {
+    text-align: center;
+    padding: 18px;
+    font-size: 0.85rem;
+    opacity: 0.6;
+    letter-spacing: 0.5px;
+}
