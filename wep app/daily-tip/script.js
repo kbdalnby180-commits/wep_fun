@@ -54,28 +54,35 @@ const femaleTips = [
  "ابتسمي دائماً فأجمل زينة هي الابتسامة."
 ];
 
-function showTip(){
-    let gender = document.getElementById("gender").value;
-    if(!gender){alert("من فضلك اختر النوع أولاً"); return;}
-    let tips = gender==="male"?maleTips:femaleTips;
-    let today = new Date();
-    let dayNumber = Math.floor(today.getTime() / (1000*60*60*24));
-    let tipIndex = dayNumber % tips.length;
-    document.getElementById("tipBox").textContent = tips[tipIndex];
+// عرض نصيحة حسب اليوم
+function showTip() {
+    const gender = document.getElementById("gender").value;
+    if (!gender) {
+        alert("من فضلك اختر النوع أولاً");
+        return;
+    }
+    const tips = gender === "male" ? maleTips : femaleTips;
+    const today = new Date();
+    const dayNumber = Math.floor(today.getTime() / (1000 * 60 * 60 * 24));
+    const tipIndex = dayNumber % tips.length;
+
+    const tipBox = document.getElementById("tipBox");
+    fadeOutIn(tipBox, tips[tipIndex]);
 }
 
-function randomTip(){
-    let gender = document.getElementById("gender").value;
-    if(!gender){alert("من فضلك اختر النوع أولاً"); return;}
-    let tips = gender==="male"?maleTips:femaleTips;
-    let tipIndex = Math.floor(Math.random()*tips.length);
-    document.getElementById("tipBox").textContent = tips[tipIndex];
+
+
+// وظيفة لتأثير ظهور واختفاء سلس للنص
+function fadeOutIn(element, newText) {
+    element.style.opacity = 0;
+    setTimeout(() => {
+        element.textContent = newText;
+        element.style.opacity = 1;
+    }, 300);
 }
 
-// إضافة زر الوضع الليلي لو حابب (يمكن إضافته لاحقاً)
-
-// وضع ليلي / نهاري
+// تبديل الوضع الليلي / النهاري
 const themeBtn = document.getElementById("toggleTheme");
-themeBtn.addEventListener("click",()=>{
+themeBtn.addEventListener("click", () => {
     document.body.classList.toggle("light");
 });

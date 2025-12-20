@@ -1,114 +1,264 @@
 /* خطوط عامة وخلفية ديناميكية */
 body {
-    margin:0;
-    padding:0;
-    font-family:"Georgia", serif;
-    transition: background 1s;
-    color:#fff;
-    overflow-x:hidden;
-    min-height:100vh;
-    background: linear-gradient(180deg,#87CEEB,#FFD700);
+    margin: 0;
+    padding: 0;
+    font-family: "Georgia", serif;
+    transition: background 2s;
+    color: #fff;
+    overflow-x: hidden;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #87CEEB, #FFD700);
 }
 
 /* النجوم */
-.stars { position:fixed; width:100%; height:100%; z-index:-3; }
-.star {
-    position:absolute;
-    border-radius:50%;
-    background:#fff;
-    opacity:0;
-    transition:opacity 0.5s;
+.stars {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -3;
+    pointer-events: none;
+    overflow: hidden;
 }
 
+.star {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    opacity: 0.8;
+    transition: opacity 0.5s, transform 10s linear;
+    box-shadow: 0 0 6px #fff, 0 0 10px #fff;
+}
+
+/* تحريك النجوم */
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: translateY(0px); }
+    50% { opacity: 1; transform: translateY(-20px); }
+}
+
+/* تطبيق الحركة على النجوم */
+.star {
+    animation: twinkle calc(5s + random()*5s) infinite ease-in-out;
+}
+
+/* تأثير تغيّر ألوان السماء */
+@keyframes skyChange {
+    0% { background: linear-gradient(180deg, #87CEEB, #FFD700); }
+    50% { background: linear-gradient(180deg, #001d3d, #000); }
+    100% { background: linear-gradient(180deg, #87CEEB, #FFD700); }
+}
+
+body {
+    animation: skyChange 60s infinite alternate;
+}
 /* الشمس والقمر */
 .celestial {
-    position:fixed;
-    width:120px; height:120px;
-    border-radius:50%;
-    box-shadow:0 0 50px #FFD700;
-    z-index:-2;
-    transition: all 1s linear;
+    position: fixed;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    box-shadow: 0 0 50px #FFD700;
+    z-index: -2;
+    transition: all 2s linear;
+}
+
+/* تخصيص الشمس */
+.sun {
+    background: #FFD700;
+    top: 10%;
+    left: 80%;
+    box-shadow: 0 0 60px #FFD700, 0 0 120px #FFA500;
+}
+
+/* تخصيص القمر */
+.moon {
+    background: #f0f0ff;
+    top: 10%;
+    left: 80%;
+    box-shadow: 0 0 40px #f0f0ff, 0 0 80px #a0a0ff;
 }
 
 /* الغيوم */
 .cloud {
-    position:fixed;
-    width:250px;
-    height:80px;
-    background:rgba(255,255,255,0.08);
-    border-radius:50%;
-    z-index:-1;
-    animation: cloudMove 60s linear infinite;
+    position: fixed;
+    width: 250px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    z-index: -1;
+    animation: cloudMove linear infinite;
 }
 
-.cloud1 { top:15%; left:-300px; }
-.cloud2 { top:30%; left:-500px; }
+/* الغيوم بسرعات مختلفة */
+.cloud1 { top: 15%; left: -300px; animation-duration: 70s; }
+.cloud2 { top: 30%; left: -500px; animation-duration: 50s; }
+.cloud3 { top: 45%; left: -400px; animation-duration: 90s; opacity: 0.05; width: 300px; height: 100px; }
 
+/* حركة الغيوم */
 @keyframes cloudMove {
     0% { transform: translateX(0); }
-    100% { transform: translateX(1500px); }
+    100% { transform: translateX(1600px); }
 }
+
+/* تغيير الشمس والقمر حسب النهار والليل */
+body.day .sun { opacity: 1; }
+body.day .moon { opacity: 0; }
+body.night .sun { opacity: 0; }
+body.night .moon { opacity: 1; }
 
 /* الهيدر */
 header {
-    background: rgba(0,0,0,0.8);
-    color:#ff3c00;
-    padding:15px;
-    text-align:center;
-    font-size:24px;
-    font-weight:bold;
-    letter-spacing:2px;
-    box-shadow:0 0 12px #000;
-    text-shadow:0 0 5px #ff3c00;
-    position:sticky;
-    top:0;
-    z-index:1000;
+    background: rgba(0,0,0,0.6); /* أكثر شفافية ليتماشى مع الخلفية */
+    color: #ff3c00;
+    padding: 15px 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    text-shadow: 0 0 8px #ff3c00, 0 0 15px #ff4500;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: background 1s, color 1s, text-shadow 1s;
 }
-header a { color:#ff3c00; text-decoration:none; transition:0.3s; }
-header a:hover { color:#ffd700; transform:scale(1.05); text-shadow:0 0 15px #ffd700; }
+
+/* الروابط */
+header a {
+    color: inherit;
+    text-decoration: none;
+    transition: 0.3s ease, transform 0.3s ease;
+}
+
+header a:hover {
+    color: #ffd700;
+    transform: scale(1.08);
+    text-shadow: 0 0 15px #ffd700, 0 0 25px #ffa500;
+}
+
+/* تغير الهيدر حسب النهار/الليل */
+body.day header {
+    background: rgba(0,0,0,0.4);
+    color: #ff3c00;
+    text-shadow: 0 0 8px #ff3c00, 0 0 15px #ff4500;
+}
+
+body.night header {
+    background: rgba(0,0,0,0.8);
+    color: #00d4ff;
+    text-shadow: 0 0 8px #00d4ff, 0 0 15px #0088ff;
+}
 
 /* الصورة المختارة */
 #selectedImage {
-    display:block;
-    margin:20px auto;
-    max-width:90%;
-    border-radius:14px;
-    border:4px solid #ff4500;
-    box-shadow:0 0 30px #ff4500,0 0 50px #ffa500 inset;
-    transition: transform 0.3s;
+    display: block;
+    margin: 20px auto;
+    max-width: 90%;
+    border-radius: 14px;
+    border: 4px solid #ff4500;
+    box-shadow: 0 0 30px #ff4500, 0 0 50px #ffa500 inset;
+    transition: transform 0.3s, box-shadow 0.5s;
+    animation: floatImg 6s ease-in-out infinite;
 }
-#selectedImage:hover { transform: scale(1.02); }
+
+/* تأثير الحركة الطفو */
+@keyframes floatImg {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* تأثير التوسيع عند التمرير */
+#selectedImage:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 50px #ffd700, 0 0 70px #ffa500 inset;
+}
+
+/* تغيير ألوان الصورة حسب النهار/الليل */
+body.day #selectedImage {
+    border-color: #ff4500;
+    box-shadow: 0 0 30px #ff4500, 0 0 50px #ffa500 inset;
+}
+
+body.night #selectedImage {
+    border-color: #00d4ff;
+    box-shadow: 0 0 30px #00d4ff, 0 0 50px #0088ff inset;
+}
 
 /* الأزرار */
-.buttons, .controls { display:flex; justify-content:center; gap:12px; margin:15px 0; flex-wrap:wrap; }
-button {
-    padding:12px 22px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    background:#ff4500;
-    color:#fff;
-    font-size:16px;
-    font-weight:bold;
-    transition:0.3s;
+.buttons, .controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 15px 0;
+    flex-wrap: wrap;
 }
-button:hover { background:#00eaff; color:#000; transform:scale(1.05); }
+
+button {
+    padding: 12px 22px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s, box-shadow 0.3s;
+}
+
+/* ألوان الأزرار حسب النهار/الليل */
+body.day button {
+    background: #ff4500;
+    color: #fff;
+    box-shadow: 0 0 15px #ff4500, 0 0 25px #ffa500 inset;
+}
+
+body.day button:hover {
+    background: #ffd700;
+    color: #000;
+    transform: scale(1.05);
+    box-shadow: 0 0 30px #ffd700, 0 0 40px #ffa500 inset;
+}
+
+body.night button {
+    background: #00d4ff;
+    color: #000;
+    box-shadow: 0 0 15px #00d4ff, 0 0 25px #0088ff inset;
+}
+
+body.night button:hover {
+    background: #00ffff;
+    color: #000;
+    transform: scale(1.05);
+    box-shadow: 0 0 30px #00ffff, 0 0 40px #0088ff inset;
+}
 
 /* تحميل الصورة */
-input[type=file] { display:block; margin:20px auto; font-size:16px; }
+input[type=file] {
+    display: block;
+    margin: 20px auto;
+    font-size: 16px;
+}
 
 /* نصائح الرسم */
-#tips { text-align:center; margin:15px; font-size:18px; }
+#tips {
+    text-align: center;
+    margin: 15px;
+    font-size: 18px;
+}
 
 /* زر الفول سكرين */
-#fullscreenBtn { display:block; margin:10px auto 30px auto; padding:12px 20px; }
+#fullscreenBtn {
+    display: block;
+    margin: 10px auto 30px auto;
+    padding: 12px 20px;
+}
 
 /* وضع نهاري / ليلي */
-body.night { background:#000; color:#fff; }
+body.night { background: #000; color: #fff; }
 
 /* استجابة الموبايل */
 @media(max-width:768px){
-    button{font-size:14px; padding:10px 15px;}
-    #selectedImage{max-width:95%;}
-    header{font-size:20px;}
+    button {
+        font-size: 14px;
+        padding: 10px 15px;
+    }
+    #selectedImage { max-width: 95%; }
+    header { font-size: 20px; }
 }

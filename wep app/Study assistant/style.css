@@ -1,67 +1,190 @@
-body{
-   font-family:Tahoma,Arial;
-   padding:20px;
-   text-align:center;
-   color:#1e293b;
-   transition:background 0.5s,color 0.5s;
+body {
+    font-family: Tahoma, Arial, sans-serif;
+    padding: 20px;
+    text-align: center;
+    color: #1e293b;
+    transition: 
+        background 1s ease-in-out,
+        color 1s ease-in-out,
+        box-shadow 1s ease-in-out;
+    min-height: 100vh;
+    margin: 0;
 }
-body.day{
-   background:linear-gradient(135deg,#d4f1f4,#f0fdfa);
-   color:#1e293b;
+
+/* النهار */
+body.day {
+    background: linear-gradient(135deg, #d4f1f4, #f0fdfa);
+    color: #1e293b;
+    box-shadow: inset 0 0 50px rgba(255,255,255,0.2);
 }
-body.night{
-   background:linear-gradient(135deg,#0f172a,#1e293b);
-   color:#f1f5f9;
+
+/* الليل */
+body.night {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #f1f5f9;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.3);
 }
-h1{margin-bottom:20px}
-.card{
-   background:#ffffffcc;
-   padding:20px;
-   margin:15px auto;
-   border-radius:15px;
-   box-shadow:0 6px 20px rgba(0,0,0,.08);
-   max-width:500px;
-   text-align:center;
-   transition:background 0.5s,color 0.5s;
+
+h1 {
+    margin-bottom: 20px;
+    transition: color 0.5s ease-in-out;
 }
-body.night .card{
-   background:#1e293bcc;
-   color:#f1f5f9;
+
+/* ====== الكروت ====== */
+.card {
+    background: #ffffffcc; /* شبه شفاف */
+    padding: 20px;
+    margin: 15px auto;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    max-width: 500px;
+    text-align: center;
+    transition: 
+        background 0.8s ease-in-out,
+        color 0.8s ease-in-out,
+        box-shadow 0.8s ease-in-out,
+        transform 0.3s ease;
 }
-.btn{
-   padding:10px 15px;
-   border:0;
-   border-radius:8px;
-   background:#2563eb;
-   color:#fff;
-   cursor:pointer;
-   margin:5px;
-   transition:0.3s;
+
+/* تأثير عند المرور بالفأرة */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
 }
-.btn:hover{background:#1e40af}
-input,textarea{
-   padding:8px;
-   border:1px solid #ddd;
-   border-radius:8px;
-   margin:5px;
-   width:90%;
+
+/* ====== دعم النهار ====== */
+body.day .card {
+    background: #ffffffcc; /* فاتح شفاف للنهار */
+    color: #1e293b;
 }
-ul{list-style:none;padding:0}
-li{
-   padding:8px;
-   margin:5px 0;
-   background:#f1f5f9;
-   border-radius:8px;
-   cursor:pointer;
+
+/* ====== دعم الليل ====== */
+body.night .card {
+    background: #1e293bcc; /* داكن شفاف للليل */
+    color: #f1f5f9;
 }
-body.night li{background:#334155}
-li.done{
-   text-decoration:line-through;
-   color:gray;
-   background:#e2e8f0;
+
+/* ====== كروت الليل ====== */
+body.night .card {
+    background: #1e293bcc; /* شفاف داكن للليل */
+    color: #f1f5f9;
 }
-.tip{
-   font-size:18px;
-   color:#2563eb;
-   font-weight:bold;
+
+/* ====== الأزرار ====== */
+.btn {
+    padding: 10px 15px;
+    border: 0;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #fff;
+    cursor: pointer;
+    margin: 5px;
+    transition: 
+        background 0.3s ease,
+        transform 0.2s ease,
+        box-shadow 0.3s ease;
+}
+
+/* تأثير عند المرور بالفأرة */
+.btn:hover {
+    background: #1e40af;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* دعم الوضع الليلي للأزرار */
+body.night .btn {
+    background: #3b82f6;
+    color: #fff;
+}
+body.night .btn:hover {
+    background: #1e40af;
+}
+
+/* ====== الحقول النصية ====== */
+input, textarea {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 5px;
+    width: 90%;
+    transition: 
+        border-color 0.3s ease,
+        background 0.3s ease,
+        color 0.3s ease;
+}
+
+/* تأثير عند التركيز */
+input:focus, textarea:focus {
+    border-color: #2563eb;
+    outline: none;
+}
+
+/* دعم الوضع الليلي للحقول */
+body.night input, body.night textarea {
+    background: #334155;
+    border-color: #475569;
+    color: #f1f5f9;
+}
+
+body.night input:focus, body.night textarea:focus {
+    border-color: #3b82f6;
+}
+
+/* ====== القوائم ====== */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* عناصر القائمة */
+li {
+    padding: 8px;
+    margin: 5px 0;
+    background: #f1f5f9; /* خلفية النهار */
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 
+        background 0.4s ease,
+        color 0.4s ease,
+        transform 0.2s ease;
+}
+
+/* تأثير عند المرور بالفأرة */
+li:hover {
+    transform: translateX(5px);
+    background: #e0e7ff;
+}
+
+/* دعم الوضع الليلي */
+body.night li {
+    background: #334155; /* خلفية الليل */
+}
+
+body.night li:hover {
+    background: #475569;
+}
+
+/* العناصر المكتملة */
+li.done {
+    text-decoration: line-through;
+    color: gray;
+    background: #e2e8f0; /* للنهار */
+}
+
+body.night li.done {
+    background: #475569; /* للليل */
+    color: #94a3b8; /* لون خط مكتمل مناسب للليل */
+}
+
+/* ====== النصوص المهمة ====== */
+.tip {
+    font-size: 18px;
+    color: #2563eb; /* أزرق النهار */
+    font-weight: bold;
+    transition: color 0.4s ease;
+}
+
+body.night .tip {
+    color: #60a5fa; /* أزرق الليل */
 }

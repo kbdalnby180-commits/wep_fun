@@ -8,17 +8,37 @@ body {
     align-items: center;
     background: linear-gradient(135deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
     background-size: 600% 600%;
-    animation: gradient 20s ease infinite;
+    animation: gradient 20s ease infinite, pulse 5s ease-in-out infinite;
     margin: 0;
     padding: 20px;
     text-align: center;
-    transition:0.5s;
+    transition: 0.5s;
+    color: #fff;
 }
 
+/* حركة الخلفية المتدرجة */
 @keyframes gradient {
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* تأثير نبض لطيف على النص */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+/* إضافة ظل للنصوص لتحسين وضوحها */
+body * {
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+}
+
+/* تحسين استجابة النصوص على الشاشات الصغيرة */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
 }
 
 /* العنوان */
@@ -27,6 +47,28 @@ h1 {
     color: #fff;
     text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
     margin-bottom: 25px;
+    animation: glow 3s ease-in-out infinite alternate, floatText 6s ease-in-out infinite;
+}
+
+/* تأثير توهج العنوان */
+@keyframes glow {
+    0% { text-shadow: 2px 2px 8px rgba(0,0,0,0.4), 0 0 5px #fff; }
+    50% { text-shadow: 2px 2px 12px rgba(0,0,0,0.5), 0 0 20px #fff; }
+    100% { text-shadow: 2px 2px 8px rgba(0,0,0,0.4), 0 0 5px #fff; }
+}
+
+/* تأثير حركة خفيفة للأعلى والأسفل */
+@keyframes floatText {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+/* تحسين حجم الخط للشاشات الصغيرة */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
 }
 
 /* تحكمات */
@@ -38,6 +80,7 @@ h1 {
     margin-bottom: 25px;
 }
 
+/* ستايل القوائم والأزرار */
 select, button {
     padding: 12px 18px;
     border-radius: 12px;
@@ -45,60 +88,206 @@ select, button {
     font-size: 16px;
     cursor: pointer;
     font-weight: bold;
-    transition: 0.3s;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-/* ألوان الأزرار */
+/* تأثير عند المرور على الأزرار */
+select:hover, button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+/* تأثير عند الضغط على الأزرار */
+button:active, select:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+/* تحسين استجابة التحكمات على الشاشات الصغيرة */
+@media (max-width: 768px) {
+    select, button {
+        padding: 10px 14px;
+        font-size: 14px;
+    }
+}
+
+/* ألوان الأزرار مع تأثيرات ديناميكية */
 button {
-    background: #ffbe0b;
+    background: linear-gradient(135deg, #ffbe0b, #ff5722);
     color: #1d1d1d;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 18px;
+    cursor: pointer;
     box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    transition: all 0.4s ease;
+    background-size: 200% 200%;
+    animation: buttonGradient 5s ease infinite;
 }
 
+/* تأثير عند المرور */
 button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+
+/* تأثير عند الضغط */
+button:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+/* حركة ألوان الخلفية الديناميكية */
+@keyframes buttonGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 /* مربع اختيار النوع */
 select {
-    background: #fff;
+    background: linear-gradient(135deg, #ffffff, #f0f0f0);
     color: #333;
+    font-weight: bold;
+    padding: 12px 18px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    background-size: 200% 200%;
+    animation: selectGradient 6s ease infinite;
 }
 
+/* تأثير عند المرور */
+select:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+/* تأثير عند الضغط */
+select:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+/* حركة ديناميكية للألوان */
+@keyframes selectGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* تحسين استجابة الشاشة الصغيرة */
+@media (max-width: 768px) {
+    select {
+        padding: 10px 14px;
+        font-size: 14px;
+    }
+}
 /* بطاقة النصيحة */
 .tip-card {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
     padding: 25px 30px;
     max-width: 500px;
     font-size: 20px;
     color: #fff;
     box-shadow: 0 12px 30px rgba(0,0,0,0.3);
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.5s ease;
+    animation: pulseCard 6s ease-in-out infinite alternate;
 }
 
+/* تأثير عند المرور */
 .tip-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* حركة خفيفة للبطاقة لجعلها تنبض */
+@keyframes pulseCard {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-3px) scale(1.01); }
+    100% { transform: translateY(0) scale(1); }
+}
+
+/* تحسين استجابة البطاقة على الشاشات الصغيرة */
+@media (max-width: 768px) {
+    .tip-card {
+        font-size: 18px;
+        padding: 20px 25px;
+        max-width: 90%;
+    }
 }
 
 /* الوضع الليلي */
 body.light {
-    background: linear-gradient(135deg,#8ec5fc,#e0c3fc,#ffd6ff,#caffbf);
-    color:#111;
+    background: linear-gradient(135deg, #8ec5fc, #e0c3fc, #ffd6ff, #caffbf);
+    background-size: 600% 600%;
+    animation: gradientLight 20s ease infinite;
+    color: #111;
+    transition: background 0.5s, color 0.5s;
 }
 
 body.light .tip-card {
-    color:#111;
-    background: rgba(255,255,255,0.4);
+    color: #111;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    transition: background 0.5s, color 0.5s, box-shadow 0.5s, transform 0.3s;
+}
+
+/* حركة الخلفية المتدرجة للوضع الليلي */
+@keyframes gradientLight {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* تأثير عند المرور على البطاقة في الوضع الليلي */
+body.light .tip-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    background: rgba(255, 255, 255, 0.45);
+}
+
+/* تحسين استجابة البطاقة على الشاشات الصغيرة */
+@media (max-width: 768px) {
+    body.light .tip-card {
+        font-size: 18px;
+        padding: 20px 25px;
+        max-width: 90%;
+    }
 }
 
 /* استجابة الموبايل */
-@media(max-width:600px){
-    h1 {font-size:28px;}
-    .tip-card {font-size:18px; padding:20px;}
-    select, button {font-size:14px; padding:10px;}
+@media (max-width: 600px) {
+    h1 {
+        font-size: 26px;
+        margin-bottom: 18px;
+    }
+
+    .tip-card {
+        font-size: 17px;
+        padding: 18px 20px;
+        max-width: 90%;
+    }
+
+    select, button {
+        font-size: 14px;
+        padding: 10px 14px;
+    }
+
+    .controls {
+        gap: 10px;
+        flex-direction: column;
+        align-items: stretch;
+    }
 }
