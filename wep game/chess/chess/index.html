@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لعبة شطرنج</title>
+<link rel="stylesheet" href="style.css">
+ <link rel="icon" type="image/png" href="img/Screenshot (119).png">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div id="container">
+  <!-- حروف الأعمدة -->
+  <div id="colLettersTop" class="letters">
+    <div>A</div><div>B</div><div>C</div><div>D</div>
+    <div>E</div><div>F</div><div>G</div><div>H</div>
+  </div>
+
+  <div id="board-wrapper">
+    <!-- أرقام الصفوف -->
+    <div id="rowNumbers">
+      <div>8</div><div>7</div><div>6</div><div>5</div>
+      <div>4</div><div>3</div><div>2</div><div>1</div>
+    </div>
+
+    <!-- اللوحة -->
+    <div id="board"></div>
+  </div>
+
+  <div id="colLettersBottom" class="letters">
+    <div>A</div><div>B</div><div>C</div><div>D</div>
+    <div>E</div><div>F</div><div>G</div><div>H</div>
+  </div>
+</div>
+
+<!-- Side panel -->
+<div id="side">
+  <h3>سجل الحركات</h3>
+  <div id="log"></div>
+
+  <button id="undoBtn">↩️ تراجع</button>
+  <button id="aiHelperBtn">🤖 حركة AI مساعدة</button>
+
+  <h3>قطعك المأخوذة</h3>
+  <div id="capturedWhite" class="captured-row"></div>
+
+  <h3>قطع العدو المأخوذة</h3>
+  <div id="capturedBlack" class="captured-row"></div>
+</div>
+
+<!-- Promotion overlay -->
+<div id="promotion" class="promo hidden">
+  <img src="pieces/wq.png" onclick="choosePromo('q')" title="Queen">
+  <img src="pieces/wr.png" onclick="choosePromo('r')" title="Rook">
+  <img src="pieces/wn.png" onclick="choosePromo('n')" title="Knight">
+  <img src="pieces/wb.png" onclick="choosePromo('b')" title="Bishop">
+</div>
+
+<div class="theme-selector">
+  <label for="boardTheme">اختار طاولة اللعب:</label>
+  <select id="boardTheme">
+    <option value="classic">كلاسيك</option>
+    <option value="dark">داكنة</option>
+    <option value="green">خضراء</option>
+    <option value="blue">زرقاء</option>
+  </select>
+</div>
+
+
+
+<!-- Timer -->
+<div id="timer">الوقت: 00:00</div>
+
+<!-- Canvas for analytics -->
+<canvas id="gameStats" width="400" height="200"></canvas>
+
+<script src="script.js"></script>
+</body>
+</html> 

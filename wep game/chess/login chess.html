@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>شطرنج - شاشة الدخول</title>
+<link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <!-- خلفية لوحة الشطرنج -->
+  <canvas id="bgChess"></canvas>
+
+  <div id="login-screen">
+    <div class="login-box">
+      <h1>♔ شطرنج FunX ♚</h1>
+      <input type="text" id="playerName" placeholder="اكتب اسمك هنا">
+      <button id="startBtn">ابدأ اللعبة</button>
+    </div>
+  </div>
+
+  <script>
+    // زر البدء
+    const startBtn = document.getElementById('startBtn');
+    const playerNameInput = document.getElementById('playerName');
+    startBtn.addEventListener('click', () => {
+      const name = playerNameInput.value.trim() || "لاعب";
+      localStorage.setItem("playerName", name);
+      window.location.href = "chess/index.html";
+    });
+
+    // =========================================
+    // لوحة شطرنج متحركة
+    const canvas = document.getElementById('bgChess');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const size = 50; // حجم مربع واحد
+    const rows = Math.ceil(canvas.height / size);
+    const cols = Math.ceil(canvas.width / size);
+
+    // قطع الشطرنج
+    const pieces = ["♔","♕","♖","♗","♘","♙","♚","♛","♜","♝","♞","♟"];
+    let movingPieces = [];
+
+    // إنشاء قطع عشوائية
+    for(let i=0;i<30;i++){
+      movingPieces.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        dx: (Math.random()-0.5)*1.5,
+        dy: (Math.random()-0.5)*1.5,
+        piece: pieces[Math.floor(Math.random()*pieces.length)],
+        size: 30 + Math.random()*20
+      });
+    }
+
+    function drawChessBg(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+
+      // رسم المربعات
+      for(let r=0;r<rows;r++){
+        for(let c=0;c<cols;c++){
+          ctx.fillStyle = (r+c)%2===0?"rgba(255,255,255,0.05)":"rgba(0,0,0,0.05)";
+          ctx.fillRect(c*size,r*size,size,size);
+        }
+      }
+
+      // رسم القطع المتحركة
+      ctx.font = "bold 30px Arial";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      movingPieces.forEach(p=>{
+        ctx.font = `bold ${p.size}px Arial`;
+        ctx.fillStyle = "rgba(0,255,255,0.6)";
+        ctx.fillText(p.piece,p.x,p.y);
+
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if(p.x<0 || p.x>canvas.width) p.dx*=-1;
+        if(p.y<0 || p.y>canvas.height) p.dy*=-1;
+      });
+
+      requestAnimationFrame(drawChessBg);
+    }
+
+    drawChessBg();
+
+    window.addEventListener('resize', ()=>{
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
