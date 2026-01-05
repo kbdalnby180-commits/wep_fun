@@ -81,6 +81,7 @@ const pages = [
     { name: "🎮 Game War", url: "wep game/game war/index.html" },
     { name: "❓ Game Question", url: "wep game/Who will win the million/index.html" },
     { name: "🎲 صراحة", url: "wep game/Truth or Dare/index.html" },
+    { name: "♔ شطرنج FunX ♚", url: "wep game/chess/login chess.html" },
     { name: "📱 إخفاء الهاتف", url: "wep game/Hide phone game/index.html" },
     { name: "❌⭕ X&O", url: "wep game/X&O game/index.html" },
     { name: "🎴 الورق المتشابه", url: "wep game/Matching card game/index.html" },
@@ -136,5 +137,6 @@ sendBtn.addEventListener('click', () => {
 });
 
 document.body.appendChild(shareDiv);
+
 
 
