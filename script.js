@@ -78,14 +78,6 @@ const sendBtn = document.getElementById('sendBtn');
 chatToggle.addEventListener('click', () => { chatbot.classList.toggle('hidden'); });
 
 const pages = [
-    { name: "🎮 Game War", url: "wep game/game war/index.html" },
-    { name: "❓ Game Question", url: "wep game/Who will win the million/index.html" },
-    { name: "🎲 صراحة", url: "wep game/Truth or Dare/index.html" },
-    { name: "♔ شطرنج FunX ♚", url: "wep game/chess/login chess.html" },
-    { name: "📱 إخفاء الهاتف", url: "wep game/Hide phone game/index.html" },
-    { name: "❌⭕ X&O", url: "wep game/X&O game/index.html" },
-    { name: "🎴 الورق المتشابه", url: "wep game/Matching card game/index.html" },
-    { name: "🔥 التحديات", url: "wep game/Challenges game/index.html" },
     { name: "🎨 رسم", url: "wep app/paints/index.html" },
     { name: "🕋 Quran", url: "wep app/quran/index.html" },
     { name: "📻  fun X راديو", url: "wep app/radio fun x/index.html" },
@@ -95,10 +87,8 @@ const pages = [
     { name: "💡 نصيحة يومية", url: "wep app/daily-tip/index.html" },
     { name: "لخلفيات fun X معرض 💻🎴", url: "tool/wallper/index.html" },
     { name: "🔗 صنع QR", url: "wep app/qr/index.html" },
-    { name: "💣FUN X SPACE💣", url: "wep game/funx_space_v2/index.html" },
     { name: " FUN X LEARN HTML💻 ", url: "tool/FUN X LEARN HTML/index.html" },
-    { name: " 🛫CRASH🛫 ", url: "wep game/crash/CRASH.html" },
-    { name: " 🕵️‍♂️لعبة المحقق 🕵️‍♂️ ", url: "wep game/Cases/index.html" },
+    { name: "FUN X Arcade", url: "wep app/wep gaming/splash.html" },
     { name: "INFO WEP  ", url: "tool/Fun X/index.html" },
 ];
 
@@ -137,6 +127,5 @@ sendBtn.addEventListener('click', () => {
 });
 
 document.body.appendChild(shareDiv);
-
 
 
