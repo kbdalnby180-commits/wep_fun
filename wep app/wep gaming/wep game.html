@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FUN X – Games Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #0b1220, #05070d);
+    font-family: 'Orbitron', sans-serif;
+    color: #fff;
+}
+
+/* 🏆 Header */
+header {
+    text-align: center;
+    padding: 35px 15px 20px 15px;
+}
+
+header h1 {
+    font-size: 2.8em;
+    letter-spacing: 6px;
+    color: #fff;
+}
+
+header p {
+    font-size: 14px;
+    color: #7aa2ff;
+    margin-top: 5px;
+}
+
+/* 🎮 Games Grid */
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* 🕹️ Game Card */
+.game-card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.game-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 25px 70px rgba(37,99,235,0.5);
+}
+
+.game-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    display: block;
+}
+
+.game-card h2 {
+    margin: 12px 0 8px 0;
+    font-size: 18px;
+    color: #fff;
+}
+
+.game-card button {
+    margin: 10px 0 18px 0;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #2563eb, #06b6d4);
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.game-card button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(37,99,235,0.5);
+}
+
+/* 📱 Responsive Text & Card Sizes */
+@media(max-width: 768px){
+    header h1 { font-size: 2.2em; }
+    .game-card img { height: 120px; }
+    .game-card h2 { font-size: 16px; }
+    .game-card button { font-size: 13px; padding: 9px 18px; }
+}
+
+@media(max-width: 480px){
+    header h1 { font-size: 1.8em; }
+    .games-grid { gap: 15px; padding: 15px; }
+    .game-card img { height: 100px; }
+    .game-card h2 { font-size: 14px; }
+    .game-card button { font-size: 12px; padding: 8px 15px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>FUN X – Games Hub</h1>
+    <p>Select a game and have fun!</p>
+</header>
+
+<div class="games-grid">
+
+    <div class="game-card">
+        <img src="img/1.png" alt="Crash Game">
+        <h2>Crash</h2>
+        <button onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/crash/CRASH.html')">Play</button>
+    </div>
+
+    <div class="game-card">
+        <img src="img/2.png" alt="Apple Game">
+        <h2>war-space</h2>
+        <button onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/game%20war/index.html')">Play</button>
+    </div>
+
+    <div class="game-card">
+        <img src="img/3.png" alt="2D Maze">
+        <h2> Game-Question</h2>
+        <button onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/Who%20will%20win%20the%20million/index.html')">Play</button>
+    </div>
+
+    <div class="game-card">
+        <img src="img/4.png" alt="2D Maze">
+        <h2>لعبة الصراحه والجرائة</h2>
+        <button onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/Truth%20or%20Dare/index.html')">Play</button>
+    </div>
+
+    <div class="game-card">
+        <img src="img/5.png" alt="2D Maze">
+        <h2> 📱 لعبة إخفاء الهاتف </h2>
+        <button onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/Hide%20phone%20game/index.html')">Play</button>
+    </div>
+
+    <div class="game-card">
+        <img src="img/6.png" alt="2D Maze">
+        <h2>X&O</h2>
+        <button onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/X&O%20game/index.html')">Play</button>
+    </div>
+
+    <div class="game-card">
+        <img src="img/7.png" alt="2D Maze">
+        <h2>🎴 لعبة الورق المتشابه</h2>
+        <button onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/Matching%20card%20game/index.html')">Play</button>
+    </div>
+
+    <div class="game-card">
+        <img src="img/8.png" alt="2D Maze">
+        <h2>🎮 Challenges Game</h2>
+        <button onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/Challenges%20game/index.html')">Play</button>
+    </div>
+
+    <div class="game-card">
+        <img src="img/9.png" alt="2D Maze">
+        <h2>🎮 FunX Space Game</h2>
+        <button onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/funx_space_v2/index.html')">Play</button>
+    </div>
+
+    <div class="game-card">
+        <img src="img/10.png" alt="2D Maze">
+        <h2>لعبة المحقق🕵️‍♂️</h2>
+        <button onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/Cases/index.html')">Play</button>
+    </div>
+
+    <!-- أضف هنا ألعابك الأخرى بنفس الطريقة -->
+</div>
+
+<script>
+function openGame(url){
+    window.location.href = url;
+}
+</script>
+
+</body>
+</html>
