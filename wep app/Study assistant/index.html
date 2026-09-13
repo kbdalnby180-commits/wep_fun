@@ -1,34 +1,599 @@
+
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📚 مساعد المذاكرة</title>
-<link rel="stylesheet" href="style.css">
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#071426"
+    >
+
+    <title>📚 FUN X School Assistant</title>
+
+    <link rel="stylesheet" href="style.css">
+
 </head>
-<body class="day">
-<h1>📖 مساعد المذاكرة</h1>
-<button class="btn" onclick="toggleMode()">🌙 تبديل الوضع</button>
 
-<div class="card">
- <h3>⏳ مؤقت المذاكرة</h3>
- <input type="number" id="minutes" placeholder="ادخل عدد الدقايق"/><br>
- <button class="btn" onclick="startTimer()">ابدأ</button>
- <h2 id="timer">00:00</h2>
-</div>
 
-<div class="card">
- <h3>📝 قائمة المهام</h3>
- <input type="text" id="taskInput" placeholder="اكتب مهمة...">
- <button class="btn" onclick="addTask()">➕ إضافة</button>
- <ul id="taskList"></ul>
-</div>
+<body class="dark">
 
-<div class="card">
- <h3>💡 نصيحة اليوم</h3>
- <p class="tip" id="tipBox"></p>
-</div>
 
-<script src="script.js"></script>
+    <!-- =========================
+         Background
+    ========================== -->
+
+    <div class="background-grid"></div>
+
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+
+    <div id="stars"></div>
+
+
+    <!-- =========================
+         Header
+    ========================== -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                📚
+            </div>
+
+            <div>
+                <h1>FUN X</h1>
+                <span>BACK TO SCHOOL</span>
+            </div>
+
+        </div>
+
+
+        <button
+            id="modeToggle"
+            class="icon-btn"
+            title="تغيير الوضع">
+            ☀️
+        </button>
+
+    </header>
+
+
+    <!-- =========================
+         Main
+    ========================== -->
+
+    <main class="container">
+
+
+        <!-- Hero -->
+
+        <section class="hero">
+
+            <div class="badge">
+                🎒 SCHOOL MODE ACTIVATED
+            </div>
+
+            <h2>
+                مستعد للعودة إلى <span>المدرسة؟</span>
+            </h2>
+
+            <p>
+                نظم وقتك، تابع واجباتك، وابدأ السنة الجديدة بشكل أقوى 💪
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+             School Countdown
+        ========================== -->
+
+        <section class="countdown-card">
+
+            <div class="countdown-content">
+
+                <span class="section-tag">
+                    🎒 BACK TO SCHOOL
+                </span>
+
+                <h3>
+                    العد التنازلي لبداية الدراسة
+                </h3>
+
+                <p id="countdownText">
+                    حدد تاريخ بداية المدرسة من الإعدادات.
+                </p>
+
+            </div>
+
+
+            <div class="countdown-grid">
+
+                <div>
+                    <strong id="countDays">
+                        00
+                    </strong>
+
+                    <span>يوم</span>
+                </div>
+
+                <div>
+                    <strong id="countHours">
+                        00
+                    </strong>
+
+                    <span>ساعة</span>
+                </div>
+
+                <div>
+                    <strong id="countMinutes">
+                        00
+                    </strong>
+
+                    <span>دقيقة</span>
+                </div>
+
+                <div>
+                    <strong id="countSeconds">
+                        00
+                    </strong>
+
+                    <span>ثانية</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             Stats
+        ========================== -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+                <span>📖 المهام المتبقية</span>
+                <strong id="remainingTasks">0</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>✅ المهام المنجزة</span>
+                <strong id="completedTasks">0</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>⏱️ جلسات المذاكرة</span>
+                <strong id="studySessions">0</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>🔥 أيام متتالية</span>
+                <strong id="streak">0</strong>
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             Dashboard
+        ========================== -->
+
+        <section class="dashboard">
+
+
+            <!-- Study Timer -->
+
+            <div class="card timer-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <span class="mini-label">
+                            ⏱️ STUDY TIMER
+                        </span>
+
+                        <h3>
+                            مؤقت المذاكرة
+                        </h3>
+                    </div>
+
+                    <span
+                        id="timerMode"
+                        class="mode-pill">
+                        تركيز
+                    </span>
+
+                </div>
+
+
+                <div class="timer-circle">
+
+                    <div>
+
+                        <strong id="timer">
+                            25:00
+                        </strong>
+
+                        <span>
+                            دقيقة تركيز
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="timer-presets">
+
+                    <button data-minutes="25">
+                        25 دقيقة
+                    </button>
+
+                    <button data-minutes="45">
+                        45 دقيقة
+                    </button>
+
+                    <button data-minutes="60">
+                        60 دقيقة
+                    </button>
+
+                </div>
+
+
+                <div class="timer-actions">
+
+                    <button
+                        id="startTimer"
+                        class="primary-btn">
+                        ▶ ابدأ
+                    </button>
+
+                    <button
+                        id="pauseTimer"
+                        class="secondary-btn">
+                        ⏸ إيقاف
+                    </button>
+
+                    <button
+                        id="resetTimer"
+                        class="secondary-btn">
+                        🔄 إعادة
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Tasks -->
+
+            <div class="card tasks-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <span class="mini-label">
+                            📝 SCHOOL TASKS
+                        </span>
+
+                        <h3>
+                            مهام المدرسة
+                        </h3>
+                    </div>
+
+                    <span
+                        id="taskProgress"
+                        class="task-progress">
+                        0%
+                    </span>
+
+                </div>
+
+
+                <div class="task-input">
+
+                    <input
+                        id="taskInput"
+                        type="text"
+                        placeholder="مثال: مراجعة درس الرياضيات..."
+                        autocomplete="off"
+                    >
+
+                    <select id="subjectSelect">
+
+                        <option value="عام">
+                            📚 عام
+                        </option>
+
+                        <option value="رياضيات">
+                            ➗ رياضيات
+                        </option>
+
+                        <option value="عربي">
+                            📝 عربي
+                        </option>
+
+                        <option value="إنجليزي">
+                            🇬🇧 إنجليزي
+                        </option>
+
+                        <option value="فيزياء">
+                            ⚡ فيزياء
+                        </option>
+
+                        <option value="كيمياء">
+                            🧪 كيمياء
+                        </option>
+
+                        <option value="برمجة">
+                            💻 برمجة
+                        </option>
+
+                    </select>
+
+                    <button
+                        id="addTask"
+                        class="primary-btn">
+                        ➕ إضافة
+                    </button>
+
+                </div>
+
+
+                <ul
+                    id="taskList"
+                    class="task-list">
+                </ul>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =========================
+             Daily Goal
+        ========================== -->
+
+        <section class="card goal-card">
+
+            <div class="card-header">
+
+                <div>
+                    <span class="mini-label">
+                        🎯 DAILY GOAL
+                    </span>
+
+                    <h3>
+                        هدف اليوم
+                    </h3>
+                </div>
+
+                <strong id="goalPercent">
+                    0%
+                </strong>
+
+            </div>
+
+
+            <div class="goal-box">
+
+                <div class="goal-item">
+
+                    <span>
+                        📚 مذاكرة
+                    </span>
+
+                    <strong id="studyGoal">
+                        0 / 2 جلسة
+                    </strong>
+
+                </div>
+
+                <div class="goal-bar">
+
+                    <div
+                        id="goalBar"
+                        class="goal-fill">
+                    </div>
+
+                </div>
+
+
+                <button
+                    id="completeGoal"
+                    class="goal-btn">
+                    ✅ تسجيل جلسة مذاكرة
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             Subjects
+        ========================== -->
+
+        <section class="card">
+
+            <div class="card-header">
+
+                <div>
+                    <span class="mini-label">
+                        📚 SCHOOL SUBJECTS
+                    </span>
+
+                    <h3>
+                        المواد
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <div class="subjects-grid">
+
+                <div class="subject subject-math">
+                    <span>➗</span>
+                    <strong>رياضيات</strong>
+                    <small>Math</small>
+                </div>
+
+                <div class="subject subject-arabic">
+                    <span>📝</span>
+                    <strong>اللغة العربية</strong>
+                    <small>Arabic</small>
+                </div>
+
+                <div class="subject subject-english">
+                    <span>🇬🇧</span>
+                    <strong>الإنجليزي</strong>
+                    <small>English</small>
+                </div>
+
+                <div class="subject subject-physics">
+                    <span>⚡</span>
+                    <strong>فيزياء</strong>
+                    <small>Physics</small>
+                </div>
+
+                <div class="subject subject-chemistry">
+                    <span>🧪</span>
+                    <strong>كيمياء</strong>
+                    <small>Chemistry</small>
+                </div>
+
+                <div class="subject subject-code">
+                    <span>💻</span>
+                    <strong>برمجة</strong>
+                    <small>Programming</small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             Today Tip
+        ========================== -->
+
+        <section class="tip-card">
+
+            <div class="tip-icon">
+                💡
+            </div>
+
+            <div>
+
+                <span>
+                    نصيحة اليوم
+                </span>
+
+                <p id="tipBox">
+                    ابدأ بمهمة صغيرة، وستجد أن البدء أصعب من الاستمرار.
+                </p>
+
+            </div>
+
+            <button
+                id="newTip"
+                class="icon-btn">
+                🔄
+            </button>
+
+        </section>
+
+
+        <!-- =========================
+             School Checklist
+        ========================== -->
+
+        <section class="card checklist-card">
+
+            <div class="card-header">
+
+                <div>
+                    <span class="mini-label">
+                        🎒 SCHOOL CHECKLIST
+                    </span>
+
+                    <h3>
+                        تجهيزات العودة للمدرسة
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <div class="checklist">
+
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>🎒 تجهيز الشنطة</span>
+                </label>
+
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>📚 ترتيب الكتب والكراسات</span>
+                </label>
+
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>✏️ تجهيز الأدوات المدرسية</span>
+                </label>
+
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>👕 تجهيز ملابس المدرسة</span>
+                </label>
+
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>⏰ ضبط مواعيد النوم</span>
+                </label>
+
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>🗓️ تجهيز جدول المذاكرة</span>
+                </label>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- Toast -->
+
+    <div
+        id="toast"
+        class="toast">
+    </div>
+
+
+    <footer>
+        FUN X · SCHOOL MODE · 💙
+    </footer>
+
+
+    <script src="script.js"></script>
+
 </body>
+
 </html>
+

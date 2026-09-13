@@ -1,190 +1,1743 @@
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: Tahoma, Arial, sans-serif;
-    padding: 20px;
-    text-align: center;
-    color: #1e293b;
-    transition: 
-        background 1s ease-in-out,
-        color 1s ease-in-out,
-        box-shadow 1s ease-in-out;
-    min-height: 100vh;
     margin: 0;
+
+    min-height: 100vh;
+
+    font-family:
+        "Cairo",
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    color: #e8eef8;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #122441 0%,
+            #07111f 42%,
+            #02050a 100%
+        );
+
+    overflow-x: hidden;
+
+    transition:
+        background .35s ease,
+        color .35s ease;
 }
 
-/* النهار */
-body.day {
-    background: linear-gradient(135deg, #d4f1f4, #f0fdfa);
-    color: #1e293b;
-    box-shadow: inset 0 0 50px rgba(255,255,255,0.2);
+
+/* =====================================================
+   LIGHT MODE
+===================================================== */
+
+body.light {
+
+    color: #172033;
+
+    background:
+        linear-gradient(
+            180deg,
+            #eef6ff,
+            #e7eef8
+        );
 }
 
-/* الليل */
-body.night {
-    background: linear-gradient(135deg, #0f172a, #1e293b);
-    color: #f1f5f9;
-    box-shadow: inset 0 0 50px rgba(0,0,0,0.3);
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+.background-grid {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -5;
+
+    background-image:
+        linear-gradient(
+            rgba(66,116,190,.035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(66,116,190,.035) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        45px 45px;
+
+    mask-image:
+        radial-gradient(
+            ellipse at center,
+            black,
+            transparent 80%
+        );
+
+    animation:
+        gridMove
+        20s
+        linear
+        infinite;
 }
 
-h1 {
-    margin-bottom: 20px;
-    transition: color 0.5s ease-in-out;
+@keyframes gridMove {
+
+    from {
+        transform:
+            translate(0,0);
+    }
+
+    to {
+        transform:
+            translate(45px,45px);
+    }
 }
 
-/* ====== الكروت ====== */
-.card {
-    background: #ffffffcc; /* شبه شفاف */
-    padding: 20px;
-    margin: 15px auto;
-    border-radius: 15px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-    max-width: 500px;
-    text-align: center;
-    transition: 
-        background 0.8s ease-in-out,
-        color 0.8s ease-in-out,
-        box-shadow 0.8s ease-in-out,
-        transform 0.3s ease;
+
+.background-glow {
+
+    position: fixed;
+
+    width: 450px;
+    height: 450px;
+
+    border-radius: 50%;
+
+    filter: blur(100px);
+
+    opacity: .12;
+
+    pointer-events: none;
+
+    z-index: -4;
 }
 
-/* تأثير عند المرور بالفأرة */
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-}
+.glow-1 {
 
-/* ====== دعم النهار ====== */
-body.day .card {
-    background: #ffffffcc; /* فاتح شفاف للنهار */
-    color: #1e293b;
-}
+    top: -220px;
+    right: -170px;
 
-/* ====== دعم الليل ====== */
-body.night .card {
-    background: #1e293bcc; /* داكن شفاف للليل */
-    color: #f1f5f9;
-}
-
-/* ====== كروت الليل ====== */
-body.night .card {
-    background: #1e293bcc; /* شفاف داكن للليل */
-    color: #f1f5f9;
-}
-
-/* ====== الأزرار ====== */
-.btn {
-    padding: 10px 15px;
-    border: 0;
-    border-radius: 8px;
     background: #2563eb;
+}
+
+.glow-2 {
+
+    bottom: -250px;
+    left: -170px;
+
+    background: #16a34a;
+}
+
+
+/* =====================================================
+   STARS
+===================================================== */
+
+#stars {
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: -3;
+}
+
+.star {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    animation:
+        twinkle
+        ease-in-out
+        infinite
+        alternate;
+}
+
+@keyframes twinkle {
+
+    from {
+        opacity: .1;
+    }
+
+    to {
+        opacity: .8;
+    }
+}
+
+
+/* =====================================================
+   TOPBAR
+===================================================== */
+
+.topbar {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 50;
+
+    min-height: 74px;
+
+    padding:
+        10px 4%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    background:
+        rgba(3,8,17,.82);
+
+    border-bottom:
+        1px solid
+        rgba(96,165,250,.12);
+
+    backdrop-filter:
+        blur(18px);
+}
+
+body.light .topbar {
+
+    background:
+        rgba(255,255,255,.78);
+
+    border-color:
+        rgba(30,64,175,.1);
+}
+
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+}
+
+.brand-icon {
+
+    width: 47px;
+    height: 47px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #06b6d4
+        );
+
+    box-shadow:
+        0 10px 28px
+        rgba(37,99,235,.18);
+
+    font-size: 1.4rem;
+}
+
+.brand h1 {
+
+    margin: 0;
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    letter-spacing: 2px;
+
+    font-size: 1rem;
+}
+
+.brand span {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color: #6f83a6;
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 7px;
+
+    letter-spacing: 2px;
+}
+
+
+.icon-btn {
+
+    width: 40px;
+    height: 40px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    border-radius: 11px;
+
     color: #fff;
+
+    background:
+        rgba(255,255,255,.05);
+
     cursor: pointer;
-    margin: 5px;
-    transition: 
-        background 0.3s ease,
-        transform 0.2s ease,
-        box-shadow 0.3s ease;
+
+    transition:
+        .2s ease;
 }
 
-/* تأثير عند المرور بالفأرة */
-.btn:hover {
-    background: #1e40af;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+.icon-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    background:
+        rgba(255,255,255,.1);
 }
 
-/* دعم الوضع الليلي للأزرار */
-body.night .btn {
-    background: #3b82f6;
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.container {
+
+    width:
+        min(
+            1080px,
+            94%
+        );
+
+    margin:
+        auto;
+
+    padding:
+        35px 0 50px;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+
+    text-align: center;
+
+    margin-bottom: 25px;
+}
+
+.badge {
+
+    display: inline-flex;
+
+    padding:
+        7px 13px;
+
+    border-radius: 999px;
+
+    color: #84a6ff;
+
+    background:
+        rgba(59,130,246,.07);
+
+    border:
+        1px solid
+        rgba(96,165,250,.14);
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+}
+
+.hero h2 {
+
+    margin:
+        16px 0 8px;
+
+    font-size:
+        clamp(
+            2rem,
+            6vw,
+            3.3rem
+        );
+
+    line-height: 1.2;
+}
+
+.hero h2 span {
+
+    color: #5f8dff;
+
+    text-shadow:
+        0 0 25px
+        rgba(95,141,255,.15);
+}
+
+.hero p {
+
+    margin: 0;
+
+    color: #8090aa;
+
+    font-size: 11px;
+
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   COUNTDOWN
+===================================================== */
+
+.countdown-card {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 25px;
+
+    padding:
+        22px;
+
+    margin-bottom: 17px;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(37,99,235,.13),
+            rgba(6,182,212,.06)
+        );
+
+    border:
+        1px solid
+        rgba(96,165,250,.14);
+
+    box-shadow:
+        0 20px 55px
+        rgba(0,0,0,.18);
+}
+
+.countdown-content {
+
+    flex: 1;
+}
+
+.section-tag {
+
+    color: #7195ff;
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 7px;
+
+    letter-spacing: 2px;
+}
+
+.countdown-content h3 {
+
+    margin:
+        7px 0 5px;
+
+    font-size: 1.05rem;
+}
+
+.countdown-content p {
+
+    margin: 0;
+
+    color: #8a98ac;
+
+    font-size: 9px;
+}
+
+.countdown-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 70px);
+
+    gap: 7px;
+}
+
+.countdown-grid div {
+
+    padding:
+        9px 5px;
+
+    text-align: center;
+
+    border-radius: 11px;
+
+    background:
+        rgba(0,0,0,.18);
+
+    border:
+        1px solid
+        rgba(255,255,255,.06);
+}
+
+.countdown-grid strong {
+
+    display: block;
+
+    color: #dce8ff;
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 1.2rem;
+}
+
+.countdown-grid span {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color: #73829a;
+
+    font-size: 7px;
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+.stats-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 10px;
+
+    margin-bottom: 17px;
+}
+
+.stat-card {
+
+    padding:
+        14px;
+
+    text-align: center;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+}
+
+body.light .stat-card {
+
+    background:
+        rgba(255,255,255,.7);
+
+    border-color:
+        rgba(0,0,0,.07);
+}
+
+.stat-card span {
+
+    display: block;
+
+    color: #76859d;
+
+    font-size: 7px;
+
+    margin-bottom: 5px;
+}
+
+.stat-card strong {
+
+    color: #80a1ff;
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 1.3rem;
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+.dashboard {
+
+    display: grid;
+
+    grid-template-columns:
+        .9fr
+        1.1fr;
+
+    gap: 17px;
+
+    margin-bottom: 17px;
+}
+
+.card {
+
+    padding:
+        20px;
+
+    border-radius: 21px;
+
+    background:
+        rgba(7,14,27,.78);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    backdrop-filter:
+        blur(16px);
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.2);
+}
+
+body.light .card {
+
+    background:
+        rgba(255,255,255,.75);
+
+    border-color:
+        rgba(0,0,0,.07);
+}
+
+.card-header {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 15px;
+}
+
+.mini-label {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #6487d0;
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 7px;
+
+    letter-spacing: 1px;
+}
+
+.card-header h3 {
+
+    margin: 0;
+
+    font-size: 1.05rem;
+}
+
+.mode-pill,
+.task-progress {
+
+    padding:
+        6px 9px;
+
+    border-radius: 999px;
+
+    color: #82a4ff;
+
+    background:
+        rgba(37,99,235,.08);
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 7px;
+}
+
+
+/* =====================================================
+   TIMER
+===================================================== */
+
+.timer-card {
+
+    text-align: center;
+}
+
+.timer-circle {
+
+    width: 200px;
+    height: 200px;
+
+    margin:
+        8px auto 17px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(37,99,235,.16),
+            rgba(37,99,235,.02) 60%,
+            transparent 61%
+        );
+
+    border:
+        1px solid
+        rgba(96,165,250,.14);
+
+    box-shadow:
+        0 0 50px
+        rgba(37,99,235,.08),
+        inset 0 0 25px
+        rgba(37,99,235,.05);
+}
+
+.timer-circle strong {
+
+    display: block;
+
+    color: #dce8ff;
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 2.45rem;
+}
+
+.timer-circle span {
+
+    display: block;
+
+    margin-top: 4px;
+
+    color: #77869e;
+
+    font-size: 8px;
+}
+
+.timer-presets {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 6px;
+
+    margin-bottom: 10px;
+}
+
+.timer-presets button {
+
+    padding:
+        8px 4px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.06);
+
+    border-radius: 9px;
+
+    color: #8b9ab2;
+
+    background:
+        rgba(255,255,255,.035);
+
+    cursor: pointer;
+
+    font-family:
+        "Cairo",
+        sans-serif;
+
+    font-size: 8px;
+}
+
+.timer-presets button:hover {
+
     color: #fff;
-}
-body.night .btn:hover {
-    background: #1e40af;
+
+    background:
+        rgba(255,255,255,.07);
 }
 
-/* ====== الحقول النصية ====== */
-input, textarea {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin: 5px;
-    width: 90%;
-    transition: 
-        border-color 0.3s ease,
-        background 0.3s ease,
-        color 0.3s ease;
+.timer-actions {
+
+    display: grid;
+
+    grid-template-columns:
+        1.2fr 1fr 1fr;
+
+    gap: 7px;
 }
 
-/* تأثير عند التركيز */
-input:focus, textarea:focus {
-    border-color: #2563eb;
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.primary-btn,
+.secondary-btn {
+
+    min-height: 40px;
+
+    padding:
+        8px 12px;
+
+    border-radius: 10px;
+
+    border: none;
+
+    font-family:
+        "Cairo",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        filter .2s ease;
+}
+
+.primary-btn {
+
+    color: #fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #06b6d4
+        );
+}
+
+.secondary-btn {
+
+    color: #b8c4d5;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+}
+
+.primary-btn:hover,
+.secondary-btn:hover {
+
+    transform:
+        translateY(-2px);
+}
+
+.primary-btn:hover {
+
+    box-shadow:
+        0 10px 25px
+        rgba(37,99,235,.18);
+
+    filter:
+        brightness(1.06);
+}
+
+
+/* =====================================================
+   TASKS
+===================================================== */
+
+.task-input {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        125px
+        70px;
+
+    gap: 7px;
+
+    margin-bottom: 13px;
+}
+
+.task-input input,
+.task-input select {
+
+    min-width: 0;
+
+    height: 40px;
+
+    padding:
+        0 10px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    border-radius: 10px;
+
     outline: none;
+
+    color: #dbe7f8;
+
+    background:
+        rgba(0,0,0,.22);
+
+    font-family:
+        "Cairo",
+        sans-serif;
+
+    font-size: 8px;
 }
 
-/* دعم الوضع الليلي للحقول */
-body.night input, body.night textarea {
-    background: #334155;
-    border-color: #475569;
-    color: #f1f5f9;
+body.light
+.task-input input,
+body.light
+.task-input select {
+
+    color: #1e293b;
+
+    background:
+        rgba(255,255,255,.75);
+
+    border-color:
+        rgba(0,0,0,.08);
 }
 
-body.night input:focus, body.night textarea:focus {
-    border-color: #3b82f6;
+.task-input input:focus,
+.task-input select:focus {
+
+    border-color:
+        rgba(96,165,250,.4);
 }
 
-/* ====== القوائم ====== */
-ul {
+.task-list {
+
     list-style: none;
+
     padding: 0;
+
+    margin: 0;
+
+    max-height: 280px;
+
+    overflow-y: auto;
 }
 
-/* عناصر القائمة */
-li {
-    padding: 8px;
-    margin: 5px 0;
-    background: #f1f5f9; /* خلفية النهار */
+.task-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.task-list::-webkit-scrollbar-thumb {
+
+    border-radius:
+        20px;
+
+    background:
+        rgba(96,165,250,.18);
+}
+
+.task-item {
+
+    display: grid;
+
+    grid-template-columns:
+        30px
+        1fr
+        32px;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding:
+        9px;
+
+    margin-bottom: 7px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.06);
+
+    border-radius: 11px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    transition: .2s ease;
+}
+
+.task-item:hover {
+
+    background:
+        rgba(255,255,255,.055);
+}
+
+.task-check {
+
+    width: 27px;
+    height: 27px;
+
+    border:
+        1px solid
+        rgba(96,165,250,.18);
+
     border-radius: 8px;
+
+    color: #4ade80;
+
+    background:
+        rgba(37,99,235,.06);
+
     cursor: pointer;
-    transition: 
-        background 0.4s ease,
-        color 0.4s ease,
-        transform 0.2s ease;
-}
 
-/* تأثير عند المرور بالفأرة */
-li:hover {
-    transform: translateX(5px);
-    background: #e0e7ff;
-}
-
-/* دعم الوضع الليلي */
-body.night li {
-    background: #334155; /* خلفية الليل */
-}
-
-body.night li:hover {
-    background: #475569;
-}
-
-/* العناصر المكتملة */
-li.done {
-    text-decoration: line-through;
-    color: gray;
-    background: #e2e8f0; /* للنهار */
-}
-
-body.night li.done {
-    background: #475569; /* للليل */
-    color: #94a3b8; /* لون خط مكتمل مناسب للليل */
-}
-
-/* ====== النصوص المهمة ====== */
-.tip {
-    font-size: 18px;
-    color: #2563eb; /* أزرق النهار */
     font-weight: bold;
-    transition: color 0.4s ease;
 }
 
-body.night .tip {
-    color: #60a5fa; /* أزرق الليل */
+.task-content {
+
+    min-width: 0;
 }
+
+.task-content strong {
+
+    display: block;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+    color: #e6edf8;
+
+    font-size: 9px;
+
+    line-height: 1.5;
+}
+
+body.light
+.task-content strong {
+    color: #172033;
+}
+
+.task-content span {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color: #708099;
+
+    font-size: 7px;
+}
+
+.delete-task {
+
+    width: 29px;
+    height: 29px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    color: #8794a8;
+
+    background:
+        rgba(255,255,255,.035);
+
+    cursor: pointer;
+}
+
+.delete-task:hover {
+
+    color: #fb7185;
+
+    background:
+        rgba(239,68,68,.08);
+}
+
+.task-item.done {
+
+    opacity: .65;
+}
+
+.task-item.done
+.task-content strong {
+
+    text-decoration:
+        line-through;
+
+    color: #6b778d;
+}
+
+.empty-task {
+
+    padding:
+        30px 10px;
+
+    text-align: center;
+
+    color: #65738a;
+
+    font-size: 11px;
+}
+
+.empty-task small {
+
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 8px;
+}
+
+
+/* =====================================================
+   GOAL
+===================================================== */
+
+.goal-card {
+
+    margin-bottom: 17px;
+}
+
+.goal-card .card-header > strong {
+
+    color: #7fa2ff;
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 11px;
+}
+
+.goal-box {
+
+    padding:
+        16px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid
+        rgba(255,255,255,.06);
+}
+
+.goal-item {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #9eacc0;
+
+    font-size: 9px;
+
+    margin-bottom: 8px;
+}
+
+.goal-item strong {
+
+    color: #dce7f7;
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 8px;
+}
+
+.goal-bar {
+
+    width: 100%;
+
+    height: 8px;
+
+    margin-bottom: 12px;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,.06);
+}
+
+.goal-fill {
+
+    width: 0;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #2563eb,
+            #22c55e
+        );
+
+    transition:
+        width .35s ease;
+}
+
+.goal-btn {
+
+    width: 100%;
+
+    min-height: 38px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    color: #fff;
+
+    background:
+        rgba(34,197,94,.12);
+
+    border:
+        1px solid
+        rgba(34,197,94,.15);
+
+    cursor: pointer;
+
+    font-family:
+        "Cairo",
+        sans-serif;
+
+    font-size: 8px;
+}
+
+
+/* =====================================================
+   SUBJECTS
+===================================================== */
+
+.subjects-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            6,
+            1fr
+        );
+
+    gap: 9px;
+}
+
+.subject {
+
+    min-height: 105px;
+
+    padding:
+        14px 7px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 4px;
+
+    text-align: center;
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid
+        rgba(255,255,255,.06);
+
+    transition:
+        transform .2s ease,
+        background .2s ease;
+}
+
+.subject:hover {
+
+    transform:
+        translateY(-4px);
+
+    background:
+        rgba(255,255,255,.06);
+}
+
+.subject span {
+
+    font-size: 1.7rem;
+}
+
+.subject strong {
+
+    color: #dce6f5;
+
+    font-size: 8px;
+}
+
+.subject small {
+
+    color: #65748c;
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 6px;
+}
+
+.subject-math {
+    box-shadow:
+        inset 0 -2px 0
+        rgba(59,130,246,.6);
+}
+
+.subject-arabic {
+    box-shadow:
+        inset 0 -2px 0
+        rgba(168,85,247,.6);
+}
+
+.subject-english {
+    box-shadow:
+        inset 0 -2px 0
+        rgba(14,165,233,.6);
+}
+
+.subject-physics {
+    box-shadow:
+        inset 0 -2px 0
+        rgba(234,179,8,.6);
+}
+
+.subject-chemistry {
+    box-shadow:
+        inset 0 -2px 0
+        rgba(34,197,94,.6);
+}
+
+.subject-code {
+    box-shadow:
+        inset 0 -2px 0
+        rgba(6,182,212,.6);
+}
+
+
+/* =====================================================
+   TIP
+===================================================== */
+
+.tip-card {
+
+    display: grid;
+
+    grid-template-columns:
+        48px
+        1fr
+        40px;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding:
+        17px;
+
+    margin-top: 17px;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(245,158,11,.08),
+            rgba(255,255,255,.025)
+        );
+
+    border:
+        1px solid
+        rgba(245,158,11,.1);
+}
+
+.tip-icon {
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        rgba(245,158,11,.1);
+
+    font-size: 1.3rem;
+}
+
+.tip-card span {
+
+    color: #e6b65e;
+
+    font-size: 8px;
+}
+
+.tip-card p {
+
+    margin:
+        4px 0 0;
+
+    color: #99a6b8;
+
+    font-size: 9px;
+
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   CHECKLIST
+===================================================== */
+
+.checklist-card {
+
+    margin-top: 17px;
+}
+
+.checklist {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 8px;
+}
+
+.check-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding:
+        11px;
+
+    border-radius: 11px;
+
+    color: #b4c1d2;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid
+        rgba(255,255,255,.06);
+
+    cursor: pointer;
+
+    font-size: 8px;
+
+    transition: .2s ease;
+}
+
+.check-item:hover {
+
+    background:
+        rgba(255,255,255,.055);
+}
+
+.check-item input {
+
+    width: 15px;
+    height: 15px;
+
+    accent-color:
+        #2563eb;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+
+    padding:
+        22px;
+
+    text-align: center;
+
+    color: #506078;
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 7px;
+
+    letter-spacing: 2px;
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast {
+
+    position: fixed;
+
+    left: 50%;
+    bottom: 22px;
+
+    z-index: 100;
+
+    padding:
+        11px 17px;
+
+    max-width:
+        calc(100vw - 30px);
+
+    border-radius: 11px;
+
+    color: #fff;
+
+    background:
+        rgba(15,23,42,.96);
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    box-shadow:
+        0 20px 50px
+        rgba(0,0,0,.3);
+
+    font-size: 9px;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transform:
+        translate(-50%, 15px);
+
+    transition:
+        .25s ease;
+}
+
+.toast.show {
+
+    opacity: 1;
+
+    transform:
+        translate(-50%, 0);
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .dashboard {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .subjects-grid {
+
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    .container {
+
+        width: 96%;
+
+        padding-top: 22px;
+    }
+
+    .countdown-card {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        text-align: center;
+    }
+
+    .countdown-grid {
+
+        grid-template-columns:
+            repeat(4, 1fr);
+    }
+
+    .stats-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .task-input {
+
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .task-input
+    .primary-btn {
+
+        grid-column:
+            1 / -1;
+    }
+
+    .timer-circle {
+
+        width: 180px;
+        height: 180px;
+    }
+
+    .timer-actions {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .subjects-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .checklist {
+
+        grid-template-columns:
+            1fr;
+    }
+}
+
+
+@media (max-width: 400px) {
+
+    .countdown-grid strong {
+
+        font-size: .9rem;
+    }
+
+    .countdown-grid span {
+
+        font-size: 6px;
+    }
+
+    .hero h2 {
+
+        font-size: 1.7rem;
+    }
+
+    .timer-circle {
+
+        width: 160px;
+        height: 160px;
+    }
+
+    .timer-circle strong {
+
+        font-size: 2rem;
+    }
+}
+
