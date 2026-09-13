@@ -1,264 +1,1432 @@
-/* خطوط عامة وخلفية ديناميكية */
-body {
+
+/* =====================================================
+   FUN X — DRAWING PAGE
+===================================================== */
+
+:root {
+
+    --bg-1: #07111f;
+    --bg-2: #101c31;
+
+    --card: rgba(255,255,255,0.065);
+
+    --card-hover: rgba(255,255,255,0.095);
+
+    --border: rgba(255,255,255,0.10);
+
+    --text: #ffffff;
+
+    --muted: #96a5ba;
+
+    --blue: #4da3ff;
+
+    --purple: #875cff;
+
+    --cyan: #2ddfff;
+
+    --danger: #ff6d7e;
+
+    --shadow: rgba(0,0,0,0.42);
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: "Georgia", serif;
-    transition: background 2s;
-    color: #fff;
-    overflow-x: hidden;
-    min-height: 100vh;
-    background: linear-gradient(180deg, #87CEEB, #FFD700);
 }
 
-/* النجوم */
-.stars {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: -3;
-    pointer-events: none;
-    overflow: hidden;
+
+html {
+    scroll-behavior: smooth;
 }
 
-.star {
-    position: absolute;
-    border-radius: 50%;
-    background: #fff;
-    opacity: 0.8;
-    transition: opacity 0.5s, transform 10s linear;
-    box-shadow: 0 0 6px #fff, 0 0 10px #fff;
-}
-
-/* تحريك النجوم */
-@keyframes twinkle {
-    0%, 100% { opacity: 0.3; transform: translateY(0px); }
-    50% { opacity: 1; transform: translateY(-20px); }
-}
-
-/* تطبيق الحركة على النجوم */
-.star {
-    animation: twinkle calc(5s + random()*5s) infinite ease-in-out;
-}
-
-/* تأثير تغيّر ألوان السماء */
-@keyframes skyChange {
-    0% { background: linear-gradient(180deg, #87CEEB, #FFD700); }
-    50% { background: linear-gradient(180deg, #001d3d, #000); }
-    100% { background: linear-gradient(180deg, #87CEEB, #FFD700); }
-}
 
 body {
-    animation: skyChange 60s infinite alternate;
+
+    min-height: 100vh;
+
+    font-family:
+        Tahoma,
+        Arial,
+        "Segoe UI",
+        sans-serif;
+
+    color:
+        var(--text);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--bg-1),
+            var(--bg-2)
+        );
+
+    overflow-x: hidden;
+
+    transition:
+        background 1s ease,
+        color 0.5s ease;
+
 }
-/* الشمس والقمر */
-.celestial {
+
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+.background {
+
     position: fixed;
-    width: 120px;
-    height: 120px;
+
+    inset: 0;
+
+    z-index: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+}
+
+
+.background::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at center,
+            transparent 0,
+            rgba(0,0,0,0.28) 100%
+        );
+
+}
+
+
+.stars {
+
+    position: absolute;
+
+    inset: 0;
+
+}
+
+
+.star {
+
+    position: absolute;
+
     border-radius: 50%;
-    box-shadow: 0 0 50px #FFD700;
-    z-index: -2;
-    transition: all 2s linear;
+
+    background: #fff;
+
+    box-shadow:
+        0 0 7px #fff,
+        0 0 14px rgba(255,255,255,0.8);
+
+    animation:
+        twinkle
+        var(--duration)
+        ease-in-out
+        infinite;
+
+    opacity:
+        var(--opacity);
+
 }
 
-/* تخصيص الشمس */
-.sun {
-    background: #FFD700;
-    top: 10%;
-    left: 80%;
-    box-shadow: 0 0 60px #FFD700, 0 0 120px #FFA500;
-}
 
-/* تخصيص القمر */
-.moon {
-    background: #f0f0ff;
-    top: 10%;
-    left: 80%;
-    box-shadow: 0 0 40px #f0f0ff, 0 0 80px #a0a0ff;
-}
+@keyframes twinkle {
 
-/* الغيوم */
-.cloud {
-    position: fixed;
-    width: 250px;
-    height: 80px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 50%;
-    z-index: -1;
-    animation: cloudMove linear infinite;
-}
+    0%,
+    100% {
 
-/* الغيوم بسرعات مختلفة */
-.cloud1 { top: 15%; left: -300px; animation-duration: 70s; }
-.cloud2 { top: 30%; left: -500px; animation-duration: 50s; }
-.cloud3 { top: 45%; left: -400px; animation-duration: 90s; opacity: 0.05; width: 300px; height: 100px; }
+        transform:
+            translateY(0)
+            scale(1);
 
-/* حركة الغيوم */
-@keyframes cloudMove {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(1600px); }
-}
-
-/* تغيير الشمس والقمر حسب النهار والليل */
-body.day .sun { opacity: 1; }
-body.day .moon { opacity: 0; }
-body.night .sun { opacity: 0; }
-body.night .moon { opacity: 1; }
-
-/* الهيدر */
-header {
-    background: rgba(0,0,0,0.6); /* أكثر شفافية ليتماشى مع الخلفية */
-    color: #ff3c00;
-    padding: 15px 20px;
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    text-shadow: 0 0 8px #ff3c00, 0 0 15px #ff4500;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    transition: background 1s, color 1s, text-shadow 1s;
-}
-
-/* الروابط */
-header a {
-    color: inherit;
-    text-decoration: none;
-    transition: 0.3s ease, transform 0.3s ease;
-}
-
-header a:hover {
-    color: #ffd700;
-    transform: scale(1.08);
-    text-shadow: 0 0 15px #ffd700, 0 0 25px #ffa500;
-}
-
-/* تغير الهيدر حسب النهار/الليل */
-body.day header {
-    background: rgba(0,0,0,0.4);
-    color: #ff3c00;
-    text-shadow: 0 0 8px #ff3c00, 0 0 15px #ff4500;
-}
-
-body.night header {
-    background: rgba(0,0,0,0.8);
-    color: #00d4ff;
-    text-shadow: 0 0 8px #00d4ff, 0 0 15px #0088ff;
-}
-
-/* الصورة المختارة */
-#selectedImage {
-    display: block;
-    margin: 20px auto;
-    max-width: 90%;
-    border-radius: 14px;
-    border: 4px solid #ff4500;
-    box-shadow: 0 0 30px #ff4500, 0 0 50px #ffa500 inset;
-    transition: transform 0.3s, box-shadow 0.5s;
-    animation: floatImg 6s ease-in-out infinite;
-}
-
-/* تأثير الحركة الطفو */
-@keyframes floatImg {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
-}
-
-/* تأثير التوسيع عند التمرير */
-#selectedImage:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 50px #ffd700, 0 0 70px #ffa500 inset;
-}
-
-/* تغيير ألوان الصورة حسب النهار/الليل */
-body.day #selectedImage {
-    border-color: #ff4500;
-    box-shadow: 0 0 30px #ff4500, 0 0 50px #ffa500 inset;
-}
-
-body.night #selectedImage {
-    border-color: #00d4ff;
-    box-shadow: 0 0 30px #00d4ff, 0 0 50px #0088ff inset;
-}
-
-/* الأزرار */
-.buttons, .controls {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin: 15px 0;
-    flex-wrap: wrap;
-}
-
-button {
-    padding: 12px 22px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    transition: 0.3s, box-shadow 0.3s;
-}
-
-/* ألوان الأزرار حسب النهار/الليل */
-body.day button {
-    background: #ff4500;
-    color: #fff;
-    box-shadow: 0 0 15px #ff4500, 0 0 25px #ffa500 inset;
-}
-
-body.day button:hover {
-    background: #ffd700;
-    color: #000;
-    transform: scale(1.05);
-    box-shadow: 0 0 30px #ffd700, 0 0 40px #ffa500 inset;
-}
-
-body.night button {
-    background: #00d4ff;
-    color: #000;
-    box-shadow: 0 0 15px #00d4ff, 0 0 25px #0088ff inset;
-}
-
-body.night button:hover {
-    background: #00ffff;
-    color: #000;
-    transform: scale(1.05);
-    box-shadow: 0 0 30px #00ffff, 0 0 40px #0088ff inset;
-}
-
-/* تحميل الصورة */
-input[type=file] {
-    display: block;
-    margin: 20px auto;
-    font-size: 16px;
-}
-
-/* نصائح الرسم */
-#tips {
-    text-align: center;
-    margin: 15px;
-    font-size: 18px;
-}
-
-/* زر الفول سكرين */
-#fullscreenBtn {
-    display: block;
-    margin: 10px auto 30px auto;
-    padding: 12px 20px;
-}
-
-/* وضع نهاري / ليلي */
-body.night { background: #000; color: #fff; }
-
-/* استجابة الموبايل */
-@media(max-width:768px){
-    button {
-        font-size: 14px;
-        padding: 10px 15px;
     }
-    #selectedImage { max-width: 95%; }
-    header { font-size: 20px; }
+
+    50% {
+
+        transform:
+            translateY(-10px)
+            scale(1.5);
+
+    }
+
 }
+
+
+/* =====================================================
+   SUN / MOON
+===================================================== */
+
+.celestial {
+
+    position: absolute;
+
+    top: 8%;
+
+    left: 10%;
+
+    width: 105px;
+    height: 105px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    font-size: 42px;
+
+    background:
+        radial-gradient(
+            circle,
+            #ffe082,
+            #ffae35
+        );
+
+    box-shadow:
+        0 0 45px rgba(255,194,70,0.65),
+        0 0 110px rgba(255,175,50,0.25);
+
+    transition:
+        all 0.9s ease;
+
+}
+
+
+#celestialIcon {
+
+    filter:
+        drop-shadow(
+            0 0 15px rgba(255,255,255,0.4)
+        );
+
+}
+
+
+/* =====================================================
+   CLOUDS
+===================================================== */
+
+.cloud {
+
+    position: absolute;
+
+    width: 250px;
+    height: 75px;
+
+    border-radius: 100px;
+
+    background:
+        rgba(255,255,255,0.055);
+
+    filter:
+        blur(2px);
+
+    animation:
+        cloudMove
+        linear
+        infinite;
+
+}
+
+
+.cloud::before,
+.cloud::after {
+
+    content: "";
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    background:
+        inherit;
+
+}
+
+
+.cloud::before {
+
+    width: 100px;
+    height: 100px;
+
+    left: 35px;
+    top: -45px;
+
+}
+
+
+.cloud::after {
+
+    width: 125px;
+    height: 125px;
+
+    right: 30px;
+    top: -60px;
+
+}
+
+
+.cloud-1 {
+
+    top: 17%;
+    left: -300px;
+
+    animation-duration:
+        65s;
+
+}
+
+
+.cloud-2 {
+
+    top: 32%;
+    left: -450px;
+
+    opacity: 0.55;
+
+    animation-duration:
+        85s;
+
+}
+
+
+.cloud-3 {
+
+    top: 55%;
+    left: -500px;
+
+    opacity: 0.25;
+
+    animation-duration:
+        100s;
+
+}
+
+
+@keyframes cloudMove {
+
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(170vw);
+    }
+
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
+.app {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: min(
+        900px,
+        calc(100% - 30px)
+    );
+
+    margin: auto;
+
+    padding:
+        25px 0 35px;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 55px;
+
+}
+
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color: inherit;
+
+    text-decoration: none;
+
+}
+
+
+.brand-logo {
+
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--purple)
+        );
+
+    box-shadow:
+        0 12px 30px rgba(82,105,255,0.28);
+
+    font-size: 15px;
+
+    font-weight: 900;
+
+    letter-spacing:
+        1px;
+
+}
+
+
+.brand-text strong {
+
+    display: block;
+
+    font-size: 18px;
+
+}
+
+
+.brand-text small {
+
+    display: block;
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+
+    margin-top: 3px;
+
+}
+
+
+.theme-btn {
+
+    width: 46px;
+    height: 46px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,0.055);
+
+    color: #fff;
+
+    cursor: pointer;
+
+    font-size: 18px;
+
+    transition:
+        0.25s ease;
+
+}
+
+
+.theme-btn:hover {
+
+    transform:
+        rotate(10deg)
+        translateY(-2px);
+
+    background:
+        rgba(255,255,255,0.10);
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+
+    text-align: center;
+
+    margin-bottom: 30px;
+
+}
+
+
+.hero-badge {
+
+    display: inline-flex;
+
+    padding:
+        7px 12px;
+
+    border-radius: 50px;
+
+    background:
+        rgba(77,163,255,0.09);
+
+    border:
+        1px solid rgba(77,163,255,0.13);
+
+    color:
+        #9bcaff;
+
+    font-size: 10px;
+
+    margin-bottom: 14px;
+
+}
+
+
+.hero h1 {
+
+    font-size:
+        clamp(30px, 6vw, 48px);
+
+    line-height:
+        1.3;
+
+    margin-bottom: 8px;
+
+}
+
+
+.hero h1 span {
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--blue),
+            #af87ff
+        );
+
+    color: transparent;
+
+    -webkit-background-clip:
+        text;
+
+    background-clip:
+        text;
+
+}
+
+
+.hero p {
+
+    color:
+        var(--muted);
+
+    font-size: 13px;
+
+}
+
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.card {
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.075),
+            rgba(255,255,255,0.025)
+        );
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 25px;
+
+    padding: 28px;
+
+    backdrop-filter:
+        blur(24px);
+
+    -webkit-backdrop-filter:
+        blur(24px);
+
+    box-shadow:
+        0 30px 80px var(--shadow),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+
+    margin-bottom: 17px;
+
+}
+
+
+/* =====================================================
+   UPLOAD CARD
+===================================================== */
+
+.upload-card {
+
+    text-align: center;
+
+}
+
+
+.section-icon {
+
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    margin:
+        0 auto 14px;
+
+    border-radius: 17px;
+
+    background:
+        rgba(77,163,255,0.09);
+
+    border:
+        1px solid rgba(77,163,255,0.14);
+
+    font-size: 23px;
+
+}
+
+
+.upload-card h2 {
+
+    font-size: 22px;
+
+    margin-bottom: 6px;
+
+}
+
+
+.section-description {
+
+    color:
+        var(--muted);
+
+    font-size: 11px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.upload-zone {
+
+    min-height: 190px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+    border:
+        1px dashed rgba(105,170,255,0.30);
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,0.025);
+
+    cursor: pointer;
+
+    transition:
+        0.25s ease;
+
+}
+
+
+.upload-zone:hover,
+.upload-zone.dragging {
+
+    background:
+        rgba(77,163,255,0.07);
+
+    border-color:
+        rgba(77,163,255,0.65);
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+.upload-icon {
+
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 5px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255,255,255,0.06);
+
+    font-size: 25px;
+
+}
+
+
+.upload-zone strong {
+
+    font-size: 14px;
+
+}
+
+
+.upload-zone span {
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+
+}
+
+
+/* =====================================================
+   IMAGE CARD
+===================================================== */
+
+.image-card {
+
+    animation:
+        imageCardIn
+        0.5s
+        ease;
+
+}
+
+
+.image-card[hidden] {
+
+    display: none;
+
+}
+
+
+@keyframes imageCardIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(20px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+.image-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-bottom: 17px;
+
+}
+
+
+.image-title {
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+}
+
+
+.image-name {
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+
+    margin-top: 4px;
+
+    max-width: 400px;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+}
+
+
+.image-status {
+
+    padding:
+        7px 11px;
+
+    border-radius: 50px;
+
+    background:
+        rgba(79,224,161,0.08);
+
+    border:
+        1px solid rgba(79,224,161,0.13);
+
+    color:
+        #76e8b4;
+
+    font-size: 9px;
+
+}
+
+
+/* =====================================================
+   IMAGE
+===================================================== */
+
+.image-wrapper {
+
+    position: relative;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    min-height: 300px;
+
+    padding: 15px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(0,0,0,0.18);
+
+    border:
+        1px solid rgba(255,255,255,0.06);
+
+    overflow: hidden;
+
+}
+
+
+#selectedImage {
+
+    display: block;
+
+    max-width: 100%;
+
+    max-height: 600px;
+
+    border-radius: 15px;
+
+    object-fit: contain;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.40);
+
+    animation:
+        imageIn
+        0.55s
+        ease;
+
+}
+
+
+@keyframes imageIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            scale(0.95);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            scale(1);
+
+    }
+
+}
+
+
+.image-overlay {
+
+    position: absolute;
+
+    left: 22px;
+    bottom: 22px;
+
+    padding:
+        7px 11px;
+
+    border-radius: 9px;
+
+    background:
+        rgba(0,0,0,0.45);
+
+    backdrop-filter:
+        blur(8px);
+
+    color:
+        rgba(255,255,255,0.75);
+
+    font-size: 9px;
+
+    opacity: 0.7;
+
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.image-actions {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 10px;
+
+    margin-top: 13px;
+
+}
+
+
+.action-btn {
+
+    height: 49px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    transition:
+        0.2s ease;
+
+}
+
+
+.action-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+.action-btn.primary {
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--purple)
+        );
+
+    color: #fff;
+
+    box-shadow:
+        0 10px 25px rgba(80,110,255,0.18);
+
+}
+
+
+.action-btn.danger {
+
+    background:
+        rgba(255,109,126,0.08);
+
+    color:
+        #ff9ba8;
+
+    border:
+        1px solid rgba(255,109,126,0.13);
+
+}
+
+
+/* =====================================================
+   TIPS
+===================================================== */
+
+.tips-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding:
+        15px 17px;
+
+    margin-top: 17px;
+
+    border-radius: 17px;
+
+    background:
+        rgba(255,255,255,0.04);
+
+    border:
+        1px solid rgba(255,255,255,0.06);
+
+}
+
+
+.tip-icon {
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    flex-shrink: 0;
+
+    border-radius: 13px;
+
+    background:
+        rgba(216,181,109,0.09);
+
+}
+
+
+.tips-card strong {
+
+    display: block;
+
+    color:
+        #e7c985;
+
+    font-size: 11px;
+
+    margin-bottom: 4px;
+
+}
+
+
+.tips-card p {
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+
+    line-height: 1.7;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: 25px;
+
+    color:
+        #596779;
+
+    font-size: 9px;
+
+}
+
+
+footer strong {
+
+    color:
+        #8796aa;
+
+}
+
+
+.footer-dot {
+
+    width: 3px;
+    height: 3px;
+
+    border-radius: 50%;
+
+    background:
+        #526071;
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast {
+
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 25px;
+
+    z-index: 100;
+
+    transform:
+        translate(-50%,80px);
+
+    opacity: 0;
+
+    padding:
+        12px 18px;
+
+    border-radius: 13px;
+
+    background:
+        rgba(10,18,30,0.95);
+
+    border:
+        1px solid rgba(255,255,255,0.10);
+
+    color: #fff;
+
+    font-size: 11px;
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,0.35);
+
+    transition:
+        0.35s ease;
+
+    pointer-events: none;
+
+}
+
+
+.toast.show {
+
+    opacity: 1;
+
+    transform:
+        translate(-50%,0);
+
+}
+
+
+/* =====================================================
+   LIGHT MODE
+===================================================== */
+
+body.light {
+
+    --bg-1: #b9e5ff;
+    --bg-2: #fff3c9;
+
+    --card: rgba(255,255,255,0.48);
+
+    --card-hover: rgba(255,255,255,0.70);
+
+    --border: rgba(39,62,91,0.10);
+
+    --text: #172438;
+
+    --muted: #65758a;
+
+}
+
+
+body.light .background {
+
+    background:
+        linear-gradient(
+            180deg,
+            #89d7ff,
+            #ffe49a
+        );
+
+}
+
+
+body.light .stars {
+
+    opacity: 0;
+
+}
+
+
+body.light .celestial {
+
+    left: 82%;
+
+    background:
+        radial-gradient(
+            circle,
+            #fff3a6,
+            #ffc928
+        );
+
+    box-shadow:
+        0 0 45px rgba(255,194,70,0.80),
+        0 0 100px rgba(255,170,40,0.30);
+
+}
+
+
+body.light .theme-btn {
+
+    color:
+        #24344b;
+
+}
+
+
+body.light .upload-zone {
+
+    background:
+        rgba(255,255,255,0.28);
+
+}
+
+
+body.light .upload-zone strong {
+
+    color:
+        #23334a;
+
+}
+
+
+body.light .image-wrapper {
+
+    background:
+        rgba(255,255,255,0.24);
+
+}
+
+
+body.light .tips-card {
+
+    background:
+        rgba(255,255,255,0.35);
+
+}
+
+
+body.light .hero p,
+body.light .section-description {
+
+    color:
+        #637289;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .app {
+
+        width:
+            calc(100% - 20px);
+
+        padding-top:
+            17px;
+
+    }
+
+
+    .header {
+
+        margin-bottom: 35px;
+
+    }
+
+
+    .hero h1 {
+
+        font-size: 31px;
+
+    }
+
+
+    .card {
+
+        padding:
+            19px;
+
+        border-radius:
+            21px;
+
+    }
+
+
+    .upload-zone {
+
+        min-height:
+            165px;
+
+    }
+
+
+    .image-actions {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .image-wrapper {
+
+        min-height:
+            220px;
+
+    }
+
+
+    #selectedImage {
+
+        max-height:
+            450px;
+
+    }
+
+}
+
+
+@media (max-width: 420px) {
+
+    .brand-logo {
+
+        width: 45px;
+        height: 45px;
+
+    }
+
+
+    .brand-text strong {
+
+        font-size: 16px;
+
+    }
+
+
+    .theme-btn {
+
+        width: 42px;
+        height: 42px;
+
+    }
+
+
+    .hero h1 {
+
+        font-size: 27px;
+
+    }
+
+
+    .hero p {
+
+        font-size: 11px;
+
+        line-height:
+            1.7;
+
+    }
+
+}
+

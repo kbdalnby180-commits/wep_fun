@@ -1,30 +1,296 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fun X – صفحة الرسم الشخصي</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#07111f"
+    >
+
+    <meta
+        name="description"
+        content="Fun X — صفحة الرسم الشخصي"
+    >
+
+    <title>Fun X — الرسم الشخصي</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="stars"></div>
-<div class="celestial" id="celestial"></div>
-<div class="cloud cloud1"></div>
-<div class="cloud cloud2"></div>
+    <!-- ================= BACKGROUND ================= -->
 
-<header><a href="#">Fun X – صفحة الرسم الشخصي</a></header>
+    <div class="background">
 
-<div id="tips">ارفع صورة من جهازك وستظهر هنا للرسم عليها.</div>
+        <div class="stars" id="stars"></div>
 
-<input type="file" id="imageUpload" accept="image/*">
-<img id="selectedImage" src="" alt="صورة للرسم" style="display:none;">
-<button id="fullscreenBtn" style="display:none;">عرض الصورة فول سكرين</button>
+        <div class="celestial" id="celestial">
+            <span id="celestialIcon">☀</span>
+        </div>
 
-<div class="buttons">
-    <button id="dayNightBtn">ليلي / نهاري</button>
-</div>
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
 
-<script src="script.js"></script>
+    </div>
+
+
+    <!-- ================= APP ================= -->
+
+    <main class="app">
+
+        <!-- HEADER -->
+
+        <header class="header">
+
+            <a href="#" class="brand">
+
+                <div class="brand-logo">
+                    FX
+                </div>
+
+                <div class="brand-text">
+
+                    <strong>
+                        Fun X
+                    </strong>
+
+                    <small>
+                        الرسم الشخصي
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <button
+                id="dayNightBtn"
+                class="theme-btn"
+                type="button"
+                title="تبديل الوضع">
+
+                🌙
+
+            </button>
+
+        </header>
+
+
+        <!-- ================= HERO ================= -->
+
+        <section class="hero">
+
+            <div class="hero-badge">
+                🎨 Fun X Creative
+            </div>
+
+            <h1>
+                حوّل صورتك إلى
+                <span>لوحة إبداعية</span>
+            </h1>
+
+            <p>
+                ارفع صورة من جهازك واستمتع بمعاينتها والتفاعل معها
+            </p>
+
+        </section>
+
+
+        <!-- ================= UPLOAD CARD ================= -->
+
+        <section class="card upload-card">
+
+            <div class="section-icon">
+                📤
+            </div>
+
+            <h2>
+                اختر صورة
+            </h2>
+
+            <p class="section-description">
+                PNG أو JPG أو أي صورة مدعومة
+            </p>
+
+
+            <label
+                for="imageUpload"
+                class="upload-zone"
+                id="uploadZone">
+
+                <div class="upload-icon">
+                    🖼️
+                </div>
+
+                <strong>
+                    اضغط لاختيار صورة
+                </strong>
+
+                <span>
+                    أو اسحب الصورة وأسقطها هنا
+                </span>
+
+            </label>
+
+
+            <input
+                type="file"
+                id="imageUpload"
+                accept="image/*"
+                hidden
+            >
+
+        </section>
+
+
+        <!-- ================= IMAGE CARD ================= -->
+
+        <section
+            class="card image-card"
+            id="imageCard"
+            hidden>
+
+            <div class="image-header">
+
+                <div>
+
+                    <div class="image-title">
+                        🖌️ صورتك
+                    </div>
+
+                    <div
+                        class="image-name"
+                        id="imageName">
+                        —
+                    </div>
+
+                </div>
+
+
+                <div class="image-status">
+                    جاهزة
+                </div>
+
+            </div>
+
+
+            <div class="image-wrapper">
+
+                <img
+                    id="selectedImage"
+                    src=""
+                    alt="الصورة المختارة"
+                >
+
+                <div class="image-overlay">
+
+                    <span>
+                        Fun X
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="image-actions">
+
+                <button
+                    id="fullscreenBtn"
+                    class="action-btn primary"
+                    type="button">
+
+                    ⛶ عرض كامل
+
+                </button>
+
+
+                <button
+                    id="removeBtn"
+                    class="action-btn danger"
+                    type="button">
+
+                    🗑 حذف الصورة
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TIPS ================= -->
+
+        <section
+            id="tips"
+            class="tips-card">
+
+            <div class="tip-icon">
+                💡
+            </div>
+
+            <div>
+
+                <strong>
+                    نصيحة
+                </strong>
+
+                <p>
+                    اختر صورة واضحة للحصول على معاينة أفضل.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <footer>
+
+            <strong>
+                Fun X
+            </strong>
+
+            <span>
+                © 2026
+            </span>
+
+            <span class="footer-dot"></span>
+
+            <span>
+                Creative Tools
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <!-- ================= TOAST ================= -->
+
+    <div
+        id="toast"
+        class="toast">
+
+        تم التنفيذ
+
+    </div>
+
+
+    <script src="script.js"></script>
+
 </body>
+
 </html>
+
