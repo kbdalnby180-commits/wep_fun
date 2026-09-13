@@ -1,136 +1,1633 @@
-:root {
-  --bg-dark: #0f0c29;
-  --bg-light: #f0f0f0;
-  --card-dark: rgba(20,20,30,0.95);
-  --card-light: #ffffff;
-  --text-dark: #e0e0e0;
-  --text-light: #222222;
-  --accent: #00ffff;
-  --btn-bg: #007acc;
-  --btn-hover: #005a9e;
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-  margin: 0;
-  font-family: 'Fira Code', monospace;
-  background: var(--bg-dark);
-  color: var(--text-dark);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: all 0.3s;
+    margin: 0;
+
+    min-height: 100vh;
+
+    font-family:
+        "Cairo",
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    color: #e5edf9;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #12213b 0%,
+            #07101e 40%,
+            #02060d 100%
+        );
+
+    overflow-x: hidden;
+
+    transition:
+        background .35s ease,
+        color .35s ease;
 }
+
+
+/* =====================================================
+   LIGHT MODE
+===================================================== */
 
 body.light {
-  background: var(--bg-light);
-  color: var(--text-light);
+    color: #162033;
+
+    background:
+        linear-gradient(
+            180deg,
+            #eef5ff,
+            #e7edf7
+        );
 }
 
-h1 {
-  margin: 20px;
-  color: var(--accent);
-  text-shadow: 0 0 5px var(--accent), 0 0 15px var(--accent);
-  text-align: center;
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+.background-grid {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -5;
+
+    background-image:
+        linear-gradient(
+            rgba(72,110,180,.035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(72,110,180,.035) 1px,
+            transparent 1px
+        );
+
+    background-size: 44px 44px;
+
+    mask-image:
+        radial-gradient(
+            ellipse at center,
+            black,
+            transparent 82%
+        );
+
+    animation:
+        gridMove
+        20s
+        linear
+        infinite;
 }
 
-.card {
-  background: var(--card-dark);
-  border: 2px solid var(--accent);
-  border-radius: 12px;
-  padding: 20px;
-  width: 90%;
-  max-width: 950px;
-  box-shadow: 0 0 20px var(--accent);
-  margin: 20px 0;
-  transition: all 0.3s;
+@keyframes gridMove {
+
+    from {
+        transform:
+            translate(0, 0);
+    }
+
+    to {
+        transform:
+            translate(44px, 44px);
+    }
 }
 
-body.light .card { background: var(--card-light); border-color: #007acc; }
 
-.card h2 { color: var(--accent); }
+.background-glow {
+    position: fixed;
+
+    width: 450px;
+    height: 450px;
+
+    border-radius: 50%;
+
+    filter: blur(100px);
+
+    opacity: .12;
+
+    pointer-events: none;
+
+    z-index: -4;
+}
+
+.glow-1 {
+    top: -230px;
+    right: -160px;
+
+    background: #2563eb;
+}
+
+.glow-2 {
+    bottom: -250px;
+    left: -170px;
+
+    background: #7c3aed;
+}
+
+
+/* =====================================================
+   STARS
+===================================================== */
+
+.stars {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -3;
+
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    opacity: .25;
+
+    animation:
+        twinkle
+        ease-in-out
+        infinite
+        alternate;
+}
+
+@keyframes twinkle {
+
+    from {
+        opacity: .1;
+        transform: scale(.7);
+    }
+
+    to {
+        opacity: .8;
+        transform: scale(1.35);
+    }
+}
+
+
+/* =====================================================
+   TOPBAR
+===================================================== */
+
+.topbar {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 50;
+
+    width: 100%;
+
+    min-height: 76px;
+
+    padding:
+        12px 4%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    background:
+        rgba(4,10,20,.82);
+
+    border-bottom:
+        1px solid
+        rgba(96,165,250,.12);
+
+    backdrop-filter:
+        blur(18px);
+
+    box-shadow:
+        0 15px 45px
+        rgba(0,0,0,.2);
+}
+
+body.light .topbar {
+    background:
+        rgba(255,255,255,.8);
+
+    border-color:
+        rgba(30,64,175,.12);
+}
+
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.brand-icon {
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #06b6d4
+        );
+
+    box-shadow:
+        0 10px 28px
+        rgba(37,99,235,.2);
+
+    font-size: 1.45rem;
+}
+
+.brand h1 {
+
+    margin: 0;
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 1.05rem;
+
+    letter-spacing: 2px;
+}
+
+.brand span {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color: #6685b5;
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+}
+
+
+/* =====================================================
+   HEADER ACTIONS
+===================================================== */
+
+.header-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.progress-mini {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding:
+        8px 12px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    color: #7586a1;
+
+    font-size: 9px;
+}
+
+.progress-mini strong {
+    color: #7da0ff;
+}
+
+.icon-btn {
+
+    width: 40px;
+    height: 40px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    border-radius: 11px;
+
+    color: #fff;
+
+    background:
+        rgba(255,255,255,.05);
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.icon-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    background:
+        rgba(255,255,255,.1);
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
+.app {
+
+    width:
+        min(
+            1350px,
+            94%
+        );
+
+    margin:
+        0 auto;
+
+    padding:
+        35px 0 55px;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+
+    text-align: center;
+
+    margin-bottom: 28px;
+}
+
+.hero-badge {
+
+    display: inline-flex;
+
+    padding:
+        7px 13px;
+
+    border-radius:
+        999px;
+
+    color: #81a5ff;
+
+    background:
+        rgba(59,130,246,.07);
+
+    border:
+        1px solid
+        rgba(96,165,250,.14);
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+}
+
+.hero h2 {
+
+    margin:
+        15px 0 8px;
+
+    font-size:
+        clamp(
+            2rem,
+            6vw,
+            3.4rem
+        );
+
+    line-height: 1.2;
+}
+
+.hero h2 span {
+
+    color: #5f8dff;
+
+    text-shadow:
+        0 0 25px
+        rgba(95,141,255,.18);
+}
+
+.hero p {
+
+    margin: 0;
+
+    color: #8190a8;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   WORKSPACE
+===================================================== */
+
+.workspace {
+
+    display: grid;
+
+    grid-template-columns:
+        275px
+        minmax(0, 1fr);
+
+    gap: 18px;
+
+    align-items: start;
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.lesson-sidebar {
+
+    position: sticky;
+
+    top: 95px;
+
+    height:
+        calc(100vh - 120px);
+
+    min-height: 450px;
+
+    padding: 15px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(7,14,27,.78);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    backdrop-filter:
+        blur(18px);
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.25);
+}
+
+body.light .lesson-sidebar {
+
+    background:
+        rgba(255,255,255,.75);
+
+    border-color:
+        rgba(0,0,0,.07);
+}
+
+
+.sidebar-title {
+
+    padding:
+        3px 3px 13px;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.07);
+}
+
+.sidebar-title strong {
+
+    display: block;
+
+    font-size: 13px;
+}
+
+.sidebar-title small {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color: #74839d;
+
+    font-size: 9px;
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.lesson-search {
+
+    position: relative;
+
+    margin:
+        13px 0;
+}
+
+.lesson-search span {
+
+    position: absolute;
+
+    right: 12px;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    color: #667792;
+
+    pointer-events: none;
+}
+
+.lesson-search input {
+
+    width: 100%;
+
+    height: 40px;
+
+    padding:
+        0 38px 0 10px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    border-radius: 10px;
+
+    outline: none;
+
+    color: #fff;
+
+    background:
+        rgba(255,255,255,.045);
+
+    font-family:
+        "Cairo",
+        sans-serif;
+
+    font-size: 10px;
+
+    transition: .2s ease;
+}
+
+body.light .lesson-search input {
+
+    color: #111827;
+
+    background:
+        rgba(255,255,255,.75);
+
+    border-color:
+        rgba(0,0,0,.08);
+}
+
+.lesson-search input:focus {
+
+    border-color:
+        rgba(96,165,250,.4);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37,99,235,.06);
+}
+
+
+/* =====================================================
+   LESSON LIST
+===================================================== */
+
+.lesson-list {
+
+    height:
+        calc(100% - 100px);
+
+    overflow-y: auto;
+
+    padding-right: 3px;
+}
+
+.lesson-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.lesson-list::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+
+    background:
+        rgba(96,165,250,.18);
+}
+
+.lesson-item {
+
+    width: 100%;
+
+    min-height: 43px;
+
+    margin-bottom: 5px;
+
+    padding:
+        7px 8px;
+
+    display: grid;
+
+    grid-template-columns:
+        30px
+        1fr
+        22px;
+
+    align-items: center;
+
+    gap: 7px;
+
+    border:
+        1px solid
+        transparent;
+
+    border-radius: 10px;
+
+    color: #8e9bb2;
+
+    background:
+        transparent;
+
+    cursor: pointer;
+
+    text-align: right;
+
+    font-family:
+        "Cairo",
+        sans-serif;
+
+    transition:
+        .2s ease;
+}
+
+.lesson-item:hover {
+
+    background:
+        rgba(255,255,255,.045);
+
+    color: #dbeafe;
+}
+
+.lesson-item.active {
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(37,99,235,.17),
+            rgba(6,182,212,.07)
+        );
+
+    border-color:
+        rgba(96,165,250,.16);
+
+    color: #fff;
+}
+
+.lesson-item.completed {
+
+    color: #94a3b8;
+}
+
+.lesson-number {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;
+    height: 28px;
+
+    border-radius: 8px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    color: #61718c;
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 8px;
+}
+
+.lesson-item.active
+.lesson-number {
+
+    color: #8fb1ff;
+
+    background:
+        rgba(37,99,235,.13);
+}
+
+.lesson-name {
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+    font-size: 9px;
+}
+
+.lesson-state {
+
+    text-align: center;
+
+    color: #52617b;
+
+    font-size: 13px;
+}
+
+.lesson-item.completed
+.lesson-state {
+
+    color: #4ade80;
+}
+
+.lesson-empty {
+
+    padding:
+        35px 10px;
+
+    text-align: center;
+
+    color: #64748b;
+
+    font-size: 11px;
+
+    line-height: 2;
+}
+
+
+/* =====================================================
+   LESSON AREA
+===================================================== */
+
+.lesson-area {
+
+    min-width: 0;
+}
+
+.lesson-card {
+
+    padding:
+        25px;
+
+    border-radius: 24px;
+
+    background:
+        rgba(7,14,27,.8);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    backdrop-filter:
+        blur(18px);
+
+    box-shadow:
+        0 25px 70px
+        rgba(0,0,0,.3);
+}
+
+body.light .lesson-card {
+
+    background:
+        rgba(255,255,255,.76);
+
+    border-color:
+        rgba(0,0,0,.07);
+}
+
+
+/* =====================================================
+   LESSON HEADER
+===================================================== */
+
+.lesson-heading {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 14px;
+}
+
+.lesson-badge {
+
+    display: inline-block;
+
+    margin-bottom: 8px;
+
+    color: #6d91ff;
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+}
+
+.lesson-heading h2 {
+
+    margin: 0;
+
+    color: #fff;
+
+    font-size:
+        clamp(
+            1.25rem,
+            3vw,
+            1.9rem
+        );
+
+    line-height: 1.5;
+}
+
+body.light .lesson-heading h2 {
+    color: #111827;
+}
+
+.lesson-percent {
+
+    min-width: 55px;
+
+    padding:
+        8px 10px;
+
+    border-radius: 10px;
+
+    text-align: center;
+
+    color: #7fa4ff;
+
+    background:
+        rgba(37,99,235,.07);
+
+    border:
+        1px solid
+        rgba(96,165,250,.1);
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 9px;
+}
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+.progress-track {
+
+    width: 100%;
+
+    height: 6px;
+
+    margin-bottom: 24px;
+
+    overflow: hidden;
+
+    border-radius: 50px;
+
+    background:
+        rgba(255,255,255,.05);
+}
+
+.progress-bar {
+
+    width: 2%;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #2563eb,
+            #06b6d4
+        );
+
+    box-shadow:
+        0 0 18px
+        rgba(37,99,235,.25);
+
+    transition:
+        width .35s ease;
+}
+
+
+/* =====================================================
+   SECTION LABEL
+===================================================== */
+
+.section-label {
+
+    color: #89a0c4;
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =====================================================
+   EXPLANATION
+===================================================== */
+
+.explanation {
+
+    padding:
+        17px;
+
+    margin-bottom: 16px;
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid
+        rgba(255,255,255,.06);
+}
+
+.explanation p {
+
+    margin:
+        9px 0 0;
+
+    color: #b3bfd1;
+
+    font-size: 12px;
+
+    line-height: 2;
+}
+
+body.light .explanation p {
+    color: #475569;
+}
+
+
+/* =====================================================
+   HEADERS
+===================================================== */
+
+.section-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 9px;
+}
+
+.small-action {
+
+    padding:
+        6px 10px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    border-radius: 8px;
+
+    color: #7d8da6;
+
+    background:
+        rgba(255,255,255,.04);
+
+    cursor: pointer;
+
+    font-family:
+        "Cairo",
+        sans-serif;
+
+    font-size: 8px;
+
+    transition: .2s ease;
+}
+
+.small-action:hover {
+
+    color: #fff;
+
+    background:
+        rgba(255,255,255,.08);
+}
+
+
+/* =====================================================
+   CODE EXAMPLE
+===================================================== */
 
 .code {
-  background: #1c1c2a;
-  color: #00ffcc;
-  padding: 10px;
-  border-radius: 6px;
-  font-family: 'Fira Code', monospace;
-  overflow-x: auto;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  margin-top: 10px;
-  border: 1px solid var(--accent);
-  transition: all 0.3s;
+
+    margin: 0;
+
+    min-height: 100px;
+
+    max-height: 350px;
+
+    padding:
+        17px;
+
+    overflow:
+        auto;
+
+    border-radius: 13px;
+
+    border:
+        1px solid
+        rgba(96,165,250,.1);
+
+    background:
+        #07101c;
+
+    color: #65e6c8;
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 12px;
+
+    line-height: 1.8;
+
+    direction: ltr;
+
+    text-align: left;
+
+    white-space: pre-wrap;
+
+    word-break: break-word;
 }
 
-body.light .code { background: #e8e8e8; color: #005a9e; border-color: #007acc; }
+body.light .code {
+
+    background:
+        #0f172a;
+
+    color: #82f0d9;
+}
+
+
+/* =====================================================
+   EDITOR
+===================================================== */
+
+.editor-section {
+
+    margin-top: 18px;
+}
+
+.save-status {
+
+    color: #4ade80;
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 7px;
+}
 
 textarea {
-  width: 100%;
-  height: 200px;
-  background: #1c1c2a;
-  color: #00ffcc;
-  font-family: 'Fira Code', monospace;
-  border: 1px solid var(--accent);
-  border-radius: 6px;
-  padding: 10px;
-  margin-top: 5px;
-  transition: all 0.3s;
+
+    width: 100%;
+
+    min-height: 280px;
+
+    display: block;
+
+    resize: vertical;
+
+    padding:
+        17px;
+
+    border-radius: 13px;
+
+    border:
+        1px solid
+        rgba(96,165,250,.14);
+
+    outline: none;
+
+    color: #dbeafe;
+
+    background:
+        #050b14;
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 12px;
+
+    line-height: 1.8;
+
+    direction: ltr;
+
+    text-align: left;
+
+    tab-size: 4;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
 }
 
-body.light textarea { background: #f9f9f9; color: #222; border-color: #007acc; }
+textarea:focus {
 
-label[for="editor"] {
-  display: block;
-  margin-top: 10px;
-  color: var(--accent);
+    border-color:
+        rgba(96,165,250,.45);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37,99,235,.06);
+}
+
+body.light textarea {
+
+    color: #e2e8f0;
+
+    background:
+        #0f172a;
+}
+
+
+/* =====================================================
+   PREVIEW
+===================================================== */
+
+.preview-section {
+
+    margin-top: 18px;
 }
 
 iframe {
-  width: 100%;
-  height: 250px;
-  border: 1px solid var(--accent);
-  border-radius: 6px;
-  margin-top: 10px;
-  background: white;
+
+    width: 100%;
+
+    min-height: 330px;
+
+    display: block;
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    border-radius: 13px;
+
+    background: #fff;
+
+    box-shadow:
+        inset 0 0 25px
+        rgba(0,0,0,.1);
 }
 
-.buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-top: 15px;
-  gap: 10px;
+
+/* =====================================================
+   CONTROLS
+===================================================== */
+
+.controls {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr 1.2fr 1fr;
+
+    gap: 9px;
+
+    margin-top: 18px;
 }
 
-button {
-  flex: 1 1 30%;
-  padding: 10px 20px;
-  background-color: var(--btn-bg);
-  border: none;
-  color: white;
-  cursor: pointer;
-  border-radius: 6px;
-  transition: 0.2s;
+.control-btn {
+
+    min-height: 46px;
+
+    padding:
+        10px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    color: #fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #06b6d4
+        );
+
+    font-family:
+        "Cairo",
+        sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        filter .2s ease;
 }
 
-button:hover { background-color: var(--btn-hover); transform: scale(1.05); }
+.control-btn:hover {
 
-#lesson-counter {
-  text-align: center;
-  margin-top: 5px;
+    transform:
+        translateY(-2px);
+
+    filter:
+        brightness(1.07);
+
+    box-shadow:
+        0 9px 25px
+        rgba(37,99,235,.16);
 }
 
-#mode-toggle {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 6px;
-  background-color: var(--btn-bg);
-  color: white;
-  cursor: pointer;
-  z-index: 100;
+.control-btn.secondary {
+
+    color: #b4c0d1;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
 }
+
+.control-btn.run {
+
+    background:
+        linear-gradient(
+            135deg,
+            #059669,
+            #10b981
+        );
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.lesson-footer {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-top: 14px;
+
+    color: #68778f;
+
+    font-family:
+        "Fira Code",
+        monospace;
+
+    font-size: 8px;
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast {
+
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 25px;
+
+    z-index: 100;
+
+    max-width:
+        calc(100vw - 30px);
+
+    padding:
+        11px 17px;
+
+    border-radius: 11px;
+
+    color: #fff;
+
+    background:
+        rgba(15,23,42,.94);
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    box-shadow:
+        0 18px 45px
+        rgba(0,0,0,.35);
+
+    font-size: 10px;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transform:
+        translate(-50%, 15px);
+
+    transition:
+        .25s ease;
+}
+
+.toast.show {
+
+    opacity: 1;
+
+    transform:
+        translate(-50%, 0);
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 950px) {
+
+    .workspace {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .lesson-sidebar {
+
+        position: relative;
+
+        top: auto;
+
+        height: auto;
+
+        min-height: auto;
+    }
+
+    .lesson-list {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(
+                auto-fill,
+                minmax(
+                    175px,
+                    1fr
+                )
+            );
+
+        max-height: 300px;
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    .topbar {
+
+        padding:
+            10px 3%;
+    }
+
+    .progress-mini {
+
+        display: none;
+    }
+
+    .brand-icon {
+
+        width: 43px;
+        height: 43px;
+
+        font-size: 1.2rem;
+    }
+
+    .brand h1 {
+
+        font-size: .95rem;
+    }
+
+    .brand span {
+
+        font-size: 7px;
+    }
+
+    .app {
+
+        width: 96%;
+
+        padding-top: 22px;
+    }
+
+    .hero {
+
+        margin-bottom: 20px;
+    }
+
+    .hero p {
+
+        font-size: 10px;
+    }
+
+    .lesson-card {
+
+        padding:
+            16px;
+
+        border-radius: 18px;
+    }
+
+    .lesson-heading {
+
+        align-items: center;
+    }
+
+    .lesson-percent {
+
+        min-width: 50px;
+    }
+
+    .lesson-heading h2 {
+
+        font-size:
+            1.15rem;
+    }
+
+    .code {
+
+        font-size: 10px;
+
+        padding: 13px;
+    }
+
+    textarea {
+
+        min-height: 240px;
+
+        font-size: 10px;
+
+        padding: 13px;
+    }
+
+    iframe {
+
+        min-height: 280px;
+    }
+
+    .controls {
+
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .control-btn {
+
+        min-height: 43px;
+
+        font-size: 9px;
+    }
+
+    .lesson-footer {
+
+        flex-direction: column;
+
+        align-items: center;
+    }
+
+    .lesson-list {
+
+        grid-template-columns:
+            1fr 1fr;
+
+        max-height: 260px;
+    }
+}
+
+
+@media (max-width: 380px) {
+
+    .lesson-list {
+
+        grid-template-columns: 1fr;
+    }
+
+    .hero h2 {
+
+        font-size: 1.8rem;
+    }
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (
+    prefers-reduced-motion: reduce
+) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            .01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        scroll-behavior:
+            auto !important;
+    }
+}
+
