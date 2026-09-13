@@ -1,218 +1,1816 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🚧 الموقع تحت الصيانة 🚧</title>
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:"Cairo", sans-serif;
-}
+    <meta charset="UTF-8">
 
-body{
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  overflow:hidden;
-  color:#fff;
-  background:linear-gradient(270deg,#0f0c29,#302b63,#24243e);
-  background-size:600% 600%;
-  animation:gradientBG 15s ease infinite;
-}
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-@keyframes gradientBG{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
+    <meta
+        name="theme-color"
+        content="#050811"
+    >
 
-/* نجوم */
-.stars{
-  position:fixed;
-  inset:0;
-  background:url("https://raw.githubusercontent.com/VincentGarreau/particles.js/master/demo/media/star.png");
-  animation:starsMove 60s linear infinite;
-  opacity:0.15;
-}
+    <meta
+        name="description"
+        content="Fun X - الموقع تحت الصيانة"
+    >
 
-@keyframes starsMove{
-  from{background-position:0 0}
-  to{background-position:10000px 5000px}
-}
+    <title>Fun X | الموقع تحت الصيانة</title>
 
-.box{
-  position:relative;
-  z-index:2;
-  background:rgba(0,0,0,0.65);
-  padding:40px;
-  border-radius:22px;
-  box-shadow:0 0 25px rgba(0,0,0,.8),0 0 40px #f83a00 inset;
-  max-width:500px;
-}
 
-h1{
-  font-size:42px;
-  margin-bottom:20px;
-  color:#ff3c00;
-  text-shadow:0 0 15px #ff3c00,0 0 30px #ff7b00;
-}
+    <style>
 
-p{
-  font-size:22px;
-  margin-bottom:20px;
-  line-height:1.8;
-  color:#0ff;
-  font-weight:bold;
-}
+        /* =================================================
+           VARIABLES
+        ================================================= */
 
-.emoji{
-  font-size:60px;
-  animation:sideMove 3s ease-in-out infinite;
-}
+        :root {
 
-@keyframes sideMove{
-  0%{transform:translateX(0)}
-  50%{transform:translateX(30px)}
-  100%{transform:translateX(0)}
-}
+            --bg-1: #050811;
+            --bg-2: #0d1423;
 
-#countdown{
-  font-size:26px;
-  font-weight:bold;
-  color:#ffeb3b;
-  text-shadow:0 0 12px #ffeb3b,0 0 20px #ff9800;
-  margin:15px 0;
-}
+            --card:
+                rgba(255,255,255,0.065);
 
-/* Progress bar */
-.progress{
-  width:100%;
-  height:10px;
-  background:#222;
-  border-radius:20px;
-  overflow:hidden;
-  margin:15px 0;
-}
+            --border:
+                rgba(255,255,255,0.10);
 
-.progress span{
-  display:block;
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,#ff3c00,#ff9800,#ffeb3b);
-  transition:width 1s linear;
-}
+            --text:
+                #f5f7fb;
 
-.buttons{
-  margin-top:15px;
-}
+            --muted:
+                #8f9caf;
 
-button{
-  padding:10px 18px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-  margin:5px;
-  font-size:14px;
-}
+            --blue:
+                #4aa7ff;
 
-.refresh{
-  background:#2196f3;
-  color:#fff;
-}
+            --purple:
+                #965cff;
 
-footer{
-  margin-top:20px;
-  font-size:14px;
-  color:#ccc;
-}
+            --cyan:
+                #32dcff;
 
-@media(max-width:700px){
-  h1{font-size:28px}
-  p{font-size:18px}
-  .emoji{font-size:50px}
-  #countdown{font-size:20px}
-}
-</style>
+            --orange:
+                #ff9d4d;
+
+            --red:
+                #ff5d68;
+
+        }
+
+
+        /* =================================================
+           RESET
+        ================================================= */
+
+        * {
+
+            box-sizing:
+                border-box;
+
+            margin:
+                0;
+
+            padding:
+                0;
+
+        }
+
+
+        html,
+        body {
+
+            width:
+                100%;
+
+            min-height:
+                100%;
+
+        }
+
+
+        body {
+
+            min-height:
+                100vh;
+
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            align-items:
+                center;
+
+            padding:
+                20px;
+
+            font-family:
+                Tahoma,
+                Arial,
+                "Segoe UI",
+                sans-serif;
+
+            color:
+                var(--text);
+
+            background:
+                radial-gradient(
+                    circle at 15% 10%,
+                    rgba(74,167,255,0.12),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 90%,
+                    rgba(150,92,255,0.12),
+                    transparent 32%
+                ),
+                linear-gradient(
+                    135deg,
+                    var(--bg-1),
+                    var(--bg-2)
+                );
+
+            overflow:
+                hidden;
+
+        }
+
+
+        /* =================================================
+           BACKGROUND
+        ================================================= */
+
+        .background {
+
+            position:
+                fixed;
+
+            inset:
+                0;
+
+            z-index:
+                0;
+
+            overflow:
+                hidden;
+
+            pointer-events:
+                none;
+
+        }
+
+
+        .grid {
+
+            position:
+                absolute;
+
+            inset:
+                0;
+
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,0.022) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.022) 1px,
+                    transparent 1px
+                );
+
+            background-size:
+                45px 45px;
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    black,
+                    transparent
+                );
+
+        }
+
+
+        .orb {
+
+            position:
+                absolute;
+
+            border-radius:
+                50%;
+
+            filter:
+                blur(110px);
+
+            opacity:
+                0.25;
+
+            animation:
+                floatOrb
+                14s
+                ease-in-out
+                infinite;
+
+        }
+
+
+        .orb-1 {
+
+            width:
+                390px;
+
+            height:
+                390px;
+
+            top:
+                -170px;
+
+            right:
+                -120px;
+
+            background:
+                #3987ff;
+
+        }
+
+
+        .orb-2 {
+
+            width:
+                360px;
+
+            height:
+                360px;
+
+            bottom:
+                -180px;
+
+            left:
+                -120px;
+
+            background:
+                #984fff;
+
+            animation-delay:
+                -6s;
+
+        }
+
+
+        @keyframes floatOrb {
+
+            0%,
+            100% {
+
+                transform:
+                    translate(0,0)
+                    scale(1);
+
+            }
+
+            50% {
+
+                transform:
+                    translate(-30px,-25px)
+                    scale(1.08);
+
+            }
+
+        }
+
+
+        #particles {
+
+            position:
+                absolute;
+
+            inset:
+                0;
+
+        }
+
+
+        .particle {
+
+            position:
+                absolute;
+
+            width:
+                2px;
+
+            height:
+                2px;
+
+            border-radius:
+                50%;
+
+            background:
+                rgba(105,195,255,0.8);
+
+            box-shadow:
+                0 0 9px
+                rgba(105,195,255,0.7);
+
+            animation:
+                particleMove
+                var(--duration)
+                ease-in-out
+                infinite;
+
+            animation-delay:
+                var(--delay);
+
+            opacity:
+                var(--opacity);
+
+        }
+
+
+        @keyframes particleMove {
+
+            0%,
+            100% {
+
+                transform:
+                    translate3d(0,0,0);
+
+            }
+
+            50% {
+
+                transform:
+                    translate3d(
+                        var(--move-x),
+                        var(--move-y),
+                        0
+                    );
+
+            }
+
+        }
+
+
+        /* =================================================
+           PAGE
+        ================================================= */
+
+        .page {
+
+            position:
+                relative;
+
+            z-index:
+                2;
+
+            width:
+                min(
+                    580px,
+                    100%
+                );
+
+        }
+
+
+        /* =================================================
+           BRAND
+        ================================================= */
+
+        .brand {
+
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            align-items:
+                center;
+
+            gap:
+                10px;
+
+            margin-bottom:
+                18px;
+
+        }
+
+
+        .brand-logo {
+
+            width:
+                47px;
+
+            height:
+                47px;
+
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            align-items:
+                center;
+
+            border-radius:
+                14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    var(--purple)
+                );
+
+            box-shadow:
+                0 12px 35px
+                rgba(70,120,255,0.24);
+
+            font-size:
+                13px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                1px;
+
+        }
+
+
+        .brand-name {
+
+            text-align:
+                right;
+
+        }
+
+
+        .brand-name strong {
+
+            display:
+                block;
+
+            font-size:
+                17px;
+
+        }
+
+
+        .brand-name small {
+
+            display:
+                block;
+
+            margin-top:
+                3px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                9px;
+
+        }
+
+
+        /* =================================================
+           CARD
+        ================================================= */
+
+        .maintenance-card {
+
+            position:
+                relative;
+
+            overflow:
+                hidden;
+
+            padding:
+                32px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                28px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.075),
+                    rgba(255,255,255,0.025)
+                );
+
+            backdrop-filter:
+                blur(28px);
+
+            -webkit-backdrop-filter:
+                blur(28px);
+
+            box-shadow:
+                0 35px 90px rgba(0,0,0,0.45),
+                inset 0 1px 0
+                rgba(255,255,255,0.05);
+
+            text-align:
+                center;
+
+            animation:
+                cardIn
+                0.7s
+                ease;
+
+        }
+
+
+        .maintenance-card::before {
+
+            content:
+                "";
+
+            position:
+                absolute;
+
+            width:
+                220px;
+
+            height:
+                220px;
+
+            border-radius:
+                50%;
+
+            top:
+                -120px;
+
+            left:
+                -100px;
+
+            background:
+                rgba(74,167,255,0.12);
+
+            filter:
+                blur(45px);
+
+        }
+
+
+        @keyframes cardIn {
+
+            from {
+
+                opacity:
+                    0;
+
+                transform:
+                    translateY(25px)
+                    scale(0.97);
+
+            }
+
+            to {
+
+                opacity:
+                    1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+
+            }
+
+        }
+
+
+        /* =================================================
+           ICON
+        ================================================= */
+
+        .maintenance-icon {
+
+            width:
+                86px;
+
+            height:
+                86px;
+
+            margin:
+                0 auto 18px;
+
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            align-items:
+                center;
+
+            border-radius:
+                25px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255,157,77,0.12),
+                    rgba(255,93,104,0.08)
+                );
+
+            border:
+                1px solid
+                rgba(255,157,77,0.15);
+
+            box-shadow:
+                0 0 45px
+                rgba(255,157,77,0.08);
+
+            font-size:
+                37px;
+
+            animation:
+                iconFloat
+                3.5s
+                ease-in-out
+                infinite;
+
+        }
+
+
+        @keyframes iconFloat {
+
+            0%,
+            100% {
+
+                transform:
+                    translateY(0);
+
+            }
+
+            50% {
+
+                transform:
+                    translateY(-7px);
+
+            }
+
+        }
+
+
+        /* =================================================
+           TEXT
+        ================================================= */
+
+        .badge {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            gap:
+                7px;
+
+            padding:
+                7px 12px;
+
+            margin-bottom:
+                13px;
+
+            border-radius:
+                50px;
+
+            background:
+                rgba(255,157,77,0.07);
+
+            border:
+                1px solid
+                rgba(255,157,77,0.12);
+
+            color:
+                #ffbc7b;
+
+            font-size:
+                9px;
+
+        }
+
+
+        .badge span {
+
+            width:
+                6px;
+
+            height:
+                6px;
+
+            border-radius:
+                50%;
+
+            background:
+                var(--orange);
+
+            box-shadow:
+                0 0 10px
+                var(--orange);
+
+        }
+
+
+        h1 {
+
+            margin-bottom:
+                11px;
+
+            font-size:
+                clamp(
+                    30px,
+                    7vw,
+                    43px
+                );
+
+            line-height:
+                1.2;
+
+        }
+
+
+        h1 span {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ff914d,
+                    #ffcb6b
+                );
+
+            -webkit-background-clip:
+                text;
+
+            background-clip:
+                text;
+
+            color:
+                transparent;
+
+        }
+
+
+        .description {
+
+            max-width:
+                450px;
+
+            margin:
+                0 auto;
+
+            color:
+                var(--muted);
+
+            font-size:
+                12px;
+
+            line-height:
+                1.9;
+
+        }
+
+
+        /* =================================================
+           COUNTDOWN
+        ================================================= */
+
+        .countdown-box {
+
+            margin-top:
+                28px;
+
+            padding:
+                18px;
+
+            border-radius:
+                19px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.07);
+
+        }
+
+
+        .countdown-label {
+
+            color:
+                #77859a;
+
+            font-size:
+                9px;
+
+            margin-bottom:
+                9px;
+
+        }
+
+
+        #countdown {
+
+            font-size:
+                clamp(
+                    32px,
+                    8vw,
+                    48px
+                );
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                3px;
+
+            font-variant-numeric:
+                tabular-nums;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #fff,
+                    #7fd5ff
+                );
+
+            -webkit-background-clip:
+                text;
+
+            background-clip:
+                text;
+
+            color:
+                transparent;
+
+        }
+
+
+        /* =================================================
+           PROGRESS
+        ================================================= */
+
+        .progress-info {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            margin-top:
+                20px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                9px;
+
+        }
+
+
+        .progress {
+
+            width:
+                100%;
+
+            height:
+                9px;
+
+            overflow:
+                hidden;
+
+            margin-top:
+                8px;
+
+            border-radius:
+                50px;
+
+            background:
+                rgba(255,255,255,0.07);
+
+        }
+
+
+        .progress-bar {
+
+            display:
+                block;
+
+            width:
+                0%;
+
+            height:
+                100%;
+
+            border-radius:
+                inherit;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--blue),
+                    var(--purple),
+                    var(--cyan)
+                );
+
+            box-shadow:
+                0 0 15px
+                rgba(80,180,255,0.35);
+
+            transition:
+                width
+                0.8s
+                linear;
+
+        }
+
+
+        /* =================================================
+           STATUS
+        ================================================= */
+
+        .status {
+
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            align-items:
+                center;
+
+            gap:
+                7px;
+
+            margin-top:
+                17px;
+
+            color:
+                #8492a5;
+
+            font-size:
+                9px;
+
+        }
+
+
+        .status-dot {
+
+            width:
+                6px;
+
+            height:
+                6px;
+
+            border-radius:
+                50%;
+
+            background:
+                var(--orange);
+
+            box-shadow:
+                0 0 10px
+                var(--orange);
+
+        }
+
+
+        /* =================================================
+           BUTTONS
+        ================================================= */
+
+        .actions {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr;
+
+            gap:
+                9px;
+
+            margin-top:
+                23px;
+
+        }
+
+
+        .btn {
+
+            height:
+                48px;
+
+            border:
+                none;
+
+            border-radius:
+                14px;
+
+            font-family:
+                inherit;
+
+            font-size:
+                12px;
+
+            font-weight:
+                800;
+
+            cursor:
+                pointer;
+
+            transition:
+                0.2s ease;
+
+        }
+
+
+        .refresh {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    var(--purple)
+                );
+
+            color:
+                #fff;
+
+            box-shadow:
+                0 12px 30px
+                rgba(75,130,255,0.20);
+
+        }
+
+
+        .refresh:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 17px 38px
+                rgba(75,130,255,0.28);
+
+        }
+
+
+        .home {
+
+            background:
+                rgba(255,255,255,0.045);
+
+            border:
+                1px solid
+                var(--border);
+
+            color:
+                #cbd4e1;
+
+        }
+
+
+        .home:hover {
+
+            transform:
+                translateY(-2px);
+
+            background:
+                rgba(255,255,255,0.08);
+
+        }
+
+
+        /* =================================================
+           COMPLETE STATE
+        ================================================= */
+
+        .complete {
+
+            display:
+                none;
+
+            margin-top:
+                25px;
+
+        }
+
+
+        .complete.show {
+
+            display:
+                block;
+
+        }
+
+
+        .complete-icon {
+
+            font-size:
+                45px;
+
+            margin-bottom:
+                10px;
+
+        }
+
+
+        .complete h2 {
+
+            color:
+                var(--green);
+
+            margin-bottom:
+                7px;
+
+            font-size:
+                22px;
+
+        }
+
+
+        .complete p {
+
+            color:
+                var(--muted);
+
+            font-size:
+                11px;
+
+        }
+
+
+        /* =================================================
+           FOOTER
+        ================================================= */
+
+        footer {
+
+            margin-top:
+                20px;
+
+            text-align:
+                center;
+
+            color:
+                #556274;
+
+            font-size:
+                9px;
+
+        }
+
+
+        footer strong {
+
+            color:
+                #8493a8;
+
+        }
+
+
+        /* =================================================
+           MOBILE
+        ================================================= */
+
+        @media (max-width: 600px) {
+
+            body {
+
+                overflow:
+                    auto;
+
+            }
+
+
+            .page {
+
+                padding:
+                    15px 0;
+
+            }
+
+
+            .maintenance-card {
+
+                padding:
+                    24px 17px;
+
+                border-radius:
+                    23px;
+
+            }
+
+
+            .maintenance-icon {
+
+                width:
+                    75px;
+
+                height:
+                    75px;
+
+                font-size:
+                    31px;
+
+            }
+
+
+            .description {
+
+                font-size:
+                    11px;
+
+            }
+
+
+            #countdown {
+
+                letter-spacing:
+                    1px;
+
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-<div class="stars"></div>
 
-<div class="box">
-  <div class="emoji">📡</div>
-  <h1>🚧 الموقع تحت الصيانة 🚧</h1>
+    <!-- ================= BACKGROUND ================= -->
 
-  <p>
-    نعمل حالياً على تحديث وتحسين Fun X  
-    <br>العودة قريبة جداً 🚀
-  </p>
+    <div class="background">
 
-  <div id="countdown">جارٍ التحميل...</div>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
 
-  <div class="progress">
-    <span id="bar"></span>
-  </div>
+        <div class="grid"></div>
 
-  <div class="emoji">🛠️</div>
+        <div id="particles"></div>
 
-  <div class="buttons">
-    <button class="refresh" onclick="location.reload()">🔄 تحديث الصفحة</button>
-  </div>
+    </div>
 
-  <footer>© 2025 Fun X – جميع الحقوق محفوظة</footer>
-</div>
 
-<script>
-const duration = 2 * 60 * 60 * 1000; // ساعتين
-let endTime = localStorage.getItem("maintenanceEndTime");
+    <!-- ================= PAGE ================= -->
 
-if(!endTime || Date.now() > endTime){
-  endTime = Date.now() + duration;
-  localStorage.setItem("maintenanceEndTime", endTime);
-}
+    <main class="page">
 
-const countdown = document.getElementById("countdown");
-const bar = document.getElementById("bar");
 
-function update(){
-  const now = Date.now();
-  const diff = endTime - now;
+        <!-- BRAND -->
 
-  if(diff <= 0){
-    countdown.innerHTML = "✅ الموقع جاهز للعمل!";
-    bar.style.width = "100%";
+        <div class="brand">
 
-    setTimeout(()=>{
-      // غير الرابط حسب موقعك
-      window.location.href = "index.html";
-    },3000);
+            <div class="brand-logo">
+                FX
+            </div>
 
-    localStorage.removeItem("maintenanceEndTime");
-    return;
-  }
+            <div class="brand-name">
 
-  const total = duration;
-  const passed = total - diff;
-  const percent = Math.floor((passed / total) * 100);
+                <strong>
+                    Fun X
+                </strong>
 
-  const h = Math.floor(diff / 3600000);
-  const m = Math.floor((diff % 3600000) / 60000);
-  const s = Math.floor((diff % 60000) / 1000);
+                <small>
+                    Digital Experience
+                </small>
 
-  countdown.innerHTML = `⏳ ${h.toString().padStart(2,"0")}:${m.toString().padStart(2,"0")}:${s.toString().padStart(2,"0")}`;
-  bar.style.width = percent + "%";
-}
+            </div>
 
-update();
-setInterval(update,1000);
-</script>
+        </div>
+
+
+        <!-- MAIN CARD -->
+
+        <section class="maintenance-card">
+
+
+            <div class="maintenance-icon">
+                🛠️
+            </div>
+
+
+            <div class="badge">
+
+                <span></span>
+
+                MAINTENANCE MODE
+
+            </div>
+
+
+            <h1>
+                الموقع
+                <span>تحت الصيانة</span>
+            </h1>
+
+
+            <p class="description">
+
+                نعمل حاليًا على تطوير وتحسين Fun X
+                لإضافة مميزات جديدة وتجربة أفضل لك.
+                <br>
+                سنعود قريبًا بشكل أقوى 🚀
+
+            </p>
+
+
+            <!-- COUNTDOWN -->
+
+            <div class="countdown-box">
+
+                <div class="countdown-label">
+                    الوقت المتبقي
+                </div>
+
+                <div id="countdown">
+                    02:00:00
+                </div>
+
+            </div>
+
+
+            <!-- PROGRESS -->
+
+            <div class="progress-info">
+
+                <span>
+                    حالة الصيانة
+                </span>
+
+                <span id="progressPercent">
+                    0%
+                </span>
+
+            </div>
+
+
+            <div class="progress">
+
+                <span
+                    id="bar"
+                    class="progress-bar">
+                </span>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="status">
+
+                <span class="status-dot"></span>
+
+                جاري تحسين الموقع...
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="actions">
+
+                <button
+                    id="refreshBtn"
+                    class="btn refresh"
+                    type="button">
+
+                    🔄 تحديث الصفحة
+
+                </button>
+
+
+                <button
+                    id="homeBtn"
+                    class="btn home"
+                    type="button">
+
+                    🏠 فتح الموقع
+
+                </button>
+
+            </div>
+
+
+            <!-- COMPLETE -->
+
+            <div
+                id="complete"
+                class="complete">
+
+                <div class="complete-icon">
+                    ✅
+                </div>
+
+                <h2>
+                    الموقع أصبح جاهزًا!
+                </h2>
+
+                <p>
+                    جاري تحويلك إلى Fun X...
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- FOOTER -->
+
+        <footer>
+
+            <strong>
+                Fun X
+            </strong>
+
+            <span>
+                © 2026
+            </span>
+
+            <span>
+                — جميع الحقوق محفوظة
+            </span>
+
+        </footer>
+
+
+    </main>
+
+
+    <script>
+
+        /* =================================================
+           ELEMENTS
+        ================================================= */
+
+        const countdown =
+            document.getElementById("countdown");
+
+        const bar =
+            document.getElementById("bar");
+
+        const progressPercent =
+            document.getElementById(
+                "progressPercent"
+            );
+
+        const refreshBtn =
+            document.getElementById(
+                "refreshBtn"
+            );
+
+        const homeBtn =
+            document.getElementById(
+                "homeBtn"
+            );
+
+        const complete =
+            document.getElementById(
+                "complete"
+            );
+
+        const particles =
+            document.getElementById(
+                "particles"
+            );
+
+
+        /* =================================================
+           SETTINGS
+        ================================================= */
+
+        const DURATION =
+            2 * 60 * 60 * 1000;
+
+        const STORAGE_KEY =
+            "funx_maintenance_end";
+
+
+        /*
+         * غيّر هذا الرابط للموقع الأساسي
+         */
+
+        const HOME_URL =
+            "https://kbdalnby180-commits.github.io/wep_fun/";
+
+
+        /* =================================================
+           END TIME
+        ================================================= */
+
+        let endTime =
+            Number(
+                localStorage.getItem(
+                    STORAGE_KEY
+                )
+            );
+
+
+        if (
+            !endTime ||
+            Date.now() >= endTime
+        ) {
+
+            endTime =
+                Date.now() +
+                DURATION;
+
+
+            localStorage.setItem(
+                STORAGE_KEY,
+                String(endTime)
+            );
+
+        }
+
+
+        let redirecting = false;
+
+
+        /* =================================================
+           COUNTDOWN UPDATE
+        ================================================= */
+
+        function updateCountdown() {
+
+            const now =
+                Date.now();
+
+
+            const remaining =
+                endTime - now;
+
+
+            if (remaining <= 0) {
+
+                finishMaintenance();
+
+                return;
+
+            }
+
+
+            const elapsed =
+                DURATION -
+                remaining;
+
+
+            const percentage =
+                Math.min(
+                    100,
+                    Math.max(
+                        0,
+                        (
+                            elapsed /
+                            DURATION
+                        ) * 100
+                    )
+                );
+
+
+            const hours =
+                Math.floor(
+                    remaining /
+                    3600000
+                );
+
+
+            const minutes =
+                Math.floor(
+                    (
+                        remaining %
+                        3600000
+                    ) /
+                    60000
+                );
+
+
+            const seconds =
+                Math.floor(
+                    (
+                        remaining %
+                        60000
+                    ) /
+                    1000
+                );
+
+
+            countdown.textContent =
+                `${String(hours).padStart(2,"0")}:` +
+                `${String(minutes).padStart(2,"0")}:` +
+                `${String(seconds).padStart(2,"0")}`;
+
+
+            const roundedPercentage =
+                Math.floor(
+                    percentage
+                );
+
+
+            bar.style.width =
+                `${roundedPercentage}%`;
+
+
+            progressPercent.textContent =
+                `${roundedPercentage}%`;
+
+        }
+
+
+        /* =================================================
+           FINISH
+        ================================================= */
+
+        function finishMaintenance() {
+
+            if (redirecting) {
+
+                return;
+
+            }
+
+
+            redirecting =
+                true;
+
+
+            countdown.textContent =
+                "00:00:00";
+
+
+            bar.style.width =
+                "100%";
+
+
+            progressPercent.textContent =
+                "100%";
+
+
+            complete.classList.add(
+                "show"
+            );
+
+
+            localStorage.removeItem(
+                STORAGE_KEY
+            );
+
+
+            setTimeout(() => {
+
+                window.location.href =
+                    HOME_URL;
+
+            }, 2500);
+
+        }
+
+
+        /* =================================================
+           REFRESH
+        ================================================= */
+
+        refreshBtn.addEventListener(
+            "click",
+            () => {
+
+                window.location.reload();
+
+            }
+        );
+
+
+        /* =================================================
+           HOME
+        ================================================= */
+
+        homeBtn.addEventListener(
+            "click",
+            () => {
+
+                window.location.href =
+                    HOME_URL;
+
+            }
+        );
+
+
+        /* =================================================
+           CREATE PARTICLES
+        ================================================= */
+
+        function createParticles() {
+
+            const amount =
+                window.innerWidth < 600
+                    ? 35
+                    : 60;
+
+
+            for (
+                let i = 0;
+                i < amount;
+                i++
+            ) {
+
+                const particle =
+                    document.createElement(
+                        "span"
+                    );
+
+
+                particle.className =
+                    "particle";
+
+
+                particle.style.left =
+                    `${Math.random() * 100}%`;
+
+
+                particle.style.top =
+                    `${Math.random() * 100}%`;
+
+
+                particle.style.setProperty(
+                    "--opacity",
+                    Math.random() * 0.5 + 0.15
+                );
+
+
+                particle.style.setProperty(
+                    "--duration",
+                    `${Math.random() * 8 + 5}s`
+                );
+
+
+                particle.style.setProperty(
+                    "--delay",
+                    `${Math.random() * 5}s`
+                );
+
+
+                particle.style.setProperty(
+                    "--move-x",
+                    `${Math.random() * 35 - 17}px`
+                );
+
+
+                particle.style.setProperty(
+                    "--move-y",
+                    `${Math.random() * 35 - 17}px`
+                );
+
+
+                particles.appendChild(
+                    particle
+                );
+
+            }
+
+        }
+
+
+        /* =================================================
+           INITIALIZE
+        ================================================= */
+
+        createParticles();
+
+        updateCountdown();
+
+
+        setInterval(
+            updateCountdown,
+            1000
+        );
+
+    </script>
 
 </body>
+
 </html>
+
