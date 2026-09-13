@@ -1,169 +1,1466 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>FUN X – Secure Access</title>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
+    <meta charset="UTF-8">
 
-* {
-    box-sizing: border-box;
-}
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-body {
-    margin: 0;
-    height: 100vh;
-    background: radial-gradient(circle at top, #0b1220, #05070d);
-    overflow: hidden;
-    font-family: 'Orbitron', sans-serif;
-}
+    <meta
+        name="theme-color"
+        content="#03060d"
+    >
 
-/* 🔥 Animated Background Logo */
-.bg-logo {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15vw;
-    font-weight: 600;
-    color: rgba(255,255,255,0.04);
-    letter-spacing: 20px;
-    animation: float 12s ease-in-out infinite;
-    pointer-events: none;
-}
+    <title>FUN X — Secure Access</title>
 
-@keyframes float {
-    0%   { transform: translateY(0px); }
-    50%  { transform: translateY(-25px); }
-    100% { transform: translateY(0px); }
-}
+    <style>
 
-/* 🌐 Main Container */
-.container {
-    position: relative;
-    z-index: 2;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        /* =====================================================
+           RESET
+        ===================================================== */
 
-/* 🧊 Glass Card */
-.card {
-    width: 420px;
-    padding: 40px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(18px);
-    border: 1px solid rgba(255,255,255,0.15);
-    box-shadow: 0 40px 120px rgba(0,0,0,0.8);
-    text-align: center;
-    animation: fadeIn 1.2s ease;
-}
+        * {
+            box-sizing: border-box;
+        }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
 
-.card h1 {
-    color: #fff;
-    margin-bottom: 10px;
-    font-size: 28px;
-}
+        body {
+            margin: 0;
 
-.card p {
-    color: #9aa4bf;
-    font-size: 13px;
-    margin-bottom: 30px;
-}
+            overflow: hidden;
 
-/* 🎮 Input */
-input {
-    width: 100%;
-    padding: 15px;
-    background: rgba(0,0,0,0.4);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 12px;
-    color: #fff;
-    font-size: 14px;
-    outline: none;
-    text-align: center;
-    letter-spacing: 2px;
-}
+            font-family:
+                "Orbitron",
+                "Segoe UI",
+                Arial,
+                sans-serif;
 
-/* 🚀 Button */
-button {
-    margin-top: 25px;
-    width: 100%;
-    padding: 15px;
-    border-radius: 14px;
-    border: none;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: 600;
-    background: linear-gradient(135deg, #2563eb, #06b6d4);
-    color: #fff;
-    transition: transform .3s, box-shadow .3s;
-}
+            color: #fff;
 
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 15px 40px rgba(37,99,235,0.5);
-}
+            background:
+                radial-gradient(
+                    circle at center,
+                    #111a30 0%,
+                    #080d18 35%,
+                    #03060d 75%,
+                    #010204 100%
+                );
 
-.error {
-    margin-top: 18px;
-    color: #ff6b6b;
-    font-size: 13px;
-    display: none;
-}
-</style>
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            user-select: none;
+        }
+
+
+        /* =====================================================
+           BACKGROUND GRID
+        ===================================================== */
+
+        .bg-grid {
+            position: fixed;
+
+            inset: 0;
+
+            background-image:
+                linear-gradient(
+                    rgba(61, 107, 255, .035) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(61, 107, 255, .035) 1px,
+                    transparent 1px
+                );
+
+            background-size:
+                42px 42px;
+
+            mask-image:
+                radial-gradient(
+                    ellipse at center,
+                    black,
+                    transparent 80%
+                );
+
+            animation:
+                gridMove
+                20s
+                linear
+                infinite;
+
+            pointer-events: none;
+
+            z-index: -5;
+        }
+
+        @keyframes gridMove {
+            from {
+                transform:
+                    translate(0, 0);
+            }
+
+            to {
+                transform:
+                    translate(42px, 42px);
+            }
+        }
+
+
+        /* =====================================================
+           BACKGROUND LOGO
+        ===================================================== */
+
+        .bg-logo {
+            position: fixed;
+
+            inset: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size:
+                clamp(
+                    7rem,
+                    22vw,
+                    18rem
+                );
+
+            font-weight: 800;
+
+            letter-spacing:
+                clamp(
+                    8px,
+                    3vw,
+                    30px
+                );
+
+            color:
+                rgba(255, 255, 255, .025);
+
+            white-space: nowrap;
+
+            pointer-events: none;
+
+            z-index: -4;
+
+            animation:
+                bgFloat
+                10s
+                ease-in-out
+                infinite;
+        }
+
+        @keyframes bgFloat {
+            0%,
+            100% {
+                transform:
+                    translateY(0);
+            }
+
+            50% {
+                transform:
+                    translateY(-20px);
+            }
+        }
+
+
+        /* =====================================================
+           GLOW
+        ===================================================== */
+
+        .glow {
+            position: fixed;
+
+            width: 440px;
+            height: 440px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(37,99,235,.18),
+                    transparent 70%
+                );
+
+            filter:
+                blur(60px);
+
+            pointer-events: none;
+
+            z-index: -3;
+
+            animation:
+                glowPulse
+                5s
+                ease-in-out
+                infinite;
+        }
+
+        @keyframes glowPulse {
+            0%,
+            100% {
+                transform: scale(.92);
+
+                opacity: .55;
+            }
+
+            50% {
+                transform: scale(1.08);
+
+                opacity: .95;
+            }
+        }
+
+
+        /* =====================================================
+           PARTICLES
+        ===================================================== */
+
+        .particles {
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            z-index: -2;
+        }
+
+        .particle {
+            position: absolute;
+
+            border-radius: 50%;
+
+            background: #78a1ff;
+
+            opacity: .2;
+
+            animation:
+                particleUp
+                linear
+                infinite;
+        }
+
+        @keyframes particleUp {
+            from {
+                transform:
+                    translateY(110vh);
+
+                opacity: 0;
+            }
+
+            20% {
+                opacity: .55;
+            }
+
+            80% {
+                opacity: .2;
+            }
+
+            to {
+                transform:
+                    translateY(-20vh);
+
+                opacity: 0;
+            }
+        }
+
+
+        /* =====================================================
+           CORNERS
+        ===================================================== */
+
+        .corner {
+            position: fixed;
+
+            width: 36px;
+            height: 36px;
+
+            opacity: .35;
+
+            z-index: -1;
+        }
+
+        .corner::before,
+        .corner::after {
+            content: "";
+
+            position: absolute;
+
+            background:
+                #4e75ff;
+        }
+
+        .corner::before {
+            width: 100%;
+            height: 1px;
+
+            top: 0;
+            left: 0;
+        }
+
+        .corner::after {
+            width: 1px;
+            height: 100%;
+
+            top: 0;
+            left: 0;
+        }
+
+        .c1 {
+            top: 20px;
+            left: 20px;
+        }
+
+        .c2 {
+            top: 20px;
+            right: 20px;
+
+            transform:
+                rotate(90deg);
+        }
+
+        .c3 {
+            bottom: 20px;
+            left: 20px;
+
+            transform:
+                rotate(-90deg);
+        }
+
+        .c4 {
+            bottom: 20px;
+            right: 20px;
+
+            transform:
+                rotate(180deg);
+        }
+
+
+        /* =====================================================
+           MAIN CONTAINER
+        ===================================================== */
+
+        .container {
+            position: relative;
+
+            z-index: 5;
+
+            width:
+                min(
+                    460px,
+                    92vw
+                );
+
+            animation:
+                containerIn
+                .7s
+                ease
+                forwards;
+        }
+
+        @keyframes containerIn {
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(25px)
+                    scale(.97);
+
+                filter:
+                    blur(8px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+
+                filter:
+                    blur(0);
+            }
+        }
+
+
+        /* =====================================================
+           CARD
+        ===================================================== */
+
+        .card {
+            position: relative;
+
+            padding:
+                38px 34px;
+
+            border-radius:
+                28px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.085),
+                    rgba(255,255,255,.035)
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,.12);
+
+            backdrop-filter:
+                blur(25px);
+
+            box-shadow:
+                0 35px 100px
+                rgba(0,0,0,.55),
+
+                inset 0 1px 0
+                rgba(255,255,255,.05);
+
+            text-align: center;
+
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+
+            position: absolute;
+
+            top: -100px;
+            left: -120px;
+
+            width: 220px;
+            height: 220px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(59,130,246,.16),
+                    transparent 70%
+                );
+
+            pointer-events: none;
+        }
+
+
+        /* =====================================================
+           ICON
+        ===================================================== */
+
+        .access-icon {
+            width: 74px;
+            height: 74px;
+
+            margin:
+                0 auto 18px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 20px;
+
+            font-size: 2rem;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(37,99,235,.2),
+                    rgba(6,182,212,.1)
+                );
+
+            border:
+                1px solid
+                rgba(96,165,250,.2);
+
+            box-shadow:
+                0 15px 35px
+                rgba(37,99,235,.15);
+
+            animation:
+                iconPulse
+                2.7s
+                ease-in-out
+                infinite;
+        }
+
+        @keyframes iconPulse {
+            0%,
+            100% {
+                transform:
+                    translateY(0);
+            }
+
+            50% {
+                transform:
+                    translateY(-5px);
+            }
+        }
+
+
+        /* =====================================================
+           TITLES
+        ===================================================== */
+
+        .eyebrow {
+            margin-bottom: 8px;
+
+            color: #668cff;
+
+            font-size: 9px;
+
+            letter-spacing: 4px;
+
+            text-transform:
+                uppercase;
+        }
+
+        .card h1 {
+            margin:
+                0 0 9px;
+
+            color: #fff;
+
+            font-size:
+                clamp(
+                    1.7rem,
+                    6vw,
+                    2.1rem
+                );
+
+            letter-spacing: 2px;
+        }
+
+        .card-description {
+            margin:
+                0 0 26px;
+
+            color: #8d9ab4;
+
+            font-size: 11px;
+
+            line-height: 1.8;
+        }
+
+
+        /* =====================================================
+           SECURITY STATUS
+        ===================================================== */
+
+        .security-status {
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 7px;
+
+            margin-bottom: 19px;
+
+            color: #71819d;
+
+            font-size: 8px;
+
+            letter-spacing: 2px;
+
+            text-transform:
+                uppercase;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: #22c55e;
+
+            box-shadow:
+                0 0 10px
+                rgba(34,197,94,.7);
+
+            animation:
+                dotPulse
+                1.4s
+                ease-in-out
+                infinite;
+        }
+
+        @keyframes dotPulse {
+            0%,
+            100% {
+                opacity: .45;
+
+                transform:
+                    scale(.8);
+            }
+
+            50% {
+                opacity: 1;
+
+                transform:
+                    scale(1.15);
+            }
+        }
+
+
+        /* =====================================================
+           INPUT
+        ===================================================== */
+
+        .input-wrap {
+            position: relative;
+
+            margin-bottom: 12px;
+        }
+
+        input {
+            width: 100%;
+
+            height: 55px;
+
+            padding:
+                0 48px;
+
+            border-radius: 14px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.11);
+
+            outline: none;
+
+            color: #fff;
+
+            background:
+                rgba(0,0,0,.3);
+
+            font-family:
+                inherit;
+
+            font-size: 13px;
+
+            text-align: center;
+
+            letter-spacing: 3px;
+
+            transition:
+                border-color .2s ease,
+                box-shadow .2s ease,
+                background .2s ease;
+        }
+
+        input::placeholder {
+            color: #5f6c83;
+
+            letter-spacing: 2px;
+        }
+
+        input:focus {
+            border-color:
+                rgba(71,116,255,.65);
+
+            background:
+                rgba(0,0,0,.4);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(37,99,235,.08),
+
+                0 10px 30px
+                rgba(37,99,235,.08);
+        }
+
+        input.input-error {
+            border-color:
+                rgba(248,113,113,.7);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(248,113,113,.06);
+        }
+
+
+        /* =====================================================
+           PASSWORD TOGGLE
+        ===================================================== */
+
+        .toggle-password {
+            position: absolute;
+
+            top: 50%;
+            right: 11px;
+
+            transform:
+                translateY(-50%);
+
+            width: 34px;
+            height: 34px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border: none;
+
+            border-radius: 9px;
+
+            color: #71809b;
+
+            background:
+                transparent;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+            transition:
+                .2s ease;
+        }
+
+        .toggle-password:hover {
+            color: #fff;
+
+            background:
+                rgba(255,255,255,.06);
+        }
+
+
+        /* =====================================================
+           LOGIN BUTTON
+        ===================================================== */
+
+        .login-btn {
+            position: relative;
+
+            width: 100%;
+
+            height: 55px;
+
+            margin-top: 8px;
+
+            border: none;
+
+            border-radius: 14px;
+
+            color: #fff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #06b6d4
+                );
+
+            font-family:
+                inherit;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            letter-spacing: 2px;
+
+            cursor: pointer;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 12px 35px
+                rgba(37,99,235,.22);
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease,
+                filter .2s ease;
+        }
+
+        .login-btn::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: -120%;
+
+            width: 100%;
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,.2),
+                    transparent
+                );
+
+            transition:
+                left .55s ease;
+        }
+
+        .login-btn:hover {
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 18px 45px
+                rgba(37,99,235,.35);
+
+            filter:
+                brightness(1.08);
+        }
+
+        .login-btn:hover::before {
+            left: 120%;
+        }
+
+        .login-btn:active {
+            transform:
+                scale(.98);
+        }
+
+        .login-btn.loading {
+            pointer-events: none;
+
+            opacity: .8;
+        }
+
+
+        /* =====================================================
+           ERROR
+        ===================================================== */
+
+        .error {
+            min-height: 20px;
+
+            margin-top: 12px;
+
+            color: #fb7185;
+
+            font-size: 9px;
+
+            letter-spacing: 1px;
+
+            opacity: 0;
+
+            transition:
+                opacity .2s ease;
+        }
+
+        .error.show {
+            opacity: 1;
+
+            animation:
+                shake
+                .35s
+                ease;
+        }
+
+        @keyframes shake {
+            0%,
+            100% {
+                transform:
+                    translateX(0);
+            }
+
+            25% {
+                transform:
+                    translateX(-6px);
+            }
+
+            50% {
+                transform:
+                    translateX(6px);
+            }
+
+            75% {
+                transform:
+                    translateX(-3px);
+            }
+        }
+
+
+        /* =====================================================
+           SUCCESS
+        ===================================================== */
+
+        .success {
+            display: none;
+
+            margin-top: 15px;
+
+            padding:
+                12px;
+
+            border-radius: 11px;
+
+            color: #86efac;
+
+            background:
+                rgba(34,197,94,.07);
+
+            border:
+                1px solid
+                rgba(34,197,94,.15);
+
+            font-size: 9px;
+
+            letter-spacing: 1px;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .footer {
+            margin-top: 18px;
+
+            color: #4f5e76;
+
+            font-size: 8px;
+
+            letter-spacing: 2px;
+
+            text-transform:
+                uppercase;
+        }
+
+        .footer span {
+            color: #6f8cff;
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 550px) {
+
+            .card {
+                padding:
+                    30px 20px;
+
+                border-radius: 22px;
+            }
+
+            .access-icon {
+                width: 62px;
+                height: 62px;
+
+                font-size: 1.7rem;
+            }
+
+            .card-description {
+                font-size: 10px;
+            }
+
+            .corner {
+                width: 25px;
+                height: 25px;
+            }
+
+            .c1 {
+                top: 12px;
+                left: 12px;
+            }
+
+            .c2 {
+                top: 12px;
+                right: 12px;
+            }
+
+            .c3 {
+                bottom: 12px;
+                left: 12px;
+            }
+
+            .c4 {
+                bottom: 12px;
+                right: 12px;
+            }
+        }
+
+
+        /* =====================================================
+           REDUCED MOTION
+        ===================================================== */
+
+        @media (
+            prefers-reduced-motion: reduce
+        ) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration:
+                    .01ms !important;
+
+                animation-iteration-count:
+                    1 !important;
+            }
+        }
+
+    </style>
+
 </head>
+
+
 <body>
 
-<div class="bg-logo">FUN X</div>
 
-<div class="container">
-    <div class="card">
-        <h1>PLAYER ACCESS</h1>
-        <p>Authorized players only</p>
+    <!-- =====================================================
+         BACKGROUND
+    ====================================================== -->
 
-        <input type="password" id="password" placeholder="ACCESS KEY">
-        <button onclick="login()">ENTER GAME</button>
+    <div class="bg-grid"></div>
 
-        <div class="error" id="error">ACCESS DENIED</div>
+    <div class="bg-logo">
+        FUN X
     </div>
-</div>
 
-<script>
-async function sha256(text) {
-    const data = new TextEncoder().encode(text);
-    const hash = await crypto.subtle.digest("SHA-256", data);
-    return Array.from(new Uint8Array(hash))
-        .map(b => b.toString(16).padStart(2, "0"))
-        .join("");
-}
+    <div class="glow"></div>
 
-// 🔐 HASH لكلمة السر (1234 مثال)
-const PASSWORD_HASH =
-"98f7b52ef5722b895e1c6864edad3a59fe6f9a36bd33dd5b098e5963e84f9042";
+    <div
+        class="particles"
+        id="particles">
+    </div>
 
-async function login() {
-    const input = document.getElementById("password").value;
-    const hash = await sha256(input);
 
-    if (hash === PASSWORD_HASH) {
-        sessionStorage.setItem("fx_auth", "1");
-  window.location.href = "loader.html";
+    <!-- =====================================================
+         CORNERS
+    ====================================================== -->
 
-    } else {
-        document.getElementById("error").style.display = "block";
-    }
-}
-</script>
+    <div class="corner c1"></div>
+    <div class="corner c2"></div>
+    <div class="corner c3"></div>
+    <div class="corner c4"></div>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="container">
+
+        <section class="card">
+
+
+            <div class="access-icon">
+                🔐
+            </div>
+
+
+            <div class="eyebrow">
+                FUN X SYSTEM
+            </div>
+
+
+            <h1>
+                PLAYER ACCESS
+            </h1>
+
+
+            <p class="card-description">
+                Authorized players only.
+                Enter your access key to continue.
+            </p>
+
+
+            <div class="security-status">
+
+                <span class="status-dot"></span>
+
+                SECURE CHANNEL ACTIVE
+
+            </div>
+
+
+            <!-- Password -->
+
+            <div class="input-wrap">
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="ACCESS KEY"
+                    autocomplete="off"
+                    spellcheck="false"
+                    maxlength="50"
+                >
+
+
+                <button
+                    type="button"
+                    class="toggle-password"
+                    id="togglePassword"
+                    aria-label="Show password"
+                    title="Show password"
+                >
+                    👁
+                </button>
+
+            </div>
+
+
+            <!-- Login -->
+
+            <button
+                type="button"
+                class="login-btn"
+                id="loginBtn"
+            >
+                ENTER GAME
+            </button>
+
+
+            <!-- Error -->
+
+            <div
+                class="error"
+                id="error">
+                ACCESS DENIED — INVALID ACCESS KEY
+            </div>
+
+
+            <!-- Success -->
+
+            <div
+                class="success"
+                id="success">
+                ✓ ACCESS GRANTED — LAUNCHING SYSTEM
+            </div>
+
+
+            <div class="footer">
+                PRIVATE BUILD ·
+                <span>FUN X</span>
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        "use strict";
+
+
+        // =================================================
+        // العناصر
+        // =================================================
+
+        const passwordInput =
+            document.getElementById(
+                "password"
+            );
+
+        const loginBtn =
+            document.getElementById(
+                "loginBtn"
+            );
+
+        const togglePassword =
+            document.getElementById(
+                "togglePassword"
+            );
+
+        const error =
+            document.getElementById(
+                "error"
+            );
+
+        const success =
+            document.getElementById(
+                "success"
+            );
+
+        const particles =
+            document.getElementById(
+                "particles"
+            );
+
+
+        // =================================================
+        // ACCESS KEY
+        // =================================================
+
+        const ACCESS_KEY =
+            "1234";
+
+
+        // =================================================
+        // تسجيل الدخول
+        // =================================================
+
+        function login() {
+
+            const value =
+                passwordInput.value.trim();
+
+
+            // تنظيف الحالة السابقة
+
+            error.classList.remove(
+                "show"
+            );
+
+            passwordInput.classList.remove(
+                "input-error"
+            );
+
+            success.style.display =
+                "none";
+
+
+            // لا يوجد رمز
+
+            if (!value) {
+
+                error.textContent =
+                    "PLEASE ENTER YOUR ACCESS KEY";
+
+                error.classList.add(
+                    "show"
+                );
+
+                passwordInput.classList.add(
+                    "input-error"
+                );
+
+                passwordInput.focus();
+
+                return;
+            }
+
+
+            // بدء التحقق
+
+            loginBtn.classList.add(
+                "loading"
+            );
+
+            loginBtn.textContent =
+                "VERIFYING...";
+
+
+            setTimeout(() => {
+
+
+                // =================================================
+                // الرمز صحيح
+                // =================================================
+
+                if (value === ACCESS_KEY) {
+
+                    sessionStorage.setItem(
+                        "fx_auth",
+                        "1"
+                    );
+
+
+                    success.style.display =
+                        "block";
+
+
+                    loginBtn.textContent =
+                        "ACCESS GRANTED";
+
+
+                    loginBtn.style.background =
+                        "linear-gradient(135deg,#16a34a,#22c55e)";
+
+
+                    setTimeout(() => {
+
+                        window.location.href =
+                            "loader.html";
+
+                    }, 700);
+
+
+                    return;
+                }
+
+
+                // =================================================
+                // الرمز خطأ
+                // =================================================
+
+                error.textContent =
+                    "ACCESS DENIED — INVALID ACCESS KEY";
+
+
+                error.classList.add(
+                    "show"
+                );
+
+
+                passwordInput.classList.add(
+                    "input-error"
+                );
+
+
+                loginBtn.classList.remove(
+                    "loading"
+                );
+
+
+                loginBtn.textContent =
+                    "ENTER GAME";
+
+
+                passwordInput.select();
+
+
+            }, 350);
+
+        }
+
+
+        // =================================================
+        // إظهار / إخفاء كلمة المرور
+        // =================================================
+
+        togglePassword.addEventListener(
+            "click",
+            () => {
+
+                const show =
+                    passwordInput.type ===
+                    "password";
+
+
+                passwordInput.type =
+                    show
+                        ? "text"
+                        : "password";
+
+
+                togglePassword.textContent =
+                    show
+                        ? "🙈"
+                        : "👁";
+
+
+                togglePassword.setAttribute(
+                    "aria-label",
+                    show
+                        ? "Hide password"
+                        : "Show password"
+                );
+            }
+        );
+
+
+        // =================================================
+        // زر الدخول
+        // =================================================
+
+        loginBtn.addEventListener(
+            "click",
+            login
+        );
+
+
+        // =================================================
+        // Enter
+        // =================================================
+
+        passwordInput.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Enter"
+                ) {
+                    login();
+                }
+
+            }
+        );
+
+
+        // =================================================
+        // الجزيئات
+        // =================================================
+
+        for (
+            let i = 0;
+            i < 50;
+            i++
+        ) {
+
+            const particle =
+                document.createElement(
+                    "span"
+                );
+
+
+            particle.className =
+                "particle";
+
+
+            particle.style.left =
+                Math.random() * 100 + "%";
+
+
+            particle.style.top =
+                Math.random() * 100 + "%";
+
+
+            particle.style.animationDuration =
+                5 + Math.random() * 10 + "s";
+
+
+            particle.style.animationDelay =
+                Math.random() * 8 + "s";
+
+
+            const size =
+                1 + Math.random() * 2;
+
+
+            particle.style.width =
+                size + "px";
+
+
+            particle.style.height =
+                size + "px";
+
+
+            particles.appendChild(
+                particle
+            );
+        }
+
+    </script>
 
 </body>
+
 </html>
+

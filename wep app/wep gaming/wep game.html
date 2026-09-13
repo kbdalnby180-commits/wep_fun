@@ -1,191 +1,2443 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
+
 <head>
-<meta charset="UTF-8">
-<title>FUN X – Games Hub</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
 
-<style>
-body {
-    margin: 0;
-    min-height: 100vh;
-    background: radial-gradient(circle at top, #0b1220, #05070d);
-    font-family: 'Orbitron', sans-serif;
-    color: #fff;
-}
+    <meta charset="UTF-8">
 
-/* 🏆 Header */
-header {
-    text-align: center;
-    padding: 35px 15px 20px 15px;
-}
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-header h1 {
-    font-size: 2.8em;
-    letter-spacing: 6px;
-    color: #fff;
-}
+    <meta
+        name="theme-color"
+        content="#03060d"
+    >
 
-header p {
-    font-size: 14px;
-    color: #7aa2ff;
-    margin-top: 5px;
-}
+    <title>FUN X — Games Hub</title>
 
-/* 🎮 Games Grid */
-.games-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    max-width: 1200px;
-    margin: auto;
-}
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
 
-/* 🕹️ Game Card */
-.game-card {
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.7);
-    overflow: hidden;
-    text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
-.game-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 25px 70px rgba(37,99,235,0.5);
-}
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
-.game-card img {
-    width: 100%;
-    height: 140px;
-    object-fit: cover;
-    display: block;
-}
 
-.game-card h2 {
-    margin: 12px 0 8px 0;
-    font-size: 18px;
-    color: #fff;
-}
+    <style>
 
-.game-card button {
-    margin: 10px 0 18px 0;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #2563eb, #06b6d4);
-    color: #fff;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
+        /* =====================================================
+           RESET
+        ===================================================== */
 
-.game-card button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(37,99,235,0.5);
-}
+        * {
+            box-sizing: border-box;
+        }
 
-/* 📱 Responsive Text & Card Sizes */
-@media(max-width: 768px){
-    header h1 { font-size: 2.2em; }
-    .game-card img { height: 120px; }
-    .game-card h2 { font-size: 16px; }
-    .game-card button { font-size: 13px; padding: 9px 18px; }
-}
+        html {
+            scroll-behavior: smooth;
+        }
 
-@media(max-width: 480px){
-    header h1 { font-size: 1.8em; }
-    .games-grid { gap: 15px; padding: 15px; }
-    .game-card img { height: 100px; }
-    .game-card h2 { font-size: 14px; }
-    .game-card button { font-size: 12px; padding: 8px 15px; }
-}
-</style>
+        body {
+            margin: 0;
+
+            min-height: 100vh;
+
+            font-family:
+                "Orbitron",
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            color: #fff;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    #172554 0%,
+                    #0b1220 30%,
+                    #03060d 75%,
+                    #010204 100%
+                );
+
+            overflow-x: hidden;
+        }
+
+
+        /* =====================================================
+           BACKGROUND
+        ===================================================== */
+
+        .background-grid {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: -4;
+
+            background-image:
+                linear-gradient(
+                    rgba(59,130,246,.035) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(59,130,246,.035) 1px,
+                    transparent 1px
+                );
+
+            background-size:
+                45px 45px;
+
+            mask-image:
+                radial-gradient(
+                    ellipse at center,
+                    black,
+                    transparent 80%
+                );
+
+            animation:
+                gridMove
+                20s
+                linear
+                infinite;
+        }
+
+        @keyframes gridMove {
+
+            from {
+                transform:
+                    translate(0, 0);
+            }
+
+            to {
+                transform:
+                    translate(45px, 45px);
+            }
+        }
+
+
+        .glow {
+
+            position: fixed;
+
+            width: 500px;
+            height: 500px;
+
+            border-radius: 50%;
+
+            filter: blur(100px);
+
+            opacity: .13;
+
+            pointer-events: none;
+
+            z-index: -3;
+        }
+
+        .glow-one {
+            top: -250px;
+            right: -180px;
+
+            background: #2563eb;
+        }
+
+        .glow-two {
+            bottom: -250px;
+            left: -180px;
+
+            background: #7c3aed;
+        }
+
+
+        .stars {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: -2;
+
+            pointer-events: none;
+        }
+
+        .star {
+
+            position: absolute;
+
+            width: 2px;
+            height: 2px;
+
+            border-radius: 50%;
+
+            background: #fff;
+
+            opacity: .25;
+
+            animation:
+                twinkle
+                2s
+                ease-in-out
+                infinite
+                alternate;
+        }
+
+        @keyframes twinkle {
+
+            from {
+                opacity: .12;
+                transform: scale(.7);
+            }
+
+            to {
+                opacity: .8;
+                transform: scale(1.4);
+            }
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        header {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 50;
+
+            padding:
+                18px 5%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            background:
+                rgba(3,7,18,.82);
+
+            backdrop-filter:
+                blur(20px);
+
+            border-bottom:
+                1px solid
+                rgba(96,165,250,.12);
+
+            box-shadow:
+                0 15px 50px
+                rgba(0,0,0,.2);
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+        }
+
+
+        .brand-icon {
+
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            border-radius: 15px;
+
+            font-size: 1.5rem;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #06b6d4
+                );
+
+            box-shadow:
+                0 10px 30px
+                rgba(37,99,235,.2);
+        }
+
+
+        .brand-text h1 {
+
+            margin: 0;
+
+            color: #fff;
+
+            font-size:
+                clamp(
+                    1.2rem,
+                    3vw,
+                    1.65rem
+                );
+
+            letter-spacing: 2px;
+        }
+
+
+        .brand-text span {
+
+            display: block;
+
+            margin-top: 3px;
+
+            color: #6685c4;
+
+            font-size: 8px;
+
+            letter-spacing: 3px;
+
+            text-transform:
+                uppercase;
+        }
+
+
+        .header-status {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            color: #70809d;
+
+            font-size: 8px;
+
+            letter-spacing: 2px;
+
+            text-transform:
+                uppercase;
+        }
+
+
+        .online-dot {
+
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #22c55e;
+
+            box-shadow:
+                0 0 12px
+                rgba(34,197,94,.7);
+
+            animation:
+                onlinePulse
+                1.5s
+                infinite
+                alternate;
+        }
+
+
+        @keyframes onlinePulse {
+
+            from {
+                opacity: .4;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+
+            width:
+                min(
+                    1200px,
+                    92%
+                );
+
+            margin:
+                55px auto 25px;
+
+            text-align: center;
+        }
+
+
+        .hero-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding:
+                7px 13px;
+
+            border-radius: 999px;
+
+            color: #82a7ff;
+
+            background:
+                rgba(59,130,246,.07);
+
+            border:
+                1px solid
+                rgba(96,165,250,.14);
+
+            font-size: 8px;
+
+            letter-spacing: 3px;
+        }
+
+
+        .hero h2 {
+
+            margin:
+                18px 0 9px;
+
+            font-size:
+                clamp(
+                    2rem,
+                    7vw,
+                    4rem
+                );
+
+            line-height: 1;
+
+            letter-spacing:
+                clamp(
+                    2px,
+                    1vw,
+                    7px
+                );
+
+            text-shadow:
+                0 0 30px
+                rgba(59,130,246,.15);
+        }
+
+
+        .hero h2 span {
+
+            color: #5d87ff;
+        }
+
+
+        .hero p {
+
+            margin: 0;
+
+            color: #8190aa;
+
+            font-size: 11px;
+
+            line-height: 1.8;
+        }
+
+
+        /* =====================================================
+           CONTROL BAR
+        ===================================================== */
+
+        .controls {
+
+            width:
+                min(
+                    1200px,
+                    92%
+                );
+
+            margin:
+                0 auto 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .search-box {
+
+            position: relative;
+
+            flex: 1;
+
+            min-width: 230px;
+        }
+
+
+        .search-box input {
+
+            width: 100%;
+
+            height: 48px;
+
+            padding:
+                0 42px 0 15px;
+
+            border-radius: 13px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.08);
+
+            outline: none;
+
+            color: #fff;
+
+            background:
+                rgba(255,255,255,.045);
+
+            font-family:
+                inherit;
+
+            font-size: 10px;
+
+            transition:
+                .2s ease;
+        }
+
+
+        .search-box input::placeholder {
+            color: #5d6b82;
+        }
+
+
+        .search-box input:focus {
+
+            border-color:
+                rgba(96,165,250,.4);
+
+            background:
+                rgba(255,255,255,.065);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(37,99,235,.06);
+        }
+
+
+        .search-icon {
+
+            position: absolute;
+
+            right: 14px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            color: #60708c;
+
+            font-size: 14px;
+
+            pointer-events: none;
+        }
+
+
+        .filter-buttons {
+
+            display: flex;
+
+            gap: 7px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .filter-btn {
+
+            height: 42px;
+
+            padding:
+                0 14px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.08);
+
+            border-radius: 11px;
+
+            color: #8795ad;
+
+            background:
+                rgba(255,255,255,.04);
+
+            font-family:
+                inherit;
+
+            font-size: 9px;
+
+            cursor: pointer;
+
+            transition:
+                .2s ease;
+        }
+
+
+        .filter-btn:hover {
+
+            color: #fff;
+
+            background:
+                rgba(255,255,255,.08);
+        }
+
+
+        .filter-btn.active {
+
+            color: #fff;
+
+            border-color:
+                rgba(96,165,250,.3);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(37,99,235,.25),
+                    rgba(6,182,212,.13)
+                );
+
+            box-shadow:
+                0 8px 25px
+                rgba(37,99,235,.08);
+        }
+
+
+        /* =====================================================
+           STATS
+        ===================================================== */
+
+        .hub-info {
+
+            width:
+                min(
+                    1200px,
+                    92%
+                );
+
+            margin:
+                0 auto 18px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            color: #5f6d84;
+
+            font-size: 8px;
+
+            letter-spacing: 1px;
+        }
+
+
+        .hub-info strong {
+            color: #9db7f5;
+        }
+
+
+        /* =====================================================
+           GRID
+        ===================================================== */
+
+        .games-grid {
+
+            width:
+                min(
+                    1200px,
+                    92%
+                );
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(
+                        235px,
+                        1fr
+                    )
+                );
+
+            gap: 18px;
+
+            padding-bottom: 50px;
+        }
+
+
+        /* =====================================================
+           CARD
+        ===================================================== */
+
+        .game-card {
+
+            position: relative;
+
+            overflow: hidden;
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.075),
+                    rgba(255,255,255,.025)
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,.09);
+
+            backdrop-filter:
+                blur(12px);
+
+            box-shadow:
+                0 18px 55px
+                rgba(0,0,0,.3);
+
+            transition:
+                transform .3s ease,
+                box-shadow .3s ease,
+                border-color .3s ease;
+
+            animation:
+                cardAppear
+                .55s
+                ease
+                both;
+        }
+
+
+        .game-card:hover {
+
+            transform:
+                translateY(-7px);
+
+            border-color:
+                rgba(96,165,250,.25);
+
+            box-shadow:
+                0 25px 65px
+                rgba(37,99,235,.16);
+        }
+
+
+        @keyframes cardAppear {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        /* =====================================================
+           IMAGE
+        ===================================================== */
+
+        .game-image {
+
+            position: relative;
+
+            height: 160px;
+
+            overflow: hidden;
+
+            background:
+                #0b1120;
+        }
+
+
+        .game-image img {
+
+            width: 100%;
+            height: 100%;
+
+            display: block;
+
+            object-fit: cover;
+
+            transition:
+                transform .5s ease;
+        }
+
+
+        .game-card:hover
+        .game-image img {
+
+            transform:
+                scale(1.06);
+        }
+
+
+        .game-image::after {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    to top,
+                    rgba(3,6,13,.95),
+                    transparent 65%
+                );
+
+            pointer-events: none;
+        }
+
+
+        .game-number {
+
+            position: absolute;
+
+            top: 10px;
+
+            left: 10px;
+
+            z-index: 2;
+
+            width: 29px;
+            height: 29px;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            border-radius: 9px;
+
+            color: #dbeafe;
+
+            background:
+                rgba(3,7,18,.65);
+
+            border:
+                1px solid
+                rgba(255,255,255,.1);
+
+            backdrop-filter:
+                blur(8px);
+
+            font-size: 9px;
+        }
+
+
+        .game-category {
+
+            position: absolute;
+
+            bottom: 10px;
+
+            right: 10px;
+
+            z-index: 2;
+
+            padding:
+                5px 8px;
+
+            border-radius: 7px;
+
+            color: #c7d2fe;
+
+            background:
+                rgba(37,99,235,.25);
+
+            border:
+                1px solid
+                rgba(96,165,250,.2);
+
+            font-size: 7px;
+        }
+
+
+        /* =====================================================
+           CARD CONTENT
+        ===================================================== */
+
+        .game-content {
+
+            padding:
+                15px;
+        }
+
+
+        .game-content h3 {
+
+            margin:
+                0 0 7px;
+
+            color: #fff;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+
+        .game-description {
+
+            min-height: 31px;
+
+            margin:
+                0 0 13px;
+
+            color: #77859c;
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+        }
+
+
+        .game-footer {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+        }
+
+
+        .play-btn {
+
+            flex: 1;
+
+            height: 42px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            color: #fff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #06b6d4
+                );
+
+            font-family:
+                inherit;
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            cursor: pointer;
+
+            transition:
+                .2s ease;
+        }
+
+
+        .play-btn:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 10px 25px
+                rgba(37,99,235,.22);
+
+            filter:
+                brightness(1.08);
+        }
+
+
+        .info-btn {
+
+            width: 42px;
+            height: 42px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.08);
+
+            border-radius: 11px;
+
+            color: #8290a7;
+
+            background:
+                rgba(255,255,255,.045);
+
+            cursor: pointer;
+
+            transition:
+                .2s ease;
+        }
+
+
+        .info-btn:hover {
+
+            color: #fff;
+
+            background:
+                rgba(255,255,255,.08);
+        }
+
+
+        /* =====================================================
+           EMPTY
+        ===================================================== */
+
+        .empty {
+
+            grid-column:
+                1 / -1;
+
+            padding:
+                60px 20px;
+
+            text-align: center;
+
+            color: #6b7890;
+        }
+
+
+        .empty-icon {
+
+            font-size: 3rem;
+
+            margin-bottom: 12px;
+        }
+
+
+        .empty h3 {
+
+            margin:
+                0 0 6px;
+
+            color: #dbeafe;
+        }
+
+
+        .empty p {
+
+            margin: 0;
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+
+            padding:
+                22px;
+
+            text-align: center;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,.06);
+
+            color: #45536b;
+
+            font-size: 8px;
+
+            letter-spacing: 2px;
+        }
+
+
+        footer strong {
+            color: #6387ff;
+        }
+
+
+        /* =====================================================
+           MODAL
+        ===================================================== */
+
+        .modal-overlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 200;
+
+            display: none;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            background:
+                rgba(1,4,10,.78);
+
+            backdrop-filter:
+                blur(10px);
+        }
+
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+
+        .modal {
+
+            width:
+                min(
+                    420px,
+                    94vw
+                );
+
+            padding:
+                25px;
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #101828,
+                    #050912
+                );
+
+            border:
+                1px solid
+                rgba(96,165,250,.15);
+
+            box-shadow:
+                0 30px 100px
+                rgba(0,0,0,.55);
+
+            animation:
+                modalIn
+                .3s
+                ease;
+        }
+
+
+        @keyframes modalIn {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    scale(.94)
+                    translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    scale(1)
+                    translateY(0);
+            }
+        }
+
+
+        .modal h3 {
+
+            margin:
+                0 0 10px;
+
+            color: #fff;
+        }
+
+
+        .modal p {
+
+            margin:
+                0 0 18px;
+
+            color: #8290a7;
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+        }
+
+
+        .modal-close {
+
+            width: 100%;
+
+            height: 42px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            color: #fff;
+
+            background:
+                rgba(255,255,255,.07);
+
+            cursor: pointer;
+
+            font-family:
+                inherit;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            header {
+                padding:
+                    13px 4%;
+            }
+
+            .header-status {
+                display: none;
+            }
+
+            .hero {
+                margin-top: 35px;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .filter-buttons {
+                width: 100%;
+            }
+
+            .filter-btn {
+                flex: 1;
+            }
+
+            .games-grid {
+                grid-template-columns:
+                    repeat(
+                        auto-fit,
+                        minmax(
+                            180px,
+                            1fr
+                        )
+                    );
+
+                gap: 12px;
+            }
+
+            .game-image {
+                height: 125px;
+            }
+        }
+
+
+        @media (max-width: 450px) {
+
+            .brand-icon {
+                width: 44px;
+                height: 44px;
+            }
+
+            .brand-text h1 {
+                font-size: 1rem;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .game-image {
+                height: 170px;
+            }
+
+            .hub-info {
+                font-size: 7px;
+            }
+        }
+
+    </style>
+
 </head>
+
+
 <body>
 
-<header>
-    <h1>FUN X – Games Hub</h1>
-    <p>Select a game and have fun!</p>
-</header>
 
-<div class="games-grid">
+    <!-- =====================================================
+         BACKGROUND
+    ====================================================== -->
 
-    <div class="game-card">
-        <img src="img/1.png" alt="Crash Game">
-        <h2>Crash</h2>
-        <button onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/crash/CRASH.html')">Play</button>
+    <div class="background-grid"></div>
+
+    <div class="glow glow-one"></div>
+    <div class="glow glow-two"></div>
+
+    <div
+        class="stars"
+        id="stars">
     </div>
 
-    <div class="game-card">
-        <img src="img/2.png" alt="Apple Game">
-        <h2>war-space</h2>
-        <button onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/game%20war/index.html')">Play</button>
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header>
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🎮
+            </div>
+
+            <div class="brand-text">
+
+                <h1>FUN X</h1>
+
+                <span>
+                    GAMING PLATFORM
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="header-status">
+
+            <span class="online-dot"></span>
+
+            SYSTEM ONLINE
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="hero">
+
+        <div class="hero-badge">
+            ✦ PRIVATE GAME HUB
+        </div>
+
+        <h2>
+            FUN X <span>GAMES</span>
+        </h2>
+
+        <p>
+            اختار لعبتك وابدأ المغامرة
+            🎮
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         CONTROLS
+    ====================================================== -->
+
+    <div class="controls">
+
+        <div class="search-box">
+
+            <span class="search-icon">
+                🔎
+            </span>
+
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="ابحث عن لعبة..."
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <div class="filter-buttons">
+
+            <button
+                class="filter-btn active"
+                data-filter="all">
+                الكل
+            </button>
+
+            <button
+                class="filter-btn"
+                data-filter="arcade">
+                أركيد
+            </button>
+
+            <button
+                class="filter-btn"
+                data-filter="action">
+                أكشن
+            </button>
+
+            <button
+                class="filter-btn"
+                data-filter="puzzle">
+                ألغاز
+            </button>
+
+            <button
+                class="filter-btn"
+                data-filter="casual">
+                اجتماعية
+            </button>
+
+        </div>
+
     </div>
 
-    <div class="game-card">
-        <img src="img/3.png" alt="2D Maze">
-        <h2> Game-Question</h2>
-        <button onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/Who%20will%20win%20the%20million/index.html')">Play</button>
+
+    <!-- =====================================================
+         INFO
+    ====================================================== -->
+
+    <div class="hub-info">
+
+        <span>
+            AVAILABLE GAMES:
+            <strong id="gameCount">
+                10
+            </strong>
+        </span>
+
+        <span>
+            FUN X · GAME HUB
+        </span>
+
     </div>
 
-    <div class="game-card">
-        <img src="img/4.png" alt="2D Maze">
-        <h2>لعبة الصراحه والجرائة</h2>
-        <button onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/Truth%20or%20Dare/index.html')">Play</button>
+
+    <!-- =====================================================
+         GAMES
+    ====================================================== -->
+
+    <main
+        class="games-grid"
+        id="gamesGrid">
+
+
+        <!-- 1 -->
+
+        <article
+            class="game-card"
+            data-title="Crash"
+            data-category="arcade">
+
+            <div class="game-image">
+
+                <img
+                    src="img/1.png"
+                    alt="Crash Game"
+                    loading="lazy"
+                >
+
+                <span class="game-number">
+                    01
+                </span>
+
+                <span class="game-category">
+                    ARCADE
+                </span>
+
+            </div>
+
+            <div class="game-content">
+
+                <h3>💥 Crash</h3>
+
+                <p class="game-description">
+                    تحدي سريع ومليء بالإثارة.
+                </p>
+
+                <div class="game-footer">
+
+                    <button
+                        class="play-btn"
+                        onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/crash/CRASH.html')">
+                        ▶ PLAY
+                    </button>
+
+                    <button
+                        class="info-btn"
+                        onclick="showInfo('Crash','لعبة أركيد سريعة ومليئة بالحماس.')">
+                        ⓘ
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- 2 -->
+
+        <article
+            class="game-card"
+            data-title="War Space"
+            data-category="action">
+
+            <div class="game-image">
+
+                <img
+                    src="img/2.png"
+                    alt="War Space"
+                    loading="lazy"
+                >
+
+                <span class="game-number">
+                    02
+                </span>
+
+                <span class="game-category">
+                    ACTION
+                </span>
+
+            </div>
+
+            <div class="game-content">
+
+                <h3>🚀 War Space</h3>
+
+                <p class="game-description">
+                    معارك فضائية وانطلق في الهجوم.
+                </p>
+
+                <div class="game-footer">
+
+                    <button
+                        class="play-btn"
+                        onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/game%20war/index.html')">
+                        ▶ PLAY
+                    </button>
+
+                    <button
+                        class="info-btn"
+                        onclick="showInfo('War Space','لعبة أكشن تدور في الفضاء.')">
+                        ⓘ
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- 3 -->
+
+        <article
+            class="game-card"
+            data-title="Game Question"
+            data-category="puzzle">
+
+            <div class="game-image">
+
+                <img
+                    src="img/3.png"
+                    alt="Game Question"
+                    loading="lazy"
+                >
+
+                <span class="game-number">
+                    03
+                </span>
+
+                <span class="game-category">
+                    PUZZLE
+                </span>
+
+            </div>
+
+            <div class="game-content">
+
+                <h3>💰 من سيربح المليون</h3>
+
+                <p class="game-description">
+                    اختبر معلوماتك وارفع نقاطك.
+                </p>
+
+                <div class="game-footer">
+
+                    <button
+                        class="play-btn"
+                        onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/Who%20will%20win%20the%20million/index.html')">
+                        ▶ PLAY
+                    </button>
+
+                    <button
+                        class="info-btn"
+                        onclick="showInfo('من سيربح المليون','لعبة أسئلة معلومات عامة.')">
+                        ⓘ
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- 4 -->
+
+        <article
+            class="game-card"
+            data-title="Truth or Dare"
+            data-category="casual">
+
+            <div class="game-image">
+
+                <img
+                    src="img/4.png"
+                    alt="Truth or Dare"
+                    loading="lazy"
+                >
+
+                <span class="game-number">
+                    04
+                </span>
+
+                <span class="game-category">
+                    SOCIAL
+                </span>
+
+            </div>
+
+            <div class="game-content">
+
+                <h3>🔥 الصراحة والجرأة</h3>
+
+                <p class="game-description">
+                    اختار صراحة أو جرأة وابدأ الجولة.
+                </p>
+
+                <div class="game-footer">
+
+                    <button
+                        class="play-btn"
+                        onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/Truth%20or%20Dare/index.html')">
+                        ▶ PLAY
+                    </button>
+
+                    <button
+                        class="info-btn"
+                        onclick="showInfo('الصراحة والجرأة','لعبة اجتماعية للأصدقاء.')">
+                        ⓘ
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- 5 -->
+
+        <article
+            class="game-card"
+            data-title="Hide Phone"
+            data-category="casual">
+
+            <div class="game-image">
+
+                <img
+                    src="img/5.png"
+                    alt="Hide Phone Game"
+                    loading="lazy"
+                >
+
+                <span class="game-number">
+                    05
+                </span>
+
+                <span class="game-category">
+                    SOCIAL
+                </span>
+
+            </div>
+
+            <div class="game-content">
+
+                <h3>📱 إخفاء الهاتف</h3>
+
+                <p class="game-description">
+                    لعبة جماعية تعتمد على السرعة.
+                </p>
+
+                <div class="game-footer">
+
+                    <button
+                        class="play-btn"
+                        onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/Hide%20phone%20game/index.html')">
+                        ▶ PLAY
+                    </button>
+
+                    <button
+                        class="info-btn"
+                        onclick="showInfo('إخفاء الهاتف','لعبة جماعية خفيفة وممتعة.')">
+                        ⓘ
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- 6 -->
+
+        <article
+            class="game-card"
+            data-title="XO"
+            data-category="casual">
+
+            <div class="game-image">
+
+                <img
+                    src="img/6.png"
+                    alt="XO Game"
+                    loading="lazy"
+                >
+
+                <span class="game-number">
+                    06
+                </span>
+
+                <span class="game-category">
+                    CLASSIC
+                </span>
+
+            </div>
+
+            <div class="game-content">
+
+                <h3>❌⭕ XO</h3>
+
+                <p class="game-description">
+                    العب ضد صديق أو الروبوت.
+                </p>
+
+                <div class="game-footer">
+
+                    <button
+                        class="play-btn"
+                        onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/X%26O%20game/index.html')">
+                        ▶ PLAY
+                    </button>
+
+                    <button
+                        class="info-btn"
+                        onclick="showInfo('XO','اللعبة الكلاسيكية ضد لاعب أو روبوت.')">
+                        ⓘ
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- 7 -->
+
+        <article
+            class="game-card"
+            data-title="Matching Card Game"
+            data-category="puzzle">
+
+            <div class="game-image">
+
+                <img
+                    src="img/7.png"
+                    alt="Matching Card Game"
+                    loading="lazy"
+                >
+
+                <span class="game-number">
+                    07
+                </span>
+
+                <span class="game-category">
+                    PUZZLE
+                </span>
+
+            </div>
+
+            <div class="game-content">
+
+                <h3>🎴 الورق المتشابه</h3>
+
+                <p class="game-description">
+                    اختبر ذاكرتك واعثر على الأزواج.
+                </p>
+
+                <div class="game-footer">
+
+                    <button
+                        class="play-btn"
+                        onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/Matching%20card%20game/index.html')">
+                        ▶ PLAY
+                    </button>
+
+                    <button
+                        class="info-btn"
+                        onclick="showInfo('الورق المتشابه','لعبة ذاكرة وتركيز.')">
+                        ⓘ
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- 8 -->
+
+        <article
+            class="game-card"
+            data-title="Challenges Game"
+            data-category="casual">
+
+            <div class="game-image">
+
+                <img
+                    src="img/8.png"
+                    alt="Challenges Game"
+                    loading="lazy"
+                >
+
+                <span class="game-number">
+                    08
+                </span>
+
+                <span class="game-category">
+                    SOCIAL
+                </span>
+
+            </div>
+
+            <div class="game-content">
+
+                <h3>🎯 Challenges</h3>
+
+                <p class="game-description">
+                    تحديات متنوعة للعب مع الأصدقاء.
+                </p>
+
+                <div class="game-footer">
+
+                    <button
+                        class="play-btn"
+                        onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/Challenges%20game/index.html')">
+                        ▶ PLAY
+                    </button>
+
+                    <button
+                        class="info-btn"
+                        onclick="showInfo('Challenges','مجموعة تحديات متنوعة.')">
+                        ⓘ
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- 9 -->
+
+        <article
+            class="game-card"
+            data-title="FunX Space"
+            data-category="action">
+
+            <div class="game-image">
+
+                <img
+                    src="img/9.png"
+                    alt="FunX Space Game"
+                    loading="lazy"
+                >
+
+                <span class="game-number">
+                    09
+                </span>
+
+                <span class="game-category">
+                    ACTION
+                </span>
+
+            </div>
+
+            <div class="game-content">
+
+                <h3>🚀 Fun X Space</h3>
+
+                <p class="game-description">
+                    مواجهة فضائية لا نهائية.
+                </p>
+
+                <div class="game-footer">
+
+                    <button
+                        class="play-btn"
+                        onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/funx_space_v2/index.html')">
+                        ▶ PLAY
+                    </button>
+
+                    <button
+                        class="info-btn"
+                        onclick="showInfo('Fun X Space','لعبة فضاء بنمط Endless.')">
+                        ⓘ
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- 10 -->
+
+        <article
+            class="game-card"
+            data-title="Detective Cases"
+            data-category="puzzle">
+
+            <div class="game-image">
+
+                <img
+                    src="img/10.png"
+                    alt="Detective Game"
+                    loading="lazy"
+                >
+
+                <span class="game-number">
+                    10
+                </span>
+
+                <span class="game-category">
+                    MYSTERY
+                </span>
+
+            </div>
+
+            <div class="game-content">
+
+                <h3>🕵️‍♂️ لعبة المحقق</h3>
+
+                <p class="game-description">
+                    حل القضايا وابحث عن الحقيقة.
+                </p>
+
+                <div class="game-footer">
+
+                    <button
+                        class="play-btn"
+                        onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/Cases/index.html')">
+                        ▶ PLAY
+                    </button>
+
+                    <button
+                        class="info-btn"
+                        onclick="showInfo('لعبة المحقق','لعبة ألغاز وقضايا وتحقيق.')">
+                        ⓘ
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- Empty Search Result -->
+
+        <div
+            id="emptyState"
+            class="empty"
+            style="display:none;">
+
+            <div class="empty-icon">
+                🔎
+            </div>
+
+            <h3>
+                لا توجد ألعاب
+            </h3>
+
+            <p>
+                جرب البحث باسم لعبة مختلف.
+            </p>
+
+        </div>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         MODAL
+    ====================================================== -->
+
+    <div
+        id="infoModal"
+        class="modal-overlay">
+
+        <div class="modal">
+
+            <h3 id="modalTitle">
+                Game
+            </h3>
+
+            <p id="modalText">
+                Game information
+            </p>
+
+            <button
+                class="modal-close"
+                id="modalClose">
+                إغلاق
+            </button>
+
+        </div>
+
     </div>
 
-    <div class="game-card">
-        <img src="img/5.png" alt="2D Maze">
-        <h2> 📱 لعبة إخفاء الهاتف </h2>
-        <button onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/Hide%20phone%20game/index.html')">Play</button>
-    </div>
 
-    <div class="game-card">
-        <img src="img/6.png" alt="2D Maze">
-        <h2>X&O</h2>
-        <button onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/X&O%20game/index.html')">Play</button>
-    </div>
+    <footer>
 
-    <div class="game-card">
-        <img src="img/7.png" alt="2D Maze">
-        <h2>🎴 لعبة الورق المتشابه</h2>
-        <button onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/Matching%20card%20game/index.html')">Play</button>
-    </div>
+        FUN X ·
+        <strong>
+            GAMES HUB
+        </strong>
+        · PRIVATE BUILD
 
-    <div class="game-card">
-        <img src="img/8.png" alt="2D Maze">
-        <h2>🎮 Challenges Game</h2>
-        <button onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/Challenges%20game/index.html')">Play</button>
-    </div>
+    </footer>
 
-    <div class="game-card">
-        <img src="img/9.png" alt="2D Maze">
-        <h2>🎮 FunX Space Game</h2>
-        <button onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/funx_space_v2/index.html')">Play</button>
-    </div>
 
-    <div class="game-card">
-        <img src="img/10.png" alt="2D Maze">
-        <h2>لعبة المحقق🕵️‍♂️</h2>
-        <button onclick="openGame('https://kbdalnby180-commits.github.io/wep_fun/wep%20game/Cases/index.html')">Play</button>
-    </div>
+    <script>
 
-    <!-- أضف هنا ألعابك الأخرى بنفس الطريقة -->
-</div>
+        "use strict";
 
-<script>
-function openGame(url){
-    window.location.href = url;
-}
-</script>
+
+        // =================================================
+        // الألعاب
+        // =================================================
+
+        const cards =
+            Array.from(
+                document.querySelectorAll(
+                    ".game-card"
+                )
+            );
+
+
+        const searchInput =
+            document.getElementById(
+                "searchInput"
+            );
+
+
+        const filterButtons =
+            document.querySelectorAll(
+                ".filter-btn"
+            );
+
+
+        const gameCount =
+            document.getElementById(
+                "gameCount"
+            );
+
+
+        const emptyState =
+            document.getElementById(
+                "emptyState"
+            );
+
+
+        let currentFilter =
+            "all";
+
+
+        // =================================================
+        // فتح اللعبة
+        // =================================================
+
+        function openGame(url) {
+
+            if (
+                typeof url !== "string" ||
+                !url.startsWith("https://")
+            ) {
+                return;
+            }
+
+            window.location.href = url;
+        }
+
+
+        // =================================================
+        // الفلترة والبحث
+        // =================================================
+
+        function filterGames() {
+
+            const search =
+                searchInput.value
+                    .trim()
+                    .toLowerCase();
+
+
+            let visible = 0;
+
+
+            cards.forEach(card => {
+
+                const title =
+                    card.dataset.title
+                        .toLowerCase();
+
+
+                const category =
+                    card.dataset.category;
+
+
+                const matchSearch =
+                    !search ||
+                    title.includes(search);
+
+
+                const matchFilter =
+                    currentFilter === "all" ||
+                    category === currentFilter;
+
+
+                const shouldShow =
+                    matchSearch &&
+                    matchFilter;
+
+
+                card.style.display =
+                    shouldShow
+                        ? ""
+                        : "none";
+
+
+                if (shouldShow) {
+                    visible++;
+                }
+            });
+
+
+            gameCount.textContent =
+                visible;
+
+
+            emptyState.style.display =
+                visible === 0
+                    ? "block"
+                    : "none";
+        }
+
+
+        searchInput.addEventListener(
+            "input",
+            filterGames
+        );
+
+
+        // =================================================
+        // أزرار الفلترة
+        // =================================================
+
+        filterButtons.forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        filterButtons
+                            .forEach(btn =>
+                                btn.classList.remove(
+                                    "active"
+                                )
+                            );
+
+
+                        button.classList.add(
+                            "active"
+                        );
+
+
+                        currentFilter =
+                            button.dataset.filter;
+
+
+                        filterGames();
+                    }
+                );
+
+            }
+        );
+
+
+        // =================================================
+        // معلومات اللعبة
+        // =================================================
+
+        const modal =
+            document.getElementById(
+                "infoModal"
+            );
+
+
+        const modalTitle =
+            document.getElementById(
+                "modalTitle"
+            );
+
+
+        const modalText =
+            document.getElementById(
+                "modalText"
+            );
+
+
+        const modalClose =
+            document.getElementById(
+                "modalClose"
+            );
+
+
+        function showInfo(
+            title,
+            text
+        ) {
+
+            modalTitle.textContent =
+                title;
+
+            modalText.textContent =
+                text;
+
+            modal.classList.add(
+                "show"
+            );
+        }
+
+
+        function closeModal() {
+
+            modal.classList.remove(
+                "show"
+            );
+        }
+
+
+        modalClose.addEventListener(
+            "click",
+            closeModal
+        );
+
+
+        modal.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target === modal
+                ) {
+                    closeModal();
+                }
+
+            }
+        );
+
+
+        document.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Escape"
+                ) {
+                    closeModal();
+                }
+
+            }
+        );
+
+
+        // =================================================
+        // النجوم
+        // =================================================
+
+        const stars =
+            document.getElementById(
+                "stars"
+            );
+
+
+        for (
+            let i = 0;
+            i < 100;
+            i++
+        ) {
+
+            const star =
+                document.createElement(
+                    "span"
+                );
+
+
+            star.className =
+                "star";
+
+
+            star.style.left =
+                Math.random() * 100 + "%";
+
+
+            star.style.top =
+                Math.random() * 100 + "%";
+
+
+            const size =
+                Math.random() * 2 + 1;
+
+
+            star.style.width =
+                `${size}px`;
+
+
+            star.style.height =
+                `${size}px`;
+
+
+            star.style.animationDelay =
+                `${Math.random() * 4}s`;
+
+
+            star.style.animationDuration =
+                `${2 + Math.random() * 4}s`;
+
+
+            stars.appendChild(
+                star
+            );
+        }
+
+
+        // =================================================
+        // دخول البطاقات بالتتابع
+        // =================================================
+
+        cards.forEach(
+            (card, index) => {
+
+                card.style.animationDelay =
+                    `${index * 70}ms`;
+
+            }
+        );
+
+
+        // =================================================
+        // البداية
+        // =================================================
+
+        filterGames();
+
+    </script>
 
 </body>
+
 </html>
+
