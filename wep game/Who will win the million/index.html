@@ -1,46 +1,273 @@
+
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fun X – من سيربح المليون</title>
-<link rel="stylesheet" href="millionaire.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fun X — من سيربح المليون</title>
+
+    <link rel="stylesheet" href="millionaire.css">
 </head>
+
 <body>
 
-    <!-- واجهة نهاية اللعبة -->
-<div id="gameOverUI" class="game-over-ui">
-    <h2>🎉 لقد انتهت اللعبة! 🎉</h2>
-    <p id="finalScore">نقاطك النهائية: 0</p>
-    <button id="restartBtn">إعادة اللعب</button>
-</div>
+    <div class="stars"></div>
 
-<div class="stars"></div>
-<header>
-<h1>Fun X – من سيربح المليون</h1>
-<button id="toggleTheme">🌙 وضع الليل</button>
-</header>
+    <header class="topbar">
 
-<div class="question-container">
-    <div id="score">النقاط: 0</div>
-    <div id="timer">الوقت: 10</div>
-    <div id="question" class="question"></div>
-    <div class="answers">
-        <button onclick="checkAnswer(0)">الإجابة 1</button>
-        <button onclick="checkAnswer(1)">الإجابة 2</button>
-        <button onclick="checkAnswer(2)">الإجابة 3</button>
-        <button onclick="checkAnswer(3)">الإجابة 4</button>
+        <div class="brand">
+            <span class="brand-icon">💰</span>
+
+            <div>
+                <h1>من سيربح المليون</h1>
+                <p>Fun X</p>
+            </div>
+        </div>
+
+        <button id="toggleTheme" class="theme-btn">
+            🌙 الوضع الليلي
+        </button>
+
+    </header>
+
+
+    <main class="game-layout">
+
+        <!-- =========================
+             لوحة الجوائز
+        ========================== -->
+
+        <aside class="prize-panel">
+
+            <div class="prize-title">
+                🏆 سلم الجوائز
+            </div>
+
+            <div id="prizeList" class="prize-list"></div>
+
+        </aside>
+
+
+        <!-- =========================
+             اللعبة
+        ========================== -->
+
+        <section class="game-container">
+
+            <div class="top-stats">
+
+                <div class="stat-box">
+                    <span>💰 النقاط</span>
+                    <strong id="score">0</strong>
+                </div>
+
+                <div class="stat-box">
+                    <span>⭐ أفضل نتيجة</span>
+                    <strong id="bestScore">0</strong>
+                </div>
+
+                <div class="stat-box timer-box">
+                    <span>⏱️ الوقت</span>
+                    <strong id="timer">15</strong>
+                </div>
+
+            </div>
+
+
+            <!-- السؤال -->
+
+            <div class="question-card">
+
+                <div class="question-number" id="questionNumber">
+                    السؤال 1 من 15
+                </div>
+
+                <div
+                    id="question"
+                    class="question">
+                </div>
+
+            </div>
+
+
+            <!-- الإجابات -->
+
+            <div class="answers">
+
+                <button class="answer-btn" data-index="0">
+                    <span class="answer-letter">أ</span>
+                    <span class="answer-text"></span>
+                </button>
+
+                <button class="answer-btn" data-index="1">
+                    <span class="answer-letter">ب</span>
+                    <span class="answer-text"></span>
+                </button>
+
+                <button class="answer-btn" data-index="2">
+                    <span class="answer-letter">ج</span>
+                    <span class="answer-text"></span>
+                </button>
+
+                <button class="answer-btn" data-index="3">
+                    <span class="answer-letter">د</span>
+                    <span class="answer-text"></span>
+                </button>
+
+            </div>
+
+
+            <!-- أدوات -->
+
+            <div class="tools">
+
+                <button id="skipBtn" class="tool-btn">
+                    ⏭️ تخطي السؤال
+                </button>
+
+                <button id="restartTopBtn" class="tool-btn">
+                    🔄 إعادة
+                </button>
+
+            </div>
+
+
+            <!-- الإشعار -->
+
+            <div id="notify" class="notify"></div>
+
+
+            <!-- شريط التقدم -->
+
+            <div class="progress-area">
+
+                <div class="progress-info">
+                    <span>التقدم</span>
+                    <strong id="progressText">0%</strong>
+                </div>
+
+                <div class="progress-bar">
+                    <div
+                        id="progressBar"
+                        class="progress-fill">
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         شاشة البداية
+    ========================== -->
+
+    <div id="startUI" class="overlay">
+
+        <div class="modal">
+
+            <div class="modal-icon">
+                💰
+            </div>
+
+            <h2>من سيربح المليون؟</h2>
+
+            <p>
+                جاوب على 15 سؤال وارفع نقاطك
+                لأعلى مستوى ممكن.
+            </p>
+
+            <div class="rules">
+
+                <div>🎯 15 سؤال</div>
+                <div>⏱️ 15 ثانية لكل سؤال</div>
+                <div>🏆 نقاط تصاعدية</div>
+
+            </div>
+
+            <button id="startBtn" class="main-btn">
+                🚀 ابدأ اللعبة
+            </button>
+
+        </div>
+
     </div>
-</div>
 
-<div id="notify"></div>
 
-<audio id="bgMusic" src="sounds/Awkward_Apocalyptic_Pickup.mp3" loop autoplay></audio>
-<audio id="clickSound" src="Music/mixkit-modern-technology-select-3124.wav"></audio>
-<audio id="correctSound" src="Music/mixkit-winning-a-coin-video-game-2069.wav"></audio>
-<audio id="wrongSound" src="Music/mixkit-player-losing-or-failing-2042.wav"></audio>
-<audio id="gameOverSound" src="Music/mixkit-wrong-answer-fail-notification-946.wav"></audio>
+    <!-- =========================
+         شاشة النهاية
+    ========================== -->
 
-<script src="millionaire.js"></script>
+    <div id="gameOverUI" class="overlay hidden">
+
+        <div class="modal end-modal">
+
+            <div id="endIcon" class="modal-icon">
+                🏆
+            </div>
+
+            <h2 id="endTitle">
+                انتهت اللعبة!
+            </h2>
+
+            <p id="finalMessage">
+                أحسنت!
+            </p>
+
+            <div class="final-score">
+                <span>نتيجتك</span>
+                <strong id="finalScore">0</strong>
+            </div>
+
+            <div class="final-best">
+                أفضل نتيجة:
+                <strong id="endBestScore">0</strong>
+            </div>
+
+            <button id="restartBtn" class="main-btn">
+                🔄 العب مرة أخرى
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- الأصوات -->
+
+    <audio
+        id="bgMusic"
+        src="sounds/Awkward_Apocalyptic_Pickup.mp3"
+        loop>
+    </audio>
+
+    <audio
+        id="clickSound"
+        src="Music/mixkit-modern-technology-select-3124.wav">
+    </audio>
+
+    <audio
+        id="correctSound"
+        src="Music/mixkit-winning-a-coin-video-game-2069.wav">
+    </audio>
+
+    <audio
+        id="wrongSound"
+        src="Music/mixkit-player-losing-or-failing-2042.wav">
+    </audio>
+
+    <audio
+        id="gameOverSound"
+        src="Music/mixkit-wrong-answer-fail-notification-946.wav">
+    </audio>
+
+
+    <script src="millionaire.js"></script>
+
 </body>
+
 </html>
