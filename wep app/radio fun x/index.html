@@ -1,165 +1,302 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🚧 الموقع تحت الصيانة 🚧</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Cairo", sans-serif;
-    }
 
-    body {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      overflow: hidden;
-      color: #fff;
-      background: linear-gradient(270deg, #0f0c29, #302b63, #24243e);
-      background-size: 600% 600%;
-      animation: gradientBG 15s ease infinite;
-    }
+    <meta charset="UTF-8">
 
-    @keyframes gradientBG {
-      0% {
-        background-position: 0% 50%;
-      }
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-      50% {
-        background-position: 100% 50%;
-      }
+    <meta
+        name="theme-color"
+        content="#050814"
+    >
 
-      100% {
-        background-position: 0% 50%;
-      }
-    }
+    <title>Fun X Radio</title>
 
-    .box {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 0 25px rgba(0, 0, 0, 0.8), 0 0 40px #f83a00 inset;
-    }
+    <link rel="stylesheet" href="style.css">
 
-    h1 {
-      font-size: 42px;
-      margin-bottom: 20px;
-      color: #ff3c00;
-      text-shadow: 0 0 15px #ff3c00, 0 0 30px #ff7b00;
-    }
-
-    p {
-      font-size: 22px;
-      margin-bottom: 25px;
-      line-height: 1.8;
-      color: #0ff;
-      font-weight: bold;
-    }
-
-    .emoji {
-      font-size: 60px;
-      display: inline-block;
-      animation: sideMove 3s ease-in-out infinite;
-    }
-
-    @keyframes sideMove {
-      0% {
-        transform: translateX(0);
-      }
-
-      50% {
-        transform: translateX(30px);
-      }
-
-      100% {
-        transform: translateX(0);
-      }
-    }
-
-    #countdown {
-      font-size: 26px;
-      font-weight: bold;
-      color: #ffeb3b;
-      text-shadow: 0 0 12px #ffeb3b, 0 0 20px #ff9800;
-      margin: 20px 0;
-    }
-
-    footer {
-      margin-top: 20px;
-      font-size: 14px;
-      color: #ccc;
-    }
-
-    @media(max-width:700px) {
-      h1 {
-        font-size: 28px;
-      }
-
-      p {
-        font-size: 18px;
-      }
-
-      .emoji {
-        font-size: 50px;
-      }
-
-      #countdown {
-        font-size: 20px;
-      }
-    }
-  </style>
 </head>
 
 <body>
-  <div class="box">
-    <div class="emoji">📡</div>
-    <h1>🚧 الصفحه تحت الصيانة 🚧</h1>
-    <p>نقوم حالياً بإجراء تحديثات وتحسينات<br>لتقديم تجربة أفضل لك.<br>شكراً لصبرك ❤️</p>
-    <div id="countdown">جارٍ التحميل...</div>
-    <div class="emoji">🛠️</div>
-    <footer>© 2025 جميع الحقوق محفوظة</footer>
-  </div>
 
-  <script>
-    // مدة المؤقت = ساعتين (7200 ثانية)
-    const duration = 2 * 60 * 60 * 1000;
+    <!-- ================= BACKGROUND ================= -->
 
-    // التحقق هل في وقت انتهاء محفوظ
-    let endTime = localStorage.getItem("maintenanceEndTime");
+    <div class="background">
 
-    if (!endTime || Date.now() > parseInt(endTime)) {
-      endTime = Date.now() + duration;
-      localStorage.setItem("maintenanceEndTime", endTime);
-    }
+        <div class="stars" id="stars"></div>
 
-    const countdownEl = document.getElementById("countdown");
+        <div class="moon">
+            <span></span>
+        </div>
 
-    function updateCountdown() {
-      const now = Date.now();
-      const diff = parseInt(endTime) - now;
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
 
-      if (diff <= 0) {
-        countdownEl.innerHTML = "✅ الموقع جاهز للعمل!";
-        localStorage.removeItem("maintenanceEndTime");
-        return;
-      }
+    </div>
 
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-      countdownEl.innerHTML = `⏳ ${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-    }
+    <!-- ================= APP ================= -->
 
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-  </script>
+    <main class="app">
+
+        <!-- HEADER -->
+
+        <header class="topbar">
+
+            <div class="brand">
+
+                <div class="brand-logo">
+                    FX
+                </div>
+
+                <div>
+
+                    <strong>
+                        Fun X
+                    </strong>
+
+                    <small>
+                        Radio
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="live-badge">
+
+                <span></span>
+
+                LIVE
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= RADIO CARD ================= -->
+
+        <section class="radio-card">
+
+            <div class="radio-icon">
+                📻
+            </div>
+
+
+            <div class="eyebrow">
+                FUN X RADIO
+            </div>
+
+
+            <h1>
+                الراديو
+                <span>على مزاجك</span>
+            </h1>
+
+
+            <p class="subtitle">
+                استمع إلى محطاتك المفضلة من مكان واحد
+            </p>
+
+
+            <!-- CURRENT STATION -->
+
+            <div class="station-box">
+
+                <div class="station-cover">
+
+                    <span id="stationEmoji">
+                        📻
+                    </span>
+
+                </div>
+
+
+                <div class="station-info">
+
+                    <small>
+                        المحطة الحالية
+                    </small>
+
+                    <h2 id="stationName">
+                        إذاعة القرآن الكريم – القاهرة
+                    </h2>
+
+                    <div class="station-status">
+
+                        <span></span>
+
+                        البث متاح
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PLAYER -->
+
+            <div class="player">
+
+                <div class="equalizer" id="equalizer">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+
+                <div class="player-label">
+
+                    <span>
+                        الآن تستمع
+                    </span>
+
+                    <strong id="playerStatus">
+                        جاهز للتشغيل
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- IFRAME -->
+
+            <div class="frame-wrapper">
+
+                <iframe
+                    id="radioFrame"
+                    src="https://p.liveonlineradio.net/?p=ertu-quran-karem"
+                    title="Fun X Radio"
+                    scrolling="no"
+                    allow="autoplay">
+                </iframe>
+
+            </div>
+
+
+            <!-- CONTROLS -->
+
+            <div class="controls">
+
+                <button
+                    id="prevBtn"
+                    class="control-btn"
+                    type="button"
+                    title="المحطة السابقة">
+
+                    ⏮
+
+                </button>
+
+
+                <button
+                    id="refreshBtn"
+                    class="main-control"
+                    type="button"
+                    title="إعادة تحميل المحطة">
+
+                    🔄
+
+                </button>
+
+
+                <button
+                    id="nextBtn"
+                    class="control-btn"
+                    type="button"
+                    title="المحطة التالية">
+
+                    ⏭
+
+                </button>
+
+            </div>
+
+
+            <!-- STATION LIST -->
+
+            <div class="station-heading">
+
+                <div>
+
+                    <strong>
+                        المحطات
+                    </strong>
+
+                    <small>
+                        اختر محطة للاستماع
+                    </small>
+
+                </div>
+
+                <span id="stationCounter">
+                    1 / 3
+                </span>
+
+            </div>
+
+
+            <div
+                id="stationList"
+                class="station-list">
+            </div>
+
+
+            <!-- FOOTER INFO -->
+
+            <div class="radio-footer">
+
+                <div>
+                    🕒
+                    <span id="clock">
+                        00:00:00
+                    </span>
+                </div>
+
+                <div>
+                    🎧 استمع واستمتع
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <footer>
+            Fun X Radio © 2026
+        </footer>
+
+    </main>
+
+
+    <!-- TOAST -->
+
+    <div
+        id="toast"
+        class="toast">
+
+        تم التنفيذ
+
+    </div>
+
+
+    <script src="script.js"></script>
+
 </body>
 
 </html>
+

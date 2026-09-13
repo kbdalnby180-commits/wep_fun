@@ -1,112 +1,1648 @@
-/* ====== الخلفية ====== */
+
+/* =====================================================
+   FUN X RADIO — MODERN GLASS UI
+===================================================== */
+
+:root {
+
+    --bg-1: #050814;
+    --bg-2: #0b1325;
+
+    --card: rgba(255,255,255,0.065);
+
+    --card-hover: rgba(255,255,255,0.095);
+
+    --border: rgba(255,255,255,0.09);
+
+    --text: #f4f7fb;
+
+    --muted: #8f9caf;
+
+    --blue: #4ca8ff;
+
+    --cyan: #35deff;
+
+    --purple: #925cff;
+
+    --green: #4fe0a0;
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+
+    box-sizing: border-box;
+
+    margin: 0;
+    padding: 0;
+
+}
+
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
 body {
-  margin: 0;
-  font-family: Tahoma, Arial, sans-serif;
-  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow: hidden;
+
+    min-height: 100vh;
+
+    font-family:
+        Tahoma,
+        Arial,
+        "Segoe UI",
+        sans-serif;
+
+    color:
+        var(--text);
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(76,168,255,0.13),
+            transparent 29%
+        ),
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(146,92,255,0.12),
+            transparent 31%
+        ),
+        linear-gradient(
+            135deg,
+            var(--bg-1),
+            var(--bg-2)
+        );
+
+    overflow-x:
+        hidden;
+
 }
 
-/* نجوم متحركة */
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+.background {
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    z-index:
+        0;
+
+    overflow:
+        hidden;
+
+    pointer-events:
+        none;
+
+}
+
+
 .stars {
-  width: 100%;
-  height: 100%;
-  background: transparent url("https://www.transparenttextures.com/patterns/stardust.png") repeat;
-  position: fixed;
-  top: 0; left: 0;
-  z-index: 0;
-  animation: moveStars 200s linear infinite;
-}
-@keyframes moveStars {
-  from {background-position: 0 0;}
-  to {background-position: 10000px 5000px;}
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
 }
 
-/* القمر */
+
+.star {
+
+    position:
+        absolute;
+
+    border-radius:
+        50%;
+
+    background:
+        #fff;
+
+    box-shadow:
+        0 0 7px
+        rgba(255,255,255,0.9);
+
+    animation:
+        twinkle
+        var(--duration)
+        ease-in-out
+        infinite;
+
+    animation-delay:
+        var(--delay);
+
+    opacity:
+        var(--opacity);
+
+}
+
+
+@keyframes twinkle {
+
+    0%,
+    100% {
+
+        opacity:
+            var(--opacity);
+
+        transform:
+            scale(1);
+
+    }
+
+    50% {
+
+        opacity:
+            1;
+
+        transform:
+            scale(1.5);
+
+    }
+
+}
+
+
+/* =====================================================
+   MOON
+===================================================== */
+
 .moon {
-  width: 100px;
-  height: 100px;
-  background: #fff;
-  border-radius: 50%;
-  position: fixed;
-  top: 40px;
-  right: 60px;
-  box-shadow: 0 0 40px #fff;
-  z-index: 1;
+
+    position:
+        absolute;
+
+    width:
+        105px;
+
+    height:
+        105px;
+
+    top:
+        35px;
+
+    left:
+        50px;
+
+    border-radius:
+        50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 35%,
+            #ffffff,
+            #d7e4f6 70%,
+            #b8c7da
+        );
+
+    box-shadow:
+        0 0 35px rgba(220,235,255,0.55),
+        0 0 90px rgba(150,190,255,0.15);
+
 }
 
-/* ====== الراديو ====== */
-.wrapper{
-  position: relative;
-  z-index: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width:100%;
+
+.moon span {
+
+    display:
+        block;
+
+    width:
+        18px;
+
+    height:
+        18px;
+
+    margin:
+        27px;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(170,186,208,0.25);
+
 }
 
-.radio{
-  width:480px;
-  background:linear-gradient(#1c1c1c,#0e0e0e);
-  border:6px solid #222;
-  border-radius:24px;
-  padding:25px;
-  box-shadow:0 25px 60px rgba(0,0,0,.9),
-             inset 0 0 30px rgba(0,0,0,.9);
-  text-align:center;
+
+/* =====================================================
+   ORBS
+===================================================== */
+
+.orb {
+
+    position:
+        absolute;
+
+    width:
+        380px;
+
+    height:
+        380px;
+
+    border-radius:
+        50%;
+
+    filter:
+        blur(115px);
+
+    opacity:
+        0.20;
+
+    animation:
+        floatOrb
+        15s
+        ease-in-out
+        infinite;
+
 }
 
-/* العنوان */
-.radio h1{
-  margin:0 0 10px;
-  letter-spacing:2px;
+
+.orb-1 {
+
+    top:
+        -190px;
+
+    right:
+        -120px;
+
+    background:
+        var(--blue);
+
 }
 
-/* اسم المحطة */
-#stationName{
-  font-size:18px;
-  margin-bottom:15px;
-  opacity:.9;
+
+.orb-2 {
+
+    bottom:
+        -190px;
+
+    left:
+        -130px;
+
+    background:
+        var(--purple);
+
+    animation-delay:
+        -6s;
+
 }
 
-/* شاشة الراديو */
-iframe{
-  width:100%;
-  height:110px;
-  border:none;
-  border-radius:12px;
-  background:#000;
-  box-shadow:0 20px 35px rgba(0,0,0,1);
+
+@keyframes floatOrb {
+
+    0%,
+    100% {
+
+        transform:
+            translate(0,0)
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-30px,-25px)
+            scale(1.08);
+
+    }
+
 }
 
-/* أزرار التحكم */
-.controls{
-  margin-top:25px;
-  display:flex;
-  justify-content:space-between;
-}
-button{
-  width:65px;
-  height:65px;
-  border-radius:50%;
-  background:#111;
-  color:#fff;
-  font-size:24px;
-  border:2px solid #444;
-  cursor:pointer;
-  box-shadow:inset 0 0 10px rgba(0,0,0,.9);
-}
-button:active{
-  transform:scale(.95) rotate(6deg);
+
+/* =====================================================
+   APP
+===================================================== */
+
+.app {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    width:
+        min(
+            760px,
+            calc(100% - 24px)
+        );
+
+    margin:
+        0 auto;
+
+    padding:
+        22px 0 30px;
+
 }
 
-/* موبايل */
-@media(max-width:600px){
-  .radio{
-    width:90%;
-  }
+
+/* =====================================================
+   TOPBAR
+===================================================== */
+
+.topbar {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    margin-bottom:
+        35px;
+
 }
+
+
+.brand {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        11px;
+
+}
+
+
+.brand-logo {
+
+    width:
+        49px;
+
+    height:
+        49px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--purple)
+        );
+
+    box-shadow:
+        0 12px 35px
+        rgba(76,168,255,0.22);
+
+    font-size:
+        13px;
+
+    font-weight:
+        900;
+
+}
+
+
+.brand strong {
+
+    display:
+        block;
+
+    font-size:
+        18px;
+
+}
+
+
+.brand small {
+
+    display:
+        block;
+
+    color:
+        var(--muted);
+
+    margin-top:
+        3px;
+
+    font-size:
+        9px;
+
+}
+
+
+.live-badge {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+
+    padding:
+        8px 12px;
+
+    border:
+        1px solid
+        rgba(79,224,160,0.13);
+
+    border-radius:
+        50px;
+
+    background:
+        rgba(79,224,160,0.07);
+
+    color:
+        #7de8b5;
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+}
+
+
+.live-badge span {
+
+    width:
+        6px;
+
+    height:
+        6px;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--green);
+
+    box-shadow:
+        0 0 10px
+        var(--green);
+
+    animation:
+        pulse
+        1.4s
+        infinite;
+
+}
+
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.35;
+    }
+
+}
+
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.radio-card {
+
+    padding:
+        28px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.075),
+            rgba(255,255,255,0.025)
+        );
+
+    backdrop-filter:
+        blur(25px);
+
+    box-shadow:
+        0 30px 80px
+        rgba(0,0,0,0.38);
+
+    text-align:
+        center;
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.radio-icon {
+
+    width:
+        67px;
+
+    height:
+        67px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    margin:
+        auto auto 15px;
+
+    border-radius:
+        21px;
+
+    background:
+        rgba(76,168,255,0.08);
+
+    border:
+        1px solid
+        rgba(76,168,255,0.13);
+
+    font-size:
+        29px;
+
+}
+
+
+.eyebrow {
+
+    color:
+        #8bc5ff;
+
+    font-size:
+        9px;
+
+    letter-spacing:
+        1.7px;
+
+    margin-bottom:
+        10px;
+
+}
+
+
+.radio-card > h1 {
+
+    font-size:
+        clamp(
+            28px,
+            7vw,
+            42px
+        );
+
+    line-height:
+        1.2;
+
+}
+
+
+.radio-card > h1 span {
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--blue),
+            #aa7cff
+        );
+
+    -webkit-background-clip:
+        text;
+
+    background-clip:
+        text;
+
+    color:
+        transparent;
+
+}
+
+
+.subtitle {
+
+    margin-top:
+        8px;
+
+    color:
+        var(--muted);
+
+    font-size:
+        11px;
+
+}
+
+
+/* =====================================================
+   STATION
+===================================================== */
+
+.station-box {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        15px;
+
+    margin-top:
+        25px;
+
+    padding:
+        15px;
+
+    text-align:
+        right;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.07);
+
+    border-radius:
+        18px;
+
+    background:
+        rgba(255,255,255,0.035);
+
+}
+
+
+.station-cover {
+
+    width:
+        58px;
+
+    height:
+        58px;
+
+    flex-shrink:
+        0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(76,168,255,0.14),
+            rgba(146,92,255,0.14)
+        );
+
+    font-size:
+        25px;
+
+}
+
+
+.station-info {
+
+    min-width:
+        0;
+
+}
+
+
+.station-info small {
+
+    color:
+        var(--muted);
+
+    font-size:
+        8px;
+
+}
+
+
+.station-info h2 {
+
+    margin:
+        5px 0;
+
+    font-size:
+        14px;
+
+    overflow:
+        hidden;
+
+    text-overflow:
+        ellipsis;
+
+    white-space:
+        nowrap;
+
+}
+
+
+.station-status {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        6px;
+
+    color:
+        #75dfae;
+
+    font-size:
+        8px;
+
+}
+
+
+.station-status span {
+
+    width:
+        5px;
+
+    height:
+        5px;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--green);
+
+}
+
+
+/* =====================================================
+   PLAYER
+===================================================== */
+
+.player {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        16px;
+
+    margin:
+        20px 0 12px;
+
+}
+
+
+.equalizer {
+
+    height:
+        32px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        3px;
+
+}
+
+
+.equalizer span {
+
+    display:
+        block;
+
+    width:
+        4px;
+
+    height:
+        12px;
+
+    border-radius:
+        5px;
+
+    background:
+        var(--cyan);
+
+    box-shadow:
+        0 0 9px
+        rgba(53,222,255,0.6);
+
+    animation:
+        equalizer
+        0.9s
+        ease-in-out
+        infinite alternate;
+
+}
+
+
+.equalizer span:nth-child(2) {
+    animation-delay:
+        .1s;
+}
+
+.equalizer span:nth-child(3) {
+    animation-delay:
+        .25s;
+}
+
+.equalizer span:nth-child(4) {
+    animation-delay:
+        .35s;
+}
+
+.equalizer span:nth-child(5) {
+    animation-delay:
+        .15s;
+}
+
+.equalizer span:nth-child(6) {
+    animation-delay:
+        .45s;
+}
+
+.equalizer span:nth-child(7) {
+    animation-delay:
+        .28s;
+}
+
+
+@keyframes equalizer {
+
+    from {
+        height:
+            6px;
+    }
+
+    to {
+        height:
+            28px;
+    }
+
+}
+
+
+.player-label {
+
+    text-align:
+        right;
+
+}
+
+
+.player-label span {
+
+    display:
+        block;
+
+    color:
+        var(--muted);
+
+    font-size:
+        8px;
+
+}
+
+
+.player-label strong {
+
+    display:
+        block;
+
+    margin-top:
+        4px;
+
+    font-size:
+        11px;
+
+}
+
+
+/* =====================================================
+   FRAME
+===================================================== */
+
+.frame-wrapper {
+
+    overflow:
+        hidden;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.07);
+
+    border-radius:
+        17px;
+
+    background:
+        #02040a;
+
+    box-shadow:
+        inset 0 0 30px
+        rgba(0,0,0,0.8);
+
+}
+
+
+#radioFrame {
+
+    display:
+        block;
+
+    width:
+        100%;
+
+    height:
+        115px;
+
+    border:
+        0;
+
+    background:
+        #000;
+
+}
+
+
+/* =====================================================
+   CONTROLS
+===================================================== */
+
+.controls {
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+    margin:
+        18px 0 28px;
+
+}
+
+
+.control-btn,
+.main-control {
+
+    border:
+        none;
+
+    cursor:
+        pointer;
+
+    transition:
+        0.2s ease;
+
+}
+
+
+.control-btn {
+
+    width:
+        50px;
+
+    height:
+        50px;
+
+    border-radius:
+        15px;
+
+    background:
+        rgba(255,255,255,0.045);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.08);
+
+    color:
+        #dce5ef;
+
+    font-size:
+        18px;
+
+}
+
+
+.main-control {
+
+    width:
+        62px;
+
+    height:
+        62px;
+
+    border-radius:
+        19px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--purple)
+        );
+
+    color:
+        #fff;
+
+    font-size:
+        22px;
+
+    box-shadow:
+        0 13px 30px
+        rgba(76,120,255,0.23);
+
+}
+
+
+.control-btn:hover,
+.main-control:hover {
+
+    transform:
+        translateY(-3px);
+
+}
+
+
+.control-btn:active,
+.main-control:active {
+
+    transform:
+        scale(0.96);
+
+}
+
+
+/* =====================================================
+   STATION LIST
+===================================================== */
+
+.station-heading {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    text-align:
+        right;
+
+    margin-bottom:
+        10px;
+
+}
+
+
+.station-heading strong {
+
+    display:
+        block;
+
+    font-size:
+        13px;
+
+}
+
+
+.station-heading small {
+
+    display:
+        block;
+
+    color:
+        var(--muted);
+
+    margin-top:
+        4px;
+
+    font-size:
+        8px;
+
+}
+
+
+#stationCounter {
+
+    color:
+        #6f9dca;
+
+    font-size:
+        9px;
+
+}
+
+
+.station-list {
+
+    display:
+        grid;
+
+    gap:
+        7px;
+
+}
+
+
+.station-item {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+    width:
+        100%;
+
+    padding:
+        10px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.06);
+
+    border-radius:
+        13px;
+
+    background:
+        rgba(255,255,255,0.03);
+
+    color:
+        #d5dde8;
+
+    text-align:
+        right;
+
+    cursor:
+        pointer;
+
+    transition:
+        0.2s ease;
+
+}
+
+
+.station-item:hover {
+
+    background:
+        rgba(255,255,255,0.065);
+
+    transform:
+        translateX(-2px);
+
+}
+
+
+.station-item.active {
+
+    border-color:
+        rgba(76,168,255,0.35);
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(76,168,255,0.09),
+            rgba(146,92,255,0.06)
+        );
+
+}
+
+
+.station-number {
+
+    width:
+        30px;
+
+    height:
+        30px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    flex-shrink:
+        0;
+
+    border-radius:
+        9px;
+
+    background:
+        rgba(255,255,255,0.05);
+
+    color:
+        #8ca0b6;
+
+    font-size:
+        9px;
+
+}
+
+
+.station-item.active
+.station-number {
+
+    background:
+        rgba(76,168,255,0.13);
+
+    color:
+        #8bc3ff;
+
+}
+
+
+.station-item-content {
+
+    min-width:
+        0;
+
+    flex:
+        1;
+
+}
+
+
+.station-item-title {
+
+    display:
+        block;
+
+    overflow:
+        hidden;
+
+    text-overflow:
+        ellipsis;
+
+    white-space:
+        nowrap;
+
+    font-size:
+        10px;
+
+}
+
+
+.station-item-status {
+
+    display:
+        block;
+
+    margin-top:
+        3px;
+
+    color:
+        var(--muted);
+
+    font-size:
+        8px;
+
+}
+
+
+/* =====================================================
+   FOOTER INFO
+===================================================== */
+
+.radio-footer {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        10px;
+
+    margin-top:
+        17px;
+
+    padding-top:
+        15px;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,0.06);
+
+    color:
+        #637084;
+
+    font-size:
+        8px;
+
+}
+
+
+.radio-footer div {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        5px;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+
+    text-align:
+        center;
+
+    margin-top:
+        20px;
+
+    color:
+        #566477;
+
+    font-size:
+        9px;
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast {
+
+    position:
+        fixed;
+
+    left:
+        50%;
+
+    bottom:
+        22px;
+
+    z-index:
+        100;
+
+    transform:
+        translate(-50%,70px);
+
+    opacity:
+        0;
+
+    padding:
+        11px 17px;
+
+    border-radius:
+        12px;
+
+    background:
+        rgba(8,14,25,0.95);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.10);
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,0.35);
+
+    font-size:
+        10px;
+
+    transition:
+        0.35s ease;
+
+    pointer-events:
+        none;
+
+}
+
+
+.toast.show {
+
+    opacity:
+        1;
+
+    transform:
+        translate(-50%,0);
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .app {
+
+        width:
+            calc(100% - 16px);
+
+        padding-top:
+            15px;
+
+    }
+
+
+    .moon {
+
+        width:
+            75px;
+
+        height:
+            75px;
+
+        top:
+            20px;
+
+        left:
+            20px;
+
+    }
+
+
+    .radio-card {
+
+        padding:
+            19px;
+
+        border-radius:
+            22px;
+
+    }
+
+
+    .radio-icon {
+
+        width:
+            58px;
+
+        height:
+            58px;
+
+    }
+
+
+    .radio-card > h1 {
+
+        font-size:
+            30px;
+
+    }
+
+
+    .station-box {
+
+        padding:
+            12px;
+
+    }
+
+
+    .station-info h2 {
+
+        font-size:
+            12px;
+
+    }
+
+
+    #radioFrame {
+
+        height:
+            105px;
+
+    }
+
+
+    .control-btn {
+
+        width:
+            46px;
+
+        height:
+            46px;
+
+    }
+
+
+    .main-control {
+
+        width:
+            57px;
+
+        height:
+            57px;
+
+    }
+
+}
+
+
+@media (max-width: 380px) {
+
+    .station-cover {
+
+        width:
+            50px;
+
+        height:
+            50px;
+
+    }
+
+
+    .radio-footer {
+
+        flex-direction:
+            column;
+
+        align-items:
+            center;
+
+    }
+
+}
+
