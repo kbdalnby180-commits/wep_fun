@@ -1,87 +1,685 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fun X | Profile</title>
 
-<link rel="stylesheet" href="about.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#070b14"
+    >
+
+    <title>Fun X | Profile</title>
+
+    <link rel="stylesheet" href="about.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    >
+
 </head>
+
 
 <body>
 
-<div class="github-profile">
+    <!-- ================= BACKGROUND ================= -->
 
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <img src="images/Snapchat-1550406533.jpg" alt="Founder">
-    <h2>خالد التركي</h2>
-    <span class="username">@funx-dev</span>
+    <div class="background">
 
-    <p class="bio">
-      مؤسس موقع Fun X | مطور ويب  
-      مهتم بالألعاب والتجارب التفاعلية
-    </p>
+        <div class="aurora aurora-1"></div>
+        <div class="aurora aurora-2"></div>
 
-    <div class="info">
-      <p><i class="fa-solid fa-location-dot"></i> Egypt</p>
-      <p><i class="fa-solid fa-cake-candles"></i> 02 / 01 / 2009</p>
-      <p><i class="fa-solid fa-envelope"></i> kbdalnby180@gamil.com</p>
+        <div class="grid"></div>
+
+        <div id="particles"></div>
+
     </div>
 
-    <button class="follow-btn">متابعة</button>
-  </aside>
 
-  <!-- Main Content -->
-  <main class="content">
+    <!-- ================= MAIN ================= -->
 
-    <!-- Stats -->
-    <section class="stats">
-      <div><strong>9+</strong><span>ألعاب</span></div>
-      <div><strong>2+</strong><span>أقسام</span></div>
-      <div><strong>3+</strong><span>فيديو</span></div>
-    </section>
+    <main class="profile-layout">
 
-    <!-- About -->
-    <section class="about">
-      <h3>عن Fun X</h3>
-      <p>
-        Fun X هو موقع ترفيهي متكامل يجمع بين الألعاب، الفيديوهات،
-        الموسيقى والمحتوى التعليمي في تجربة واحدة سهلة وبسيطة.
-      </p>
-    </section>
 
-    <!-- Timeline -->
-    <section class="timeline">
-      <h3>📅 Timeline تطور Fun X</h3>
+        <!-- ================= SIDEBAR ================= -->
 
-      <div class="event">
-        <span class="date">2023</span>
-        <p>💡 بداية فكرة Fun X كموقع ترفيهي</p>
-      </div>
+        <aside class="sidebar">
 
-      <div class="event">
-        <span class="date">2024</span>
-        <p>🎮 إضافة أول مجموعة ألعاب تفاعلية</p>
-      </div>
+            <div class="profile-cover"></div>
 
-      <div class="event">
-        <span class="date">2025</span>
-        <p>📺 إطلاق صفحات الفيديو والبث المباشر</p>
-      </div>
 
-      <div class="event">
-        <span class="date">المستقبل</span>
-        <p>🚀 نظام حسابات + شات + مزايا مدفوعة</p>
-      </div>
+            <div class="profile-main">
 
-    </section>
+                <div class="profile-image-wrap">
 
-  </main>
+                    <img
+                        src="images/Snapchat-1550406533.jpg"
+                        alt="خالد التركي"
+                        class="profile-image"
+                    >
 
-</div>
-<script src="script.js"></script>
+                    <span class="online-dot"></span>
+
+                </div>
+
+
+                <h1>
+                    خالد التركي
+                </h1>
+
+
+                <div class="username">
+                    @funx-dev
+                </div>
+
+
+                <div class="founder-badge">
+                    <i class="fa-solid fa-crown"></i>
+                    Founder of Fun X
+                </div>
+
+
+                <p class="bio">
+                    مطور ويب وصانع تجارب رقمية.
+                    أحب البرمجة والألعاب والتقنية
+                    وبناء أفكار جديدة تحت اسم Fun X.
+                </p>
+
+
+                <!-- ================= INFO ================= -->
+
+                <div class="profile-info">
+
+                    <div class="info-row">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        <span>
+                            Egypt
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <i class="fa-solid fa-calendar"></i>
+
+                        <span>
+                            02 / 01 / 2009
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                        <span>
+                            kbdalnby180@gmail.com
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- ================= ACTIONS ================= -->
+
+                <div class="profile-actions">
+
+                    <button
+                        class="follow-btn"
+                        id="followBtn">
+
+                        <i class="fa-solid fa-user-plus"></i>
+
+                        متابعة
+
+                    </button>
+
+
+                    <button
+                        class="icon-btn"
+                        id="shareBtn"
+                        title="مشاركة">
+
+                        <i class="fa-solid fa-share-nodes"></i>
+
+                    </button>
+
+                </div>
+
+
+                <!-- ================= SOCIAL ================= -->
+
+                <div class="socials">
+
+                    <a
+                        href="https://github.com/"
+                        target="_blank"
+                        rel="noopener"
+                        title="GitHub">
+
+                        <i class="fa-brands fa-github"></i>
+
+                    </a>
+
+
+                    <a
+                        href="#"
+                        title="Facebook">
+
+                        <i class="fa-brands fa-facebook"></i>
+
+                    </a>
+
+
+                    <a
+                        href="#"
+                        title="Instagram">
+
+                        <i class="fa-brands fa-instagram"></i>
+
+                    </a>
+
+
+                    <a
+                        href="#"
+                        title="YouTube">
+
+                        <i class="fa-brands fa-youtube"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- ================= CONTENT ================= -->
+
+        <section class="content">
+
+
+            <!-- ================= TOP BAR ================= -->
+
+            <div class="topbar">
+
+                <div>
+
+                    <span class="top-label">
+                        FUN X / PROFILE
+                    </span>
+
+                    <h2>
+                        الصفحة الشخصية
+                    </h2>
+
+                </div>
+
+
+                <div class="live-badge">
+
+                    <span></span>
+
+                    Online
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= HERO ================= -->
+
+            <section class="hero-card">
+
+                <div class="hero-content">
+
+                    <span class="hero-small">
+                        🚀 BUILDER • DEVELOPER • CREATOR
+                    </span>
+
+                    <h2>
+                        Welcome to
+                        <span>Fun X</span>
+                    </h2>
+
+                    <p>
+                        مساحة تجمع المشاريع والألعاب والتجارب
+                        الرقمية التي يتم تطويرها تحت علامة Fun X.
+                    </p>
+
+                </div>
+
+
+                <div class="hero-logo">
+
+                    <span>
+                        FX
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= STATS ================= -->
+
+            <section class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+                        <i class="fa-solid fa-gamepad"></i>
+                    </div>
+
+                    <div>
+                        <strong>9+</strong>
+                        <span>ألعاب</span>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon purple">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+
+                    <div>
+                        <strong>2+</strong>
+                        <span>أقسام</span>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon cyan">
+                        <i class="fa-solid fa-video"></i>
+                    </div>
+
+                    <div>
+                        <strong>3+</strong>
+                        <span>فيديو</span>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+
+                    <div>
+                        <strong>∞</strong>
+                        <span>أفكار</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= ABOUT ================= -->
+
+            <section class="content-card reveal">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <span class="section-tag">
+                            ABOUT
+                        </span>
+
+                        <h3>
+                            عن Fun X
+                        </h3>
+
+                    </div>
+
+                    <i class="fa-solid fa-cube section-symbol"></i>
+
+                </div>
+
+
+                <p class="about-text">
+
+                    Fun X مشروع رقمي ترفيهي يهدف إلى جمع
+                    الألعاب، الفيديوهات، الموسيقى والمحتوى
+                    التعليمي في تجربة بسيطة وحديثة.
+                    يتم تطوير الأفكار والمشاريع بشكل مستمر
+                    مع التركيز على التصميم والتفاعل.
+
+                </p>
+
+            </section>
+
+
+            <!-- ================= SKILLS ================= -->
+
+            <section class="content-card reveal">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <span class="section-tag">
+                            TECHNOLOGY
+                        </span>
+
+                        <h3>
+                            التقنيات والاهتمامات
+                        </h3>
+
+                    </div>
+
+                    <i class="fa-solid fa-microchip section-symbol"></i>
+
+                </div>
+
+
+                <div class="tech-list">
+
+                    <span>
+                        <i class="fa-brands fa-html5"></i>
+                        HTML
+                    </span>
+
+                    <span>
+                        <i class="fa-brands fa-css3-alt"></i>
+                        CSS
+                    </span>
+
+                    <span>
+                        <i class="fa-brands fa-js"></i>
+                        JavaScript
+                    </span>
+
+                    <span>
+                        <i class="fa-brands fa-python"></i>
+                        Python
+                    </span>
+
+                    <span>
+                        <i class="fa-solid fa-gamepad"></i>
+                        Game Dev
+                    </span>
+
+                    <span>
+                        <i class="fa-solid fa-robot"></i>
+                        AI
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= TIMELINE ================= -->
+
+            <section class="content-card reveal">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <span class="section-tag">
+                            JOURNEY
+                        </span>
+
+                        <h3>
+                            📅 Timeline تطور Fun X
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div class="timeline">
+
+
+                    <div
+                        class="timeline-event active"
+                        data-title="بداية Fun X"
+                        data-description="بداية فكرة Fun X كموقع ترفيهي وتجربة رقمية مستقلة."
+                    >
+
+                        <div class="timeline-dot">
+                            💡
+                        </div>
+
+                        <div class="timeline-content">
+
+                            <span>
+                                2023
+                            </span>
+
+                            <h4>
+                                بداية فكرة Fun X
+                            </h4>
+
+                            <p>
+                                أول خطوة في بناء المشروع.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="timeline-event"
+                        data-title="أول الألعاب"
+                        data-description="إضافة أول مجموعة من الألعاب والتجارب التفاعلية."
+                    >
+
+                        <div class="timeline-dot">
+                            🎮
+                        </div>
+
+                        <div class="timeline-content">
+
+                            <span>
+                                2024
+                            </span>
+
+                            <h4>
+                                إضافة الألعاب
+                            </h4>
+
+                            <p>
+                                دخول Fun X إلى عالم الألعاب.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="timeline-event"
+                        data-title="الفيديو والبث"
+                        data-description="إضافة صفحات الفيديو والمحتوى المرئي إلى Fun X."
+                    >
+
+                        <div class="timeline-dot">
+                            📺
+                        </div>
+
+                        <div class="timeline-content">
+
+                            <span>
+                                2025
+                            </span>
+
+                            <h4>
+                                الفيديو والبث
+                            </h4>
+
+                            <p>
+                                توسع المشروع في المحتوى المرئي.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="timeline-event future"
+                        data-title="المرحلة القادمة"
+                        data-description="تطوير الحسابات والشات والمزايا الجديدة."
+                    >
+
+                        <div class="timeline-dot">
+                            🚀
+                        </div>
+
+                        <div class="timeline-content">
+
+                            <span>
+                                المستقبل
+                            </span>
+
+                            <h4>
+                                الجيل القادم من Fun X
+                            </h4>
+
+                            <p>
+                                حسابات + شات + مزايا جديدة.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= CTA ================= -->
+
+            <section class="cta-card reveal">
+
+                <div>
+
+                    <span>
+                        ✨ NEXT STEP
+                    </span>
+
+                    <h3>
+                        الرحلة لسه في بدايتها
+                    </h3>
+
+                    <p>
+                        Fun X مستمر في التطور وبناء تجارب جديدة.
+                    </p>
+
+                </div>
+
+
+                <div class="cta-icon">
+                    🚀
+                </div>
+
+            </section>
+
+
+            <!-- ================= FOOTER ================= -->
+
+            <footer>
+
+                <span>
+                    Fun X
+                </span>
+
+                <i></i>
+
+                <span>
+                    Profile © 2026
+                </span>
+
+            </footer>
+
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= MODAL ================= -->
+
+    <div
+        class="modal"
+        id="timelineModal">
+
+        <div class="modal-box">
+
+            <button
+                class="modal-close"
+                id="modalClose">
+
+                ×
+
+            </button>
+
+            <div class="modal-icon">
+                ✨
+            </div>
+
+            <span
+                id="modalDate"
+                class="modal-date">
+                2023
+            </span>
+
+            <h3 id="modalTitle">
+                العنوان
+            </h3>
+
+            <p id="modalDescription">
+                التفاصيل
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= TOAST ================= -->
+
+    <div
+        class="toast"
+        id="toast">
+        تم التنفيذ
+    </div>
+
+
+    <script src="script.js"></script>
 
 </body>
+
 </html>
+
