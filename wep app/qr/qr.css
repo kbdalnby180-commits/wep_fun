@@ -1,105 +1,806 @@
-/* خلفية متدرجة ديناميكية */
+/* =====================================================
+   QR X — MODERN UI
+===================================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #1f1c2c, #928dab, #1f1c2c);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
+    font-family: Arial, "Segoe UI", sans-serif;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top left, #151b42 0%, transparent 35%),
+        radial-gradient(circle at bottom right, #241344 0%, transparent 35%),
+        #070914;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+.background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.grid {
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+
+    background-size: 45px 45px;
+
+    mask-image: linear-gradient(
+        to bottom,
+        black,
+        transparent
+    );
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.35;
+    animation: floatOrb 12s ease-in-out infinite;
+}
+
+.orb-1 {
+    width: 350px;
+    height: 350px;
+    background: #6846ff;
+    top: -120px;
+    left: -100px;
+}
+
+.orb-2 {
+    width: 300px;
+    height: 300px;
+    background: #00b7ff;
+    bottom: -100px;
+    right: -80px;
+    animation-delay: -5s;
+}
+
+@keyframes floatOrb {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(40px, -30px);
+    }
+
+}
+
+/* =====================================================
+   APP
+===================================================== */
+
+.app {
+    position: relative;
+    z-index: 2;
+
+    min-height: 100vh;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    margin: 0;
+
+    padding: 35px 15px;
+}
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.card {
+    width: 100%;
+    max-width: 520px;
+
+    padding: 30px;
+
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.10),
+            rgba(255,255,255,0.035)
+        );
+
+    border: 1px solid rgba(255,255,255,0.12);
+
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+
+    animation: cardIn 0.8s ease forwards;
+}
+
+@keyframes cardIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 35px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo > span {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7867ff,
+            #4d8dff
+        );
+
+    font-weight: 900;
+    font-size: 14px;
+
+    box-shadow:
+        0 10px 30px rgba(88, 91, 255, 0.35);
+}
+
+.logo strong {
+    display: block;
+    font-size: 18px;
+}
+
+.logo small {
+    display: block;
+    margin-top: 3px;
+
+    color: #8d94ae;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 7px 12px;
+
+    border-radius: 50px;
+
+    background: rgba(74, 255, 164, 0.08);
+    border: 1px solid rgba(74,255,164,0.12);
+
+    color: #78ffb5;
+    font-size: 12px;
+}
+
+.status span {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+    background: #57ffa4;
+
+    box-shadow:
+        0 0 10px #57ffa4;
+
+    animation: pulse 1.7s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(0.75);
+    }
+
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.qr-icon {
+    width: 65px;
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: auto;
+    margin-bottom: 18px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(108,92,255,0.25),
+            rgba(0,190,255,0.15)
+        );
+
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.qr-icon span {
+    font-size: 38px;
+}
+
+.hero h1 {
+    font-size: clamp(28px, 6vw, 40px);
+    line-height: 1.2;
+    margin-bottom: 10px;
+}
+
+.hero h1 span {
+    background:
+        linear-gradient(
+            90deg,
+            #8c7cff,
+            #55d8ff
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero p {
+    color: #9ca4bd;
+    font-size: 14px;
+}
+
+/* =====================================================
+   INPUT
+===================================================== */
+
+.input-section {
+    margin-bottom: 18px;
+}
+
+.input-section label {
+    display: block;
+
+    color: #c8cee0;
+
+    font-size: 13px;
+    margin-bottom: 9px;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper input {
+    width: 100%;
+
+    height: 56px;
+
+    padding:
+        0 48px
+        0 18px;
+
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 16px;
+
+    outline: none;
+
+    background: rgba(5,8,20,0.65);
+
+    color: #fff;
+
+    font-size: 14px;
+
+    transition: 0.3s;
+}
+
+.input-wrapper input::placeholder {
+    color: #596178;
+}
+
+.input-wrapper input:focus {
+    border-color: rgba(117, 105, 255, 0.65);
+
+    box-shadow:
+        0 0 0 4px rgba(108,92,255,0.10),
+        0 10px 30px rgba(0,0,0,0.15);
+}
+
+.clear-btn {
+    position: absolute;
+
+    top: 50%;
+    right: 10px;
+
+    transform: translateY(-50%);
+
+    width: 34px;
+    height: 34px;
+
+    border: 0;
+    border-radius: 10px;
+
+    background: transparent;
+
+    color: #737c97;
+
+    font-size: 24px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.clear-btn:hover {
+    background: rgba(255,255,255,0.07);
     color: #fff;
 }
 
-@keyframes gradientBG {
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
-}
+/* =====================================================
+   ACTION BUTTONS
+===================================================== */
 
-/* بطاقة المولد */
-.container {
-    text-align: center;
-    background: rgba(0,0,0,0.7);
-    padding: 40px 30px;
-    border-radius: 25px;
-    box-shadow: 0 0 40px rgba(255,165,0,0.7), 0 0 60px rgba(255,140,0,0.4) inset;
-    max-width: 400px;
-    width: 90%;
-}
+.actions {
+    display: grid;
 
-/* العنوان */
-h1 {
-    margin-bottom: 30px;
-    color: #ffb74d;
-    font-size: 28px;
-    text-shadow: 0 0 10px #ff6f00;
-}
+    grid-template-columns: 1fr 1fr;
 
-/* مجموعة الإدخال + الزر */
-.input-group {
-    display: flex;
-    justify-content: center;
-    gap: 0;
-    margin-bottom: 25px;
-}
+    gap: 10px;
 
-input {
-    flex: 1;
-    padding: 12px 15px;
-    font-size: 16px;
-    border: none;
-    border-radius: 12px 0 0 12px;
-    outline: none;
-    box-shadow: inset 0 0 8px rgba(255,255,255,0.2);
+    margin-bottom: 27px;
 }
 
 button {
-    padding: 12px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 0 12px 12px 0;
+    font-family: inherit;
+}
+
+.generate-btn,
+.secondary-btn,
+.download-btn {
+    height: 52px;
+
+    border: 0;
+    border-radius: 15px;
+
     cursor: pointer;
-    background: linear-gradient(45deg, #ff9800, #ff5722);
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s,
+        opacity 0.2s;
+}
+
+.generate-btn {
+    background:
+        linear-gradient(
+            135deg,
+            #7567ff,
+            #4c9bff
+        );
+
     color: #fff;
-    font-weight: bold;
+
+    box-shadow:
+        0 12px 30px rgba(89,106,255,0.25);
+}
+
+.generate-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 18px 35px rgba(89,106,255,0.35);
+}
+
+.secondary-btn {
+    color: #d5d9e7;
+
+    background: rgba(255,255,255,0.055);
+
+    border: 1px solid rgba(255,255,255,0.09);
+}
+
+.secondary-btn:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.09);
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+/* =====================================================
+   QR SECTION
+===================================================== */
+
+.qr-section {
+    text-align: center;
+}
+
+.qr-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    color: #929ab3;
+
+    font-size: 12px;
+
+    margin-bottom: 18px;
+}
+
+.qr-title span {
+    height: 1px;
+    width: 50px;
+
+    background:
+        linear-gradient(
+            to left,
+            transparent,
+            rgba(255,255,255,0.15)
+        );
+}
+
+.qr-frame {
+    position: relative;
+
+    width: 270px;
+    height: 270px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: auto;
+
+    background: #ffffff;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 25px 55px rgba(0,0,0,0.35);
+
     transition: 0.3s;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-button:hover {
-    background: linear-gradient(45deg, #ff5722, #ff9800);
-    color: #000;
-    transform: scale(1.05);
+.qr-frame:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 30px 70px rgba(0,0,0,0.45);
 }
 
-/* QR Code */
 #qrcode {
-    margin: 20px auto 15px auto;
-    width: 220px;
-    height: 220px;
-    padding: 15px;
-    background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-    transition: transform 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 230px;
+    height: 230px;
+
+    overflow: hidden;
 }
 
-#qrcode:hover { transform: scale(1.05); }
+#qrcode img,
+#qrcode canvas {
+    width: 230px !important;
+    height: 230px !important;
 
-/* نص تحت QR Code */
+    display: block;
+}
+
+/* =====================================================
+   QR CORNERS
+===================================================== */
+
+.corner {
+    position: absolute;
+
+    width: 22px;
+    height: 22px;
+
+    border-color: #5c70ff;
+    border-style: solid;
+
+    pointer-events: none;
+}
+
+.top-left {
+    top: -7px;
+    left: -7px;
+
+    border-width: 3px 0 0 3px;
+    border-radius: 8px 0 0 0;
+}
+
+.top-right {
+    top: -7px;
+    right: -7px;
+
+    border-width: 3px 3px 0 0;
+    border-radius: 0 8px 0 0;
+}
+
+.bottom-left {
+    bottom: -7px;
+    left: -7px;
+
+    border-width: 0 0 3px 3px;
+    border-radius: 0 0 0 8px;
+}
+
+.bottom-right {
+    bottom: -7px;
+    right: -7px;
+
+    border-width: 0 3px 3px 0;
+    border-radius: 0 0 8px 0;
+}
+
 #qrText {
-    font-size: 16px;
-    color: #ffd54f;
-    margin-top: 10px;
-    text-shadow: 0 0 5px #ff6f00;
+    margin-top: 17px;
+
+    color: #8d95ad;
+
+    font-size: 13px;
 }
 
-/* استجابة الموبايل */
-@media(max-width:480px){
-    input { font-size:14px; padding:10px; }
-    button { font-size:14px; padding:10px; }
-    h1 { font-size:24px; }
-    #qrcode { width:180px; height:180px; }
+/* =====================================================
+   DOWNLOAD
+===================================================== */
+
+.download-btn {
+    width: 100%;
+
+    margin-top: 25px;
+
+    background: rgba(255,255,255,0.06);
+
+    color: #fff;
+
+    border: 1px solid rgba(255,255,255,0.10);
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+
+    background: rgba(255,255,255,0.10);
+}
+
+/* =====================================================
+   INFO
+===================================================== */
+
+.info {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+.info-item {
+    padding: 13px 8px;
+
+    text-align: center;
+
+    border-radius: 13px;
+
+    background: rgba(255,255,255,0.035);
+
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.info-item strong {
+    display: block;
+
+    font-size: 18px;
+
+    margin-bottom: 5px;
+}
+
+.info-item span {
+    color: #81899f;
+    font-size: 11px;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+    text-align: center;
+
+    margin-top: 25px;
+
+    color: #565e77;
+
+    font-size: 11px;
+}
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast {
+    position: fixed;
+
+    bottom: 25px;
+    left: 50%;
+
+    transform:
+        translateX(-50%)
+        translateY(80px);
+
+    z-index: 20;
+
+    padding: 13px 20px;
+
+    border-radius: 13px;
+
+    background:
+        rgba(16,20,36,0.95);
+
+    border: 1px solid rgba(255,255,255,0.10);
+
+    color: #fff;
+
+    font-size: 13px;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.35);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: 0.35s;
+}
+
+.toast.show {
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .app {
+        padding: 15px 10px;
+    }
+
+    .card {
+        padding: 22px 18px;
+        border-radius: 24px;
+    }
+
+    .header {
+        margin-bottom: 28px;
+    }
+
+    .hero h1 {
+        font-size: 29px;
+    }
+
+    .actions {
+        grid-template-columns: 1fr;
+    }
+
+    .qr-frame {
+        width: min(270px, 82vw);
+        height: min(270px, 82vw);
+    }
+
+    #qrcode {
+        width: min(230px, 70vw);
+        height: min(230px, 70vw);
+    }
+
+    #qrcode img,
+    #qrcode canvas {
+        width: min(230px, 70vw) !important;
+        height: min(230px, 70vw) !important;
+    }
+
+    .info {
+        gap: 7px;
+    }
+
+}
+
+@media (max-width: 380px) {
+
+    .logo strong {
+        font-size: 16px;
+    }
+
+    .status {
+        font-size: 10px;
+    }
+
+    .qr-frame {
+        width: 230px;
+        height: 230px;
+    }
+
+    #qrcode,
+    #qrcode img,
+    #qrcode canvas {
+        width: 195px !important;
+        height: 195px !important;
+    }
+
 }

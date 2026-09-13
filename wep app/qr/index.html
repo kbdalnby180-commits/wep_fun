@@ -1,22 +1,200 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مولد روابط QR Code</title>
-<link rel="stylesheet" href="qr.css">
-<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#080b18">
+    <meta
+        name="description"
+        content="مولد QR Code سريع لإنشاء رموز QR للروابط"
+    >
+
+    <title>QR X — مولد QR Code</title>
+
+    <link rel="stylesheet" href="qr.css">
+
+    <script
+        src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"
+        defer>
+    </script>
+
+    <script src="qr.js" defer></script>
 </head>
+
 <body>
-    <div class="container">
-        <h1>مولد روابط QR Code</h1>
-        <div class="input-group">
-            <input type="text" id="urlInput" value="http://localhost:3000/" placeholder="ادخل الرابط">
-            <button id="generateBtn">إنشاء QR Code</button>
-        </div>
-        <div id="qrcode"></div>
-        <p id="qrText">يمكنك مسح هذا الكود للوصول إلى الرابط</p>
+
+    <!-- خلفية -->
+    <div class="background">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="grid"></div>
     </div>
-<script src="qr.js"></script>
+
+    <!-- التطبيق -->
+    <main class="app">
+
+        <section class="card">
+
+            <!-- الهيدر -->
+            <header class="header">
+
+                <div class="logo">
+                    <span>QR</span>
+                    <div>
+                        <strong>QR X</strong>
+                        <small>Smart Generator</small>
+                    </div>
+                </div>
+
+                <div class="status">
+                    <span></span>
+                    جاهز
+                </div>
+
+            </header>
+
+            <!-- العنوان -->
+            <div class="hero">
+
+                <div class="qr-icon">
+                    <span>▦</span>
+                </div>
+
+                <h1>
+                    مولد
+                    <span>QR Code</span>
+                </h1>
+
+                <p>
+                    حوّل أي رابط إلى رمز QR احترافي خلال ثوانٍ
+                </p>
+
+            </div>
+
+            <!-- الإدخال -->
+            <div class="input-section">
+
+                <label for="urlInput">
+                    🔗 الرابط
+                </label>
+
+                <div class="input-wrapper">
+
+                    <input
+                        type="url"
+                        id="urlInput"
+                        value="http://localhost:3000/"
+                        placeholder="https://example.com"
+                        autocomplete="off"
+                        spellcheck="false"
+                    >
+
+                    <button
+                        type="button"
+                        id="clearBtn"
+                        class="clear-btn"
+                        title="مسح الرابط">
+                        ×
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- أزرار التحكم -->
+            <div class="actions">
+
+                <button
+                    type="button"
+                    id="generateBtn"
+                    class="generate-btn">
+
+                    <span>⚡</span>
+                    إنشاء QR Code
+
+                </button>
+
+                <button
+                    type="button"
+                    id="copyBtn"
+                    class="secondary-btn">
+
+                    📋 نسخ الرابط
+
+                </button>
+
+            </div>
+
+            <!-- QR -->
+            <section class="qr-section">
+
+                <div class="qr-title">
+                    <span></span>
+                    رمز QR الخاص بك
+                    <span></span>
+                </div>
+
+                <div class="qr-frame">
+
+                    <div id="qrcode"></div>
+
+                    <div class="corner top-left"></div>
+                    <div class="corner top-right"></div>
+                    <div class="corner bottom-left"></div>
+                    <div class="corner bottom-right"></div>
+
+                </div>
+
+                <p id="qrText">
+                    امسح الكود للوصول إلى الرابط
+                </p>
+
+            </section>
+
+            <!-- تحميل -->
+            <button
+                type="button"
+                id="downloadBtn"
+                class="download-btn">
+
+                <span>⬇</span>
+                تحميل QR Code
+
+            </button>
+
+            <!-- معلومات -->
+            <div class="info">
+
+                <div class="info-item">
+                    <strong>⚡</strong>
+                    <span>سريع</span>
+                </div>
+
+                <div class="info-item">
+                    <strong>🔒</strong>
+                    <span>محلي</span>
+                </div>
+
+                <div class="info-item">
+                    <strong>📱</strong>
+                    <span>متجاوب</span>
+                </div>
+
+            </div>
+
+            <footer>
+                QR X © 2026
+            </footer>
+
+        </section>
+
+    </main>
+
+    <!-- إشعار -->
+    <div id="toast" class="toast">
+        تم التنفيذ بنجاح
+    </div>
+
 </body>
 </html>
