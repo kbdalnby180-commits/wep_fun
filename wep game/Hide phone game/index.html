@@ -1,62 +1,385 @@
+
 <!doctype html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>📱 لعبة إخفاء الهاتف</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#07111f">
+
+  <title>📱 Fun X — لعبة إخفاء الهاتف</title>
+
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<h1>📱 لعبة إخفاء الهاتف</h1>
 
-<div class="card" id="setup">
- <h3>📝 إعدادات اللعبة</h3>
- <label>عدد اللاعبين: </label>
- <select id="playersCount">
-   <option value="2">2</option>
-   <option value="3" selected>3</option>
-   <option value="4">4</option>
-   <option value="5">5</option>
- </select><br><br>
+  <!-- =========================
+       BACKGROUND
+  ========================== -->
 
- <label>مدة المؤقت: </label>
- <select id="timerMinutes">
-   <option value="300">5 دقائق</option>
-   <option value="600">10 دقائق</option>
-   <option value="900">15 دقيقة</option>
-   <option value="1200">20 دقيقة</option>
- </select><br><br>
+  <div class="backgroundGlow glow1"></div>
+  <div class="backgroundGlow glow2"></div>
 
- <div id="playersInputs"></div>
- <button class="btn" onclick="generatePlayers()">✍️ إضافة أسماء اللاعبين</button><br><br>
- <button class="btn" onclick="startGame()">🎮 ابدأ اللعبة</button>
- <button class="btn" onclick="toggleTheme()">🌗 تبديل الوضع</button>
-</div>
+  <!-- =========================
+       HEADER
+  ========================== -->
 
-<div id="gameArea" style="display:none">
- <div class="card">
-   <h2>⏳ الوقت المتبقي</h2>
-   <div id="timer">00:00</div>
-   <div id="buttonsArea" class="grid"></div>
- </div>
+  <header class="topbar">
 
- <div id="roundBreak">
-   <div class="circle" id="breakCircle">15</div>
-   <p>⏳ استراحة قصيرة قبل الجولة التالية</p>
- </div>
+    <div class="brand">
+      <div class="brandIcon">
+        📱
+      </div>
 
- <div class="card">
-   <h3>📊 النقاط</h3>
-   <table>
-     <thead>
-       <tr><th>اللاعب</th><th>النقاط</th></tr>
-     </thead>
-     <tbody id="scoreTable"></tbody>
-   </table>
- </div>
- <button class="btn" onclick="toggleTheme()">🌗 تبديل الوضع</button>
-</div>
+      <div>
+        <h1>Fun X</h1>
+        <span>PHONE HIDE GAME</span>
+      </div>
+    </div>
 
-<script src="script.js"></script>
+    <button
+      class="themeBtn"
+      onclick="toggleTheme()"
+      title="تغيير الوضع"
+    >
+      🌗
+    </button>
+
+  </header>
+
+  <!-- =========================
+       SETUP
+  ========================== -->
+
+  <main id="setup">
+
+    <section class="heroCard">
+
+      <div class="heroIcon">
+        📱
+      </div>
+
+      <h2>
+        لعبة إخفاء الهاتف
+      </h2>
+
+      <p>
+        اختر اللاعبين وابدأ جولة جديدة
+      </p>
+
+    </section>
+
+    <section class="card">
+
+      <div class="sectionTitle">
+        ⚙️ إعدادات اللعبة
+      </div>
+
+      <div class="formGrid">
+
+        <div class="field">
+
+          <label>
+            👥 عدد اللاعبين
+          </label>
+
+          <select id="playersCount">
+            <option value="2">2 لاعبين</option>
+            <option value="3" selected>3 لاعبين</option>
+            <option value="4">4 لاعبين</option>
+            <option value="5">5 لاعبين</option>
+            <option value="6">6 لاعبين</option>
+            <option value="7">7 لاعبين</option>
+            <option value="8">8 لاعبين</option>
+          </select>
+
+        </div>
+
+        <div class="field">
+
+          <label>
+            ⏱ مدة الجولة
+          </label>
+
+          <select id="timerMinutes">
+
+            <option value="180">
+              3 دقائق
+            </option>
+
+            <option value="300" selected>
+              5 دقائق
+            </option>
+
+            <option value="600">
+              10 دقائق
+            </option>
+
+            <option value="900">
+              15 دقيقة
+            </option>
+
+            <option value="1200">
+              20 دقيقة
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+      <div class="playersHeader">
+        <span>👤 أسماء اللاعبين</span>
+
+        <button
+          class="smallBtn"
+          onclick="generatePlayers()"
+        >
+          ✍️ تحديث
+        </button>
+      </div>
+
+      <div id="playersInputs"></div>
+
+      <div class="setupActions">
+
+        <button
+          class="btn secondaryBtn"
+          onclick="generatePlayers()"
+        >
+          👥 تجهيز اللاعبين
+        </button>
+
+        <button
+          class="btn primaryBtn"
+          onclick="startGame()"
+        >
+          🚀 ابدأ اللعبة
+        </button>
+
+      </div>
+
+    </section>
+
+    <section class="infoCard">
+
+      <div>🏆 سجّل أكبر عدد من النقاط</div>
+      <div>⏱ ابحث قبل انتهاء الجولة</div>
+      <div>🔄 تبدأ جولة جديدة بعد الاستراحة</div>
+
+    </section>
+
+  </main>
+
+  <!-- =========================
+       GAME AREA
+  ========================== -->
+
+  <main id="gameArea" class="gameArea hidden">
+
+    <section class="gameHeader">
+
+      <div class="gameTitle">
+        <span>📱 الجولة الحالية</span>
+        <strong id="roundNumber">1</strong>
+      </div>
+
+      <div class="statusBadge" id="gameStatus">
+        ● اللعب مستمر
+      </div>
+
+    </section>
+
+    <!-- TIMER -->
+
+    <section class="timerCard">
+
+      <div class="timerLabel">
+        ⏳ الوقت المتبقي
+      </div>
+
+      <div id="timer">
+        05:00
+      </div>
+
+      <div class="timerTrack">
+        <div id="timerFill"></div>
+      </div>
+
+      <div class="timerHint">
+        عندما يجد أحد اللاعبين الهاتف اضغط على اسمه
+      </div>
+
+    </section>
+
+    <!-- PLAYER BUTTONS -->
+
+    <section class="card">
+
+      <div class="sectionTitle">
+        👥 من وجد الهاتف؟
+      </div>
+
+      <div
+        id="buttonsArea"
+        class="playerGrid"
+      ></div>
+
+    </section>
+
+    <!-- ROUND BREAK -->
+
+    <section
+      id="roundBreak"
+      class="breakCard"
+    >
+
+      <div class="breakIcon">
+        ☕
+      </div>
+
+      <h2>
+        استراحة الجولة
+      </h2>
+
+      <div
+        class="circle"
+        id="breakCircle"
+      >
+        15
+      </div>
+
+      <p>
+        استعدوا للجولة القادمة 🚀
+      </p>
+
+    </section>
+
+    <!-- SCORE -->
+
+    <section class="card">
+
+      <div class="sectionTitle">
+        🏆 لوحة النتائج
+      </div>
+
+      <div
+        id="winnerBanner"
+        class="winnerBanner hidden"
+      ></div>
+
+      <div class="tableWrapper">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>اللاعب</th>
+              <th>النقاط</th>
+            </tr>
+          </thead>
+
+          <tbody id="scoreTable"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+    <!-- GAME ACTIONS -->
+
+    <section class="gameActions">
+
+      <button
+        class="btn secondaryBtn"
+        onclick="restartCurrentGame()"
+      >
+        🔄 إعادة اللعبة
+      </button>
+
+      <button
+        class="btn dangerBtn"
+        onclick="endGame()"
+      >
+        🛑 إنهاء
+      </button>
+
+      <button
+        class="btn"
+        onclick="toggleTheme()"
+      >
+        🌗 الوضع
+      </button>
+
+    </section>
+
+  </main>
+
+  <!-- =========================
+       RESULT MODAL
+  ========================== -->
+
+  <div
+    id="resultModal"
+    class="modalOverlay hidden"
+  >
+
+    <div class="resultModal">
+
+      <div class="resultIcon">
+        🏆
+      </div>
+
+      <h2>
+        نهاية اللعبة
+      </h2>
+
+      <p id="resultText">
+        أحسنتم جميعًا!
+      </p>
+
+      <div
+        id="finalRanking"
+        class="finalRanking"
+      ></div>
+
+      <div class="modalActions">
+
+        <button
+          class="btn primaryBtn"
+          onclick="closeResultAndRestart()"
+        >
+          🚀 لعبة جديدة
+        </button>
+
+        <button
+          class="btn secondaryBtn"
+          onclick="closeResultModal()"
+        >
+          إغلاق
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- =========================
+       TOAST
+  ========================== -->
+
+  <div
+    id="toast"
+    class="toast"
+  ></div>
+
+  <script src="script.js"></script>
+
 </body>
 </html>
+
