@@ -1,16 +1,288 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🔥 لعبة التحديات 🔥</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <h1>🔥 لعبة التحديات 🔥</h1>
-  <div class="card" id="challenge">اضغط على الزر لتبدأ التحدي!</div>
-  <button class="btn" id="challengeBtn">🎲 اعرض تحدي</button>
 
-  <script src="script.js"></script>
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#070b14"
+    >
+
+    <title>Fun X | Challenges</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= BACKGROUND ================= -->
+
+    <div class="background">
+
+        <div class="grid"></div>
+
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+
+        <div id="particles"></div>
+
+    </div>
+
+
+    <!-- ================= APP ================= -->
+
+    <main class="app">
+
+        <!-- HEADER -->
+
+        <header class="header">
+
+            <div class="brand">
+
+                <div class="brand-logo">
+                    FX
+                </div>
+
+                <div>
+                    <strong>
+                        Fun X
+                    </strong>
+
+                    <small>
+                        Challenges
+                    </small>
+                </div>
+
+            </div>
+
+
+            <div class="mode-badge">
+
+                🎮 PARTY MODE
+
+            </div>
+
+        </header>
+
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="hero-badge">
+                🔥 FUN X GAME
+            </div>
+
+            <h1>
+                لعبة
+                <span>التحديات</span>
+            </h1>
+
+            <p>
+                اختر تحديًا عشوائيًا واستمتع مع أصدقائك
+            </p>
+
+        </section>
+
+
+        <!-- MAIN CARD -->
+
+        <section class="game-card">
+
+
+            <div class="game-top">
+
+                <div>
+
+                    <span class="section-tag">
+                        RANDOM CHALLENGE
+                    </span>
+
+                    <h2>
+                        جاهز للتحدي؟
+                    </h2>
+
+                </div>
+
+
+                <div class="challenge-count">
+
+                    <span>
+                        التحديات
+                    </span>
+
+                    <strong id="challengeCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- CHALLENGE -->
+
+            <div
+                id="challenge"
+                class="challenge-card">
+
+                <div class="challenge-icon">
+                    🎲
+                </div>
+
+                <p id="challengeText">
+                    اضغط على الزر لتبدأ التحدي!
+                </p>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="main-actions">
+
+                <button
+                    id="challengeBtn"
+                    class="main-btn"
+                    type="button">
+
+                    🎲
+                    تحدي جديد
+
+                </button>
+
+
+                <button
+                    id="copyBtn"
+                    class="secondary-btn"
+                    type="button">
+
+                    📋 نسخ التحدي
+
+                </button>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div
+                id="status"
+                class="status">
+
+                <span></span>
+
+                لا يوجد تحدي نشط
+
+            </div>
+
+
+            <!-- QUICK INFO -->
+
+            <div class="quick-grid">
+
+                <div class="quick-card">
+
+                    <strong>
+                        🎲
+                    </strong>
+
+                    <span>
+                        عشوائي
+                    </span>
+
+                </div>
+
+
+                <div class="quick-card">
+
+                    <strong>
+                        ⚡
+                    </strong>
+
+                    <span>
+                        سريع
+                    </span>
+
+                </div>
+
+
+                <div class="quick-card">
+
+                    <strong>
+                        👥
+                    </strong>
+
+                    <span>
+                        جماعي
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TIPS -->
+
+        <section class="tips-card">
+
+            <div class="tip-icon">
+                💡
+            </div>
+
+            <div>
+
+                <strong>
+                    فكرة
+                </strong>
+
+                <p>
+                    تقدر تستخدم اللعبة مع أصحابك، وكل شخص يضغط للحصول على تحدٍ جديد.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <footer>
+
+            <strong>
+                Fun X
+            </strong>
+
+            <span>
+                Challenges © 2026
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <!-- TOAST -->
+
+    <div
+        id="toast"
+        class="toast">
+
+        تم التنفيذ
+
+    </div>
+
+
+    <script src="script.js"></script>
+
 </body>
+
 </html>
+
