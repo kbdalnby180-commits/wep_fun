@@ -1,25 +1,185 @@
+
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>لعبة XO</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fun X — لعبة XO</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<div class="stars"></div>
-<div class="moon"></div>
 
-<div class="menu" id="menu">
-  <h1>اختر وضع اللعبة 🎮</h1>
-  <button onclick="startGame('bot')">ضد روبوت 🤖</button>
-  <button onclick="startGame('human')">ضد لاعب 👤</button>
-</div>
+    <!-- الخلفية -->
+    <div class="stars"></div>
+    <div class="moon"></div>
 
-<div class="board" id="board" style="display:none;"></div>
-<div id="status"></div>
-<button id="restart" onclick="restart()">إعادة اللعب</button>
+    <!-- القائمة الرئيسية -->
+    <section class="menu" id="menu">
 
-<script src="script.js"></script>
+        <div class="logo">❌⭕</div>
+
+        <h1>لعبة XO</h1>
+
+        <p class="subtitle">
+            اختار طريقة اللعب وابدأ التحدي 🎮
+        </p>
+
+        <div class="menu-card">
+
+            <h2>🎯 وضع اللعب</h2>
+
+            <button
+                class="mode-btn bot-mode"
+                onclick="startGame('bot')">
+                🤖 ضد الروبوت
+            </button>
+
+            <button
+                class="mode-btn human-mode"
+                onclick="startGame('human')">
+                👤 ضد لاعب
+            </button>
+
+
+            <div id="difficultyBox" class="difficulty-box">
+
+                <h3>🧠 مستوى الروبوت</h3>
+
+                <select id="difficulty">
+                    <option value="easy">سهل</option>
+                    <option value="medium">متوسط</option>
+                    <option value="hard">صعب</option>
+                </select>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- اللعبة -->
+    <main id="gameUI" class="game-ui hidden">
+
+        <div class="game-header">
+
+            <button
+                id="backBtn"
+                class="small-btn">
+                ← القائمة
+            </button>
+
+            <div class="game-title">
+                <span>❌⭕</span>
+                <strong>Fun X XO</strong>
+            </div>
+
+            <button
+                id="newGameBtn"
+                class="small-btn">
+                🔄 إعادة
+            </button>
+
+        </div>
+
+
+        <!-- النتائج -->
+        <section class="scoreboard">
+
+            <div class="player-card x-player">
+
+                <span class="player-icon">❌</span>
+
+                <div>
+                    <small>اللاعب X</small>
+                    <strong id="scoreX">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="draw-card">
+
+                <small>تعادل</small>
+
+                <strong id="scoreDraw">0</strong>
+
+            </div>
+
+
+            <div class="player-card o-player">
+
+                <span class="player-icon">⭕</span>
+
+                <div>
+                    <small id="oName">الروبوت O</small>
+                    <strong id="scoreO">0</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- الحالة -->
+        <div id="status" class="status">
+            دور اللاعب X
+        </div>
+
+
+        <!-- اللوحة -->
+        <section class="board-wrapper">
+
+            <div
+                id="board"
+                class="board"
+                aria-label="لوحة لعبة XO">
+            </div>
+
+        </section>
+
+
+        <!-- رسالة الفوز -->
+        <div id="result" class="result hidden">
+
+            <div id="resultIcon">🏆</div>
+
+            <h2 id="resultTitle">
+                فاز اللاعب X!
+            </h2>
+
+            <p id="resultText">
+                أحسنت!
+            </p>
+
+            <div class="result-buttons">
+
+                <button
+                    id="playAgainBtn"
+                    class="primary-btn">
+                    🔄 مباراة جديدة
+                </button>
+
+                <button
+                    id="menuBtn"
+                    class="secondary-btn">
+                    🏠 القائمة الرئيسية
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
 </body>
+
 </html>
+
