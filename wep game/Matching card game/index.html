@@ -1,26 +1,119 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎴 لعبة الورق المتشابه</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>🎴 لعبة الورق المتشابه | Fun X</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<h1>🎴 لعبة الورق المتشابه</h1>
 
-<div class="controls">
- <label>اختر المستوى: </label>
- <select id="level">
-   <option value="6">سهل (6 أزواج)</option>
-   <option value="12">متوسط (12 زوج)</option>
-   <option value="20">صعب (20 زوج)</option>
- </select>
- <button id="startBtn">ابدأ اللعبة</button>
-</div>
+    <div class="background-glow glow-1"></div>
+    <div class="background-glow glow-2"></div>
 
-<div id="game" class="game-board"></div>
+    <main class="container">
 
-<script src="script.js"></script>
+        <header class="header">
+            <div class="logo">🎴</div>
+
+            <div>
+                <h1>لعبة الورق المتشابه</h1>
+                <p>اختبر ذاكرتك واعثر على جميع الأزواج المتشابهة 🧠</p>
+            </div>
+        </header>
+
+
+        <section class="control-panel">
+
+            <div class="control-group">
+                <label for="level">🎯 مستوى اللعبة</label>
+
+                <select id="level">
+                    <option value="6">سهل — 6 أزواج</option>
+                    <option value="12">متوسط — 12 زوج</option>
+                    <option value="20">صعب — 20 زوج</option>
+                </select>
+            </div>
+
+            <button id="startBtn" class="start-btn">
+                🚀 ابدأ اللعبة
+            </button>
+
+        </section>
+
+
+        <section class="stats">
+
+            <div class="stat-box">
+                <span>🏆 الأزواج</span>
+                <strong id="matches">0 / 6</strong>
+            </div>
+
+            <div class="stat-box">
+                <span>🎯 الحركات</span>
+                <strong id="moves">0</strong>
+            </div>
+
+            <div class="stat-box">
+                <span>⏱️ الوقت</span>
+                <strong id="timer">00:00</strong>
+            </div>
+
+        </section>
+
+
+        <section id="game" class="game-board">
+
+            <div class="welcome-screen">
+                <div class="welcome-icon">🎴</div>
+                <h2>جاهز للتحدي؟</h2>
+                <p>اختر المستوى واضغط على «ابدأ اللعبة»</p>
+            </div>
+
+        </section>
+
+
+        <section id="winPanel" class="win-panel hidden">
+
+            <div class="win-icon">🏆</div>
+
+            <h2>🎉 أحسنت!</h2>
+
+            <p>لقد أنهيت جميع الأزواج بنجاح!</p>
+
+            <div class="win-stats">
+                <div>
+                    <span>الحركات</span>
+                    <strong id="finalMoves">0</strong>
+                </div>
+
+                <div>
+                    <span>الوقت</span>
+                    <strong id="finalTime">00:00</strong>
+                </div>
+            </div>
+
+            <button id="playAgainBtn">
+                🔄 العب مرة أخرى
+            </button>
+
+        </section>
+
+
+        <footer>
+            <span>Made with ❤️ by</span>
+            <strong>Fun X</strong>
+        </footer>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
 </body>
 </html>
+
