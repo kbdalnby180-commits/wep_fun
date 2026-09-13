@@ -1,64 +1,755 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>لعبة المحقق – القضايا المستحيلة</title>
-<link rel="stylesheet" href="style.css">
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#05070c"
+    >
+
+    <title>Detective X | القضايا المستحيلة</title>
+
+    <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
-<header>
-<h1>🕵️ القضايا المستحيلة</h1>
-<p>اختيار واحد فقط… والقرار النهائي</p>
-</header>
 
-<div class="container">
+    <!-- ================= BACKGROUND ================= -->
 
-<div class="paper">
-<h3>📂 قضية اليوم – ملف رقم 01</h3>
-<p>الضحية: رجل أعمال – 47 سنة – مكتب مغلق من الداخل، نافذة المطبخ مفتوحة 10 سم، ساعة الحائط توقفت عند 01:47، الكوب يحتوي على قهوة سوداء ناقصة.</p>
-</div>
+    <div class="background">
 
-<h2>📄 أوراق الأدلة</h2>
-<div class="grid">
-<div class="paper"><h3>ورقة دليل #1</h3><p>بصمة مشوهة قرب النافذة، قريبة من آثار قدم قصيرة.</p></div>
-<div class="paper"><h3>ورقة دليل #2</h3><p>هاتف الضحية تلقى مكالمة واردة 01:44 لم يرد عليها.</p></div>
-<div class="paper"><h3>ورقة دليل #3</h3><p>ضربة منخفضة ومتوسطة القوة، الأداة غير حادة.</p></div>
-<div class="paper"><h3>ورقة دليل #4</h3><p>شعرة سوداء غير متطابقة مع شعر الضحية.</p></div>
-<div class="paper"><h3>ورقة دليل #5</h3><p>آثار أقدام مخفية جزئيًا على الأرضية.</p></div>
-<div class="paper"><h3>ورقة دليل #6</h3><p>النافذة لا تسمح بمرور شخص بالغ إلا بصعوبة كبيرة.</p></div>
-<div class="paper"><h3>ورقة دليل #7</h3><p>لا توجد آثار دم على الملابس الأمامية للضحية.</p></div>
-<div class="paper"><h3>ورقة دليل #8</h3><p>المكيف كان يعمل على درجة منخفضة جدًا وقت الوفاة.</p></div>
-<div class="paper"><h3>ورقة دليل #9</h3><p>سجادة صغيرة قرب الباب الأصلي مزعجة، بها آثار غبار جزئي.</p></div>
-<div class="paper"><h3>ورقة دليل #10</h3><p>لوحة مفاتيح الضحية عليها طباعة ناقصة، بعض المفاتيح مفقودة.</p></div>
-</div>
+        <div class="grid"></div>
 
-<h2>🧑‍🤝‍🧑 المشتبه فيهم</h2>
-<div class="grid">
-<div class="paper"><h3>مشتبه #1</h3><p>محاسب – أعسر – لا يشرب قهوة – هاتفه نشط حتى 01:55 – لا يمتلك مفتاح للشقة.</p></div>
-<div class="paper"><h3>مشتبه #2</h3><p>شريك سابق – أيمن – يشرب قهوة سوداء – يمتلك مفتاح قديم – ساعته متوقفة – آخر شخص شاهده الضحية.</p></div>
-<div class="paper"><h3>مشتبه #3</h3><p>جار – قصير القامة – أيمن – يعاني ضعف نظر – سمع صوت ارتطام – منزله قريب من الشقة 3 أمتار.</p></div>
-<div class="paper"><h3>مشتبه #4</h3><p>موظف أمن سابق – أعسر – لديه سجلات دخول وخروج دقيقة – لا يوجد لديه مفتاح حالياً.</p></div>
-<div class="paper"><h3>مشتبه #5</h3><p>سائق خاص – أيمن – آخر من غادر المنزل – ساعة يدوية مفقودة.</p></div>
-</div>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
 
-<div class="lock">
-<h2>🔒 القرار النهائي (مرة واحدة فقط)</h2>
-<select id="choice">
-<option value="">اختر القاتل</option>
-<option value="1">المشتبه الأول</option>
-<option value="2">المشتبه الثاني</option>
-<option value="3">المشتبه الثالث</option>
-<option value="4">المشتبه الرابع</option>
-<option value="5">المشتبه الخامس</option>
-</select>
-<button id="solveBtn">إغلاق القضية</button>
-<div class="result" id="result"></div>
-</div>
+        <div id="particles"></div>
 
-</div>
-<script src="script.js"></script>
+    </div>
 
-<footer>© Fun X – Impossible Cases</footer>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                DX
+            </div>
+
+            <div>
+
+                <strong>
+                    Detective X
+                </strong>
+
+                <small>
+                    Impossible Cases
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="case-status">
+
+            <span></span>
+            قضية نشطة
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="hero-badge">
+            🕵️ INVESTIGATION MODE
+        </div>
+
+        <h1>
+            القضايا
+            <span>المستحيلة</span>
+        </h1>
+
+        <p>
+            اجمع الأدلة، حلل التفاصيل، واتخذ القرار النهائي
+        </p>
+
+    </section>
+
+
+    <!-- ================= CASE ================= -->
+
+    <main class="container">
+
+
+        <!-- CASE HEADER -->
+
+        <section class="case-card">
+
+            <div class="case-top">
+
+                <div>
+
+                    <span class="section-tag">
+                        CASE FILE
+                    </span>
+
+                    <h2>
+                        📂 القضية رقم 01
+                    </h2>
+
+                </div>
+
+
+                <div class="case-number">
+                    #001
+                </div>
+
+            </div>
+
+
+            <div class="victim-box">
+
+                <div class="victim-icon">
+                    ⚠️
+                </div>
+
+                <div>
+
+                    <span>
+                        الضحية
+                    </span>
+
+                    <strong>
+                        رجل أعمال — 47 سنة
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <p class="case-description">
+
+                عُثر على الضحية داخل مكتب مغلق من الداخل.
+                نافذة المطبخ مفتوحة 10 سم، ساعة الحائط
+                توقفت عند 01:47، والكوب يحتوي على قهوة
+                سوداء ناقصة.
+
+            </p>
+
+
+            <div class="case-facts">
+
+                <div>
+                    <span>🕐</span>
+                    <small>01:47</small>
+                </div>
+
+                <div>
+                    <span>☕</span>
+                    <small>قهوة سوداء</small>
+                </div>
+
+                <div>
+                    <span>🪟</span>
+                    <small>نافذة مفتوحة</small>
+                </div>
+
+                <div>
+                    <span>🔒</span>
+                    <small>مكتب مغلق</small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= EVIDENCE ================= -->
+
+        <section class="section-block">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-tag">
+                        EVIDENCE
+                    </span>
+
+                    <h2>
+                        📄 أوراق الأدلة
+                    </h2>
+
+                </div>
+
+                <span class="count-badge">
+                    10 أدلة
+                </span>
+
+            </div>
+
+
+            <div class="evidence-grid">
+
+
+                <article class="evidence-card">
+
+                    <div class="evidence-number">
+                        01
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            بصمة قرب النافذة
+                        </h3>
+
+                        <p>
+                            بصمة مشوهة قرب النافذة
+                            قريبة من آثار قدم قصيرة.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="evidence-card">
+
+                    <div class="evidence-number">
+                        02
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            المكالمة الأخيرة
+                        </h3>
+
+                        <p>
+                            هاتف الضحية تلقى مكالمة
+                            واردة 01:44 لم يتم الرد عليها.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="evidence-card">
+
+                    <div class="evidence-number">
+                        03
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            أداة الضربة
+                        </h3>
+
+                        <p>
+                            ضربة منخفضة ومتوسطة القوة،
+                            والأداة غير حادة.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="evidence-card">
+
+                    <div class="evidence-number">
+                        04
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            شعرة غريبة
+                        </h3>
+
+                        <p>
+                            شعرة سوداء غير متطابقة
+                            مع شعر الضحية.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="evidence-card">
+
+                    <div class="evidence-number">
+                        05
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            آثار أقدام
+                        </h3>
+
+                        <p>
+                            آثار أقدام مخفية جزئيًا
+                            على الأرضية.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="evidence-card">
+
+                    <div class="evidence-number">
+                        06
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            حجم النافذة
+                        </h3>
+
+                        <p>
+                            النافذة لا تسمح بمرور شخص بالغ
+                            إلا بصعوبة كبيرة.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="evidence-card">
+
+                    <div class="evidence-number">
+                        07
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            الملابس
+                        </h3>
+
+                        <p>
+                            لا توجد آثار دم على الملابس
+                            الأمامية للضحية.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="evidence-card">
+
+                    <div class="evidence-number">
+                        08
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            المكيف
+                        </h3>
+
+                        <p>
+                            المكيف كان يعمل على درجة
+                            منخفضة جدًا وقت الوفاة.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="evidence-card">
+
+                    <div class="evidence-number">
+                        09
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            السجادة
+                        </h3>
+
+                        <p>
+                            سجادة قرب الباب بها آثار
+                            غبار جزئية ومزعجة.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="evidence-card">
+
+                    <div class="evidence-number">
+                        10
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            لوحة المفاتيح
+                        </h3>
+
+                        <p>
+                            بعض المفاتيح مفقودة من لوحة
+                            مفاتيح الضحية.
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SUSPECTS ================= -->
+
+        <section class="section-block">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-tag">
+                        SUSPECTS
+                    </span>
+
+                    <h2>
+                        🧑‍🤝‍🧑 المشتبه فيهم
+                    </h2>
+
+                </div>
+
+                <span class="count-badge">
+                    5 مشتبهين
+                </span>
+
+            </div>
+
+
+            <div class="suspects-grid">
+
+
+                <article class="suspect-card">
+
+                    <div class="suspect-top">
+
+                        <div class="suspect-avatar">
+                            01
+                        </div>
+
+                        <span>
+                            مشتبه #1
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        المحاسب
+                    </h3>
+
+                    <p>
+                        أعسر — لا يشرب قهوة —
+                        هاتفه نشط حتى 01:55 —
+                        لا يمتلك مفتاحًا للشقة.
+                    </p>
+
+                </article>
+
+
+                <article class="suspect-card">
+
+                    <div class="suspect-top">
+
+                        <div class="suspect-avatar">
+                            02
+                        </div>
+
+                        <span>
+                            مشتبه #2
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        الشريك السابق
+                    </h3>
+
+                    <p>
+                        أيمن — يشرب قهوة سوداء —
+                        يمتلك مفتاحًا قديمًا —
+                        ساعته متوقفة —
+                        آخر شخص شاهده الضحية.
+                    </p>
+
+                </article>
+
+
+                <article class="suspect-card">
+
+                    <div class="suspect-top">
+
+                        <div class="suspect-avatar">
+                            03
+                        </div>
+
+                        <span>
+                            مشتبه #3
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        الجار
+                    </h3>
+
+                    <p>
+                        قصير القامة — أيمن —
+                        يعاني ضعف نظر —
+                        سمع صوت ارتطام —
+                        منزله يبعد 3 أمتار.
+                    </p>
+
+                </article>
+
+
+                <article class="suspect-card">
+
+                    <div class="suspect-top">
+
+                        <div class="suspect-avatar">
+                            04
+                        </div>
+
+                        <span>
+                            مشتبه #4
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        موظف الأمن السابق
+                    </h3>
+
+                    <p>
+                        أعسر — لديه سجلات دخول
+                        وخروج دقيقة —
+                        لا يوجد لديه مفتاح حاليًا.
+                    </p>
+
+                </article>
+
+
+                <article class="suspect-card">
+
+                    <div class="suspect-top">
+
+                        <div class="suspect-avatar">
+                            05
+                        </div>
+
+                        <span>
+                            مشتبه #5
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        السائق الخاص
+                    </h3>
+
+                    <p>
+                        أيمن — آخر من غادر المنزل —
+                        ساعة يدوية مفقودة.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= FINAL DECISION ================= -->
+
+        <section
+            class="decision-card"
+            id="decisionCard">
+
+            <div class="lock-icon">
+                🔐
+            </div>
+
+
+            <span class="section-tag">
+                FINAL DECISION
+            </span>
+
+
+            <h2>
+                القرار النهائي
+            </h2>
+
+
+            <p>
+                لديك محاولة واحدة فقط.
+                بعد إغلاق القضية لن تستطيع تغيير القرار.
+            </p>
+
+
+            <div class="decision-line"></div>
+
+
+            <label for="choice">
+                من تعتقد أنه القاتل؟
+            </label>
+
+
+            <select id="choice">
+
+                <option value="">
+                    اختر المشتبه به
+                </option>
+
+                <option value="1">
+                    المشتبه الأول — المحاسب
+                </option>
+
+                <option value="2">
+                    المشتبه الثاني — الشريك السابق
+                </option>
+
+                <option value="3">
+                    المشتبه الثالث — الجار
+                </option>
+
+                <option value="4">
+                    المشتبه الرابع — موظف الأمن
+                </option>
+
+                <option value="5">
+                    المشتبه الخامس — السائق
+                </option>
+
+            </select>
+
+
+            <button
+                id="solveBtn"
+                class="solve-btn"
+                type="button">
+
+                🔒 إغلاق القضية
+
+            </button>
+
+
+            <div
+                id="result"
+                class="result">
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- ================= MODAL ================= -->
+
+    <div
+        id="resultModal"
+        class="modal">
+
+        <div class="modal-box">
+
+            <div
+                id="modalIcon"
+                class="modal-icon">
+                🕵️
+            </div>
+
+            <span
+                id="modalTag"
+                class="modal-tag">
+                CASE CLOSED
+            </span>
+
+            <h2 id="modalTitle">
+                القضية مغلقة
+            </h2>
+
+            <p id="modalText">
+                تم تسجيل قرارك.
+            </p>
+
+            <button
+                id="closeModal"
+                class="modal-btn"
+                type="button">
+
+                متابعة
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <footer>
+
+        <strong>
+            Detective X
+        </strong>
+
+        <span>
+            © 2026
+        </span>
+
+        <span>
+            Impossible Cases
+        </span>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
 </body>
+
 </html>
+
