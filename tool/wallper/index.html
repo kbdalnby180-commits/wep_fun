@@ -1,27 +1,282 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>fun X معرض </title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#060912"
+    >
+
+    <meta
+        name="description"
+        content="Fun X Wallpapers — معرض خلفيات للكمبيوتر"
+    >
+
+    <title>Fun X | Wallpapers</title>
+
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
-    <header>
-        <h1> معرض خلفيات للكمبيوتر</h1>
-        <p>خلفيات فاشون • مظلمة  </p>
+    <!-- ================= BACKGROUND ================= -->
+
+    <div class="background">
+
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+
+        <div class="grid"></div>
+
+    </div>
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                FX
+            </div>
+
+            <div>
+
+                <strong>
+                    Fun X
+                </strong>
+
+                <small>
+                    Wallpapers
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="header-badge">
+
+            <span></span>
+            معرض الخلفيات
+
+        </div>
+
     </header>
 
-    <section class="gallery" id="gallery">
-        <!-- الكروت هتتولد هنا تلقائيًا -->
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="hero-badge">
+            🖼️ FUN X CREATIVE
+        </div>
+
+        <h1>
+            معرض
+            <span>خلفيات الكمبيوتر</span>
+        </h1>
+
+        <p>
+            اختر الخلفية التي تعجبك وحمّلها بجودة عالية
+        </p>
+
     </section>
 
+
+    <!-- ================= TOOLS ================= -->
+
+    <section class="tools">
+
+        <div class="search-box">
+
+            <span>
+                🔎
+            </span>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="ابحث عن خلفية..."
+                autocomplete="off"
+            >
+
+            <button
+                id="clearSearch"
+                type="button"
+                title="مسح البحث">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <div class="gallery-info">
+
+            <div>
+
+                <span>
+                    إجمالي الخلفيات
+                </span>
+
+                <strong id="wallpaperCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    المعروض الآن
+                </span>
+
+                <strong id="visibleCount">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= GALLERY ================= -->
+
+    <main
+        class="gallery"
+        id="gallery">
+    </main>
+
+
+    <!-- ================= EMPTY ================= -->
+
+    <div
+        class="empty-state"
+        id="emptyState">
+
+        <div>
+            🔎
+        </div>
+
+        <h3>
+            لم نجد خلفيات
+        </h3>
+
+        <p>
+            جرّب كلمة بحث مختلفة
+        </p>
+
+    </div>
+
+
+    <!-- ================= FOOTER ================= -->
+
     <footer>
-        © 2025 Fun X Wallpapers
+
+        <strong>
+            Fun X
+        </strong>
+
+        <span>
+            © 2026 Wallpapers
+        </span>
+
+        <i></i>
+
+        <span>
+            Creative Gallery
+        </span>
+
     </footer>
-<script src="script.js"></script>
+
+
+    <!-- ================= MODAL ================= -->
+
+    <div
+        id="previewModal"
+        class="modal"
+        aria-hidden="true">
+
+        <div class="modal-content">
+
+            <button
+                id="closeModal"
+                class="close-modal"
+                type="button">
+
+                ×
+
+            </button>
+
+
+            <img
+                id="previewImage"
+                src=""
+                alt="معاينة الخلفية"
+            >
+
+
+            <div class="preview-footer">
+
+                <div>
+
+                    <strong id="previewTitle">
+                        خلفية
+                    </strong>
+
+                    <small>
+                        Fun X Wallpapers
+                    </small>
+
+                </div>
+
+
+                <a
+                    id="previewDownload"
+                    class="download-btn"
+                    href="#"
+                    download>
+
+                    ⬇ تحميل
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="toast"
+        class="toast">
+
+        تم التنفيذ
+
+    </div>
+
+
+    <script src="script.js"></script>
+
 </body>
 
 </html>
+
