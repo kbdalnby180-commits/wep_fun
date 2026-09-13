@@ -1,86 +1,1265 @@
-const DEFAULT_AZKAR = [
-  "سُبْحَانَ اللهِ","الْحَمْدُ للهِ","اللَّهُ أَكْبَرُ","لا حَوْلَ وَلا قُوَّةَ إِلا بِاللَّهِ","أَسْتَغْفِرُ اللَّهَ",
-  "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّد","لا إله إلا الله","سُبْحَانَ اللهِ وَبِحَمْدِهِ","اللهم ارحمنا","اللهم اغفر لنا",
-  "اللهم أعنّي على ذكرك وشكرك وحسن عبادتك","يا حيّ يا قيوم برحمة منك أستغيث","اللهم أصلح لي ديني","اللهم بارك لنا في أوقاتنا","اللهم ارزقني الصبر",
-  "اللهم اجعلني من الشاكرين","اللهم اجعلني من التوّابين","اللهم ارزقني الهداية","اللهم اهدِ قلبي","اللهم طهر قلبي","اللهم ثبتني على الطاعة",
-  "اللهم اجعل عملي خالصاً لوجهك","اللهم اجعل لي من كل هم فرجاً","اللهم اجعل لي في قلبي نوراً","اللهم اسألك العفو والعافية","استغفر الله واتوب اليه",
-  "يا رب ارحم ضعف قلبي","اللهم ارحم موتانا","اللهم اجعلنا من عبادك المقبولين"
-];
+/* =====================================================
+   سُبحتي — TASBIH APP
+===================================================== */
 
-const STORAGE_KEY = 'tasbih_azkar_v2';
-let state = {
-  count:0,total:0,target:null,azkar:DEFAULT_AZKAR.slice(),currentIndex:0,autoChange:false,autoAfter:33,beadsPerRow:11
-};
+document.addEventListener("DOMContentLoaded", () => {
 
-try{
-  const saved = localStorage.getItem(STORAGE_KEY);
-  if(saved){ Object.assign(state, JSON.parse(saved)); if(!Array.isArray(state.azkar) || state.azkar.length===0){state.azkar=DEFAULT_AZKAR.slice();state.currentIndex=0;} }
-}catch(e){console.warn('خطأ عند تحميل الحفظ:',e);}
+    "use strict";
 
-const countEl = document.getElementById('count');
-const totalEl = document.getElementById('total');
-const beadsWrap = document.getElementById('beadsWrap');
-const targetInfo = document.getElementById('targetInfo');
-const currentZekrEl = document.getElementById('currentZekr');
-const azkarListEl = document.getElementById('azkarList');
 
-function saveState(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){} }
-function render(){
-  countEl.textContent = state.count;
-  totalEl.textContent = state.total;
-  currentZekrEl.textContent = (state.azkar && state.azkar.length>0)?state.azkar[((state.currentIndex%state.azkar.length)+state.azkar.length)%state.azkar.length]:'— لا يوجد أذكار —';
-  targetInfo.textContent = (state.target && state.target>0)?`الهدف: ${state.target} — تبقى ${Math.max(0,state.target-state.count)} تسبيحات`:'لم يتم تحديد هدف';
-  renderBeads(); renderAzkarList(); saveState();
-}
+    /* =================================================
+       DEFAULT AZKAR
+    ================================================= */
 
-function renderBeads(){
-  beadsWrap.innerHTML=''; const perRow=state.beadsPerRow||11; const activeIndex=state.count%perRow; const rows=3;
-  for(let r=0;r<rows;r++){for(let i=0;i<perRow;i++){const div=document.createElement('div');div.className='bead'; if(r===0&&i===activeIndex)div.classList.add('active'); beadsWrap.appendChild(div);}}
-}
+    const DEFAULT_AZKAR = [
 
-function renderAzkarList(){
-  azkarListEl.innerHTML='';
-  state.azkar.forEach((z,idx)=>{
-    const item=document.createElement('div'); item.className='azkar-item';
-    const left=document.createElement('div'); left.textContent=z;
-    const right=document.createElement('div'); right.style.display='flex'; right.style.gap='6px';
-    const btn=document.createElement('button'); btn.textContent='اختيار'; btn.className='btn ghost'; btn.onclick=()=>{state.currentIndex=idx; render();}
-    const del=document.createElement('button'); del.textContent='حذف'; del.className='btn ghost'; del.onclick=()=>{if(!confirm('هل تريد حذف هذا الذكر؟'))return; state.azkar.splice(idx,1); if(state.currentIndex>=state.azkar.length)state.currentIndex=0; render();}
-    right.appendChild(btn); right.appendChild(del); item.appendChild(left); item.appendChild(right); azkarListEl.appendChild(item);
-  });
-  if(state.azkar.length===0){azkarListEl.innerHTML='<div class="small" style="padding:6px">قائمة الأذكار فارغة — أضف أذكارًا جديدة.</div>';}
-}
+        "سُبْحَانَ اللهِ",
 
-function addOne(n=1){state.count+=n; state.total+=n; if(state.autoChange&&state.autoAfter>0){if(state.count%state.autoAfter===0){changeZekrRandom();}} render(); checkTarget();}
-function resetCount(){if(!confirm('هل تريد إعادة ضبط العَدّ إلى صفر؟'))return; state.count=0; state.total=0; render();}
-function clearStorage(){if(!confirm('هل تريد مسح الحفظ واستعادة الإعدادات الافتراضية؟'))return; localStorage.removeItem(STORAGE_KEY); state={count:0,total:0,target:null,azkar:DEFAULT_AZKAR.slice(),currentIndex:0,autoChange:false,autoAfter:33,beadsPerRow:11}; render();}
-function setTarget(){const val=parseInt(document.getElementById('targetInput').value); if(isNaN(val)||val<=0){alert('ضع رقماً صحيحاً أكبر من صفر');return;} state.target=val; render();}
-function checkTarget(){if(state.target && state.count>=state.target){setTimeout(()=>alert(`تهانينا! وصلت للهدف (${state.target})`),200);}}
+        "الْحَمْدُ للهِ",
 
-function changeZekrRandom(){if(!state.azkar || state.azkar.length===0)return; if(state.azkar.length===1){state.currentIndex=0; return;} let newIdx=state.currentIndex; let attempts=0; while(newIdx===state.currentIndex&&attempts<8){newIdx=Math.floor(Math.random()*state.azkar.length); attempts++;} state.currentIndex=newIdx; render();}
-function nextZekr(){if(!state.azkar||state.azkar.length===0)return; state.currentIndex=(state.currentIndex+1)%state.azkar.length; render();}
-function prevZekr(){if(!state.azkar||state.azkar.length===0)return; state.currentIndex=(state.currentIndex-1+state.azkar.length)%state.azkar.length; render();}
+        "اللَّهُ أَكْبَرُ",
 
-document.getElementById('addZekrBtn').addEventListener('click',()=>{const input=document.getElementById('newZekrInput'); const txt=(input.value||'').trim(); if(!txt){alert('اكتب ذكرًا ثم اضغط إضافة');return;} state.azkar.push(txt); input.value=''; state.currentIndex=state.azkar.length-1; render();});
-document.getElementById('resetAzkarBtn').addEventListener('click',()=>{if(!confirm('هل تريد استعادة قائمة الأذكار الافتراضية؟ سيُحذف كل ما أضفته.'))return; state.azkar=DEFAULT_AZKAR.slice(); state.currentIndex=0; render();});
+        "لا حَوْلَ وَلا قُوَّةَ إِلا بِاللَّهِ",
 
-document.getElementById('addBtn').addEventListener('click',()=>addOne(1));
-document.getElementById('add33Btn').addEventListener('click',()=>addOne(33));
-document.getElementById('resetBtn').addEventListener('click',resetCount);
-document.getElementById('clearBtn').addEventListener('click',clearStorage);
-document.getElementById('setTargetBtn').addEventListener('click',setTarget);
-document.getElementById('changeZekrBtn').addEventListener('click',changeZekrRandom);
-document.getElementById('nextZekrBtn').addEventListener('click',nextZekr);
-document.getElementById('prevZekrBtn').addEventListener('click',prevZekr);
+        "أَسْتَغْفِرُ اللَّهَ",
 
-document.getElementById('autoChange').addEventListener('change',(e)=>{state.autoChange=e.target.checked; saveState();});
-document.getElementById('autoAfter').addEventListener('change',(e)=>{const v=parseInt(e.target.value); if(!isNaN(v)&&v>0)state.autoAfter=v; saveState();});
+        "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّد",
 
-document.getElementById('autoChange').checked=!!state.autoChange;
-document.getElementById('autoAfter').value=state.autoAfter||33;
-if(state.target) document.getElementById('targetInput').value=state.target;
+        "لا إله إلا الله",
 
-document.getElementById('beadsWrap').addEventListener('click',()=>addOne(1));
-document.addEventListener('keydown',(e)=>{if(e.code==='Space'||e.key===' '){e.preventDefault();addOne(1);} if(e.key==='+') addOne(1);});
+        "سُبْحَانَ اللهِ وَبِحَمْدِهِ",
 
-render();
+        "اللهم ارحمنا",
+
+        "اللهم اغفر لنا",
+
+        "اللهم أعنّي على ذكرك وشكرك وحسن عبادتك",
+
+        "يا حيّ يا قيوم برحمة منك أستغيث",
+
+        "اللهم أصلح لي ديني",
+
+        "اللهم بارك لنا في أوقاتنا",
+
+        "اللهم ارزقني الصبر",
+
+        "اللهم اجعلني من الشاكرين",
+
+        "اللهم اجعلني من التوّابين",
+
+        "اللهم ارزقني الهداية",
+
+        "اللهم اهدِ قلبي",
+
+        "اللهم طهر قلبي",
+
+        "اللهم ثبتني على الطاعة",
+
+        "اللهم اجعل عملي خالصاً لوجهك",
+
+        "اللهم اجعل لي من كل هم فرجاً",
+
+        "اللهم اجعل لي في قلبي نوراً",
+
+        "اللهم اسألك العفو والعافية",
+
+        "استغفر الله وأتوب اليه",
+
+        "يا رب ارحم ضعف قلبي",
+
+        "اللهم ارحم موتانا",
+
+        "اللهم اجعلنا من عبادك المقبولين"
+
+    ];
+
+
+    /* =================================================
+       STATE
+    ================================================= */
+
+    const STORAGE_KEY = "tasbih_azkar_v3";
+
+
+    let state = {
+
+        count: 0,
+
+        total: 0,
+
+        target: null,
+
+        azkar: DEFAULT_AZKAR.slice(),
+
+        currentIndex: 0,
+
+        autoChange: false,
+
+        autoAfter: 33,
+
+        beadsPerRow: 11
+
+    };
+
+
+    /* =================================================
+       LOAD STORAGE
+    ================================================= */
+
+    try {
+
+        const saved =
+            localStorage.getItem(STORAGE_KEY);
+
+
+        if (saved) {
+
+            const parsed =
+                JSON.parse(saved);
+
+
+            Object.assign(
+                state,
+                parsed
+            );
+
+
+            if (
+                !Array.isArray(state.azkar) ||
+                state.azkar.length === 0
+            ) {
+
+                state.azkar =
+                    DEFAULT_AZKAR.slice();
+
+                state.currentIndex = 0;
+
+            }
+
+        }
+
+    } catch (error) {
+
+        console.warn(
+            "تعذر تحميل البيانات المحفوظة",
+            error
+        );
+
+    }
+
+
+    /* =================================================
+       ELEMENTS
+    ================================================= */
+
+    const countEl =
+        document.getElementById("count");
+
+
+    const totalEl =
+        document.getElementById("total");
+
+
+    const currentZekrEl =
+        document.getElementById("currentZekr");
+
+
+    const beadsWrap =
+        document.getElementById("beadsWrap");
+
+
+    const targetInfo =
+        document.getElementById("targetInfo");
+
+
+    const azkarListEl =
+        document.getElementById("azkarList");
+
+
+    const targetInput =
+        document.getElementById("targetInput");
+
+
+    const autoChange =
+        document.getElementById("autoChange");
+
+
+    const autoAfter =
+        document.getElementById("autoAfter");
+
+
+    const newZekrInput =
+        document.getElementById("newZekrInput");
+
+
+    const toast =
+        document.getElementById("toast");
+
+
+    /* =================================================
+       SAVE
+    ================================================= */
+
+    function saveState() {
+
+        try {
+
+            localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify(state)
+            );
+
+        } catch (error) {
+
+            console.warn(
+                "تعذر حفظ البيانات",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* =================================================
+       TOAST
+    ================================================= */
+
+    function showToast(message) {
+
+        toast.textContent =
+            message;
+
+        toast.classList.add("show");
+
+
+        clearTimeout(
+            showToast.timer
+        );
+
+
+        showToast.timer =
+            setTimeout(() => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            }, 2200);
+
+    }
+
+
+    /* =================================================
+       RENDER
+    ================================================= */
+
+    function render() {
+
+        countEl.textContent =
+            state.count;
+
+
+        totalEl.textContent =
+            state.total;
+
+
+        /* Current Zekr */
+
+        if (
+            state.azkar &&
+            state.azkar.length > 0
+        ) {
+
+            const index =
+                (
+                    state.currentIndex %
+                    state.azkar.length +
+                    state.azkar.length
+                ) %
+                state.azkar.length;
+
+
+            currentZekrEl.textContent =
+                state.azkar[index];
+
+        } else {
+
+            currentZekrEl.textContent =
+                "— لا يوجد أذكار —";
+
+        }
+
+
+        /* Target */
+
+        if (
+            state.target &&
+            state.target > 0
+        ) {
+
+            const remaining =
+                Math.max(
+                    0,
+                    state.target -
+                    state.count
+                );
+
+
+            targetInfo.textContent =
+                `الهدف: ${state.target} — تبقى ${remaining} تسبيحات`;
+
+        } else {
+
+            targetInfo.textContent =
+                "لم يتم تحديد هدف";
+
+        }
+
+
+        renderBeads();
+
+        renderAzkarList();
+
+        saveState();
+
+    }
+
+
+    /* =================================================
+       BEADS
+    ================================================= */
+
+    function renderBeads() {
+
+        beadsWrap.innerHTML = "";
+
+
+        const perRow =
+            state.beadsPerRow || 11;
+
+
+        /*
+         * نعرض 33 خرزة
+         */
+
+        const totalBeads = 33;
+
+
+        const activeIndex =
+            state.count % totalBeads;
+
+
+        for (
+            let i = 0;
+            i < totalBeads;
+            i++
+        ) {
+
+            const bead =
+                document.createElement("div");
+
+
+            bead.className =
+                "bead";
+
+
+            /*
+             * الخرزة النشطة
+             */
+
+            if (
+                i === activeIndex &&
+                state.count > 0
+            ) {
+
+                bead.classList.add(
+                    "active"
+                );
+
+            }
+
+
+            beadsWrap.appendChild(
+                bead
+            );
+
+        }
+
+    }
+
+
+    /* =================================================
+       AZKAR LIST
+    ================================================= */
+
+    function renderAzkarList() {
+
+        azkarListEl.innerHTML = "";
+
+
+        state.azkar.forEach(
+            (zekr, index) => {
+
+                const item =
+                    document.createElement("div");
+
+
+                item.className =
+                    "azkar-item";
+
+
+                const text =
+                    document.createElement("div");
+
+
+                text.className =
+                    "azkar-text";
+
+
+                text.textContent =
+                    zekr;
+
+
+                const actions =
+                    document.createElement("div");
+
+
+                actions.className =
+                    "azkar-actions";
+
+
+                /* SELECT */
+
+                const selectBtn =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                selectBtn.className =
+                    "btn primary";
+
+
+                selectBtn.textContent =
+                    "اختيار";
+
+
+                selectBtn.addEventListener(
+                    "click",
+                    () => {
+
+                        state.currentIndex =
+                            index;
+
+                        render();
+
+                        showToast(
+                            "✅ تم اختيار الذكر"
+                        );
+
+                    }
+                );
+
+
+                /* DELETE */
+
+                const deleteBtn =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                deleteBtn.className =
+                    "btn";
+
+
+                deleteBtn.textContent =
+                    "حذف";
+
+
+                deleteBtn.addEventListener(
+                    "click",
+                    () => {
+
+                        const confirmed =
+                            confirm(
+                                "هل تريد حذف هذا الذكر؟"
+                            );
+
+
+                        if (!confirmed) {
+                            return;
+                        }
+
+
+                        state.azkar.splice(
+                            index,
+                            1
+                        );
+
+
+                        if (
+                            state.azkar.length === 0
+                        ) {
+
+                            state.currentIndex = 0;
+
+                        } else if (
+                            state.currentIndex >=
+                            state.azkar.length
+                        ) {
+
+                            state.currentIndex =
+                                state.azkar.length -
+                                1;
+
+                        }
+
+
+                        render();
+
+                        showToast(
+                            "🗑 تم حذف الذكر"
+                        );
+
+                    }
+                );
+
+
+                actions.appendChild(
+                    selectBtn
+                );
+
+
+                actions.appendChild(
+                    deleteBtn
+                );
+
+
+                item.appendChild(
+                    text
+                );
+
+
+                item.appendChild(
+                    actions
+                );
+
+
+                azkarListEl.appendChild(
+                    item
+                );
+
+            }
+        );
+
+
+        /* Empty */
+
+        if (
+            state.azkar.length === 0
+        ) {
+
+            azkarListEl.innerHTML = `
+                <div style="
+                    text-align:center;
+                    padding:25px;
+                    color:#87958f;
+                    font-size:12px;
+                ">
+                    قائمة الأذكار فارغة.
+                    <br>
+                    أضف ذكرًا جديدًا.
+                </div>
+            `;
+
+        }
+
+    }
+
+
+    /* =================================================
+       ADD TASBIH
+    ================================================= */
+
+    function addOne(amount = 1) {
+
+        state.count += amount;
+
+        state.total += amount;
+
+
+        /*
+         * Auto change
+         */
+
+        if (
+            state.autoChange &&
+            state.autoAfter > 0 &&
+            state.count %
+                state.autoAfter === 0
+        ) {
+
+            changeZekrRandom();
+
+        }
+
+
+        render();
+
+        checkTarget();
+
+    }
+
+
+    /* =================================================
+       RESET COUNT
+    ================================================= */
+
+    function resetCount() {
+
+        const confirmed =
+            confirm(
+                "هل تريد إعادة العَدّ إلى صفر؟"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        state.count = 0;
+
+
+        /*
+         * لا نمسح الإجمالي هنا
+         * إلا إذا كان المستخدم يريد ذلك
+         */
+
+        render();
+
+
+        showToast(
+            "↻ تمت إعادة ضبط العد"
+        );
+
+    }
+
+
+    /* =================================================
+       CLEAR ALL
+    ================================================= */
+
+    function clearStorage() {
+
+        const confirmed =
+            confirm(
+                "سيتم حذف الحفظ وإرجاع الإعدادات الافتراضية. هل أنت متأكد؟"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        localStorage.removeItem(
+            STORAGE_KEY
+        );
+
+
+        state = {
+
+            count: 0,
+
+            total: 0,
+
+            target: null,
+
+            azkar:
+                DEFAULT_AZKAR.slice(),
+
+            currentIndex: 0,
+
+            autoChange: false,
+
+            autoAfter: 33,
+
+            beadsPerRow: 11
+
+        };
+
+
+        autoChange.checked =
+            false;
+
+
+        autoAfter.value =
+            33;
+
+
+        targetInput.value =
+            "";
+
+
+        render();
+
+
+        showToast(
+            "🧹 تم مسح الحفظ"
+        );
+
+    }
+
+
+    /* =================================================
+       TARGET
+    ================================================= */
+
+    function setTarget() {
+
+        const value =
+            parseInt(
+                targetInput.value,
+                10
+            );
+
+
+        if (
+            Number.isNaN(value) ||
+            value <= 0
+        ) {
+
+            showToast(
+                "⚠️ أدخل رقمًا صحيحًا"
+            );
+
+            return;
+
+        }
+
+
+        state.target =
+            value;
+
+
+        render();
+
+
+        showToast(
+            "🎯 تم تعيين الهدف"
+        );
+
+    }
+
+
+    /* =================================================
+       CHECK TARGET
+    ================================================= */
+
+    function checkTarget() {
+
+        if (
+            state.target &&
+            state.count >= state.target
+        ) {
+
+            setTimeout(() => {
+
+                alert(
+                    `ما شاء الله 🤍\nوصلت إلى هدف ${state.target} تسبيحة`
+                );
+
+            }, 150);
+
+        }
+
+    }
+
+
+    /* =================================================
+       RANDOM ZEKR
+    ================================================= */
+
+    function changeZekrRandom() {
+
+        if (
+            !state.azkar ||
+            state.azkar.length === 0
+        ) {
+
+            return;
+
+        }
+
+
+        if (
+            state.azkar.length === 1
+        ) {
+
+            state.currentIndex = 0;
+
+            render();
+
+            return;
+
+        }
+
+
+        let newIndex =
+            state.currentIndex;
+
+
+        let attempts = 0;
+
+
+        while (
+            newIndex ===
+            state.currentIndex &&
+            attempts < 10
+        ) {
+
+            newIndex =
+                Math.floor(
+                    Math.random() *
+                    state.azkar.length
+                );
+
+
+            attempts++;
+
+        }
+
+
+        state.currentIndex =
+            newIndex;
+
+
+        render();
+
+
+        showToast(
+            "✨ تم تغيير الذكر"
+        );
+
+    }
+
+
+    /* =================================================
+       NEXT
+    ================================================= */
+
+    function nextZekr() {
+
+        if (
+            !state.azkar ||
+            state.azkar.length === 0
+        ) {
+
+            return;
+
+        }
+
+
+        state.currentIndex =
+            (
+                state.currentIndex + 1
+            ) %
+            state.azkar.length;
+
+
+        render();
+
+
+        showToast(
+            "➡️ الذكر التالي"
+        );
+
+    }
+
+
+    /* =================================================
+       PREVIOUS
+    ================================================= */
+
+    function prevZekr() {
+
+        if (
+            !state.azkar ||
+            state.azkar.length === 0
+        ) {
+
+            return;
+
+        }
+
+
+        state.currentIndex =
+            (
+                state.currentIndex - 1 +
+                state.azkar.length
+            ) %
+            state.azkar.length;
+
+
+        render();
+
+
+        showToast(
+            "⬅️ الذكر السابق"
+        );
+
+    }
+
+
+    /* =================================================
+       ADD NEW ZEKR
+    ================================================= */
+
+    function addNewZekr() {
+
+        const text =
+            (
+                newZekrInput.value ||
+                ""
+            ).trim();
+
+
+        if (!text) {
+
+            showToast(
+                "⚠️ اكتب الذكر أولًا"
+            );
+
+            newZekrInput.focus();
+
+            return;
+
+        }
+
+
+        state.azkar.push(
+            text
+        );
+
+
+        state.currentIndex =
+            state.azkar.length - 1;
+
+
+        newZekrInput.value =
+            "";
+
+
+        render();
+
+
+        showToast(
+            "✅ تم إضافة الذكر"
+        );
+
+    }
+
+
+    /* =================================================
+       RESET AZKAR
+    ================================================= */
+
+    function resetAzkar() {
+
+        const confirmed =
+            confirm(
+                "سيتم حذف جميع الأذكار المضافة واستعادة القائمة الافتراضية."
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        state.azkar =
+            DEFAULT_AZKAR.slice();
+
+
+        state.currentIndex =
+            0;
+
+
+        render();
+
+
+        showToast(
+            "↻ تم استعادة الأذكار"
+        );
+
+    }
+
+
+    /* =================================================
+       BUTTON EVENTS
+    ================================================= */
+
+    document
+        .getElementById("addBtn")
+        .addEventListener(
+            "click",
+            () => addOne(1)
+        );
+
+
+    document
+        .getElementById("add33Btn")
+        .addEventListener(
+            "click",
+            () => addOne(33)
+        );
+
+
+    document
+        .getElementById("resetBtn")
+        .addEventListener(
+            "click",
+            resetCount
+        );
+
+
+    document
+        .getElementById("clearBtn")
+        .addEventListener(
+            "click",
+            clearStorage
+        );
+
+
+    document
+        .getElementById("setTargetBtn")
+        .addEventListener(
+            "click",
+            setTarget
+        );
+
+
+    document
+        .getElementById("changeZekrBtn")
+        .addEventListener(
+            "click",
+            changeZekrRandom
+        );
+
+
+    document
+        .getElementById("nextZekrBtn")
+        .addEventListener(
+            "click",
+            nextZekr
+        );
+
+
+    document
+        .getElementById("prevZekrBtn")
+        .addEventListener(
+            "click",
+            prevZekr
+        );
+
+
+    document
+        .getElementById("addZekrBtn")
+        .addEventListener(
+            "click",
+            addNewZekr
+        );
+
+
+    document
+        .getElementById("resetAzkarBtn")
+        .addEventListener(
+            "click",
+            resetAzkar
+        );
+
+
+    /* =================================================
+       AUTO SETTINGS
+    ================================================= */
+
+    autoChange.addEventListener(
+        "change",
+        event => {
+
+            state.autoChange =
+                event.target.checked;
+
+
+            saveState();
+
+        }
+    );
+
+
+    autoAfter.addEventListener(
+        "change",
+        event => {
+
+            const value =
+                parseInt(
+                    event.target.value,
+                    10
+                );
+
+
+            if (
+                !Number.isNaN(value) &&
+                value > 0
+            ) {
+
+                state.autoAfter =
+                    value;
+
+            } else {
+
+                state.autoAfter =
+                    33;
+
+                autoAfter.value =
+                    33;
+
+            }
+
+
+            saveState();
+
+        }
+    );
+
+
+    /* =================================================
+       BEADS CLICK
+    ================================================= */
+
+    beadsWrap.addEventListener(
+        "click",
+        () => {
+
+            addOne(1);
+
+        }
+    );
+
+
+    /* =================================================
+       KEYBOARD
+    ================================================= */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            /*
+             * Space
+             */
+
+            if (
+                event.code === "Space"
+            ) {
+
+                /*
+                 * لا نعمل أثناء الكتابة
+                 */
+
+                if (
+                    document.activeElement.tagName ===
+                    "INPUT"
+                ) {
+
+                    return;
+
+                }
+
+
+                event.preventDefault();
+
+                addOne(1);
+
+            }
+
+
+            /*
+             * + أو =
+             */
+
+            if (
+                event.key === "+" ||
+                event.key === "="
+            ) {
+
+                if (
+                    document.activeElement.tagName ===
+                    "INPUT"
+                ) {
+
+                    return;
+
+                }
+
+
+                addOne(1);
+
+            }
+
+        }
+    );
+
+
+    /* =================================================
+       ENTER TO ADD ZEKR
+    ================================================= */
+
+    newZekrInput.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                event.preventDefault();
+
+                addNewZekr();
+
+            }
+
+        }
+    );
+
+
+    /* =================================================
+       INITIAL VALUES
+    ================================================= */
+
+    autoChange.checked =
+        !!state.autoChange;
+
+
+    autoAfter.value =
+        state.autoAfter || 33;
+
+
+    if (state.target) {
+
+        targetInput.value =
+            state.target;
+
+    }
+
+
+    /* =================================================
+       INITIAL RENDER
+    ================================================= */
+
+    render();
+
+});
