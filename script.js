@@ -1,131 +1,396 @@
 
+/* =========================================================
+   FUN X — BACK TO SCHOOL 2026
+   Main JavaScript
+   ========================================================= */
 
-/* ==================== الخلفيات والنجوم والثلج ==================== */
+document.addEventListener("DOMContentLoaded", () => {
 
-for (let i = 0; i < 60; i++) {
-    const star = document.createElement('div');
-    star.className = 'star';
-    star.style.top = Math.random() * 100 + '%';
-    star.style.left = Math.random() * 100 + '%';
-    star.style.width = star.style.height = Math.random() * 2 + 1 + 'px';
-    document.body.appendChild(star);
-}
+    "use strict";
 
-for (let i = 0; i < 80; i++) {
-    const snow = document.createElement('div');
-    snow.className = 'snowflake';
-    snow.textContent = '❄';
-    snow.style.left = Math.random() * 100 + '%';
-    snow.style.fontSize = 10 + Math.random() * 20 + 'px';
-    snow.style.animationDuration = 3 + Math.random() * 5 + 's';
-    snow.style.opacity = Math.random();
-    document.body.appendChild(snow);
-}
+    /* =====================================================
+       CLOCK & DATE
+       ===================================================== */
 
-for (let i = 0; i < 20; i++) {
-    const santa = document.createElement('div');
-    santa.className = 'santa';
-    santa.textContent = '🎅';
-    santa.style.left = Math.random() * 100 + '%';
-    santa.style.animationDuration = (5 + Math.random() * 5) + 's';
-    document.body.appendChild(santa);
-}
+    const clock = document.getElementById("clock");
+    const calendar = document.getElementById("calendar");
 
-const celestial = document.getElementById('celestial');
-function updateCelestial() {
-    const h = new Date().getHours();
-    if (h >= 6 && h < 18) {
-        document.body.style.background = "linear-gradient(to bottom,#82ccdd,#a0e1ff)";
-        celestial.style.background = "radial-gradient(circle,#fff,#cce6ff)";
-    } else {
-        document.body.style.background = "linear-gradient(to bottom,#0a3d62,#1e3799)";
-        celestial.style.background = "radial-gradient(circle,#cce6ff,#99ccff)";
+    function updateClock() {
+
+        const now = new Date();
+
+        const hours = String(now.getHours()).padStart(2, "0");
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        const seconds = String(now.getSeconds()).padStart(2, "0");
+
+        const day = String(now.getDate()).padStart(2, "0");
+        const month = String(now.getMonth() + 1).padStart(2, "0");
+        const year = now.getFullYear();
+
+        clock.textContent =
+            `${hours}:${minutes}:${seconds}`;
+
+        calendar.textContent =
+            `${day}/${month}/${year}`;
     }
-}
-setInterval(updateCelestial, 1000);
-updateCelestial();
-/* ==================== ساعة وتاريخ ==================== */
 
-function updateClock() {
-    const now = new Date();
-    const hours = now.getHours().toString().padStart(2, '0');
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    const seconds = now.getSeconds().toString().padStart(2, '0');
+    updateClock();
 
-    const day = now.getDate().toString().padStart(2, '0');
-    const month = (now.getMonth() + 1).toString().padStart(2, '0');
-    const year = now.getFullYear();
+    setInterval(updateClock, 1000);
 
-    const clockEl = document.getElementById('clock');
-    const calEl = document.getElementById('calendar');
 
-    clockEl.textContent = `${hours}:${minutes}:${seconds}`;
-    calEl.textContent = `${day}/${month}/${year}`;
-}
+    /* =====================================================
+       CHATBOT
+       ===================================================== */
 
-// تحديث كل ثانية
-setInterval(updateClock, 1000);
-updateClock();
+    const chatToggle =
+        document.getElementById("chatToggle");
 
-/* ==================== روبوت الدردشة ==================== */
+    const chatbot =
+        document.getElementById("chatbot");
 
-const chatToggle = document.getElementById('chatToggle');
-const chatbot = document.getElementById('chatbot');
-const chatMessages = document.getElementById('chatMessages');
-const chatInput = document.getElementById('chatInput');
-const sendBtn = document.getElementById('sendBtn');
+    const chatMessages =
+        document.getElementById("chatMessages");
 
-chatToggle.addEventListener('click', () => { chatbot.classList.toggle('hidden'); });
+    const chatInput =
+        document.getElementById("chatInput");
 
-const pages = [
-    { name: "🎨 رسم", url: "wep app/paints/index.html" },
-    { name: "🕋 Quran", url: "wep app/quran/index.html" },
-    { name: "📻  fun X راديو", url: "wep app/radio fun x/index.html" },
-    { name: "📿 السبحة الإلكترونية", url: "wep app/Electronic rosary/index.html" },
-    { name: "📖 مذاكرة", url: "wep app/Study assistant/index.html" },
-    { name: "📚 مذاكرة", url: "wep app/study_page_html/index.html" },
-    { name: "💡 نصيحة يومية", url: "wep app/daily-tip/index.html" },
-    { name: "لخلفيات fun X معرض 💻🎴", url: "tool/wallper/index.html" },
-    { name: "🔗 صنع QR", url: "wep app/qr/index.html" },
-    { name: " FUN X LEARN HTML💻 ", url: "tool/FUN X LEARN HTML/index.html" },
-    { name: "FUN X Arcade", url: "wep app/wep gaming/splash.html" },
-    { name: "INFO WEP  ", url: "tool/Fun X/index.html" },
-];
+    const sendBtn =
+        document.getElementById("sendBtn");
 
-pages.forEach(p => {
-    const div = document.createElement('div');
-    div.className = 'bot';
-    div.innerHTML = `<a href="${p.url}" target="_blank" style="color:#0ff;text-decoration:none;">${p.name}</a>`;
-    chatMessages.appendChild(div);
-});
 
-function addMessage(sender, text) {
-    const msg = document.createElement('div');
-    msg.className = sender;
-    msg.textContent = text;
-    chatMessages.appendChild(msg);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-}
+    /* =====================================================
+       PAGES
+       ===================================================== */
 
-function botReply(userText) {
-    let reply = "🤖 مش فاهم قصدك، جرّب تكتب حاجة تانية.";
-    pages.forEach(p => {
-        if (userText.toLowerCase().includes(p.name.replace(/[^a-zA-Z\u0600-\u06FF]/g, "").toLowerCase())) {
-            reply = `✅ ${p.name}`;
-            setTimeout(() => window.open(p.url, "_blank"), 500);
+    const pages = [
+
+        {
+            name: "🎨 رسم",
+            keywords: ["رسم", "paint", "drawing"],
+            url: "wep app/paints/index.html"
+        },
+
+        {
+            name: "🕋 Quran",
+            keywords: ["quran", "قران", "القرآن", "قرآن"],
+            url: "wep app/quran/index.html"
+        },
+
+        {
+            name: "📻 Fun X Radio",
+            keywords: ["راديو", "radio"],
+            url: "wep app/radio fun x/index.html"
+        },
+
+        {
+            name: "📿 السبحة الإلكترونية",
+            keywords: ["سبحة", "تسبيح"],
+            url: "wep app/Electronic rosary/index.html"
+        },
+
+        {
+            name: "📖 مساعد المذاكرة",
+            keywords: [
+                "مذاكرة",
+                "دراسة",
+                "study",
+                "مساعد"
+            ],
+            url: "wep app/Study assistant/index.html"
+        },
+
+        {
+            name: "📚 صفحة المذاكرة",
+            keywords: [
+                "صفحة المذاكرة",
+                "study page"
+            ],
+            url: "wep app/study_page_html/index.html"
+        },
+
+        {
+            name: "💡 نصيحة يومية",
+            keywords: [
+                "نصيحة",
+                "tip"
+            ],
+            url: "wep app/daily-tip/index.html"
+        },
+
+        {
+            name: "🖼️ معرض الخلفيات",
+            keywords: [
+                "خلفيات",
+                "wallpaper",
+                "wallpapers"
+            ],
+            url: "tool/wallper/index.html"
+        },
+
+        {
+            name: "🔗 صنع QR",
+            keywords: [
+                "qr",
+                "كيو ار"
+            ],
+            url: "wep app/qr/index.html"
+        },
+
+        {
+            name: "💻 FUN X LEARN HTML",
+            keywords: [
+                "html",
+                "تعلم",
+                "برمجة",
+                "coding"
+            ],
+            url: "tool/FUN X LEARN HTML/index.html"
+        },
+
+        {
+            name: "🎮 FUN X Arcade",
+            keywords: [
+                "ألعاب",
+                "لعبة",
+                "gaming",
+                "arcade"
+            ],
+            url: "wep app/wep gaming/splash.html"
+        },
+
+        {
+            name: "ℹ️ INFO WEP",
+            keywords: [
+                "info",
+                "معلومات"
+            ],
+            url: "tool/Fun X/index.html"
         }
+
+    ];
+
+
+    /* =====================================================
+       INITIAL BOT MESSAGE
+       ===================================================== */
+
+    addMessage(
+        "bot",
+        "👋 أهلاً بك في Fun X! اكتب اسم الصفحة التي تريد فتحها 📚"
+    );
+
+
+    /* =====================================================
+       PAGE SHORTCUTS
+       ===================================================== */
+
+    pages.forEach(page => {
+
+        const div =
+            document.createElement("div");
+
+        div.className = "bot";
+
+        const link =
+            document.createElement("a");
+
+        link.href = page.url;
+
+        link.target = "_blank";
+
+        link.textContent = page.name;
+
+        link.style.textDecoration = "none";
+
+        link.style.color = "#1976d2";
+
+        link.style.fontWeight = "700";
+
+        div.appendChild(link);
+
+        chatMessages.appendChild(div);
+
     });
-    addMessage("bot", reply);
-}
 
-sendBtn.addEventListener('click', () => {
-    const text = chatInput.value.trim();
-    if (!text) return;
-    addMessage("user", text);
-    chatInput.value = "";
-    setTimeout(() => botReply(text), 500);
+
+    /* =====================================================
+       TOGGLE CHAT
+       ===================================================== */
+
+    chatToggle.addEventListener("click", () => {
+
+        chatbot.classList.toggle("hidden");
+
+        if (!chatbot.classList.contains("hidden")) {
+
+            setTimeout(() => {
+                chatInput.focus();
+            }, 150);
+
+        }
+
+    });
+
+
+    /* =====================================================
+       ADD MESSAGE
+       ===================================================== */
+
+    function addMessage(sender, text) {
+
+        const message =
+            document.createElement("div");
+
+        message.className = sender;
+
+        message.textContent = text;
+
+        chatMessages.appendChild(message);
+
+        chatMessages.scrollTop =
+            chatMessages.scrollHeight;
+
+    }
+
+
+    /* =====================================================
+       BOT REPLY
+       ===================================================== */
+
+    function botReply(userText) {
+
+        const text =
+            userText.toLowerCase().trim();
+
+        let matchedPage = null;
+
+        for (const page of pages) {
+
+            const found =
+                page.keywords.some(keyword =>
+                    text.includes(
+                        keyword.toLowerCase()
+                    )
+                );
+
+            if (found) {
+
+                matchedPage = page;
+
+                break;
+            }
+        }
+
+
+        if (matchedPage) {
+
+            addMessage(
+                "bot",
+                `✅ جارٍ فتح ${matchedPage.name}...`
+            );
+
+            setTimeout(() => {
+
+                window.open(
+                    matchedPage.url,
+                    "_blank"
+                );
+
+            }, 500);
+
+            return;
+        }
+
+
+        addMessage(
+            "bot",
+            "🤖 مش لاقي الصفحة دي. جرّب تكتب: مذاكرة، رسم، QR، برمجة أو ألعاب."
+        );
+
+    }
+
+
+    /* =====================================================
+       SEND MESSAGE
+       ===================================================== */
+
+    function sendMessage() {
+
+        const text =
+            chatInput.value.trim();
+
+        if (!text) return;
+
+        addMessage(
+            "user",
+            text
+        );
+
+        chatInput.value = "";
+
+        setTimeout(() => {
+
+            botReply(text);
+
+        }, 350);
+
+    }
+
+
+    sendBtn.addEventListener(
+        "click",
+        sendMessage
+    );
+
+
+    chatInput.addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key === "Enter") {
+
+                event.preventDefault();
+
+                sendMessage();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       HEADER SHADOW ON SCROLL
+       ===================================================== */
+
+    const header =
+        document.getElementById("mainHeader");
+
+    window.addEventListener(
+        "scroll",
+        () => {
+
+            if (window.scrollY > 10) {
+
+                header.style.boxShadow =
+                    "0 8px 30px rgba(16,42,67,0.12)";
+
+            } else {
+
+                header.style.boxShadow =
+                    "0 5px 25px rgba(16,42,67,0.08)";
+
+            }
+
+        },
+        { passive: true }
+    );
+
+
+    console.log(
+        "🎒 Fun X Back To School Edition loaded successfully!"
+    );
+
 });
-
-document.body.appendChild(shareDiv);
-
 

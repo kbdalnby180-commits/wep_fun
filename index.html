@@ -1,88 +1,314 @@
+
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fun X</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="images/file_0000000059a062309109771ec07a4d2a-01.jpeg">
 
-    <!-- OG Tags -->
+    <title>Fun X | Back To School 🎒</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="icon"
+        type="image/png"
+        href="images/file_0000000059a062309109771ec07a4d2a-01.jpeg">
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Fun X">
-    <meta property="og:description" content="أفضل موقع ترفيهي Fun X 🔥">
+    <meta property="og:title" content="Fun X | Back To School 🎒">
+    <meta property="og:description" content="Fun X يحتفل بعودة الدراسة 📚🎒">
     <meta property="og:image"
         content="https://kbdalnby180-commits.github.io/wep_fun/images/file_0000000059a062309109771ec07a4d2a-01.jpeg">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="600">
     <meta property="og:image:height" content="600">
-    <meta property="og:url" content="https://kbdalnby180-commits.github.io/wep_fun/">
+    <meta property="og:url"
+        content="https://kbdalnby180-commits.github.io/wep_fun/">
 </head>
 
 <body>
-    <!-- خلفية النجوم والقمر والسحب -->
-    <div class="stars"></div>
-    <div class="celestial" id="celestial"></div>
-    <div class="cloud"></div>
-    <div class="cloud"></div>
 
-    <!-- الهيدر -->
-    <header>
+    <!-- ================= BACKGROUND ================= -->
+
+    <div class="school-bg">
+        <div class="floating-item item-1">📚</div>
+        <div class="floating-item item-2">✏️</div>
+        <div class="floating-item item-3">🎒</div>
+        <div class="floating-item item-4">📐</div>
+        <div class="floating-item item-5">📝</div>
+        <div class="floating-item item-6">🖊️</div>
+        <div class="floating-item item-7">📖</div>
+        <div class="floating-item item-8">⭐</div>
+    </div>
+
+    <div class="grid-background"></div>
+
+    <!-- ================= HEADER ================= -->
+
+    <header id="mainHeader">
+
         <div id="siteLogoName">
-            <img src="images/file_0000000059a062309109771ec07a4d2a-01.jpeg" alt="شعار الموقع" id="siteLogo">
-            <span id="siteName">Fun X</span>
+
+            <img
+                src="images/file_0000000059a062309109771ec07a4d2a-01.jpeg"
+                alt="شعار Fun X"
+                id="siteLogo">
+
+            <div class="brandText">
+                <span id="siteName">Fun X</span>
+                <small>Back To School 🎒</small>
+            </div>
+
         </div>
+
         <div id="timeCalendarWrapper">
+
+            <div class="timeIcon">🕐</div>
+
             <div id="timeCalendar">
                 <div id="clock"></div>
                 <div id="calendar"></div>
             </div>
+
         </div>
+
     </header>
 
-    <!-- البحث -->
-    <form id="searchBox" action="https://www.google.com/search" method="GET" target="_blank">
-        <input type="text" name="q" placeholder="ابحث في جوجل">
-        <button type="submit">🔍</button>
-    </form>
+    <!-- ================= HERO ================= -->
 
-    <!-- الفيديوهات -->
-    <section>
-        <h2>📺 فيديو اليوم</h2>
-        <video controls>
-            <source src="video/cab4fca4c88b7584a064e764296d92d1_1756649957154.mp4" type="video/mp4">
-        </video>
-        <video controls>
-            <source src="video/5abb26f55f8d9f3783d2ef518c5150a7_1753712300970.mp4" type="video/mp4">
-        </video>
-        <video controls>
-            <source src="video/de29a1b965ae9a7f759d851b058c73e4_1755697255012.mp4" type="video/mp4">
-        </video>
+    <section class="schoolHero">
+
+        <div class="schoolBadge">
+            🎒 BACK TO SCHOOL
+        </div>
+
+        <h1>
+            أهلاً بعودة الدراسة 📚
+        </h1>
+
+        <p>
+            مذاكرة، ترفيه، أدوات مفيدة وكل اللي تحتاجه في مكان واحد
+        </p>
+
+        <div class="heroButtons">
+            <a href="#videos" class="heroBtn primary">
+                ▶️ ابدأ الآن
+            </a>
+
+            <a href="#searchBox" class="heroBtn secondary">
+                🔎 ابحث
+            </a>
+        </div>
+
     </section>
 
+    <!-- ================= SEARCH ================= -->
 
+    <form
+        id="searchBox"
+        action="https://www.google.com/search"
+        method="GET"
+        target="_blank">
 
-    <!-- روبوت الدردشة -->
-    <button id="chatToggle">📂</button>
-    <div id="chatbot" class="hidden">
-        <div id="chatMessages"></div>
-        <div id="chatInputWrapper">
-            <input type="text" id="chatInput" placeholder="اكتب اسم الصفحه التي تريدها ...">
-            <button id="sendBtn">➡️</button>
+        <div class="searchIcon">🔎</div>
+
+        <input
+            type="text"
+            name="q"
+            autocomplete="off"
+            placeholder="اكتب ما تريد البحث عنه...">
+
+        <button type="submit">
+            بحث
+        </button>
+
+    </form>
+
+    <!-- ================= QUICK CARDS ================= -->
+
+    <section class="quickSection">
+
+        <div class="sectionTitle">
+            <span>🚀</span>
+            <h2>اختصارات سريعة</h2>
         </div>
+
+        <div class="quickGrid">
+
+            <a href="wep app/Study assistant/index.html"
+                target="_blank"
+                class="quickCard study">
+
+                <div class="quickIcon">📖</div>
+
+                <div>
+                    <h3>مساعد المذاكرة</h3>
+                    <p>ساعد نفسك في الدراسة</p>
+                </div>
+
+            </a>
+
+            <a href="wep app/study_page_html/index.html"
+                target="_blank"
+                class="quickCard notes">
+
+                <div class="quickIcon">📝</div>
+
+                <div>
+                    <h3>صفحة المذاكرة</h3>
+                    <p>نظم وقتك ومذاكرتك</p>
+                </div>
+
+            </a>
+
+            <a href="tool/FUN X LEARN HTML/index.html"
+                target="_blank"
+                class="quickCard code">
+
+                <div class="quickIcon">💻</div>
+
+                <div>
+                    <h3>FUN X LEARN</h3>
+                    <p>تعلم البرمجة</p>
+                </div>
+
+            </a>
+
+            <a href="wep app/paints/index.html"
+                target="_blank"
+                class="quickCard art">
+
+                <div class="quickIcon">🎨</div>
+
+                <div>
+                    <h3>الرسم</h3>
+                    <p>مساحة للإبداع</p>
+                </div>
+
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- ================= VIDEOS ================= -->
+
+    <section id="videos" class="videoSection">
+
+        <div class="sectionTitle">
+            <span>🎬</span>
+            <h2>فيديو اليوم</h2>
+        </div>
+
+        <p class="sectionDescription">
+            استراحة صغيرة بين المذاكرة 😎
+        </p>
+
+        <div class="videoGrid">
+
+            <article class="videoCard">
+
+                <div class="videoNumber">01</div>
+
+                <video controls preload="metadata">
+                    <source
+                        src="video/b8a5053e9be9ae9d36cb0e1a30797bcd_1760100047708.mp4"
+                        type="video/mp4">
+                </video>
+
+            </article>
+
+            <article class="videoCard">
+
+                <div class="videoNumber">02</div>
+
+                <video controls preload="metadata">
+                    <source
+                        src="video/d1b9f6a8626c0e2c75a782923bbcc1fb_1753732713450.mp4"
+                        type="video/mp4">
+                </video>
+
+            </article>
+
+            <article class="videoCard">
+
+                <div class="videoNumber">03</div>
+
+                <video controls preload="metadata">
+                    <source
+                        src="video/e979ddc1167e3969234b4cf0115ea037_1753820781375.mp4"
+                        type="video/mp4">
+                </video>
+
+            </article>
+
+        </div>
+
+    </section>
+
+    <!-- ================= CHAT ================= -->
+
+    <button
+        id="chatToggle"
+        aria-label="فتح مساعد Fun X">
+
+        🤖
+    </button>
+
+    <div id="chatbot" class="hidden">
+
+        <div class="chatHeader">
+
+            <div class="botAvatar">
+                🤖
+            </div>
+
+            <div>
+                <strong>Fun X Assistant</strong>
+                <span>جاهز لمساعدتك 📚</span>
+            </div>
+
+        </div>
+
+        <div id="chatMessages"></div>
+
+        <div id="chatInputWrapper">
+
+            <input
+                type="text"
+                id="chatInput"
+                placeholder="اكتب اسم الصفحة...">
+
+            <button id="sendBtn">
+                ➤
+            </button>
+
+        </div>
+
     </div>
 
-    <!-- الفوتر -->
-    <footer>📝 جميع الحقوق محفوظة © 2025 Fun X 🎉</footer>
+    <!-- ================= FOOTER ================= -->
 
-  
+    <footer>
 
-    <!-- JS -->
+        <div class="footerLogo">
+            🎒 Fun X
+        </div>
+
+        <p>
+            Back To School Edition • 2026
+        </p>
+
+        <span>
+            بالتوفيق في السنة الدراسية الجديدة 💙📚
+        </span>
+
+    </footer>
+
     <script src="script.js"></script>
+
 </body>
 
-
 </html>
-
 

@@ -1,739 +1,1313 @@
-/* ===================== عام ===================== */
+
+/* =========================================================
+   FUN X — BACK TO SCHOOL 2026
+   Modern School UI
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
+
+/* ================= RESET ================= */
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Cairo", "Segoe UI", Tahoma, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-    overflow-x: hidden;
+    font-family: "Cairo", "Segoe UI", Tahoma, sans-serif;
     min-height: 100vh;
-    color: #ffffff;
+    overflow-x: hidden;
+
+    color: #14213d;
+
+    background:
+        linear-gradient(
+            180deg,
+            #f7f9fc 0%,
+            #eef3f8 55%,
+            #e6edf5 100%
+        );
+
     position: relative;
-    background-attachment: fixed;
 }
 
-/* ===================== خلفيات موسمية (ناعمة) ===================== */
+/* ================= COLORS ================= */
 
-body.winter {
-    background: linear-gradient(180deg, #061a2d, #0a3d62, #1e90ff);
+:root {
+    --navy: #102a43;
+    --blue: #1976d2;
+    --light-blue: #4dabf7;
+    --yellow: #ffc107;
+    --orange: #ff9800;
+    --paper: #ffffff;
+    --text: #102a43;
+    --muted: #6b7c93;
+    --border: rgba(16, 42, 67, 0.12);
+    --shadow: 0 15px 40px rgba(16, 42, 67, 0.10);
 }
 
-body.spring {
-    background: linear-gradient(180deg, #0f3d2e, #a8e6cf, #dcedc1);
-}
+/* ================= BACKGROUND ================= */
 
-body.summer {
-    background: linear-gradient(180deg, #402000, #ffe066, #ff6b6b);
-}
-
-body.autumn {
-    background: linear-gradient(180deg, #3b1f0e, #ffad60, #ff6b6b);
-}
-
-/* ===================== النجوم ===================== */
-
-.stars {
+.school-bg {
     position: fixed;
     inset: 0;
-    z-index: -5;
+
     pointer-events: none;
+
+    overflow: hidden;
+
+    z-index: -5;
 }
 
-.star {
+.grid-background {
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: 0.32;
+
+    background-image:
+        linear-gradient(
+            rgba(25, 118, 210, 0.04) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(25, 118, 210, 0.04) 1px,
+            transparent 1px
+        );
+
+    background-size: 35px 35px;
+
+    z-index: -4;
+}
+
+.floating-item {
     position: absolute;
-    width: 2px;
-    height: 2px;
-    border-radius: 50%;
-    background: #e6f7ff;
-    animation: twinkle 5s ease-in-out infinite;
-    opacity: 0.4;
+
+    font-size: 38px;
+
+    opacity: 0.11;
+
+    filter:
+        grayscale(15%);
+
+    animation:
+        floatSchool 8s ease-in-out infinite;
 }
 
-@keyframes twinkle {
+.item-1 {
+    top: 14%;
+    left: 5%;
+    animation-delay: 0s;
+}
+
+.item-2 {
+    top: 30%;
+    left: 92%;
+    animation-delay: 1s;
+}
+
+.item-3 {
+    top: 56%;
+    left: 4%;
+    animation-delay: 2s;
+}
+
+.item-4 {
+    top: 72%;
+    left: 91%;
+    animation-delay: 3s;
+}
+
+.item-5 {
+    top: 85%;
+    left: 14%;
+    animation-delay: 1.5s;
+}
+
+.item-6 {
+    top: 20%;
+    left: 76%;
+    animation-delay: 2.5s;
+}
+
+.item-7 {
+    top: 65%;
+    left: 78%;
+    animation-delay: 4s;
+}
+
+.item-8 {
+    top: 42%;
+    left: 16%;
+    animation-delay: 3.5s;
+}
+
+@keyframes floatSchool {
 
     0%,
     100% {
-        opacity: 0.3;
+        transform:
+            translateY(0)
+            rotate(-4deg);
     }
 
     50% {
-        opacity: 1;
+        transform:
+            translateY(-18px)
+            rotate(4deg);
     }
 }
 
-/* ===================== الشمس / القمر ===================== */
-
-.celestial {
-    position: fixed;
-    top: 10%;
-    right: 10%;
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    z-index: -4;
-    filter: blur(0.5px);
-    transition: all 1s ease;
-}
-
-/* ===================== السحب ===================== */
-
-.cloud {
-    position: fixed;
-    top: 15%;
-    width: 220px;
-    height: 60px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 50px;
-    filter: blur(1px);
-    animation: cloudMove 160s linear infinite;
-    z-index: -3;
-}
-
-.cloud:nth-child(2) {
-    top: 45%;
-    width: 320px;
-    height: 80px;
-    opacity: 0.2;
-    animation-duration: 240s;
-}
-
-@keyframes cloudMove {
-    from {
-        left: -400px;
-    }
-
-    to {
-        left: 110%;
-    }
-}
-
-/* ===================== الثلج ===================== */
-
-.snowflake {
-    position: fixed;
-    top: -20px;
-    font-size: 14px;
-    color: #ffffff;
-    opacity: 0.8;
-    user-select: none;
-    pointer-events: none;
-    animation: fall linear infinite;
-    z-index: -2;
-}
-
-@keyframes fall {
-    0% {
-        transform: translateY(0) rotate(0deg);
-    }
-
-    100% {
-        transform: translateY(100vh) rotate(360deg);
-    }
-}
-
-/* ===================== بابا نويل (خفيف) ===================== */
-
-.santa {
-    position: fixed;
-    top: -60px;
-    font-size: 28px;
-    opacity: 0.7;
-    animation: santaFall linear infinite;
-    z-index: -2;
-}
-
-@keyframes santaFall {
-    from {
-        top: -60px;
-    }
-
-    to {
-        top: 110vh;
-    }
-}
-
-/* ===================== أوراق الخريف ===================== */
-
-.leaf {
-    position: fixed;
-    top: -40px;
-    font-size: 22px;
-    opacity: 0.85;
-    animation: leafFall linear infinite;
-    z-index: -2;
-}
-
-@keyframes leafFall {
-    from {
-        transform: translateY(0) rotate(0deg);
-    }
-
-    to {
-        transform: translateY(100vh) rotate(360deg);
-    }
-}
-
-/* ===================== ورود الربيع ===================== */
-
-.flower {
-    position: fixed;
-    top: -40px;
-    font-size: 22px;
-    opacity: 0.85;
-    animation: flowerFall linear infinite;
-    z-index: -2;
-}
-
-@keyframes flowerFall {
-    from {
-        transform: translateY(0) rotate(0deg);
-    }
-
-    to {
-        transform: translateY(100vh) rotate(360deg);
-    }
-}
-
-
-/* ===================== الهيدر العصري ===================== */
+/* ================= HEADER ================= */
 
 header {
-    position: fixed;
+    position: sticky;
+
     top: 0;
+
     width: 100%;
-    height: 64px;
+    height: 72px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 16px;
-    background: rgba(10, 30, 55, 0.85);
-    backdrop-filter: blur(12px);
-    color: #dff6ff;
+
+    padding: 0 24px;
+
+    background:
+        rgba(255, 255, 255, 0.92);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border-bottom:
+        1px solid var(--border);
+
+    box-shadow:
+        0 5px 25px rgba(16, 42, 67, 0.08);
+
     z-index: 1000;
-    border-bottom: 1px solid rgba(0, 255, 255, 0.25);
-    box-shadow: 0 0 30px rgba(0, 200, 255, 0.35);
-    transition: 0.3s ease;
 }
 
-/* الجزء الأيسر (اللوجو + الاسم) */
+/* ================= BRAND ================= */
+
 #siteLogoName {
     display: flex;
     align-items: center;
-    gap: 10px;
+
+    gap: 12px;
 }
 
-/* اللوجو */
 #siteLogo {
-    width: 34px;
-    height: 34px;
-    object-fit: contain;
-    border-radius: 8px;
-    background: rgba(0, 255, 255, 0.08);
-    box-shadow: 0 0 15px rgba(0, 200, 255, 0.8);
-    transition: 0.3s ease;
+    width: 43px;
+    height: 43px;
+
+    object-fit: cover;
+
+    border-radius: 12px;
+
+    border:
+        2px solid rgba(25, 118, 210, 0.13);
+
+    box-shadow:
+        0 5px 18px rgba(25, 118, 210, 0.18);
+
+    transition:
+        transform 0.3s ease;
 }
 
 #siteLogo:hover {
-    transform: rotate(-5deg) scale(1.05);
-    box-shadow: 0 0 25px rgba(0, 255, 255, 1);
+    transform:
+        rotate(-5deg)
+        scale(1.06);
 }
 
-/* اسم الموقع */
+.brandText {
+    display: flex;
+    flex-direction: column;
+}
+
 #siteName {
-    font-size: 19px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: #9ff3ff;
-    text-shadow:
-        0 0 8px rgba(0, 200, 255, 0.8),
-        0 0 16px rgba(0, 120, 255, 0.8);
+    font-size: 21px;
+
+    font-weight: 900;
+
+    color: var(--navy);
+
+    line-height: 1;
 }
 
-/* ================= الساعة والتاريخ ================= */
+.brandText small {
+    margin-top: 3px;
+
+    color: var(--blue);
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+/* ================= CLOCK ================= */
 
 #timeCalendarWrapper {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 2px;
-    padding: 6px 10px;
-    border-radius: 12px;
-    background: rgba(0, 0, 0, 0.35);
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    box-shadow:
-        inset 0 0 12px rgba(0, 255, 255, 0.35),
-        0 0 25px rgba(0, 200, 255, 0.45);
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding:
+        7px 11px;
+
+    background:
+        #f4f7fb;
+
+    border:
+        1px solid rgba(16, 42, 67, 0.08);
+
+    border-radius: 13px;
 }
 
-/* الساعة */
+.timeIcon {
+    font-size: 19px;
+}
+
+#timeCalendar {
+    text-align: right;
+}
+
 #clock {
+    color: var(--blue);
+
     font-size: 17px;
-    font-weight: bold;
-    color: #00f0ff;
-    text-shadow: 0 0 10px rgba(0, 240, 255, 0.9);
+
+    font-weight: 800;
 }
 
-/* التاريخ */
 #calendar {
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+/* ================= HERO ================= */
+
+.schoolHero {
+    width: min(94%, 1050px);
+
+    margin:
+        38px auto 24px;
+
+    padding:
+        45px 25px;
+
+    text-align: center;
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #102a43 0%,
+            #174a7e 55%,
+            #1976d2 100%
+        );
+
+    color: #fff;
+
+    box-shadow:
+        0 20px 50px rgba(16, 42, 67, 0.2);
+}
+
+.schoolHero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 240px;
+    height: 240px;
+
+    right: -90px;
+    top: -100px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 193, 7, 0.18);
+}
+
+.schoolHero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    left: -80px;
+    bottom: -90px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.08);
+}
+
+.schoolBadge {
+    position: relative;
+
+    display: inline-block;
+
+    padding:
+        7px 16px;
+
+    border-radius: 30px;
+
+    background:
+        rgba(255, 255, 255, 0.12);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.18);
+
     font-size: 12px;
-    color: #aeeeff;
-    opacity: 0.85;
+
+    font-weight: 800;
+
+    color: #ffe082;
+
+    margin-bottom: 13px;
 }
 
-/* ================= Responsive ================= */
+.schoolHero h1 {
+    position: relative;
 
-@media (max-width: 480px) {
-    header {
-        height: 58px;
-        padding: 0 12px;
-    }
+    font-size:
+        clamp(26px, 5vw, 43px);
 
-    #siteName {
-        font-size: 16px;
-    }
+    font-weight: 900;
 
-    #clock {
-        font-size: 15px;
-    }
+    margin-bottom: 10px;
 
-    #calendar {
-        font-size: 11px;
-    }
+    letter-spacing: -0.5px;
 }
 
-/* ===================== البحث العصري ===================== */
+.schoolHero p {
+    position: relative;
+
+    max-width: 620px;
+
+    margin:
+        0 auto 23px;
+
+    color:
+        rgba(255, 255, 255, 0.82);
+
+    font-size:
+        clamp(13px, 2vw, 16px);
+}
+
+.heroButtons {
+    position: relative;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+.heroBtn {
+    text-decoration: none;
+
+    padding:
+        11px 20px;
+
+    border-radius: 13px;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.heroBtn:hover {
+    transform:
+        translateY(-3px);
+}
+
+.heroBtn.primary {
+    background:
+        var(--yellow);
+
+    color:
+        #152238;
+
+    box-shadow:
+        0 8px 20px rgba(255, 193, 7, 0.25);
+}
+
+.heroBtn.secondary {
+    color: #fff;
+
+    background:
+        rgba(255, 255, 255, 0.11);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ================= SEARCH ================= */
 
 #searchBox {
-    width: 95%;
-    max-width: 520px;
-    margin: 90px auto 20px;
+    width: min(94%, 700px);
+
+    margin:
+        22px auto 35px;
+
     display: flex;
+
     align-items: center;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(12px);
-    border-radius: 40px;
-    padding: 6px;
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.15);
-    border: 1px solid rgba(0, 255, 255, 0.25);
-    transition: 0.3s ease;
+
+    padding: 6px 7px;
+
+    background:
+        #fff;
+
+    border-radius: 16px;
+
+    border:
+        1px solid var(--border);
+
+    box-shadow:
+        var(--shadow);
+
+    transition:
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
 }
 
-#searchBox:hover {
-    box-shadow: 0 0 35px rgba(0, 255, 255, 0.35);
+#searchBox:focus-within {
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 18px 45px rgba(25, 118, 210, 0.14);
 }
 
-/* حقل الإدخال */
-#searchBox input[type="text"] {
+.searchIcon {
+    width: 42px;
+
+    text-align: center;
+
+    font-size: 19px;
+}
+
+#searchBox input {
     flex: 1;
-    background: transparent;
+
+    min-width: 0;
+
     border: none;
+
     outline: none;
-    padding: 14px 18px;
-    font-size: 15px;
-    color: #fff;
+
+    background: transparent;
+
+    color: var(--text);
+
+    font-size: 14px;
+
+    padding:
+        13px 8px;
 }
 
 #searchBox input::placeholder {
-    color: #aaa;
+    color:
+        #9aabbc;
 }
 
-/* زر البحث */
 #searchBox button {
     border: none;
-    background: linear-gradient(135deg, #00f0ff, #0077ff);
-    color: #000;
-    padding: 12px 22px;
-    border-radius: 30px;
+
     cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    transition: 0.3s ease;
-    box-shadow: 0 0 15px rgba(0, 200, 255, 0.5);
+
+    background:
+        var(--blue);
+
+    color: white;
+
+    padding:
+        11px 20px;
+
+    border-radius: 11px;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
 }
 
-/* Hover */
 #searchBox button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 25px rgba(0, 200, 255, 0.9);
+    background:
+        #1565c0;
+
+    transform:
+        scale(1.03);
 }
 
-/* عند الكتابة */
-#searchBox:focus-within {
-    border-color: #00f0ff;
-    box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+/* ================= SECTIONS ================= */
+
+section.quickSection,
+section.videoSection {
+    width: min(94%, 1050px);
+
+    margin:
+        0 auto 25px;
+
+    padding:
+        23px;
+
+    border-radius: 22px;
+
+    background:
+        rgba(255, 255, 255, 0.88);
+
+    border:
+        1px solid var(--border);
+
+    box-shadow:
+        var(--shadow);
 }
 
-/* موبايل */
-@media (max-width: 480px) {
-    #searchBox {
-        margin-top: 60px;
-    }
+.sectionTitle {
+    display: flex;
 
-    #searchBox button {
-        padding: 10px 18px;
-    }
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-bottom: 5px;
 }
 
-/* ===================== Section عصري ===================== */
-
-section {
-    margin: 20px auto;
-    padding: 18px;
-    width: 95%;
-    max-width: 900px;
-    background: linear-gradient(145deg,
-            rgba(0, 40, 80, 0.75),
-            rgba(0, 80, 140, 0.65));
-    backdrop-filter: blur(12px);
-    border-radius: 18px;
-    text-align: center;
-    position: relative;
-    z-index: 10;
-    border: 1px solid rgba(0, 255, 255, 0.25);
-    box-shadow: 0 0 35px rgba(0, 180, 255, 0.25);
-    transition: 0.4s ease;
+.sectionTitle span {
+    font-size: 21px;
 }
 
-section:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 0 50px rgba(0, 220, 255, 0.45);
-}
+.sectionTitle h2 {
+    color:
+        var(--navy);
 
-/* عنوان */
-section h2 {
-    color: #8fe9ff;
-    margin-bottom: 14px;
     font-size: 20px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-shadow: 0 0 12px rgba(0, 200, 255, 0.6);
+
+    font-weight: 900;
 }
 
-/* الفيديو */
-section video {
-    width: 100%;
-    max-height: 420px;
-    object-fit: cover;
-    border-radius: 14px;
-    border: 1px solid rgba(0, 255, 255, 0.25);
-    box-shadow: 0 0 25px rgba(0, 160, 255, 0.35);
-    transition: 0.4s ease;
-}
+.sectionDescription {
+    text-align: center;
 
-/* Hover للفيديو */
-section video:hover {
-    transform: scale(1.03);
-    box-shadow: 0 0 45px rgba(0, 220, 255, 0.9);
-}
+    color:
+        var(--muted);
 
-/* موبايل */
-@media (max-width: 600px) {
-    section {
-        padding: 14px;
-    }
-
-    section h2 {
-        font-size: 17px;
-    }
-}
-
-/* ===================== إشعار ===================== */
-#notify {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #3399ff;
-    color: #fff;
-    padding: 8px 12px;
-    border-radius: 10px;
-    display: none;
-    z-index: 1000;
-    cursor: pointer;
     font-size: 12px;
+
+    margin-bottom: 20px;
 }
 
-/* ===================== الروبوت العصري ===================== */
+/* ================= QUICK CARDS ================= */
 
-/* زر فتح الشات */
+.quickGrid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 12px;
+
+    margin-top: 18px;
+}
+
+.quickCard {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    text-decoration: none;
+
+    color: var(--text);
+
+    padding:
+        15px;
+
+    border-radius: 16px;
+
+    background:
+        #f7f9fc;
+
+    border:
+        1px solid rgba(16, 42, 67, 0.07);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.quickCard:hover {
+    transform:
+        translateY(-4px);
+
+    background:
+        #fff;
+
+    box-shadow:
+        0 12px 25px rgba(16, 42, 67, 0.1);
+}
+
+.quickIcon {
+    width: 47px;
+    height: 47px;
+
+    flex-shrink: 0;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 13px;
+
+    font-size: 23px;
+
+    background:
+        #eaf3ff;
+}
+
+.quickCard h3 {
+    font-size: 13px;
+
+    margin-bottom: 2px;
+
+    font-weight: 800;
+}
+
+.quickCard p {
+    font-size: 10px;
+
+    color:
+        var(--muted);
+}
+
+/* ================= VIDEO ================= */
+
+.videoGrid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+.videoCard {
+    position: relative;
+
+    padding: 7px;
+
+    background:
+        #f4f7fb;
+
+    border-radius: 17px;
+
+    border:
+        1px solid rgba(16, 42, 67, 0.08);
+
+    box-shadow:
+        0 7px 20px rgba(16, 42, 67, 0.06);
+
+    transition:
+        transform 0.25s ease;
+}
+
+.videoCard:hover {
+    transform:
+        translateY(-4px);
+}
+
+.videoNumber {
+    position: absolute;
+
+    top: 13px;
+    right: 13px;
+
+    z-index: 2;
+
+    width: 30px;
+    height: 30px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 10px;
+
+    background:
+        rgba(16, 42, 67, 0.88);
+
+    color:
+        #ffe082;
+
+    font-size: 11px;
+
+    font-weight: 900;
+}
+
+.videoCard video {
+    width: 100%;
+
+    display: block;
+
+    border-radius: 12px;
+
+    background:
+        #111;
+
+    aspect-ratio:
+        16 / 10;
+
+    object-fit: cover;
+}
+
+/* ================= CHAT BUTTON ================= */
+
 #chatToggle {
     position: fixed;
-    bottom: 22px;
-    left: 18px;
-    width: 52px;
-    height: 52px;
-    background: linear-gradient(135deg, #00f0ff, #0066ff);
+
+    left: 20px;
+    bottom: 20px;
+
+    width: 57px;
+    height: 57px;
+
     border: none;
+
     border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1976d2,
+            #102a43
+        );
+
+    color: #fff;
+
     font-size: 22px;
+
     cursor: pointer;
-    z-index: 1100;
-    box-shadow: 0 0 25px rgba(0, 200, 255, 0.7);
-    transition: 0.3s ease;
+
+    z-index: 1200;
+
+    box-shadow:
+        0 10px 30px rgba(16, 42, 67, 0.28);
+
+    transition:
+        transform 0.25s ease;
 }
 
 #chatToggle:hover {
-    transform: scale(1.1) rotate(8deg);
-    box-shadow: 0 0 40px rgba(0, 255, 255, 1);
+    transform:
+        scale(1.08)
+        rotate(4deg);
 }
 
-/* نافذة الشات */
+/* ================= CHAT WINDOW ================= */
+
 #chatbot {
     position: fixed;
-    bottom: 90px;
-    left: 18px;
-    width: 92%;
-    max-width: 320px;
-    height: 380px;
-    background: rgba(10, 25, 45, 0.85);
-    backdrop-filter: blur(14px);
-    border-radius: 20px;
+
+    left: 20px;
+    bottom: 88px;
+
+    width: min(90vw, 365px);
+
+    height: 460px;
+
     display: flex;
+
     flex-direction: column;
+
     overflow: hidden;
-    z-index: 1100;
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    box-shadow: 0 0 40px rgba(0, 200, 255, 0.35);
-    animation: chatPop 0.4s ease;
-}
 
-@keyframes chatPop {
-    from {
-        transform: scale(0.85);
-        opacity: 0;
-    }
+    background:
+        rgba(255, 255, 255, 0.96);
 
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
+    backdrop-filter:
+        blur(18px);
+
+    border:
+        1px solid rgba(16, 42, 67, 0.12);
+
+    border-radius: 22px;
+
+    z-index: 1200;
+
+    box-shadow:
+        0 25px 70px rgba(16, 42, 67, 0.22);
+
+    animation:
+        chatOpen 0.3s ease;
 }
 
 #chatbot.hidden {
     display: none;
 }
 
-/* الرسائل */
+@keyframes chatOpen {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(15px)
+            scale(0.94);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+/* ================= CHAT HEADER ================= */
+
+.chatHeader {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding:
+        13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #102a43,
+            #1976d2
+        );
+
+    color: white;
+}
+
+.botAvatar {
+    width: 39px;
+    height: 39px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255, 255, 255, 0.12);
+
+    font-size: 19px;
+}
+
+.chatHeader strong {
+    display: block;
+
+    font-size: 13px;
+}
+
+.chatHeader span {
+    display: block;
+
+    color:
+        rgba(255, 255, 255, 0.7);
+
+    font-size: 10px;
+
+    margin-top: 2px;
+}
+
+/* ================= CHAT MESSAGES ================= */
+
 #chatMessages {
     flex: 1;
-    padding: 12px;
+
+    padding:
+        12px;
+
     overflow-y: auto;
-    font-size: 13px;
-    scrollbar-width: thin;
-    scrollbar-color: #00f0ff transparent;
+
+    background:
+        #f5f8fc;
 }
 
-/* رسالة البوت */
-#chatMessages .bot {
-    margin: 6px 0;
-    padding: 8px 10px;
-    background: rgba(0, 180, 255, 0.15);
-    border-radius: 10px 10px 10px 0;
-    color: #fff;
-    font-size: 13px;
-    max-width: 90%;
-    box-shadow: 0 0 10px rgba(0, 180, 255, 0.3);
-}
-
-/* رسالة المستخدم */
+#chatMessages .bot,
 #chatMessages .user {
-    margin: 6px 0;
-    padding: 8px 10px;
-    background: rgba(0, 255, 255, 0.25);
-    border-radius: 10px 10px 0 10px;
-    color: #0ff;
-    font-size: 13px;
-    max-width: 90%;
-    margin-left: auto;
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+    width: fit-content;
+
+    max-width: 88%;
+
+    padding:
+        9px 11px;
+
+    margin:
+        7px 0;
+
+    border-radius: 13px;
+
+    font-size: 12px;
+
+    line-height: 1.6;
 }
 
-/* شريط الإدخال */
+#chatMessages .bot {
+    color:
+        #24415b;
+
+    background:
+        #fff;
+
+    border:
+        1px solid rgba(16, 42, 67, 0.07);
+}
+
+#chatMessages .user {
+    margin-right: auto;
+
+    color:
+        #fff;
+
+    background:
+        #1976d2;
+
+    box-shadow:
+        0 4px 12px rgba(25, 118, 210, 0.16);
+}
+
+/* ================= CHAT INPUT ================= */
+
 #chatInputWrapper {
     display: flex;
-    padding: 6px;
-    border-top: 1px solid rgba(0, 255, 255, 0.3);
-    background: rgba(0, 0, 0, 0.3);
+
+    gap: 6px;
+
+    padding: 7px;
+
+    background:
+        #fff;
+
+    border-top:
+        1px solid rgba(16, 42, 67, 0.08);
 }
 
-/* حقل الإدخال */
 #chatInput {
     flex: 1;
-    padding: 10px 12px;
-    border: none;
+
+    min-width: 0;
+
+    border:
+        1px solid rgba(16, 42, 67, 0.10);
+
     outline: none;
-    background: transparent;
-    color: #fff;
-    font-size: 13px;
+
+    border-radius: 11px;
+
+    background:
+        #f6f8fb;
+
+    padding:
+        10px;
+
+    color:
+        var(--text);
+
+    font-family: inherit;
+
+    font-size: 12px;
 }
 
-/* زر الإرسال */
+#chatInput:focus {
+    border-color:
+        rgba(25, 118, 210, 0.45);
+}
+
 #sendBtn {
-    background: linear-gradient(135deg, #00f0ff, #0077ff);
+    width: 43px;
+
     border: none;
-    padding: 8px 14px;
+
+    border-radius: 11px;
+
+    background:
+        #1976d2;
+
+    color: #fff;
+
+    font-size: 17px;
+
     cursor: pointer;
-    color: #000;
-    font-weight: bold;
-    font-size: 13px;
-    border-radius: 12px;
-    transition: 0.3s ease;
-    box-shadow: 0 0 12px rgba(0, 200, 255, 0.6);
+
+    transition:
+        transform 0.2s ease;
 }
 
 #sendBtn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 25px rgba(0, 255, 255, 1);
+    transform:
+        scale(1.05);
 }
 
-/* موبايل */
-@media (max-width: 480px) {
-    #chatbot {
-        height: 360px;
-    }
-}
-
-/* ===================== Footer عصري ===================== */
+/* ================= FOOTER ================= */
 
 footer {
-    margin-top: 30px;
+    margin-top: 35px;
+
     text-align: center;
-    padding: 14px 10px;
-    font-size: 13px;
-    color: #8fe9ff;
-    position: relative;
-    z-index: 10;
-    background: rgba(10, 25, 45, 0.6);
-    backdrop-filter: blur(10px);
-    border-top: 1px solid rgba(0, 255, 255, 0.25);
-    box-shadow: 0 -5px 25px rgba(0, 200, 255, 0.2);
+
+    padding:
+        27px 15px;
+
+    background:
+        #102a43;
+
+    color: #fff;
 }
 
-/* نص متوهج */
+.footerLogo {
+    font-size: 18px;
+
+    font-weight: 900;
+
+    color:
+        #ffe082;
+
+    margin-bottom: 4px;
+}
+
+footer p {
+    font-size: 10px;
+
+    color:
+        rgba(255, 255, 255, 0.55);
+
+    margin-bottom: 5px;
+}
+
 footer span {
-    color: #00f0ff;
-    font-weight: 600;
-    text-shadow: 0 0 10px rgba(0, 240, 255, 0.7);
+    font-size: 11px;
+
+    color:
+        rgba(255, 255, 255, 0.82);
 }
 
-/* روابط */
-footer a {
-    color: #66ccff;
-    text-decoration: none;
-    margin: 0 6px;
-    transition: 0.3s ease;
-}
+/* ================= MOBILE ================= */
 
-footer a:hover {
-    color: #00f0ff;
-    text-shadow: 0 0 12px rgba(0, 255, 255, 1);
-}
+@media (max-width: 800px) {
 
-/* موبايل */
-@media (max-width: 480px) {
-    footer {
-        font-size: 12px;
-        padding: 12px 8px;
-    }
-}
-
-
-/* ===================== Responsive Pro ===================== */
-
-/* موبايل صغير */
-@media (max-width: 480px) {
-    #chatbot {
-        width: 94%;
-        height: 360px;
-        bottom: 80px;
-        left: 3%;
+    header {
+        padding:
+            0 13px;
     }
 
-    #chatToggle {
-        width: 48px;
-        height: 48px;
-        font-size: 20px;
+    .quickGrid {
+        grid-template-columns:
+            repeat(2, 1fr);
     }
 
-    #searchBox {
-        max-width: 95%;
+    .videoGrid {
+        grid-template-columns:
+            1fr;
     }
 
-    #searchBox input[type="text"] {
-        font-size: 14px;
-        padding: 12px;
-    }
-
-    #searchBox button {
-        font-size: 14px;
-        padding: 10px 16px;
-    }
-
-    footer {
-        font-size: 11px;
+    .schoolHero {
+        padding:
+            37px 20px;
     }
 }
 
-/* تابلت */
-@media (min-width: 481px) and (max-width: 767px) {
-    #chatbot {
-        width: 320px;
-        height: 380px;
-        bottom: 85px;
-        left: 15px;
+@media (max-width: 500px) {
+
+    header {
+        height: 65px;
     }
 
-    #searchBox input[type="text"] {
-        font-size: 15px;
+    #siteLogo {
+        width: 37px;
+        height: 37px;
     }
 
-    #searchBox button {
-        font-size: 15px;
+    #siteName {
+        font-size: 18px;
     }
-}
 
-/* كمبيوتر */
-@media (min-width: 768px) {
-    #chatbot {
-        width: 340px;
-        height: 420px;
-        bottom: 90px;
-        left: 20px;
+    .brandText small {
+        font-size: 8px;
+    }
+
+    #timeCalendarWrapper {
+        padding:
+            5px 7px;
+    }
+
+    .timeIcon {
+        display: none;
     }
 
     #clock {
-        font-size: 22px;
+        font-size: 14px;
     }
 
     #calendar {
-        font-size: 15px;
+        font-size: 8px;
     }
 
-    #searchBox input[type="text"] {
-        font-size: 16px;
-        padding: 14px;
+    .schoolHero {
+        width: 94%;
+
+        margin-top:
+            25px;
+
+        border-radius:
+            21px;
+
+        padding:
+            31px 16px;
     }
 
-    #searchBox button {
-        font-size: 16px;
-        padding: 14px 20px;
+    .schoolHero h1 {
+        font-size: 27px;
     }
 
-    footer {
-        font-size: 13px;
+    .schoolHero p {
+        font-size: 12px;
     }
-}
 
-/* شاشات كبيرة */
-@media (min-width: 1200px) {
-    #chatbot {
-        width: 360px;
-        height: 440px;
+    .heroBtn {
+        padding:
+            10px 15px;
+
+        font-size: 11px;
     }
 
     #searchBox {
-        max-width: 600px;
+        width:
+            94%;
+    }
+
+    #searchBox button {
+        padding:
+            10px 14px;
+
+        font-size: 11px;
+    }
+
+    section.quickSection,
+    section.videoSection {
+        width: 94%;
+
+        padding:
+            16px;
+
+        border-radius:
+            18px;
+    }
+
+    .quickGrid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .quickCard {
+        padding:
+            13px;
+    }
+
+    .sectionTitle h2 {
+        font-size: 18px;
+    }
+
+    #chatbot {
+        left: 3%;
+
+        width: 94%;
+
+        bottom:
+            82px;
+
+        height:
+            410px;
+    }
+
+    #chatToggle {
+        left: 15px;
+
+        bottom:
+            17px;
+
+        width:
+            50px;
+
+        height:
+            50px;
+    }
+
+    .floating-item {
+        font-size:
+            27px;
     }
 }
+
+/* ================= REDUCED MOTION ================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration:
+            0.001ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            0.001ms !important;
+
+        scroll-behavior:
+            auto !important;
+    }
+}
+
