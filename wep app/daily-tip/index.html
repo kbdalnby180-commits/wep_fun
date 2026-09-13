@@ -1,28 +1,314 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>💡 نصائح يومية</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#08111f"
+    >
+
+    <meta
+        name="description"
+        content="نصيحة يومية مختارة حسب النوع"
+    >
+
+    <title>Daily X — نصيحة يومية</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
+    <!-- الخلفية -->
+    <div class="background">
 
-<h1>💡 نصيحة يومية</h1>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
 
-<div class="controls">
-  <select id="gender">
-    <option value="">-- اختر النوع --</option>
-    <option value="male">ذكر</option>
-    <option value="female">أنثى</option>
-  </select>
-  <button onclick="showTip()">عرض النصيحة</button>
+        <div class="grid"></div>
 
-  <button id="toggleTheme">🌙 تبديل الوضع</button>
-</div>
+    </div>
 
-<div class="tip-card" id="tipBox">سيتم عرض نصيحتك هنا...</div>
-<script src="script.js"></script>
+
+    <main class="app">
+
+        <!-- ================= HEADER ================= -->
+
+        <header class="header">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    💡
+                </div>
+
+                <div>
+                    <strong>Daily X</strong>
+                    <small>نصيحة يومية</small>
+                </div>
+
+            </div>
+
+
+            <button
+                id="toggleTheme"
+                class="theme-btn"
+                type="button"
+                title="تبديل الوضع">
+
+                🌙
+
+            </button>
+
+        </header>
+
+
+        <!-- ================= HERO ================= -->
+
+        <section class="hero">
+
+            <div class="hero-badge">
+                ✨ فكرة اليوم
+            </div>
+
+            <h1>
+                نصيحة
+                <span>يومية</span>
+            </h1>
+
+            <p>
+                اختر نوع النصائح واحصل على فكرة جديدة كل يوم
+            </p>
+
+        </section>
+
+
+        <!-- ================= MAIN CARD ================= -->
+
+        <section class="card main-card">
+
+            <div class="card-heading">
+
+                <div>
+                    <div class="label">
+                        اختر نوع النصيحة
+                    </div>
+
+                    <div class="heading-sub">
+                        سيتم اختيار النصيحة بناءً على اختيارك
+                    </div>
+                </div>
+
+                <div class="day-badge">
+                    اليوم
+                    <span id="dayNumber">—</span>
+                </div>
+
+            </div>
+
+
+            <!-- النوع -->
+
+            <div class="gender-options">
+
+                <button
+                    type="button"
+                    class="gender-option"
+                    data-gender="male">
+
+                    <span class="gender-icon">
+                        👨
+                    </span>
+
+                    <span>
+                        ذكر
+                    </span>
+
+                    <small>
+                        نصائح للشباب
+                    </small>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="gender-option"
+                    data-gender="female">
+
+                    <span class="gender-icon">
+                        👩
+                    </span>
+
+                    <span>
+                        أنثى
+                    </span>
+
+                    <small>
+                        نصائح للفتيات
+                    </small>
+
+                </button>
+
+            </div>
+
+
+            <!-- الزر -->
+
+            <button
+                id="showTipBtn"
+                class="main-btn"
+                type="button">
+
+                <span>✨</span>
+                عرض نصيحة اليوم
+
+            </button>
+
+
+            <!-- النصيحة -->
+
+            <div class="tip-area">
+
+                <div class="tip-label">
+                    💭 نصيحتك اليوم
+                </div>
+
+
+                <div
+                    id="tipBox"
+                    class="tip-card">
+
+                    <div class="placeholder-icon">
+                        💡
+                    </div>
+
+                    <p id="tipText">
+                        اختر النوع أولًا لعرض نصيحتك
+                    </p>
+
+                </div>
+
+
+                <div class="tip-footer">
+
+                    <span id="selectedGender">
+                        لم يتم اختيار النوع
+                    </span>
+
+                    <span class="dot"></span>
+
+                    <span>
+                        نصيحة اليوم
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= INFO ================= -->
+
+        <section class="info-grid">
+
+            <div class="info-card">
+
+                <div class="info-icon">
+                    📅
+                </div>
+
+                <div>
+                    <strong>
+                        تتغير يوميًا
+                    </strong>
+
+                    <small>
+                        نصيحة مختلفة كل يوم
+                    </small>
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-icon">
+                    ⚡
+                </div>
+
+                <div>
+                    <strong>
+                        فوري
+                    </strong>
+
+                    <small>
+                        بدون انتظار أو تحميل
+                    </small>
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-icon">
+                    🔒
+                </div>
+
+                <div>
+                    <strong>
+                        محلي
+                    </strong>
+
+                    <small>
+                        لا يتم إرسال بياناتك
+                    </small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <footer>
+
+            <strong>
+                Daily X
+            </strong>
+
+            <span>
+                © 2026
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <!-- TOAST -->
+
+    <div
+        id="toast"
+        class="toast">
+        تم التنفيذ
+    </div>
+
+
+    <script src="script.js"></script>
+
 </body>
+
 </html>
+
