@@ -1,249 +1,1190 @@
-// ==================== الأصوات ====================
-const soundTakeoff = new Audio("sounds/take-off-36682.mp3");
-const soundExplosion = new Audio("sounds/explosion-312361.mp3");
-const soundClick = new Audio("sounds/ui-button-click-5-327756.mp3");
 
-// ==================== إعدادات اللعبة ====================
-const MIN_BET = 10;
-const INITIAL_BALANCE = 50.0;
-const TICK_MS = 50;
-const STEP = 0.02;
+/* =====================================================
+   PLANEX — ARCADE GAME
+   Virtual points only
+===================================================== */
 
-let balance = parseFloat(localStorage.getItem("balance") || INITIAL_BALANCE);
-let multiplier = 1.0;
-let crashPoint = 0;
-let running = false;
-let timer = null;
+document.addEventListener("DOMContentLoaded", () => {
 
-let userBets = [0];
-let userCashed = [false];
-let transactions = [];
-let aiPlayers = [];
+    "use strict";
 
-// ==================== عناصر HTML ====================
-const elBalance = document.getElementById("balance");
-const elMultiplier = document.getElementById("multiplier");
-const elResult = document.getElementById("result");
-const plane = document.getElementById("plane");
-const line = document.getElementById("line");
-const explosion = document.getElementById("explosion");
-const elTransactionsList = document.getElementById("transactionsList");
-const playArea = document.getElementById("playArea");
-const playersArea = document.getElementById("playersArea");
 
-// ==================== وظائف الأصوات ====================
-function playClick() {
-    soundClick.currentTime = 0;
-    soundClick.play();
-}
+    /* =================================================
+       SOUNDS
+    ================================================= */
 
-// ==================== حفظ الرصيد ====================
-function saveState() {
-    localStorage.setItem("balance", balance.toFixed(2));
-}
+    const soundTakeoff =
+        new Audio(
+            "sounds/take-off-36682.mp3"
+        );
 
-function updateBalance() {
-    elBalance.innerText = `رصيدك: ${balance.toFixed(2)} جنيه`;
-    saveState();
-}
 
-// ==================== إدارة المعاملات ====================
-function pushTransaction(obj) {
-    transactions.unshift(obj);
-    renderTransactions();
-}
+    const soundExplosion =
+        new Audio(
+            "sounds/explosion-312361.mp3"
+        );
 
-function renderTransactions() {
-    if (transactions.length === 0) {
-        elTransactionsList.innerText = 'لا توجد معاملات بعد';
-        return;
-    }
 
-    elTransactionsList.innerHTML = transactions.map(t => {
-        switch(t.type) {
-            case 'cashout':
-                return `<div>✅ <b>${t.player}</b> سحب عند <b>x${t.at}</b> — رهان: <b>${t.bet} ج</b> — كسب: <b>${t.won} ج</b></div>`;
-            case 'loss':
-                return `<div>❌ <b>${t.player}</b> خسر — رهان: <b>${t.bet} ج</b></div>`;
-            case 'deposit':
-                return `<div>💰 <b>${t.player || 'محفظتك'}</b> دفع/إيداع: <b>+${t.amount} ج</b></div>`;
+    const soundClick =
+        new Audio(
+            "sounds/ui-button-click-5-327756.mp3"
+        );
+
+
+    /* =================================================
+       SETTINGS
+    ================================================= */
+
+    const MIN_POINTS = 1;
+
+    const INITIAL_POINTS = 500;
+
+    const TICK_MS = 50;
+
+    const STEP = 0.02;
+
+    const STORAGE_KEY =
+        "planex_arcade_state";
+
+
+    /* =================================================
+       STATE
+    ================================================= */
+
+    let points =
+        INITIAL_POINTS;
+
+
+    let multiplier = 1;
+
+    let crashPoint = 0;
+
+    let running = false;
+
+    let timer = null;
+
+    let roundNumber = 1;
+
+    let playerPoints = 0;
+
+    let playerCollected = false;
+
+    let history = [];
+
+    let aiPlayers = [];
+
+
+    /* =================================================
+       LOAD
+    ================================================= */
+
+    try {
+
+        const saved =
+            localStorage.getItem(
+                STORAGE_KEY
+            );
+
+
+        if (saved) {
+
+            const parsed =
+                JSON.parse(saved);
+
+
+            points =
+                Number(
+                    parsed.points
+                ) || INITIAL_POINTS;
+
+
+            roundNumber =
+                Number(
+                    parsed.roundNumber
+                ) || 1;
+
+
+            history =
+                Array.isArray(
+                    parsed.history
+                )
+                    ? parsed.history
+                    : [];
+
         }
-    }).join('');
-}
 
-// ==================== تحديد نقطة الانفجار ====================
-function getCrashPoint() {
-    const r = Math.random();
-    if (r < 0.55) return parseFloat((1 + Math.random() * 5).toFixed(2));
-    if (r < 0.75) return parseFloat((6 + Math.random() * 4).toFixed(2));
-    if (r < 0.9) return parseFloat((10 + Math.random() * 6).toFixed(2));
-    return parseFloat((16 + Math.random() * 4).toFixed(2));
-}
+    } catch (error) {
 
-// ==================== إنشاء لاعبين AI ====================
-function generatePlayers() {
-    playersArea.innerHTML = "";
-    aiPlayers = [];
+        console.warn(
+            "Storage error:",
+            error
+        );
 
-    const n = 10 + Math.floor(Math.random() * 15);
-    for (let i = 0; i < n; i++) {
-        const pid = maskId("X");
-        const bet = 10 + Math.floor(Math.random() * 90);
-        const cashAt = (Math.random() < 0.4) ? (1.2 + Math.random() * 8).toFixed(2) : null;
-
-        aiPlayers.push({ id: pid, bet: bet, cashAt: cashAt, cashed: false });
-
-        const card = document.createElement("div");
-        card.className = "player-card";
-        card.innerHTML = `
-            <div class="player-id">${pid}</div>
-            <div class="player-bet">رهان: ${bet} ج</div>
-            <div class="player-status ok">✅ مستمر</div>
-        `;
-        playersArea.appendChild(card);
     }
-}
 
-// ==================== بدء الجولة ====================
-function startBet(index) {
-    if (running) { alert("جولة جارية!"); return; }
 
-    transactions = [];
-    renderTransactions();
+    /* =================================================
+       ELEMENTS
+    ================================================= */
 
-    const input = document.getElementById("bet1");
-    const val = parseFloat(input.value);
+    const balanceEl =
+        document.getElementById(
+            "balance"
+        );
 
-    if (isNaN(val) || val < MIN_BET) { alert("ادخل رهان صحيح"); return; }
-    if (val > balance) { alert("رصيدك غير كافي"); return; }
 
-    playClick();
-    balance -= val;
-    updateBalance();
+    const multiplierEl =
+        document.getElementById(
+            "multiplier"
+        );
 
-    userBets[index] = val;
-    userCashed[index] = false;
-    multiplier = 1.0;
-    elMultiplier.innerText = "x1.00";
-    elResult.innerHTML = "";
 
-    crashPoint = getCrashPoint();
-    generatePlayers();
+    const resultEl =
+        document.getElementById(
+            "result"
+        );
 
-    running = true;
-    plane.style.right = "0px";
-    line.style.width = "0px";
-    explosion.style.display = "none";
 
-    soundTakeoff.currentTime = 0; 
-    soundTakeoff.play();
+    const roundNumberEl =
+        document.getElementById(
+            "roundNumber"
+        );
 
-    timer = setInterval(() => {
-        multiplier = parseFloat((multiplier + STEP).toFixed(2));
-        elMultiplier.innerText = `x${multiplier.toFixed(2)}`;
 
-        const maxWidth = playArea.clientWidth - plane.clientWidth;
-        const pos = (multiplier / 30) * maxWidth;
-        plane.style.right = pos + "px";
-        line.style.width = pos + "px";
+    const plane =
+        document.getElementById(
+            "plane"
+        );
 
-        // AI players cashout
-        aiPlayers.forEach((p, idx) => {
-            if (p.cashAt && !p.cashed && multiplier >= p.cashAt && multiplier < crashPoint) {
-                p.cashed = true;
-                const win = (p.bet * multiplier).toFixed(2);
-                pushTransaction({ type: 'cashout', player: p.id, bet: p.bet, at: multiplier.toFixed(2), won: win });
-                playersArea.children[idx].querySelector(".player-status").innerText = "سحب";
+
+    const line =
+        document.getElementById(
+            "line"
+        );
+
+
+    const explosion =
+        document.getElementById(
+            "explosion"
+        );
+
+
+    const crashFlash =
+        document.getElementById(
+            "crashFlash"
+        );
+
+
+    const playArea =
+        document.getElementById(
+            "playArea"
+        );
+
+
+    const playersArea =
+        document.getElementById(
+            "playersArea"
+        );
+
+
+    const historyEl =
+        document.getElementById(
+            "transactionsList"
+        );
+
+
+    const statusEl =
+        document.getElementById(
+            "gameStatus"
+        );
+
+
+    const startBtn =
+        document.getElementById(
+            "bet1Start"
+        );
+
+
+    const collectBtn =
+        document.getElementById(
+            "bet1Cash"
+        );
+
+
+    const pointsInput =
+        document.getElementById(
+            "bet1"
+        );
+
+
+    /* =================================================
+       SAVE
+    ================================================= */
+
+    function saveState() {
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify({
+                points,
+                roundNumber,
+                history
+            })
+        );
+
+    }
+
+
+    /* =================================================
+       SOUND
+    ================================================= */
+
+    function playClick() {
+
+        try {
+
+            soundClick.currentTime =
+                0;
+
+            soundClick.play()
+                .catch(() => {});
+
+        } catch {}
+
+    }
+
+
+    /* =================================================
+       UI
+    ================================================= */
+
+    function updateUI() {
+
+        balanceEl.textContent =
+            points.toFixed(0);
+
+
+        roundNumberEl.textContent =
+            roundNumber;
+
+
+        collectBtn.disabled =
+            !running;
+
+    }
+
+
+    function setStatus(
+        text,
+        className
+    ) {
+
+        statusEl.textContent =
+            text;
+
+
+        statusEl.className =
+            "status " +
+            className;
+
+    }
+
+
+    /* =================================================
+       CRASH POINT
+    ================================================= */
+
+    function getCrashPoint() {
+
+        const r =
+            Math.random();
+
+
+        if (r < 0.55) {
+
+            return Number(
+                (
+                    1 +
+                    Math.random() * 4
+                ).toFixed(2)
+            );
+
+        }
+
+
+        if (r < 0.78) {
+
+            return Number(
+                (
+                    5 +
+                    Math.random() * 5
+                ).toFixed(2)
+            );
+
+        }
+
+
+        if (r < 0.92) {
+
+            return Number(
+                (
+                    10 +
+                    Math.random() * 7
+                ).toFixed(2)
+            );
+
+        }
+
+
+        return Number(
+            (
+                17 +
+                Math.random() * 8
+            ).toFixed(2)
+        );
+
+    }
+
+
+    /* =================================================
+       AI PLAYERS
+    ================================================= */
+
+    function generatePlayers() {
+
+        playersArea.innerHTML =
+            "";
+
+
+        aiPlayers = [];
+
+
+        const count =
+            8 +
+            Math.floor(
+                Math.random() * 8
+            );
+
+
+        for (
+            let i = 0;
+            i < count;
+            i++
+        ) {
+
+            const id =
+                `BOT-${String(
+                    i + 1
+                ).padStart(
+                    2,
+                    "0"
+                )}`;
+
+
+            const botPoints =
+                5 +
+                Math.floor(
+                    Math.random() * 46
+                );
+
+
+            const collectAt =
+                (
+                    1.2 +
+                    Math.random() * 7
+                ).toFixed(2);
+
+
+            aiPlayers.push({
+
+                id,
+
+                points:
+                    botPoints,
+
+                collectAt:
+                    Number(
+                        collectAt
+                    ),
+
+                collected:
+                    false
+
+            });
+
+
+            renderAIPlayer(
+                aiPlayers[
+                    aiPlayers.length - 1
+                ]
+            );
+
+        }
+
+    }
+
+
+    function renderAIPlayer(
+        player
+    ) {
+
+        const card =
+            document.createElement(
+                "div"
+            );
+
+
+        card.className =
+            "player-card";
+
+
+        card.innerHTML = `
+
+            <div class="player-id">
+                ${player.id}
+            </div>
+
+            <div class="player-points">
+                نقاط: ${player.points}
+            </div>
+
+            <div class="player-status">
+                ⏳ مستمر
+            </div>
+
+        `;
+
+
+        playersArea.appendChild(
+            card
+        );
+
+    }
+
+
+    /* =================================================
+       START ROUND
+    ================================================= */
+
+    function startRound() {
+
+        if (running) {
+
+            return;
+
+        }
+
+
+        const selected =
+            Number(
+                pointsInput.value
+            );
+
+
+        if (
+            !Number.isFinite(
+                selected
+            ) ||
+            selected < MIN_POINTS
+        ) {
+
+            resultEl.textContent =
+                "⚠️ أدخل عدد نقاط صحيح";
+
+            return;
+
+        }
+
+
+        if (
+            selected > points
+        ) {
+
+            resultEl.textContent =
+                "⚠️ لا تملك نقاطًا كافية";
+
+            return;
+
+        }
+
+
+        playClick();
+
+
+        points -=
+            selected;
+
+
+        playerPoints =
+            selected;
+
+
+        playerCollected =
+            false;
+
+
+        multiplier = 1;
+
+
+        crashPoint =
+            getCrashPoint();
+
+
+        running =
+            true;
+
+
+        resultEl.textContent =
+            "🚀 الطائرة أقلعت...";
+
+
+        resultEl.className =
+            "result";
+
+
+        setStatus(
+            "الجولة جارية",
+            "running"
+        );
+
+
+        plane.style.right =
+            "0px";
+
+
+        line.style.width =
+            "0px";
+
+
+        plane.classList.add(
+            "flying"
+        );
+
+
+        explosion.classList.remove(
+            "show"
+        );
+
+
+        generatePlayers();
+
+
+        updateUI();
+
+
+        saveState();
+
+
+        try {
+
+            soundTakeoff.currentTime =
+                0;
+
+            soundTakeoff.play()
+                .catch(() => {});
+
+        } catch {}
+
+
+        clearInterval(
+            timer
+        );
+
+
+        timer =
+            setInterval(
+                gameTick,
+                TICK_MS
+            );
+
+    }
+
+
+    /* =================================================
+       GAME TICK
+    ================================================= */
+
+    function gameTick() {
+
+        if (!running) {
+
+            return;
+
+        }
+
+
+        multiplier =
+            Number(
+                (
+                    multiplier +
+                    STEP
+                ).toFixed(2)
+            );
+
+
+        multiplierEl.textContent =
+            `x${multiplier.toFixed(2)}`;
+
+
+        /*
+         * Move plane
+         */
+
+        const maxWidth =
+            Math.max(
+                0,
+                playArea.clientWidth -
+                plane.clientWidth
+            );
+
+
+        const progress =
+            Math.min(
+                1,
+                multiplier / 30
+            );
+
+
+        const position =
+            progress *
+            maxWidth;
+
+
+        plane.style.right =
+            `${position}px`;
+
+
+        line.style.width =
+            `${position}px`;
+
+
+        /*
+         * AI
+         */
+
+        aiPlayers.forEach(
+            (player, index) => {
+
+                if (
+                    !player.collected &&
+                    multiplier >=
+                        player.collectAt &&
+                    multiplier <
+                        crashPoint
+                ) {
+
+                    player.collected =
+                        true;
+
+
+                    const card =
+                        playersArea
+                            .children[
+                                index
+                            ];
+
+
+                    if (card) {
+
+                        const status =
+                            card.querySelector(
+                                ".player-status"
+                            );
+
+
+                        if (status) {
+
+                            status.textContent =
+                                "⭐ جمع النقاط";
+
+                        }
+
+                    }
+
+                }
+
             }
+        );
+
+
+        /*
+         * Crash
+         */
+
+        if (
+            multiplier >=
+            crashPoint
+        ) {
+
+            crashRound();
+
+        }
+
+    }
+
+
+    /* =================================================
+       PLAYER COLLECT
+    ================================================= */
+
+    function collectPoints() {
+
+        if (
+            !running ||
+            playerCollected
+        ) {
+
+            return;
+
+        }
+
+
+        playClick();
+
+
+        playerCollected =
+            true;
+
+
+        const reward =
+            Math.floor(
+                playerPoints *
+                multiplier
+            );
+
+
+        points +=
+            reward;
+
+
+        addHistory({
+            type:
+                "win",
+            text:
+                `⭐ جمعت ${reward} نقطة عند x${multiplier.toFixed(2)}`
         });
 
-        // الانفجار
-        if (multiplier >= crashPoint) {
-            clearInterval(timer);
-            running = false;
-            explosion.style.width = plane.clientWidth + "px";
-            explosion.style.height = plane.clientHeight + "px";
-            explosion.style.right = plane.style.right;
-            explosion.style.top = plane.style.top;
-            explosion.style.display = "block";
-            soundExplosion.currentTime = 0; 
-            soundExplosion.play();
 
-            userBets.forEach((b, i) => { 
-                if (b > 0 && !userCashed[i]) pushTransaction({ type: 'loss', player: maskId('Player' + (i+1)), bet: b }); 
+        resultEl.textContent =
+            `⭐ حصلت على ${reward} نقطة`;
+
+
+        resultEl.className =
+            "result success";
+
+
+        clearInterval(
+            timer
+        );
+
+
+        running =
+            false;
+
+
+        plane.classList.remove(
+            "flying"
+        );
+
+
+        setStatus(
+            "تم جمع النقاط",
+            "waiting"
+        );
+
+
+        updateUI();
+
+
+        saveState();
+
+    }
+
+
+    /* =================================================
+       CRASH
+    ================================================= */
+
+    function crashRound() {
+
+        clearInterval(
+            timer
+        );
+
+
+        running =
+            false;
+
+
+        plane.classList.remove(
+            "flying"
+        );
+
+
+        setStatus(
+            "تحطمت!",
+            "crashed"
+        );
+
+
+        /*
+         * Explosion
+         */
+
+        const planeRight =
+            plane.style.right;
+
+
+        const planeTop =
+            plane.offsetTop +
+            (
+                plane.offsetHeight / 2
+            );
+
+
+        explosion.style.right =
+            planeRight;
+
+
+        explosion.style.top =
+            `${planeTop}px`;
+
+
+        explosion.classList.remove(
+            "show"
+        );
+
+
+        void explosion.offsetWidth;
+
+
+        explosion.classList.add(
+            "show"
+        );
+
+
+        crashFlash.classList.remove(
+            "active"
+        );
+
+
+        void crashFlash.offsetWidth;
+
+
+        crashFlash.classList.add(
+            "active"
+        );
+
+
+        try {
+
+            soundExplosion.currentTime =
+                0;
+
+            soundExplosion.play()
+                .catch(() => {});
+
+        } catch {}
+
+
+        if (
+            !playerCollected
+        ) {
+
+            addHistory({
+                type:
+                    "loss",
+                text:
+                    `💥 تحطمت عند x${crashPoint.toFixed(2)} — خسرت ${playerPoints} نقطة`
             });
 
-            aiPlayers.forEach((p, idx) => { 
-                if (!p.cashed) { 
-                    pushTransaction({ type: 'loss', player: p.id, bet: p.bet }); 
-                    playersArea.children[idx].querySelector(".player-status").innerText = "❌ خسر"; 
+
+            resultEl.textContent =
+                `💥 تحطمت الطائرة عند x${crashPoint.toFixed(2)}`;
+
+
+            resultEl.className =
+                "result fail";
+
+        }
+
+
+        updateUI();
+
+        saveState();
+
+
+        /*
+         * Round increment after display
+         */
+
+        roundNumber++;
+
+
+        saveState();
+
+    }
+
+
+    /* =================================================
+       HISTORY
+    ================================================= */
+
+    function addHistory(
+        item
+    ) {
+
+        history.unshift(
+            item
+        );
+
+
+        if (
+            history.length > 20
+        ) {
+
+            history =
+                history.slice(
+                    0,
+                    20
+                );
+
+        }
+
+
+        renderHistory();
+
+    }
+
+
+    function renderHistory() {
+
+        if (
+            history.length === 0
+        ) {
+
+            historyEl.textContent =
+                "لا توجد جولات بعد";
+
+            return;
+
+        }
+
+
+        historyEl.innerHTML =
+            history.map(
+                item => `
+
+                    <div class="
+                        history-row
+                        ${item.type}
+                    ">
+                        ${item.text}
+                    </div>
+
+                `
+            ).join("");
+
+    }
+
+
+    /* =================================================
+       BUTTONS
+    ================================================= */
+
+    startBtn.addEventListener(
+        "click",
+        startRound
+    );
+
+
+    collectBtn.addEventListener(
+        "click",
+        collectPoints
+    );
+
+
+    pointsInput.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                startRound();
+
+            }
+
+        }
+    );
+
+
+    /* =================================================
+       KEYBOARD
+    ================================================= */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.code === "Space"
+            ) {
+
+                event.preventDefault();
+
+
+                if (
+                    running
+                ) {
+
+                    collectPoints();
+
+                } else {
+
+                    startRound();
+
                 }
-            });
 
-            elResult.innerHTML = `💥 الطيارة تحطمت عند x${crashPoint}`;
+            }
+
         }
-    }, TICK_MS);
-}
+    );
 
-// ==================== السحب ====================
-function cashout(i) {
-    if (!running || userCashed[i]) return;
 
-    playClick();
-    userCashed[i] = true;
+    /* =================================================
+       PARTICLES
+    ================================================= */
 
-    const win = parseFloat((userBets[i] * multiplier).toFixed(2));
-    balance += win;
-    updateBalance();
+    function createParticles() {
 
-    pushTransaction({ type: 'cashout', player: maskId('Player' + (i+1)), bet: userBets[i], at: multiplier.toFixed(2), won: win.toFixed(2) });
-}
+        const count =
+            window.innerWidth < 600
+                ? 30
+                : 55;
 
-// ==================== مساعدة ====================
-function maskId(id) {
-    return `211***${Math.floor(100 + Math.random() * 900)}`;
-}
 
-// ==================== أحداث الأزرار ====================
-document.getElementById("bet1Start").onclick = () => startBet(0);
-document.getElementById("bet1Cash").onclick = () => cashout(0);
+        const container =
+            document.getElementById(
+                "particles"
+            );
 
-// ==================== صفحة الإيداع ====================
-document.getElementById("depositPage").onclick = async () => {
-    playClick();
-    let savedCode = localStorage.getItem("depositCode");
-    let amt = prompt("⚠️ الخطوة 1: أدخل مبلغ الإيداع (20 - 60000):");
-    if (!amt) return;
-    amt = parseFloat(amt);
-    if (isNaN(amt) || amt < 20 || amt > 60000) { alert("❌ المبلغ غير صالح!"); return; }
 
-    if (!savedCode) {
-        let code = prompt("🔐 الخطوة 2: اختر رمز أمان 4 أرقام:");
-        if (!code || !/^\d{4}$/.test(code)) { alert("❌ الرمز غير صالح!"); return; }
-        localStorage.setItem("depositCode", code);
-        savedCode = code;
-        alert("✅ تم حفظ الرمز للأبد!");
+        for (
+            let i = 0;
+            i < count;
+            i++
+        ) {
+
+            const particle =
+                document.createElement(
+                    "span"
+                );
+
+
+            particle.style.position =
+                "absolute";
+
+
+            particle.style.width =
+                `${Math.random() * 2 + 1}px`;
+
+
+            particle.style.height =
+                particle.style.width;
+
+
+            particle.style.borderRadius =
+                "50%";
+
+
+            particle.style.left =
+                `${Math.random() * 100}%`;
+
+
+            particle.style.top =
+                `${Math.random() * 100}%`;
+
+
+            particle.style.background =
+                "rgba(80,190,255,0.7)";
+
+
+            particle.style.opacity =
+                `${Math.random() * 0.5 + 0.1}`;
+
+
+            particle.style.boxShadow =
+                "0 0 8px rgba(80,190,255,0.5)";
+
+
+            const duration =
+                Math.random() * 8 + 5;
+
+
+            particle.style.animation =
+                `particleFloat ${duration}s ease-in-out infinite`;
+
+
+            particle.style.animationDelay =
+                `${Math.random() * 5}s`;
+
+
+            container.appendChild(
+                particle
+            );
+
+        }
+
     }
 
-    let inputCode = prompt("🔑 الخطوة 3: أدخل رمز الأمان:");
-    if (inputCode !== savedCode) {
-        alert("❌ الرمز غير صحيح! تابع الخطوات لحله...");
-        const steps = ["اجمع الأرقام: 12 + 34", "اطرح 15 من النتيجة", "اقسم الناتج على 7", "اضرب الناتج في 3", "اطرح 5"];
-        for (let i = 0; i < steps.length; i++) {
-            let ans = prompt(`🔧 خطوة ${i+1}: ${steps[i]}`);
-            if (ans === null) { alert("❌ تم إلغاء العملية"); return; }
-            if (isNaN(parseFloat(ans))) { alert("❌ إدخال غير صالح"); i--; continue; }
+
+    const particleAnimation =
+        document.createElement(
+            "style"
+        );
+
+
+    particleAnimation.textContent = `
+
+        @keyframes particleFloat {
+
+            0%,
+            100% {
+                transform:
+                    translate3d(0,0,0);
+            }
+
+            50% {
+                transform:
+                    translate3d(
+                        12px,
+                        -18px,
+                        0
+                    );
+            }
+
         }
-        alert(`✅ أحسنت! الرمز هو: ${savedCode}`);
-        return;
-    }
 
-    balance += amt;
-    updateBalance();
-    pushTransaction({ type: 'deposit', amount: amt });
-    alert("تم الإيداع بنجاح!");
-}
+    `;
 
-// ==================== تهيئة اللعبة ====================
-updateBalance();
-renderTransactions();
+
+    document.head.appendChild(
+        particleAnimation
+    );
+
+
+    /* =================================================
+       INITIALIZE
+    ================================================= */
+
+    renderHistory();
+
+    updateUI();
+
+    createParticles();
+
+
+});
+

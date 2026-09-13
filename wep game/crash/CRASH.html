@@ -1,46 +1,262 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>لعبة الطيارة – إصدار 1.1</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#050811"
+    >
+
+    <title>PlaneX — Crash Game</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <h2>🎮 PlaneX 🎮</h2>
-
-  <div class="play-container">
-    <div id="playArea">
-      <img id="plane" src="images/klipartz.com.png" alt="plane" />
-      <div id="line"></div>
-      <img id="explosion" src="images/64f06d3a3dd1b.png" alt="explosion" />
+    <div class="background">
+        <div class="grid"></div>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div id="particles"></div>
     </div>
 
-    <div id="multiplier">x1.00</div>
-    <div id="result"></div>
-    <div id="balance"></div>
 
-    <div class="controls">
-      <input id="bet1" type="number" placeholder="رهانك" value="10" />
-      <button id="bet1Start">ابدأ</button>
-      <button id="bet1Cash">سحب</button>
-    </div>
+    <main class="app">
 
-    <div class="controls">
-      <button id="depositPage">💰 الإيداع</button>
-    </div>
+        <header class="header">
 
-    <h3>👥 اللاعبين</h3>
-    <div id="playersArea"></div>
+            <div class="brand">
 
-    <h3>📜 سجل المعاملات</h3>
-    <div id="transactionsList">لا توجد معاملات بعد</div>
-  </div>
+                <div class="brand-logo">
+                    PX
+                </div>
 
-  <script src="script.js"></script>
+                <div>
+                    <strong>
+                        PlaneX
+                    </strong>
+
+                    <small>
+                        Arcade Edition
+                    </small>
+                </div>
+
+            </div>
+
+
+            <div class="mode-badge">
+                🎮 نقاط افتراضية
+            </div>
+
+        </header>
+
+
+        <section class="hero">
+
+            <div class="hero-badge">
+                ✈️ FUN X GAME
+            </div>
+
+            <h1>
+                حلق قبل أن
+                <span>تسقط الطائرة</span>
+            </h1>
+
+            <p>
+                لعبة أركيد تجريبية تعتمد على النقاط الافتراضية فقط
+            </p>
+
+        </section>
+
+
+        <section class="game-card">
+
+            <!-- GAME AREA -->
+
+            <div class="game-header">
+
+                <div>
+                    <span>
+                        المضاعف الحالي
+                    </span>
+
+                    <strong id="multiplier">
+                        x1.00
+                    </strong>
+                </div>
+
+                <div
+                    id="gameStatus"
+                    class="status waiting">
+                    جاهز
+                </div>
+
+            </div>
+
+
+            <div id="playArea">
+
+                <div class="sky-line line-1"></div>
+                <div class="sky-line line-2"></div>
+
+                <div class="runway"></div>
+
+                <img
+                    id="plane"
+                    src="images/klipartz.com.png"
+                    alt="Plane"
+                >
+
+                <div id="line"></div>
+
+                <img
+                    id="explosion"
+                    src="images/64f06d3a3dd1b.png"
+                    alt="Explosion"
+                >
+
+                <div
+                    id="crashFlash"
+                    class="crash-flash">
+                </div>
+
+            </div>
+
+
+            <!-- RESULT -->
+
+            <div
+                id="result"
+                class="result">
+                اضغط ابدأ لبدء الجولة
+            </div>
+
+
+            <!-- SCORE -->
+
+            <div class="score-panel">
+
+                <div class="score-box">
+
+                    <span>
+                        نقاطك
+                    </span>
+
+                    <strong id="balance">
+                        500
+                    </strong>
+
+                </div>
+
+
+                <div class="score-box">
+
+                    <span>
+                        الجولة
+                    </span>
+
+                    <strong id="roundNumber">
+                        1
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- CONTROLS -->
+
+            <div class="controls">
+
+                <div class="points-input">
+
+                    <label for="bet1">
+                        نقاط الجولة
+                    </label>
+
+                    <input
+                        id="bet1"
+                        type="number"
+                        min="1"
+                        max="500"
+                        value="10"
+                    >
+
+                </div>
+
+
+                <button
+                    id="bet1Start"
+                    class="btn primary"
+                    type="button">
+
+                    🚀 ابدأ الجولة
+
+                </button>
+
+
+                <button
+                    id="bet1Cash"
+                    class="btn success"
+                    type="button">
+
+                    ⭐ اجمع النقاط
+
+                </button>
+
+            </div>
+
+
+            <!-- PLAYERS -->
+
+            <div class="section-title">
+                <span>👥</span>
+                لاعبو المحاكاة
+            </div>
+
+            <div
+                id="playersArea"
+                class="players">
+            </div>
+
+
+            <!-- HISTORY -->
+
+            <div class="section-title">
+                <span>📜</span>
+                سجل الجولات
+            </div>
+
+            <div
+                id="transactionsList"
+                class="history">
+
+                لا توجد جولات بعد
+
+            </div>
+
+        </section>
+
+
+        <footer>
+            PlaneX © 2026 — Fun X Arcade
+        </footer>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
 </body>
 
 </html>
+
